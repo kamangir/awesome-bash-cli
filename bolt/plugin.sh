@@ -22,7 +22,7 @@ function bolt_awesome_plugin() {
     fi
 
     if [ "$task" == "validate" ] ; then
-        bolt_log "bolt_awesome_plugin validated."
+        python3 -m bolt_awesome_plugin validate
         return
     fi
 
