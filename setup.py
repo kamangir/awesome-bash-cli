@@ -1,11 +1,11 @@
 from setuptools import setup
 
-from awesome_bolt_plugin import name, version
+from awesome_bash_cli import name, version
 
 setup(
     name=name,
     author="kamangir",
-    version=str(version),
+    version=version,
     description=name,
     packages=[name],
 )
