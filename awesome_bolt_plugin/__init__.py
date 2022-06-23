@@ -1,2 +1,2 @@
 name = "awesome_bolt_plugin"
-version = 1.14
+version = 1.15
