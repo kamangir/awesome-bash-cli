@@ -73,3 +73,11 @@ function abc_log_local() {
 function abc_log_remote() {
     echo "$@" >> $abc_log_filename
 }
+
+function abc_set_log_verbosity() {
+    if [[ -f $abc_path_git/verbose ]] ; then
+        set -x
+    else
+        set +x
+    fi
+}
