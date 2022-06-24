@@ -4,18 +4,16 @@ from datetime import timezone
 import hashlib
 import math
 import os
-import platform
 from random import randrange
 import time
 import urllib.parse
 
 from abcli.options import Options
 
-if platform.system() != "Windows":
-    os.environ["TZ"] = "America/New_York"
-    time.tzset()
+os.environ["TZ"] = "America/New_York"
+time.tzset()
 
-format_for_param = {
+unit_of = {
     "ambient light": "{} lux",
     "humidity": "{} %RH",
     "iteration": "{:,}",
@@ -27,36 +25,42 @@ format_for_param = {
 }
 
 
-def after(var, sub_string, n=1):
-    """
-    return what is after sub_string in string.
-    :param var: input string.
-    :param sub_string: sub string to look for.
-    :param n: Instance index. default : 1
-    :return: string after the n-th instance of sub_string in string.
+def after(s, sub_string, n=1):
+    """return what is after sub_string in s.
+
+    Args:
+        s (str): string.
+        sub_string (str): sub string.
+        n (int, optional): instance index. Defaults to 1.
+
+    Returns:
+        str: string after the n-th instance of sub_string in s.
     """
     if sub_string == "":
         return ""
-    elif sub_string not in var:
+    elif sub_string not in s:
         return ""
     else:
-        return sub_string.join(var.split(sub_string)[n:])
+        return sub_string.join(s.split(sub_string)[n:])
 
 
-def before(var, sub_string, n=1):
-    """
-    return what is before sub_string in var.
-    :param var: input string
-    :param sub_string: Sub string to look for
-    :param n: Instance index. default : 1
-    :return: string before the n-th instance of sub_string in var
+def before(s, sub_string, n=1):
+    """return what is before sub_string in s.
+
+    Args:
+        s (str): string.
+        sub_string (str): sub string.
+        n (int, optional): instance index. Defaults to 1.
+
+    Returns:
+        str: string before the n-th instance of sub_string in s.
     """
     if sub_string == "":
         return ""
-    elif sub_string not in var:
+    elif sub_string not in s:
         return ""
     else:
-        return sub_string.join(var.split(sub_string)[:n])
+        return sub_string.join(s.split(sub_string)[:n])
 
 
 def between(var, sub_string1, sub_string2):
@@ -68,31 +72,6 @@ def between(var, sub_string1, sub_string2):
     :return: string
     """
     return before(after(var, sub_string1), sub_string2)
-
-
-def hash(thing):
-    """
-    return hash of thing
-    return: str
-    """
-    return hashlib.md5(thing.encode()).hexdigest()
-
-
-def nickname(thing):
-    """
-    return nickname for thing.
-    :param thing: thing
-    :return: string
-    """
-    if not isinstance(thing, str):
-        if hasattr(thing, "nickname"):
-            thing = thing.nickname
-        elif isinstance(thing, type):
-            thing = thing.__name__
-        else:
-            thing = thing.__class__.__name__
-
-    return urllib.parse.quote(thing)
 
 
 def pretty_bytes(byte_count):
@@ -319,7 +298,7 @@ def pretty_logical(value):
 
 def pretty_param(param, value=None):
     if isinstance(param, str):
-        return format_for_param.get(param.split(".")[0], "{}").format(value)
+        return unit_of.get(param.split(".")[0], "{}").format(value)
     elif isinstance(param, dict):
         return [
             "{}: {}".format(param_, pretty_param(param_, value_))
@@ -525,17 +504,6 @@ def random(length=8, options=""):
         output += "{0:02d}".format(round(time.time() * 86400000) % 100)
 
     return output
-
-
-def shorten(thing):
-    shorten_length = 16
-    if isinstance(thing, list):
-        return [shorten(item) for item in thing]
-    return (
-        thing
-        if len(thing) < shorten_length
-        else "{}_".format(thing[: shorten_length - 1])
-    )
 
 
 def timestamp(options=""):
