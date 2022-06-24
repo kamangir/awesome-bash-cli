@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 function abc_trail() {
-    local task=$(abc_unpack_keyword $1 help)
+    local task=$(abc_unpack_keyword "$1" help)
 
     if [ "$task" == "help" ] ; then
         abc_help_line "trail filename.log" \
