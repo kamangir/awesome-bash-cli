@@ -56,13 +56,14 @@ function abcli_log_error() {
 function abcli_log_list() {
     local items="$1"
     local delim="$2"
+
+    local items=$(abcli_list_sort "$items" "$delim")
+
+    local count=$(abcli_list_len "$items" "$delim")
+
     local postfix="$3"
     local prefix="$4"
 
-    local items=$(abcli_list_sort "$items" $delim)
-
-    local count=$(abcli_list_len "$items" $delim)
-    echo "len($items,$delim):$count"
     printf "$prefix$GREEN$count$NC $postfix: $GREEN$items$NC\n"
 }
 
