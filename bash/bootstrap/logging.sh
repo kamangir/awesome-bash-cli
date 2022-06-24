@@ -63,7 +63,7 @@ function abcli_log_list() {
 
     local count=$(abcli_list_len "$items" $delim)
     echo "len($items,$delim):$count"
-    printf "$prefix$count $postfix: $GREEN$items$NC\n"
+    printf "$prefix$GREEN$count$NC $postfix: $GREEN$items$NC\n"
 }
 
 function abcli_log_local() {

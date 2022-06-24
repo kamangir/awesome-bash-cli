@@ -2,6 +2,6 @@ name = "awesome_bash_cli"
 
 shortname = "abcli"
 
-version = "1.1.32"
+version = "1.1.33"
 
 description = "a framework for quickly building awesome bash cli's."
