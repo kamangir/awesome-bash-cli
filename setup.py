@@ -1,11 +1,11 @@
 from setuptools import setup
 
-from abcli import name, version
+from abcli import *
 
 setup(
     name=name,
     author="kamangir",
     version=version,
-    description=name,
-    packages=[name],
+    description=description,
+    packages=[shortname],
 )
