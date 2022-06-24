@@ -1,6 +1,6 @@
 from setuptools import setup
 
-from awesome_bash_cli import name, version
+from abc import name, version
 
 setup(
     name=name,
