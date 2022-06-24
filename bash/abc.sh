@@ -12,9 +12,5 @@ else
 
     abc_terraform
 
-    if [ -z "$abc_object_name" ]; then
-        abc_select
-    else
-        abc_select $abc_object_name
-    fi
+    abc_select $abc_object_name
 fi
