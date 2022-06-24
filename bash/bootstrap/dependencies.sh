@@ -13,6 +13,7 @@ function abc_source_dependencies() {
             source $script_filename
         done
         if [ "$module_name" == "plugins" ] ; then
+            echo "names:|$names|"
             abc_log_list "$names" space "plugin(s)" "loaded "
         fi
     done

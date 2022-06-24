@@ -62,6 +62,7 @@ function abc_log_list() {
     local items=$(abc_list_sort "$items" $delim)
 
     local count=$(abc_list_len "$items" $delim)
+    echo "len($items,$delim):$count"
     printf "$prefix$count $postfix: $GREEN$items$NC\n"
 }
 
