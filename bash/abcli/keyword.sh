@@ -1,31 +1,31 @@
 #! /usr/bin/env bash
 
-function abc_keyword_is() {
-    if [ $(abc_unpack_keyword "$1") == "$2" ] ; then
+function abcli_keyword_is() {
+    if [ $(abcli_unpack_keyword "$1") == "$2" ] ; then
         echo true
     else
         echo false
     fi
 }
 
-function abc_pack_keyword() {
-    python3 -m abc.keywords \
+function abcli_pack_keyword() {
+    python3 -m abcli.keywords \
         pack \
         --keyword "$1" \
         --default "$2" \
         ${@:3}
 }
 
-function abc_unpack_keyword() {
-    python3 -m abc.keywords \
+function abcli_unpack_keyword() {
+    python3 -m abcli.keywords \
         unpack \
         --keyword "$1" \
         --default "$2" \
         ${@:3}
 }
 
-function abc_unpack_repo_name() {
-    local repo_name=$(abc_unpack_keyword "$1" awesome-bash-cli)
+function abcli_unpack_repo_name() {
+    local repo_name=$(abcli_unpack_keyword "$1" awesome-bash-cli)
 
     local repo_name=$(echo "$repo_name" | tr _ -)
 

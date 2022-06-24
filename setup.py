@@ -1,6 +1,6 @@
 from setuptools import setup
 
-from abc import name, version
+from abcli import name, version
 
 setup(
     name=name,

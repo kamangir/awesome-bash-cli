@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-function abc_list_in() {
-    python3 -m abc.bash.list \
+function abcli_list_in() {
+    python3 -m abcli.bash.list \
         in \
         --item "$1" \
         --items "$2" \
@@ -9,24 +9,24 @@ function abc_list_in() {
         ${@:4}
 }
 
-function abc_list_len() {
-    python3 -m abc.bash.list \
+function abcli_list_len() {
+    python3 -m abcli.bash.list \
         len \
         --items "$1" \
         --delim "$2" \
         ${@:3}
 }
 
-function abc_list_nonempty() {
-    python3 -m abc.bash.list \
+function abcli_list_nonempty() {
+    python3 -m abcli.bash.list \
         non_empty \
         --items "$1" \
         --delim "$2" \
         ${@:3}
 }
 
-function abc_list_resize() {
-    python3 -m abc.bash.list \
+function abcli_list_resize() {
+    python3 -m abcli.bash.list \
         resize \
         --items "$1" \
         --delim "$2" \
@@ -34,8 +34,8 @@ function abc_list_resize() {
         ${@:4}
 }
 
-function abc_list_sort() {
-    python3 -m abc.bash.list \
+function abcli_list_sort() {
+    python3 -m abcli.bash.list \
         sort \
         --items "$1" \
         --delim "$2" \

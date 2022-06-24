@@ -5,15 +5,15 @@ function abct() {
 }
 
 function awesome_bash_cli_template() {
-    local task=$(abc_unpack_keyword $1 help)
+    local task=$(abcli_unpack_keyword $1 help)
 
     if [ $task == "help" ] ; then
-        abc_help_line "awesome_bash_cli_template terraform" \
+        abcli_help_line "awesome_bash_cli_template terraform" \
             "terraform awesome_bash_cli_template."
-        abc_help_line "awesome_bash_cli_template validate" \
+        abcli_help_line "awesome_bash_cli_template validate" \
             "validate awesome_bash_cli_template."
 
-        if [ "$(abc_keyword_is $2 verbose)" == true ] ; then
+        if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m awesome_bash_cli_template --help
         fi
 
@@ -21,7 +21,7 @@ function awesome_bash_cli_template() {
     fi
 
     if [ "$task" == "terraform" ] ; then
-        abc_git terraform awesome-plugin
+        abcli_git terraform awesome-plugin
         return
     fi
 
@@ -30,5 +30,5 @@ function awesome_bash_cli_template() {
         return
     fi
 
-    abc_log_error "unknown task: awesome_bash_cli_template '$task'."
+    abcli_log_error "unknown task: awesome_bash_cli_template '$task'."
 }

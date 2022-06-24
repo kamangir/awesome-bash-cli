@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-function abc_argparse_get() {
-    python3 -m abc.string \
+function abcli_argparse_get() {
+    python3 -m abcli.string \
         argparse \
         --list_of_args "$1" \
         --arg "$2" \
@@ -9,7 +9,7 @@ function abc_argparse_get() {
         ${@:6}
 }
 
-function abc_arg_get() {
+function abcli_arg_get() {
     local var="$1"
     local default="$2"
 
