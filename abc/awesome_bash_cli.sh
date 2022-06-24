@@ -5,15 +5,15 @@ function abc() {
 }
 
 function awesome_bash_cli() {
-    local task=$(bolt_unpack_keyword $1 help)
+    local task=$(abc_unpack_keyword $1 help)
 
     if [ $task == "help" ] ; then
-        bolt_help_line "awesome_bash_cli terraform" \
+        abc_help_line "awesome_bash_cli terraform" \
             "terraform awesome_bash_cli."
-        bolt_help_line "awesome_bash_cli validate" \
+        abc_help_line "awesome_bash_cli validate" \
             "validate awesome_bash_cli."
 
-        if [ "$(bolt_keyword_is $2 verbose)" == true ] ; then
+        if [ "$(abc_keyword_is $2 verbose)" == true ] ; then
             python3 -m awesome_bash_cli --help
         fi
 
@@ -21,7 +21,7 @@ function awesome_bash_cli() {
     fi
 
     if [ "$task" == "terraform" ] ; then
-        bolt_git terraform awesome-plugin
+        abc_git terraform awesome-plugin
         return
     fi
 
@@ -30,5 +30,5 @@ function awesome_bash_cli() {
         return
     fi
 
-    bolt_log_error "unknown task: awesome_bash_cli '$task'."
+    abc_log_error "unknown task: awesome_bash_cli '$task'."
 }
