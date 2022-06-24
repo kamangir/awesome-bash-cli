@@ -6,7 +6,7 @@ name = f"{shortname}.bash.list"
 
 list_of_tasks = "in,len,nonempty,resize,sort"
 
-parser = argparse.ArgumentParser(name, description=f"{name}-{version}")
+parser = argparse.ArgumentParser(name)
 parser.add_argument("task", type=str, help=list_of_tasks)
 parser.add_argument("--count", type=int)
 parser.add_argument("--delim", type=str, default=",")
