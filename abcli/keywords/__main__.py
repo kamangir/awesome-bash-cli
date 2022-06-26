@@ -1,13 +1,25 @@
 import argparse
-
 from . import *
 
 list_of_tasks = "pack,unpack"
 
-parser = argparse.ArgumentParser("keywords")
-parser.add_argument("task", type=str, default="", help=list_of_tasks)
-parser.add_argument("--keyword", type=str, default="")
-parser.add_argument("--default", type=str, default="")
+parser = argparse.ArgumentParser(name)
+parser.add_argument(
+    "task",
+    type=str,
+    default="",
+    help=list_of_tasks,
+)
+parser.add_argument(
+    "--keyword",
+    type=str,
+    default="",
+)
+parser.add_argument(
+    "--default",
+    type=str,
+    default="",
+)
 args = parser.parse_args()
 
 success = args.task in list_of_tasks.split(",")

@@ -1,14 +1,14 @@
-import argparse
 import datetime
 from datetime import timezone
-import hashlib
 import math
 import os
 from random import randrange
 import time
-import urllib.parse
+from .. import *
+from ..options import Options
 
-from abcli.options import Options
+name = f"{shortname}.string"
+
 
 os.environ["TZ"] = "America/New_York"
 time.tzset()
@@ -562,6 +562,17 @@ def utc_timestamp(
     format="%Y-%m-%d-%H-%M-%S",
     timezone_="America/New_York",
 ):
+    """return utc timestamp.
+
+    Args:
+        date (Any, optional): date. Defaults to None.
+        format (str, optional): format. Defaults to "%Y-%m-%d-%H-%M-%S".
+        timezone_ (str, optional): time zone. Defaults to "America/New_York".
+
+    Returns:
+        str: utc timestamp.
+    """
+
     if date is None:
         # https://www.geeksforgeeks.org/get-utc-timestamp-in-python/
         return (
@@ -579,49 +590,5 @@ def utc_timestamp(
         except:
             from abcli.logging import crash_report
 
-            crash_report("string.utc_timestamp({}) failed".format(date, format))
+            crash_report(f"-{name}: utc_timestamp({date},{format}) failed.")
             return "unknown"
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "task",
-        type=str,
-        default="",
-        help="argparse",
-    )
-    parser.add_argument(
-        "--list_of_args",
-        type=str,
-        default="",
-        help="",
-    )
-    parser.add_argument(
-        "--arg",
-        type=str,
-        default=None,
-        help="",
-    )
-    parser.add_argument(
-        "--default",
-        type=str,
-        default="",
-        help="",
-    )
-    args = parser.parse_args()
-
-    success = False
-    if args.task == "argparse":
-        items = args.list_of_args.replace("  ", " ").split(" ")
-        print(
-            {name: value for name, value in zip(items[:-1:2], items[1::2])}.get(
-                args.arg, args.default
-            )
-        )
-        success = True
-    else:
-        print('string: unknown task "{}".'.format(args.task))
-
-    if not success:
-        print("string({}): failed.".format(args.task))

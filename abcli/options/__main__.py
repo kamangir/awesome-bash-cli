@@ -6,11 +6,33 @@ from .. import keywords
 list_of_tasks = "default,get,get_unpacked"
 
 parser = argparse.ArgumentParser(name)
-parser.add_argument("task", type=str, default="", help=list_of_tasks)
-parser.add_argument("--options", type=str, default="")
-parser.add_argument("--keyword", type=str, default="")
-parser.add_argument("--default", type=str, default="")
-parser.add_argument("--is_int", type=int, default=0, help="0/1")
+parser.add_argument(
+    "task",
+    type=str,
+    default="",
+    help=list_of_tasks,
+)
+parser.add_argument(
+    "--options",
+    type=str,
+    default="",
+)
+parser.add_argument(
+    "--keyword",
+    type=str,
+    default="",
+)
+parser.add_argument(
+    "--default",
+    type=str,
+    default="",
+)
+parser.add_argument(
+    "--is_int",
+    type=int,
+    default=0,
+    help="0/1",
+)
 args = parser.parse_args()
 
 success = args.task in list_of_tasks.split(",")

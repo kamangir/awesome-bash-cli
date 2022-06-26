@@ -7,27 +7,42 @@ name = f"{shortname}.options"
 
 class Options(dict):
     def __add__(self, options):
-        """
-        Add options to self.
-        :param options: options
-        :return: Options()
+        """return Options(self += options).
+
+        Args:
+            options (Options): options.
+
+        Returns:
+            Options: options
         """
         output = copy.deepcopy(self)
         output.update(Options(options))
         return output
 
     def __init__(self, *args):
+        """constructor.
+
+        Args:
+            - option_1, value_1, option_2, value_2,...
+            - {option_1:value_1, option_2:value_2, ...}
+
+        Raises:
+            NameError: bad input.
+
+        Returns:
+            Options: options.
+        """
         super(Options, self).__init__()
 
         if not args:
             return
 
-        first_item_index = 0
-        if len(args) % 2 == 1:
-            first_item_index = 1
+        if len(args) == 1:
             if isinstance(args[0], dict):
                 self.update(args[0])
-            elif isinstance(args[0], str):
+                return
+
+            if isinstance(args[0], str):
                 for input in args[0].split(","):
                     if input.startswith("+"):
                         self[input[1:]] = True
@@ -54,41 +69,43 @@ class Options(dict):
         for index in range(first_item_index, len(args), 2):
             self[args[index]] = args[index + 1]
 
-    def as_string(self):
-        """
-        Describe self as a string.
-        :return: string
-        """
-        return "{}".format(self).replace("'", '"')
+    def default(self, keyword, default):
+        """create a copy of self and set default for keyword.
 
-    def default(self, option, default):
-        """
-        Set default.
-        :param option: option
-        :param default: default
-        :return: Options()
+        Args:
+            keyword (str): keyword.
+            default (str): default.
+
+        Returns:
+            Options: options.
         """
         output = copy.deepcopy(self)
-        output[option] = output.get(option, default)
+        output[keyword] = output.get(keyword, default)
         return output
 
-    def delete(self, item):
-        """
-        Delete item from self.
-        :param item: Item to be deleted.
-        :return: Options()
+    def delete(self, keyword):
+        """create a copy of self and delete keyword.
+
+        Args:
+            keyword (str): keyword.
+
+        Returns:
+            Options: options.
         """
         output = copy.deepcopy(self)
-        if item in output:
-            del output[item]
+        if keyword in output:
+            del output[keyword]
         return output
 
     def get(self, keyword, default):
-        """
-        Get the value corresponding to keyword.
-        :param keyword: keyword
-        :param default: default
-        :return: value
+        """return self.get(keyword, default).
+
+        Args:
+            keyword (str): keyword.
+            default (str): default.
+
+        Returns:
+            Any: value.
         """
         output = super(Options, self).get(keyword, default)
 
@@ -112,53 +129,19 @@ class Options(dict):
 
         return output
 
-    def set(self, *args):
-        """
-        Set options.
-        :param args:
-            1. option_1, value_1, option_2, value_2,...
-            2. {option_1:value_1, option_2:value_2, ...}
-        :return: Options()
-        """
-        output = copy.deepcopy(self)
-
-        if len(args) == 1:
-            if isinstance(args[0], dict):
-                output.update(args[0])
-                return output
-            else:
-                raise NameError(
-                    "Options.set({}) failed, dict expected, {} .".format(
-                        args[0].__class__.__name
-                    )
-                )
-
-        if len(args) % 2:
-            raise NameError(
-                "Options.set({}) failed, even inputs expected.".format(
-                    ",".join(len(args) * "X")
-                )
-            )
-
-        for index in range(0, len(args), 2):
-            output[args[index]] = args[index + 1]
-
-        return output
-
     def to_str(self):
         """convert self to str.
 
         Returns:
             str: self as str.
         """
-
         return ",".join(
             [
-                "+{}".format(keyword)
+                f"+{keyword}"
                 if value == True
-                else "-{}".format(keyword)
+                else f"-{keyword}"
                 if value == False
-                else "{}={}".format(keyword, value)
+                else f"{keyword}={value}"
                 for keyword, value in self.items()
             ]
         )
