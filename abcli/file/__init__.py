@@ -5,7 +5,8 @@ import shutil
 
 from .. import string
 
-import abcli.logging
+from .. import logging
+from ..logging import crash_report
 import logging
 
 from .. import *
@@ -132,8 +133,6 @@ def copy(source, destination, log=True):
         # https://stackoverflow.com/a/8858026
         shutil.copyfile(source, destination)
     except:
-        from abcli.logging import crash_report
-
         crash_report(f"-{name}: copy({source},{destination}) failed.")
         return False
 
@@ -173,8 +172,6 @@ def delete(filename):
 
         return True
     except:
-        from abcli.logging import crash_report
-
         crash_report(f"-{name}: delete({filename}) failed.")
         return False
 
@@ -205,8 +202,6 @@ def download(url, filename, overwrite=True):
         response.release_conn()  # not 100% sure this is required though
         return True
     except:
-        from abcli.logging import crash_report
-
         crash_report(f"-{name}: download({url},{filename}) failed.")
         return False
 
@@ -270,9 +265,8 @@ def load(filename, civilized=True, default={}):
         return True, data
     except:
         if not civilized:
-            from abcli.logging import crash_report
-
             crash_report(f"-{name}: load({filename}) failed.")
+
         return False, data
 
 
@@ -304,8 +298,6 @@ def load_image(filename, civilized=True):
 
     except:
         if not civilized:
-            from abcli.logging import crash_report
-
             crash_report(f"-{name}: load_image({filename}) failed.")
         success = False
 
@@ -334,8 +326,6 @@ def load_json(filename, civilized=True, default={}):
         success = True
     except:
         if not civilized:
-            from abcli.logging import crash_report
-
             crash_report(f"-{name}: load_json({filename}) failed.")
 
     return success, data
@@ -367,8 +357,6 @@ def load_text(filename, civilized=True, count=-1):
                 text = [next(fp) for _ in range(count)]
     except:
         if not civilized:
-            from abcli.logging import crash_report
-
             crash_report(f"-{name}: load_text({filename}) failed.")
 
     return success, text
@@ -487,8 +475,6 @@ def save(filename, data):
         with open(filename, "wb") as fp:
             dill.dump(data, fp)
     except:
-        from abcli.logging import crash_report
-
         crash_report(f"-{name}: save({filename}) failed.")
         return False
 
@@ -516,8 +502,6 @@ def save_csv(filename, data):
                     fh.write("%s\n" % str(row))
 
         except:
-            from abcli.logging import crash_report
-
             crash_report(f"-{name}: save_csv({filename}) failed.")
             success = False
 
@@ -552,8 +536,6 @@ def save_image(filename, image):
 
         cv2.imwrite(filename, data)
     except:
-        from abcli.logging import crash_report
-
         crash_report(
             f"-{name}: save_image({string.pretty_size_of_matrix(image)},{filename}) failed."
         )
@@ -588,8 +570,6 @@ def save_json(filename, data):
                 ensure_ascii=False,
             )
     except:
-        from abcli.logging import crash_report
-
         crash_report(f"-{name}: save_json({filename}) failed.")
         success = False
 
@@ -651,8 +631,6 @@ def save_text(filename, text, if_different=False, remove_empty_lines=False):
         with open(filename, "w") as fp:
             fp.writelines([string + "\n" for string in text])
     except:
-        from abcli.logging import crash_report
-
         crash_report(f"-{name}: save_text({filename}) failed.")
         return False
 

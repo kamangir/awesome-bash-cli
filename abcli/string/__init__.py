@@ -5,6 +5,7 @@ import os
 from random import randrange
 import time
 from .. import *
+from ..logging import crash_report
 
 name = f"{shortname}.string"
 
@@ -364,7 +365,5 @@ def utc_timestamp(
             local_dt = local.localize(naive, is_dst=None)
             return local_dt.astimezone(pytz.utc).timestamp()
         except:
-            from abcli.logging import crash_report
-
             crash_report(f"-{name}: utc_timestamp({date},{format}) failed.")
             return "unknown"
