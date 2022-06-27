@@ -1,5 +1,5 @@
 from functools import reduce
-from .. import file
+from . import file
 
 
 def sort(filename):
