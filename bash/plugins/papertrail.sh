@@ -31,7 +31,7 @@ function abcli_trail() {
         touch "$log_filename"
         
         if [[ "$abcli_rpi_model" != "pizero_w" ]] ; then
-            sudo $abcli_path_abc/assets/papertrail/remote_syslog/remote_syslog \
+            sudo $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
                 -p 30742 \
                 -d logs3.papertrailapp.com \
                 --pid-file=/var/run/remote_syslog.pid \
