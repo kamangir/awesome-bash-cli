@@ -154,13 +154,13 @@ def create(filename, content=[]):
 
 
 def delete(filename):
-    """delete filename
+    """delete filename.
 
     Args:
         filename (str): filename.
 
     Returns:
-        bool: success
+        bool: success.
     """
     if not os.path.isfile(filename):
         return True
