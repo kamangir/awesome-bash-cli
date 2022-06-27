@@ -3,11 +3,11 @@
 export abcli_path_abc=$(python3 -c "import os;print(os.sep.join('$abcli_path_bash'.split(os.sep)[:-1]))")
 export abcli_path_git=$(python3 -c "import os;print(os.sep.join('$abcli_path_abc'.split(os.sep)[:-1]))")
 export abcli_path_home=$(python3 -c "import os;print(os.sep.join('$abcli_path_git'.split(os.sep)[:-1]))")
-export abcli_path_srorage="$abcli_path_home/srorage"
-export abcli_object_root="$abcli_path_srorage/abcli"
+export abcli_path_storage="$abcli_path_home/storage"
+export abcli_object_root="$abcli_path_storage/abcli"
 export abcli_path_static="$abcli_path_abc/hmi/static"
 
-mkdir -p $abcli_path_srorage
+mkdir -p $abcli_path_storage
 
 export abcli_is_64bit=false
 export abcli_is_amazon_linux=false
