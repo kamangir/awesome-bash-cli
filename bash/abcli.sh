@@ -8,7 +8,7 @@ else
     source $abcli_path_bash/bootstrap/dependencies.sh
     abcli_source_dependencies
 
-    abcli_init
+    abcli_initialize
 
     abcli_terraform
 

@@ -6,7 +6,7 @@ function abcli_source_dependencies() {
 
     local module_name
     local script_filename
-    for module_name in abcli plugins ; do
+    for module_name in abcli plugins tasks ; do
         local names=""
         for script_filename in $abcli_path_bash/$module_name/*.sh ; do
             local names="$names $(basename $script_filename .sh)"
