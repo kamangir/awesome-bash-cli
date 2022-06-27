@@ -10,6 +10,6 @@ function abcli() {
     if [[ $(type -t abcli_$task) == "function" ]] ; then
         abcli_$task ${@:2}
     else
-        abcli_log_error "-abcli: '$task': command not found."
+        abcli_log_error "-abcli: $task: command not found."
     fi
 }
