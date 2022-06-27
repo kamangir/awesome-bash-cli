@@ -79,12 +79,14 @@ def between(s, sub_string_1, sub_string_2):
 
 
 def pretty_bytes(byte_count):
-    """
-    Describe a number of bytes as a string.
-    :param byte_count: Number of bytes.
-    :return: Number of bytes as a string.
-    """
+    """describe byte_count.
 
+    Args:
+        byte_count (int): number of bytes.
+
+    Returns:
+        str: description of byte_count.
+    """
     if byte_count is None:
         return "Unknown"
 
@@ -92,26 +94,26 @@ def pretty_bytes(byte_count):
 
     # Less than a kB
     if byte_count < 1024 / 10:
-        return "{:.0f} byte(s)".format(byte_count)
+        return f"{byte_count:.0f} byte(s)"
 
-    byte_count = byte_count / 1024
+    byte_count /= 1024
 
     if byte_count < 1024 / 10:
-        return "{:.2f} kB".format(byte_count)
+        return "f{byte_count:.2f} kB"
 
-    byte_count = byte_count / 1024
-
-    if byte_count < 1024:
-        return "{:.2f} MB".format(byte_count)
-
-    byte_count = byte_count / 1024
+    byte_count /= 1024
 
     if byte_count < 1024:
-        return "{:.2f} GB".format(byte_count)
+        return "f{byte_count:.2f} MB"
 
-    byte_count = byte_count / 1024
+    byte_count /= 1024
 
-    return "{:.2f} TB".format(byte_count)
+    if byte_count < 1024:
+        return "f{byte_count:.2f} GB"
+
+    byte_count /= 1024
+
+    return "f{byte_count:.2f} TB"
 
 
 def pretty_date(options="", date=None):
@@ -213,26 +215,28 @@ def pretty_date(options="", date=None):
 
 
 def pretty_frequency(frequency):
-    """
-    Describe a frequency as a string.
-    :param frequency: frequency.
-    :return: string
-    """
+    """describe a frequency as a string.
 
+    Args:
+        frequency (float): frequency
+
+    Returns:
+        str: description of frequency.
+    """
     if frequency is None:
         return "Unknown"
 
     if frequency >= 0.5:
         if frequency < 10**3:
-            return "{:.1f} Hz".format(frequency)
+            return f"{frequency:.1f} Hz"
         elif frequency < 10**6:
-            return "{:.1f} kHz".format(frequency / 10**3)
+            return f"{frequency / 10**3:.1f} kHz"
         elif frequency < 10**6:
-            return "{:.1f} MHz".format(frequency / 10**6)
+            return f"{frequency / 10**6:.1f} MHz"
         else:
-            return "{:.1f} GHz".format(frequency / 10**9)
+            return f"{frequency / 10**9:.1f} GHz"
 
-    return "1/{}".format(pretty_time(1 / frequency, "largest,short"))
+    return f"1/{pretty_time(1 / frequency, largest=True, short=True)}"
 
 
 def pretty_list(input, options=""):
@@ -291,74 +295,22 @@ def pretty_list(input, options=""):
     )
 
 
-def pretty_logical(value):
-    """
-    return logical value in a pretty form.
-    :param value: bool
-    :return: string
-    """
-    return ["No", "Yes"][int(bool(value))]
-
-
-def pretty_param(param, value=None):
-    if isinstance(param, str):
-        return unit_of.get(param.split(".")[0], "{}").format(value)
-    elif isinstance(param, dict):
-        return [
-            "{}: {}".format(param_, pretty_param(param_, value_))
-            for param_, value_ in param.items()
-        ]
-    else:
-        print(
-            "string.pretty_param({}) unknown, failed.".format(param.__class__.__name__)
-        )
-
-
-def pretty_sign(value):
-    """
-    return sign of value as a string.
-    :param value: value
-    :return: string
-    """
-    if value is None:
-        return "Unknown"
-    if value == 0:
-        return "Zero"
-    if value > 0:
-        return "Positive"
-    return "Negative"
-
-
-def pretty_size(dimension):
-    """
-    Describe dimension, that is assumed to describe the size of another matrix, as a string.
-    :param dimension: dimension
-    :return: string
-    """
-    import numpy as np
-
-    if isinstance(dimension, np.ndarray):
-        dimension = dimension.astype(np.int)
-    if not isinstance(dimension, list):
-        dimension = list(dimension)
-
-    if not dimension:
-        return "Empty"
-
-    return "x".join([str(value) for value in dimension])
-
-
 def pretty_size_of_matrix(matrix):
-    """
-    return size of matrix as a string.
-    :param matrix: matrix
-    :return: string
+    """return size of matrix as a string.
+
+    Args:
+        matrix (Any): matrix.
+
+    Returns:
+        str: size of matrix.
     """
     import numpy as np
 
-    if not isinstance(matrix, np.ndarray):
-        return "-"
-    return pretty_size(list(matrix.shape)) + ":{}".format(matrix.dtype)
+    return (
+        "x".join([str(value) for value in list(matrix.shape)]) + f":{matrix.dtype}"
+        if isinstance(matrix, np.ndarray)
+        else "-"
+    )
 
 
 def pretty_time(duration, options=""):
@@ -457,69 +409,6 @@ def pretty_time(duration, options=""):
         output = "None"
 
     return ("-" if negative_duration else "") + output
-
-
-def random(length=8, options=""):
-    """_summary_
-
-    Args:
-        length (int, optional): _description_. Defaults to 8.
-        options (str, optional): _description_. Defaults to "".
-
-    Raises:
-        NameError: _description_
-
-    Returns:
-        _type_: _description_
-    """
-
-    """
-    Generate random string.
-    :param length: string length. default: 8
-    :param options:
-          . binary : Use 0/1.
-                     Default: False
-          . digit  : Use digits.
-                     Default: not binary.
-          . lower  : Use lower case characters.
-                     Default: not binary.
-          . time   : Use time.
-                     Default: digit
-          . upper  : Use upper case characters.
-                     Default: not binary.
-    :return: Randomly generated string.
-    """
-
-    options = Options(options).default("binary", False)
-    options = options.default("digit", not options["binary"])
-    options = options.default("time", options["digit"])
-
-    alphabet = ""
-    if options["binary"]:
-        alphabet += "01"
-    if options["digit"]:
-        alphabet += string.digits
-    if options.get("lower", not options["binary"]):
-        alphabet += string.ascii_lowercase
-    if options.get("upper", not options["binary"]):
-        alphabet += string.ascii_uppercase
-    if alphabet == "":
-        raise NameError("string.random() requires a non-empty alphabet.")
-
-    if options["time"]:
-        if length <= 2:
-            options["time"] = False
-        else:
-            length -= 2
-
-    import random
-
-    output = "".join(random.choice(alphabet) for _ in range(length))
-
-    if options["time"]:
-        output += "{0:02d}".format(round(time.time() * 86400000) % 100)
-
-    return output
 
 
 def timestamp(
