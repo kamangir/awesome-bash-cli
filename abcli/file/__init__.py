@@ -51,7 +51,7 @@ def absolute(filename, reference_path=None):
     return os.path.join(
         abcli.path.absolute(
             path(filename),
-            abcli.path.current() if reference_path is None else reference_path,
+            os.getcwd() if reference_path is None else reference_path,
         ),
         name_and_extension_of(filename),
     )
@@ -94,7 +94,7 @@ def auxiliary(nickname, extension, add_timestamp=True):
         add_timestamp (bool, optional): add timestamp. Defaults to True.
 
     Returns:
-        str: filename
+        str: auxiliary filename.
     """
     filename = os.path.join(
         os.getenv("abcli_object_folder"),
@@ -379,6 +379,7 @@ def move(source, destination):
         # https://stackoverflow.com/a/8858026
         shutil.move(source, destination)
     except:
+        crash_report(f"-{name}: move({source},{destination}) failed.")
         return False
 
     return True
@@ -448,11 +449,11 @@ def relative(filename, reference_path=None):
         str: relative filename.
     """
 
-    from abcli.path import current, relative
+    from abcli.path import relative
 
     return relative(
         path(filename),
-        current() if reference_path is None else reference_path,
+        os.getcwd() if reference_path is None else reference_path,
     ) + name_and_extension_of(filename)
 
 
@@ -535,12 +536,13 @@ def save_image(filename, image):
             data = np.flip(data, axis=2)
 
         cv2.imwrite(filename, data)
+
+        return True
     except:
         crash_report(
             f"-{name}: save_image({string.pretty_size_of_matrix(image)},{filename}) failed."
         )
-
-    return success
+        return False
 
 
 def save_json(filename, data):
@@ -569,11 +571,11 @@ def save_json(filename, data):
                 indent=4,
                 ensure_ascii=False,
             )
+
+        return True
     except:
         crash_report(f"-{name}: save_json({filename}) failed.")
-        success = False
-
-    return success
+        return False
 
 
 def save_tensor(filename, tensor, log=True):
@@ -630,11 +632,11 @@ def save_text(filename, text, if_different=False, remove_empty_lines=False):
     try:
         with open(filename, "w") as fp:
             fp.writelines([string + "\n" for string in text])
+
+        return True
     except:
         crash_report(f"-{name}: save_text({filename}) failed.")
         return False
-
-    return True
 
 
 def set_extension(filename, extension_, force=True):
