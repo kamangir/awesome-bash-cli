@@ -1,10 +1,5 @@
 #! /usr/bin/env bash
 
-eval "$(ssh-agent -s)"
-ssh-add -k $abcli_path_home/.ssh/bolt_git_ssh_key
-
-abcli_get_git_branch
-
 function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
@@ -178,6 +173,8 @@ function abcli_get_git_branch() {
     export abcli_git_branch=${branch_name##refs/heads/}
     export abcli_fullname=abcli-$abcli_version.$abcli_git_branch
 }
+
+abcli_get_git_branch
 
 function abcli_git_pull() {
     local task=$(abcli_unpack_keyword $1)

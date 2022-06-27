@@ -12,5 +12,7 @@ else
 
     abcli_terraform
 
+    abcli_add_ssh_keys
+
     abcli_select $abcli_object_name
 fi
