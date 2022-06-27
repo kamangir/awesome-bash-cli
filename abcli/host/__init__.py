@@ -1,9 +1,8 @@
 import os
-import re
+import random
+import string
 from .. import *
-from .. import file
 from ..logging import crash_report
-from .. import string
 from .. import logging
 import logging
 
@@ -15,7 +14,9 @@ arguments = {}
 
 
 def get_name():
-    random_output = string.random(5, "lower,digit")
+    random_output = "".join(
+        random.choice(string.ascii_lowercase + string.digits) for _ in range(5)
+    )
 
     if is_ec2():
         return os.getenv("bolt_ec2_instance_id", random_output)
@@ -42,7 +43,7 @@ def get_name():
                 return line.strip().replace(chr(0), "")
 
     except:
-        crash_report("host.get_name() failed")
+        crash_report(f"-{name}: get_name() failed")
 
     return random_output
 
