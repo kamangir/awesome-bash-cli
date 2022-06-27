@@ -9,16 +9,20 @@ from . import *
 # logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser(name, description=f"{name}-{version}")
-parser.add_argument("task", type=str, help="TBD")
+parser.add_argument(
+    "task",
+    type=str,
+    help="TBD",
+)
 args = parser.parse_args()
 
 success = False
 if args.task == "TBD":
     success = True
 else:
-    # logger.error('{}: unknown task "{}".'.format(name, args.task))
-    print(f'error! unknown task {name} "{args.task}".')
+    # logger.error(f"-{name}: {args.task}: command not found")
+    print(f"-{name}: {args.task}: command not found")
 
 if not success:
-    # logger.error("{}.{} failed.".format(name, args.task))
-    print(f"error! {name}.{args.task} failed.")
+    # logger.error(f"-{name}: {args.task}: failed")
+    print(f"-{name}: {args.task}: failed")
