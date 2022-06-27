@@ -15,9 +15,7 @@ function abcli_help() {
     # https://ma.ttias.be/grep-show-lines-before-and-after-the-match-in-linux/
     cat $(find $abcli_path_bash -type f -name "*.sh") | grep -A 1 "abcli_help_line \""  | grep -v -- "^--$" > $temp_file
 
-    python3 -m abcli.help \
-        sort \
-        --filename $temp_file
+    python3 -c "from abcli import help; help.sort('$temp_file')" 
 
     chmod +x $temp_file
     source $temp_file | grep "$keyword"
