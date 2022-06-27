@@ -2,14 +2,12 @@ import datetime
 import json
 import os
 import shutil
-
+from .. import *
 from .. import string
-
 from .. import logging
 from ..logging import crash_report
 import logging
 
-from .. import *
 
 name = f"{shortname}.file"
 
@@ -46,10 +44,10 @@ def absolute(filename, reference_path=None):
     Returns:
         str: filename.
     """
-    import abcli.path
+    from ..path import absolute as path_absolute
 
     return os.path.join(
-        abcli.path.absolute(
+        path_absolute(
             path(filename),
             os.getcwd() if reference_path is None else reference_path,
         ),
@@ -432,10 +430,9 @@ def prepare_for_saving(filename):
     Returns:
         bool: success.
     """
+    from ..path import create as path_create
 
-    import abcli.path
-
-    return abcli.path.create(path(filename))
+    return path_create(path(filename))
 
 
 def relative(filename, reference_path=None):
@@ -449,9 +446,9 @@ def relative(filename, reference_path=None):
         str: relative filename.
     """
 
-    from abcli.path import relative
+    from ..path import relative as path_relative
 
-    return relative(
+    return path_relative(
         path(filename),
         os.getcwd() if reference_path is None else reference_path,
     ) + name_and_extension_of(filename)

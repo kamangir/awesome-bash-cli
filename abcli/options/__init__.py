@@ -1,5 +1,4 @@
 import copy
-
 from .. import *
 
 name = f"{shortname}.options"
