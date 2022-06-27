@@ -36,151 +36,96 @@ class JsonEncoder(json.JSONEncoder):
 
 
 def absolute(filename, reference_path=None):
-    """
-    Return absolute path to filename.
-    :param filename: filename
-    :param reference_path: reference path
-    :return: updated filename
+    """return absolute path to filename.
+
+    Args:
+        filename (str): filename.
+        reference_path (str, optional): reference path. Defaults to None.
+
+    Returns:
+        str: filename.
     """
     import abcli.path
 
-    if reference_path is None:
-        reference_path = abcli.path.current()
-
-    filename_name = name_and_extension(filename)
-    filename_path = path(filename)
-
-    filename_path = abcli.path.absolute(filename_path, reference_path)
-
-    return os.path.join(filename_path, filename_name)
+    return os.path.join(
+        abcli.path.absolute(
+            path(filename),
+            abcli.path.current() if reference_path is None else reference_path,
+        ),
+        name_and_extension(filename),
+    )
 
 
 def add_postfix(filename, postfix):
-    """
-    Add postfix to filename.
-    :param filename: Filename
-    :param postfix: postfix
-    :return: Updated filename
+    """add postfix to filename.
+
+    Args:
+        filename (str): filename.
+        postfix (str): postfix.
+
+    Returns:
+        str: filename.
     """
     filename, extension = os.path.splitext(filename)
-    return filename + "-" + postfix + extension
+    return f"{filename}-{postfix}{extension}"
 
 
 def add_prefix(filename, prefix):
-    """
-    Add prefix to name of filename.
-    :param filename: Filename
-    :param prefix: Prefix
-    :return: Updated filename.
+    """add prefix to name of filename.
+
+    Args:
+        filename (str): filename.
+        prefix (str): prefix.
+
+    Returns:
+        str: filename
     """
     pathname, filename = os.path.split(filename)
-    return pathname + os.sep + prefix + "-" + filename
+    return os.path.join(pathname, f"{prefix}-{filename}")
 
 
-def archive(filename, options=""):
+def auxiliary(nickname, extension, add_timestamp=True):
+    """generate auxiliary filename.
+
+    Args:
+        nickname (str): nickname
+        extension (str): extension
+        add_timestamp (bool, optional): add timestamp. Defaults to True.
+
+    Returns:
+        str: filename
     """
-    Archive filename.
-    :param filename: filename
-    :param options:
-    :return: success
-    """
-    import abcli.path as path
-
-    options = Options(options)
-
-    if isinstance(filename, list):
-        for filename_ in filename:
-            if not archive(filename_, options):
-                return False
-        return True
-
-    if not exist(filename):
-        return True
-
-    pathname, name = os.path.split(filename)
-    if pathname == "":
-        archived_path = os.path.join(path.current(), "archive")
-    else:
-        archived_path = os.path.join(pathname, "archive")
-    archived_filename = os.path.join(
-        archived_path, string.pretty_date("filename,squeeze,unique") + "-" + name
-    )
-
-    if not path.exist(archived_path):
-        if not path.create(archived_path):
-            return False
-
-    if not move(filename, archived_filename):
-        return False
-
-    return True
-
-
-def as_json(thing):
-    """
-    Describe thing as a json
-    :return: string
-    """
-    # https://docs.python.org/2/library/json.html
-    return json.dumps(
-        thing,
-        sort_keys=True,
-        cls=JsonEncoder,
-        indent=0,
-        ensure_ascii=False,
-        separators=(",", ":"),
-    ).replace("\n", "")
-
-
-def auxiliary(thing, extension, options=""):
-    """
-    generate auxiliary filename.
-    :param thing: thing
-    :param extension: extension
-    :param options:
-        timestamp : add timestamp
-                    default: True
-    :return: filename
-    """
-    options = Options(options).default("timestamp", True)
-
-    import abcli.path
-
     filename = os.path.join(
-        os.getenv("abcli_asset_folder", "."),
+        os.getenv("abcli_object_folder"),
         "auxiliary",
         "-".join(
-            [string.nickname(thing).lower()]
+            [nickname]
             + (
-                [string.pretty_date("filename,squeeze,unique")]
-                if options["timestamp"]
+                [string.pretty_date(as_filename=True, squeeze=True, unique=True)]
+                if add_timestamp
                 else []
             )
         )
-        + "."
-        + extension,
+        + f".{extension}",
     )
 
-    abcli.path.create(path(filename))
+    prepare_for_saving(filename)
 
     return filename
 
 
-def copy(source, destination, options=""):
-    """
-    Copy source to destination.
-    :param source: source filename
-    :param destination: destination filename
-    :param options:
-        log: log.
-             default: False
-    :return: success
-    """
-    options = Options(options).default("log", False)
+def copy(source, destination, log=False):
+    """copy source to destination.
 
-    import abcli.path
+    Args:
+        source (str): source filename.
+        destination (str): description filename.
+        log (bool, optional): log. Defaults to False.
 
-    if not abcli.path.create(path(destination)):
+    Returns:
+        _type_: _description_
+    """
+    if not prepare_for_saving(destination):
         return False
 
     try:
@@ -189,25 +134,26 @@ def copy(source, destination, options=""):
     except:
         from abcli.logging import crash_report
 
-        crash_report("file.copy({},{}) failed".format(source, destination))
+        crash_report(f"-{name}: copy({source},{destination}) failed.")
         return False
 
-    if options["log"]:
+    if log:
         logger.info("file: {} -> {}".format(source, destination))
 
     return True
 
 
-def create(filename, content=[], options=""):
+def create(filename, content=[]):
+    """create filename.
+
+    Args:
+        filename (str): filename.
+        content (list, optional): content. Defaults to [].
+
+    Returns:
+        bool: success
     """
-    Create empty file.
-    :param filename: filename
-    :param content: content
-    :param options:
-        . save_text()
-    :return: success
-    """
-    return save_text(filename, content, options)
+    return save_text(filename, content)
 
 
 def delete(filename):
@@ -226,7 +172,7 @@ def delete(filename):
     except:
         from abcli.logging import crash_report
 
-        crash_report("file.delete({}) failed".format(filename))
+        crash_report(f"-{name}: delete({filename}) failed.")
         return False
 
 
@@ -259,7 +205,7 @@ def download(url, filename, options=""):
     except:
         from abcli.logging import crash_report
 
-        crash_report("file.download({},{}) failed".format(url, filename))
+        crash_report(f"-{name}: download({url},{filename}) failed.")
         return False
 
 
@@ -363,7 +309,7 @@ def load(filename, options=""):
     :param options:
         . civilized : if failed, do not print error message.
                       default: false
-        . default   : default to return if a failure hapenned.
+        . default   : default.
                       default: {}
     :return: success, data
     """
@@ -382,7 +328,7 @@ def load(filename, options=""):
         if not options["civilized"]:
             from abcli.logging import crash_report
 
-            crash_report("file.load({}) failed".format(filename))
+            crash_report(f"-{name}: load({filename}) failed.")
         return False, data
 
 
@@ -405,7 +351,7 @@ def load_csv(filename, options=""):
     except:
         from abcli.logging import crash_report
 
-        crash_report("file_csv.load({}) failed".format(filename))
+        crash_report(f"-{name}: load_csv({filename}) failed.")
 
     return success, data
 
@@ -440,7 +386,7 @@ def load_image(filename, options=""):
         if not options["civilized"]:
             from abcli.logging import crash_report
 
-            crash_report("file.load_image({}) failed".format(filename))
+            crash_report(f"-{name}: load_image({filename}) failed.")
         success = False
 
     return success, data
@@ -472,7 +418,7 @@ def load_json(filename, options=""):
         if not options["civilized"]:
             from abcli.logging import crash_report
 
-            crash_report("file.load_json({}) failed".format(filename))
+            crash_report(f"-{name}: load_json({filename}) failed.")
 
     return success, data
 
@@ -505,11 +451,12 @@ def load_text(filename, options=""):
         if not options["civilized"]:
             from abcli.logging import crash_report
 
-            crash_report("file.load_text({}) failed".format(filename))
+            crash_report(f"-{name}: load_text({filename}) failed.")
+
         return False, []
 
 
-def move(source, destination, options=""):
+def move(source, destination):
     """
     Move source to destination.
     :param source: source filename
@@ -519,10 +466,8 @@ def move(source, destination, options=""):
     """
     import abcli.path
 
-    destination_path = path(destination)
-    if not abcli.path.exist(destination_path):
-        if not abcli.path.create(destination_path):
-            return False
+    if not abcli.path.create(path(destination)):
+        return False
 
     try:
         # https://stackoverflow.com/a/8858026
@@ -534,65 +479,56 @@ def move(source, destination, options=""):
 
 
 def name(filename):
-    """
-    Return name of filename.
-    :param filename: Filename
-    :return: filename name
+    """return name of filename.
+
+    Args:
+        filename (str): filename.
+
+    Returns:
+        str: name of filename.
     """
     _, filename = os.path.split(filename)
 
-    if "." not in filename:
-        return filename
-    return ".".join(filename.split(".")[:-1])
+    return filename if "." not in filename else ".".join(filename.split(".")[:-1])
 
 
 def name_and_extension(filename):
-    """
-    Return name and extension of filename.
-    :param filename: Input file name, including path.
-    :return: file name and extension.
+    """return name and extension of filename.
+
+    Args:
+        filename (str): filename.
+
+    Returns:
+        str: name and extension of filename
     """
     return os.path.basename(filename)
 
 
 def path(filename):
-    """
-    Return path of the file.
-    :param filename: Input file name, including path.
-    :return: file path.
-    """
-    import abcli.path as path
+    """return path of filename.
 
-    pathname, _ = os.path.split(filename)
-    return path.prepare(pathname)
+    Args:
+        filename (str): filename.
+
+    Returns:
+        str: path of filename.
+    """
+    return os.path.split(filename)[0]
 
 
-def prepare_for_saving(filename, options=""):
+def prepare_for_saving(filename):
+    """prepare for saving filename.
+
+    Args:
+        filename (str): filename.
+
+    Returns:
+        bool: success.
     """
-    Prepare filename for saving.
-    :param filename: filename
-    :param options:
-        . archive : archive filename, if already exists.
-                    default : True
-        . path.create()
-    return success, filename
-    """
+
     import abcli.path
 
-    options = Options(options).default("archive", True)
-
-    success = abcli.path.create(path(filename), options)
-
-    if success:
-        if exist(filename) and options["archive"]:
-            logger.warning(
-                "file.prepare_for_saving({}): file already exists, archiving.".format(
-                    filename
-                )
-            )
-            archive(filename, options)
-
-    return success, filename
+    return abcli.path.create(path(filename))
 
 
 def relative(filename, reference_path=None):
@@ -637,80 +573,10 @@ def save(filename, data, options=""):
     except:
         from abcli.logging import crash_report
 
-        crash_report("file.save({}) failed".format(filename))
+        crash_report(f"-{name}: save({filename}) failed.")
         return False
 
     return True
-
-
-def save_animated_gif(template, filename, options=""):
-    """
-    Save template to animated git.
-    :param template: *.png
-    :param filename: filename
-    :param options:
-        . loop : loop
-                 default : 0
-        . fps : fps
-                 default : 10
-        . scale : scale
-                 default : 1
-        . prepare_for_saving()
-    :return: success
-    """
-    from tqdm import tqdm
-    import cv2
-
-    options = (
-        Options(options)
-        .default("fps", 10.0)
-        .default("loop", 0)
-        .default("optimize", False)
-        .default("scale", 1.0)
-    )
-
-    success, filename = prepare_for_saving(filename, options)
-
-    if not success:
-        return False
-
-    try:
-        from PIL import Image
-
-        # https://note.nkmk.me/en/python-pillow-gif/
-        Images = [Image.open(filename_) for filename_ in tqdm(list_of(template))]
-
-        if not Images:
-            logger.error("file.save_animated_gif(): no image")
-            return False
-
-        if options["scale"] != 1:
-            Images = [
-                image.resize(
-                    (
-                        int(options["scale"] * image.width),
-                        int(options["scale"] * image.height),
-                    )
-                )
-                for image in tqdm(Images)
-            ]
-
-        Images[0].save(
-            filename,
-            save_all=True,
-            append_images=Images[1:],
-            optimize=options["optimize"],
-            duration=int(len(Images) / options["fps"]),
-            loop=options["loop"],
-        )
-
-    except:
-        from abcli.logging import crash_report
-
-        crash_report("file.save_animated_gif({}) failed".format(filename))
-        success = False
-
-    return success
 
 
 def save_csv(filename, data, options=""):
@@ -734,7 +600,7 @@ def save_csv(filename, data, options=""):
         except:
             from abcli.logging import crash_report
 
-            crash_report("file.save_csv({}) failed".format(filename))
+            crash_report(f"-{name}: save_csv({filename}) failed.")
             success = False
 
     return success
@@ -774,11 +640,8 @@ def save_image(filename, image, options=""):
             from abcli.logging import crash_report
 
             crash_report(
-                "file.save_image({},{}) failed".format(
-                    filename, string.pretty_size_of_matrix(image)
-                )
+                f"-{name}: save_image({string.pretty_size_of_matrix(image)}{filename}) failed."
             )
-            success = False
 
     if success and options["queue_name"]:
         import abcli.message as message
@@ -819,7 +682,7 @@ def save_json(filename, data, options=""):
         except:
             from abcli.logging import crash_report
 
-            crash_report("file.save_json({}) failed".format(filename))
+            crash_report(f"-{name}: save_json({filename}) failed.")
             success = False
 
     return success
@@ -890,7 +753,7 @@ def save_text(filename, text, options=""):
     except:
         from abcli.logging import crash_report
 
-        crash_report("file.save_text({}) failed".format(filename))
+        crash_report(f"-{name}: save_text({filename}) failed.")
         return False
 
     return True
@@ -944,7 +807,7 @@ def timestamp(thing, extension, options=""):
     :return: filename
     """
     filename = os.path.join(
-        os.getenv("abcli_asset_folder", "."),
+        os.getenv("abcli_object_folder", "."),
         "-".join(
             [
                 string.nickname(thing).lower(),
@@ -958,69 +821,13 @@ def timestamp(thing, extension, options=""):
     return filename
 
 
-def transform(filename, dictionary, options=""):
-    options = (
-        Options(options)
-        .default("ignore", "")
-        # https://regex101.com/
-        .default(
-            "ignore_re",
-            [
-                '[ ]*"version": "[0-9]*.[0-9]*"[|,]*',
-                '[ ]*"is_live": (?:true|false),',
-                "^linkback\(s\).*$",
-            ],
-        )
-        .default("blank_line", True)
-    )
-
-    destination = auxiliary("file", "txt")
-
-    if isinstance(dictionary, str):
-        success, dictionary = load_json(dictionary)
-        if not success:
-            return "error"
-
-    success, content = load_text(filename)
-    if not success:
-        return "error"
-
-    if options["blank_line"]:
-        content = [line for line in content if line]
-
-    for keyword in dictionary:
-        content = [line.replace(keyword, dictionary[keyword]) for line in content]
-
-    if options["ignore"]:
-        content_ = []
-        do_add = True
-        for line in content:
-            if do_add:
-                if "{}.start".format(options["ignore"]) in line:
-                    do_add = False
-                else:
-                    content_ += [line]
-            else:
-                if "{}.end".format(options["ignore"]) in line:
-                    do_add = True
-        content = content_
-
-        content = [line for line in content if options["ignore"] not in line]
-
-    for item in options["ignore_re"]:
-        p = re.compile(item)
-        content = [line for line in content if not p.match(line)]
-
-    return destination if save_text(destination, content) else "error"
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "task",
         type=str,
         default="",
-        help="archive/load/replace",
+        help="load/replace",
     )
     parser.add_argument(
         "--filename",
@@ -1043,9 +850,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     success = False
-    if args.task == "archive":
-        success = archive(args.filename)
-    elif args.task == "load":
+    if args.task == "load":
         import numpy as np
 
         success, content = load(args.filename)
