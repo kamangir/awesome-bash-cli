@@ -14,7 +14,7 @@ function abcli_init() {
     local current_path=$(pwd)
 
     if [ -z "$plugin_name" ] ; then
-        source $abcli_path_abcli/bash/main.sh
+        source $abcli_path_abcli/bash/abcli.sh
     else
         local repo_name=$(echo "$plugin_name" | tr _ -)
 
