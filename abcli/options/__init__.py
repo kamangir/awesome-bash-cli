@@ -59,14 +59,10 @@ class Options(dict):
                         if input:
                             self[input] = True
             else:
-                raise NameError(
-                    "Cannot convert {} to {}.".format(
-                        args[0].__class__.__name__, self.__class__.__name__
-                    )
-                )
-
-        for index in range(first_item_index, len(args), 2):
-            self[args[index]] = args[index + 1]
+                raise NameError(f"-{name}: cannot read {args[0].__class__.__name__}.")
+        else:
+            for index in range(0, len(args), 2):
+                self[args[index]] = args[index + 1]
 
     def default(self, keyword, default):
         """create a copy of self and set default for keyword.
