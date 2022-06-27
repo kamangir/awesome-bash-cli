@@ -17,7 +17,7 @@ function abcli_select() {
     export abcli_object_name_prev=$abcli_object_name
     export abcli_object_name=$object_name
     
-    export abcli_object_path=$abcli_object_root_path/$abcli_object_name
+    export abcli_object_path=$abcli_object_root/$abcli_object_name
     mkdir -p $abcli_object_path
 
     cd $abcli_object_path
