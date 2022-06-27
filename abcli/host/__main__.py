@@ -35,9 +35,10 @@ if args.task == "get":
         print(get_name())
         success = True
     else:
-        print('host: cannot get "{}"'.format(args.keyword))
+        logger.error(f"-{name}: get: {args.keyword}: unknown keyword.")
+        print("unknown")
 else:
-    logger.error(f"-{name}: {args.task}: command not found")
+    logger.error(f"-{name}: {args.task}: command not found.")
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed")
+    logger.error(f"-{name}: {args.task}: failed.")

@@ -30,5 +30,5 @@ function awesome_bash_cli_template() {
         return
     fi
 
-    abcli_log_error "unknown task: awesome_bash_cli_template '$task'."
+    abcli_log_error "-awesome_bash_cli_template: $task: command not found."
 }

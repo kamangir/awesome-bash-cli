@@ -84,5 +84,5 @@ function abcli_notebook() {
         return
     fi
 
-    abcli_log_error "unknown task: notebook '$task'."
+    abcli_log_error "-abcli.notebook: $task: command not found."
 }

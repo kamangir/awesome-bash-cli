@@ -134,7 +134,7 @@ function abcli_git() {
 
     if [ "$task" == "terraform" ] ; then
         if [ -z "$repo_name" ] ; then
-            abcli_log_error "git terraform: missing repo_name."
+            abcli_log_error "-abcli.git: terraform: missing repo_name."
             return
         fi
 
