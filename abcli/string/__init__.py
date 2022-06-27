@@ -3,10 +3,8 @@ from datetime import timezone
 import math
 import os
 from random import randrange
-import string
 import time
 from .. import *
-from ..options import Options
 
 name = f"{shortname}.string"
 
@@ -79,7 +77,7 @@ def between(s, sub_string_1, sub_string_2):
 
 
 def pretty_bytes(byte_count):
-    """describe byte_count.
+    """describe byte_count as a string.
 
     Args:
         byte_count (int): number of bytes.
@@ -116,72 +114,60 @@ def pretty_bytes(byte_count):
     return "f{byte_count:.2f} TB"
 
 
-def pretty_date(options="", date=None):
-    """
-    return date as a string.
-    :param options:
-        . date      : include date.
-                      default: True
-        . delimiter : delimiter between date and time.
-                      default : "|"
-        . filename  : output is to be used as a filename.
-                      default: False
-        . format    : explicit format, replaces other options.
-                      default: ""
-        . gmt       : gmt timezone.
-                      default: False
-        . second    : show seconds.
-                      default: True
-        . short     : short format.
-                      default: False
-        . squeeze   : squeeze output.
-                      default: False
-        . time      : include time.
-                      default: True
-        . unique    : add unique postfix.
-                      default : False
-        . weekday   : include weekday name.
-                      default : False
-        . zone      : show time zone. only applicable to +gmt.
-                      default: False
-    :param date: Date
-    :return: string
-    """
-    options = (
-        Options(options)
-        .default("date", True)
-        .default("delimiter", ", ")
-        .default("filename", False)
-        .default("format", "")
-        .default("gmt", False)
-        .default("second", True)
-        .default("short", False)
-        .default("squeeze", False)
-        .default("time", True)
-        .default("unique", False)
-        .default("weekday", False)
-        .default("zone", False)
-    )
+def pretty_date(
+    date=None,
+    as_filename=False,
+    delimiter=", ",
+    explicit_format="",
+    in_gmt=False,
+    include_date=True,
+    include_seconds=True,
+    include_time=True,
+    include_weekdays=False,
+    include_zone=False,
+    short=False,
+    squeeze=False,
+    unique=False,
+):
+    """return date as a string.
 
+    Args:
+        date (Any, optional): date. Defaults to None.
+        as_filename (bool, optional): output is to be used as a filename.. Defaults to False.
+        delimiter (str, optional): delimiter between date and time. Defaults to ", ".
+        explicit_format (str, optional): explicit format, supersedes other settings. Defaults to "".
+        in_gmt (bool, optional): in gmt timezone. Defaults to False.
+        include_date (bool, optional): include date. Defaults to True.
+        include_seconds (bool, optional): show seconds. Defaults to True.
+        include_time (bool, optional): include time. Defaults to True.
+        include_weekdays (bool, optional): include weekday name. Defaults to False.
+        include_zone (bool, optional): show time zone. Defaults to False.
+        short (bool, optional): short format. Defaults to False.
+        squeeze (bool, optional): squeeze output. Defaults to False.
+        unique (bool, optional): add unique postfix. Defaults to False.
+
+    Returns:
+        str: date as a string.
+    """
     format = ""
-    if options["date"]:
-        if options["short"] or options["filename"]:
+    if include_date:
+        if short or as_filename:
             format = "%Y %m %d"
         else:
             format = "%d %B %Y"
 
-        if options["weekday"]:
+        if include_weekdays:
             format = "%A, " + format
 
-        if options["time"]:
-            format += options["delimiter"]
-    if options["time"]:
+        if include_time:
+            format += delimiter
+    if include_time:
         format += "%H:%M"
-        if options["second"]:
+        if include_seconds:
             format += ":%S"
-    if options["unique"]:
-        format += ":{:05d}".format(randrange(100000))
-    if options["filename"]:
+    if unique:
+        format += f":{randrange(100000):05d}"
+    if as_filename:
         format = (
             format.replace(" ", "-")
             .replace(":", "-")
@@ -189,33 +175,33 @@ def pretty_date(options="", date=None):
             .replace(",", "")
         )
 
-    if options["format"]:
-        format = options["format"]
+    if explicit_format:
+        format = explicit_format
 
     if date is None:
         date = time.time()
     if isinstance(date, datetime.datetime):
         output = date.strftime(format)
     else:
-        if options["gmt"]:
+        if in_gmt:
             output = time.strftime(format, time.gmtime(date))
 
-            if options["zone"]:
+            if include_zone:
                 output += " (GMT)"
         else:
             output = time.strftime(format, time.localtime(date))
 
-            if options["zone"]:
-                output += " (" + (time.tzname[0] if time.tzname else "?") + ")"
+            if include_zone:
+                output += f" ({time.tzname[0] if time.tzname else '?'})"
 
-    if options["squeeze"]:
+    if squeeze:
         output = output.replace("-", "")
 
     return output
 
 
 def pretty_frequency(frequency):
-    """describe a frequency as a string.
+    """describe frequency as a string.
 
     Args:
         frequency (float): frequency
@@ -236,67 +222,11 @@ def pretty_frequency(frequency):
         else:
             return f"{frequency / 10**9:.1f} GHz"
 
-    return f"1/{pretty_time(1 / frequency, largest=True, short=True)}"
-
-
-def pretty_list(input, options=""):
-    """
-    return input list in a pretty form.
-    :param input: list
-    :param options
-        . binned      : log binned data.
-                        default: False
-        . class_names : class names.
-                        default: None (disable)
-        . count       : number of items to show.
-                        default: 10
-        . filenames   : items are filenames.
-                        default: False
-        . items       : plural item name.
-                        default: "item(s)"
-    :return: string
-    """
-    import numpy as np
-    from abcli.file import name_and_extension
-
-    options = (
-        Options(options)
-        .default("binned", False)
-        .default("class_names", None)
-        .default("count", 10)
-        .default("filenames", False)
-    )
-    options = options.default("items", "file(s)" if options["filenames"] else "item(s)")
-
-    return "{} {}: {}".format(
-        len(input),
-        options["items"],
-        ",".join(
-            [
-                "{}x{}".format(
-                    count,
-                    "#{}".format(index)
-                    if options["class_names"] is None
-                    else options["class_names"][index],
-                )
-                for index, count in enumerate(np.bincount(np.array(input)))
-            ]
-        )
-        if options["binned"]
-        else "{}{}".format(
-            ",".join(
-                [
-                    name_and_extension(thing) if options["filenames"] else str(thing)
-                    for thing in input[: options["count"]]
-                ]
-            ),
-            ",..." if len(input) > options["count"] else "",
-        ),
-    )
+    return f"1/{pretty_duration(1 / frequency, largest=True, short=True)}"
 
 
 def pretty_size_of_matrix(matrix):
-    """return size of matrix as a string.
+    """describe size of matrix as a string.
 
     Args:
         matrix (Any): matrix.
@@ -313,35 +243,27 @@ def pretty_size_of_matrix(matrix):
     )
 
 
-def pretty_time(duration, options=""):
-    """
-    return time in a pretty form.
-    duration: in seconds.
-    :param options:
-        . format  : element format
-                    default: "{}{}"
-        . largest : Only show the largest denominator.
-                    default : False
-        . ms      : Include milliseconds.
-                    default : False
-        . past    : Add "ago" to the string.
-                    default : False
-        . short   : Generate short string.
-                    default : False
-        . summary : Generate summary.
-                    default : False
-    :return: string
-    """
-    options = (
-        Options(options)
-        .default("format", "{}{}")
-        .default("largest", False)
-        .default("ms", False)
-        .default("past", False)
-        .default("short", False)
-        .default("summary", False)
-    )
+def pretty_duration(
+    duration,
+    element_format="{}{}",
+    include_ms=False,
+    largest=False,
+    past=False,
+    short=False,
+):
+    """describe duration as a string.
 
+    Args:
+        duration (int): duration in seconds.
+        element_format (str, optional): element format. Defaults to "{}{}".
+        largest (bool, optional): show the largest element. Defaults to False.
+        include_ms (bool, optional): include milliseconds. Defaults to False.
+        past (bool, optional): past time, add "ago" to the string. Defaults to False.
+        short (bool, optional): produce short description. Defaults to False.
+
+    Returns:
+        str: description of duration as a string.
+    """
     if duration is None:
         return "None"
 
@@ -349,7 +271,7 @@ def pretty_time(duration, options=""):
     duration = abs(duration)
 
     duration_ = duration
-    duration = math.floor(duration) if options["ms"] else round(duration)
+    duration = math.floor(duration) if include_ms else round(duration)
 
     milliseconds = round(1000 * (duration_ - duration))
 
@@ -364,7 +286,7 @@ def pretty_time(duration, options=""):
     months = duration % 12
     years = math.floor(duration / 12)
 
-    if options["short"]:
+    if short:
         year_name = " yr"
         month_name = " mth"
         day_name = " d"
@@ -383,62 +305,32 @@ def pretty_time(duration, options=""):
 
     output = []
     if years > 0:
-        output.append(options["format"].format(years, year_name))
-    if months > 0 and not (options["summary"] and output):
-        output.append(options["format"].format(months, month_name))
-    if days > 0 and not (options["summary"] and output):
-        output.append(options["format"].format(days, day_name))
-    if hours > 0 and not (options["summary"] and output):
-        output.append(options["format"].format(hours, hour_name))
-    if minutes > 0 and not (options["summary"] and output):
-        output.append(options["format"].format(minutes, minute_name))
-    if seconds > 0 and not (options["summary"] and output):
-        output.append(options["format"].format(seconds, second_name))
-    if options["ms"] and not (options["summary"] and output):
+        output.append(element_format.format(years, year_name))
+    if months > 0:
+        output.append(element_format.format(months, month_name))
+    if days > 0:
+        output.append(element_format.format(days, day_name))
+    if hours > 0:
+        output.append(element_format.format(hours, hour_name))
+    if minutes > 0:
+        output.append(element_format.format(minutes, minute_name))
+    if seconds > 0:
+        output.append(element_format.format(seconds, second_name))
+    if include_ms:
         if milliseconds > 0:
             output.append("{:03d}{}".format(milliseconds, millisecond_name))
 
-    if options["largest"]:
+    if largest:
         output = output[:1]
     output = ", ".join(output)
 
-    if options["past"] and output:
+    if past and output:
         output += " ago"
 
     if not output:
         output = "None"
 
     return ("-" if negative_duration else "") + output
-
-
-def timestamp(
-    compact=True,
-    include_ms=False,
-    include_time=True,
-):
-    """return timestamp.
-
-    Args:
-        compact (bool, optional): compact form. Defaults to True.
-        include_ms (bool, optional: include milliseconds. Default yo False.
-        include_time (bool, optional): include time. Defaults to True.
-
-    Returns:
-        str: timestamp.
-    """
-    current_time = time.time()
-
-    output = time.strftime(
-        ("%Y-%m-%d-%H-%M-%S" if compact else "%d %B %Y, %H:%M:%S")
-        if include_time
-        else ("%Y-%m-%d" if compact else "%d %B %Y"),
-        time.localtime(current_time),
-    )
-
-    if include_time and include_ms:
-        output += f"{'-' if compact else ':'}{(current_time % 1) * 1000:03.0f}"
-
-    return output
 
 
 def utc_timestamp(

@@ -7,11 +7,28 @@ name = f"{shortname}.bash.list"
 list_of_tasks = "in,len,nonempty,resize,sort"
 
 parser = argparse.ArgumentParser(name)
-parser.add_argument("task", type=str, help=list_of_tasks)
-parser.add_argument("--count", type=int)
-parser.add_argument("--delim", type=str, default=",")
-parser.add_argument("--item", type=str)
-parser.add_argument("--items", type=str)
+parser.add_argument(
+    "task",
+    type=str,
+    help=list_of_tasks,
+)
+parser.add_argument(
+    "--count",
+    type=int,
+)
+parser.add_argument(
+    "--delim",
+    type=str,
+    default=",",
+)
+parser.add_argument(
+    "--item",
+    type=str,
+)
+parser.add_argument(
+    "--items",
+    type=str,
+)
 args = parser.parse_args()
 
 delim = " " if args.delim == "space" else "," if not args.delim else args.delim

@@ -7,34 +7,15 @@ parser.add_argument(
     "task",
     type=str,
     default="",
-    help="argparse",
-)
-parser.add_argument(
-    "--list_of_args",
-    type=str,
-)
-parser.add_argument(
-    "--arg",
-    type=str,
-)
-parser.add_argument(
-    "--default",
-    type=str,
-    default="",
+    help="TBD",
 )
 args = parser.parse_args()
 
 success = False
-if args.task == "argparse":
-    items = args.list_of_args.replace("  ", " ").split(" ")
-    print(
-        {name: value for name, value in zip(items[:-1:2], items[1::2])}.get(
-            args.arg, args.default
-        )
-    )
+if args.task == "TBD":
     success = True
 else:
-    print('string: unknown task "{}".'.format(args.task))
+    print(f"-{name}: {args.task}: command not found")
 
 if not success:
-    print("string({}): failed.".format(args.task))
+    print(f"-{name}: {args.task}: failed")
