@@ -98,21 +98,21 @@ def pretty_bytes(byte_count):
     byte_count /= 1024
 
     if byte_count < 1024 / 10:
-        return "f{byte_count:.2f} kB"
+        return f"{byte_count:.2f} kB"
 
     byte_count /= 1024
 
     if byte_count < 1024:
-        return "f{byte_count:.2f} MB"
+        return f"{byte_count:.2f} MB"
 
     byte_count /= 1024
 
     if byte_count < 1024:
-        return "f{byte_count:.2f} GB"
+        return f"{byte_count:.2f} GB"
 
     byte_count /= 1024
 
-    return "f{byte_count:.2f} TB"
+    return f"{byte_count:.2f} TB"
 
 
 def pretty_date(

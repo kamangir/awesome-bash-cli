@@ -1,38 +1,30 @@
 import argparse
-import numpy as np
-
 from . import *
+from . import *
+from . import string
+from . import logging
+import logging
+
+logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser(name)
 parser.add_argument(
     "task",
     type=str,
-    help="replace",
+    help="size",
 )
 parser.add_argument(
     "--filename",
     type=str,
 )
-parser.add_argument(
-    "--that",
-    type=str,
-)
-parser.add_argument(
-    "--this",
-    type=str,
-)
 args = parser.parse_args()
 
 success = False
-if args.task == "replace":
-    success, content = load_text(args.filename)
-    if success:
-        success = save_text(
-            args.filename,
-            [line.replace(args.this, args.that) for line in content],
-        )
+if args.task == "size":
+    print(string.pretty_bytes(size(args.filename)))
+    success = True
 else:
-    logger.error('{}: unknown task "{}".'.format(name, args.task))
+    logger.error(f"-{name}: {args.task}: command not found")
 
 if not success:
-    logger.error("{}.{} failed.".format(name, args.task))
+    logger.error(f"-{name}: {args.task}: failed")

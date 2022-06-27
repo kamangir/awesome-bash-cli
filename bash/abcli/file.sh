@@ -1,5 +1,12 @@
 #! /usr/bin/env bash
 
+# diff.ignore.start
+
 function abcli_file_size() {
-    echo $(python3 -c "from abcli import file, string; print(string.pretty_bytes(file.size('$1')));")
+    python3 -m abcli.file \
+        size \
+        --filename "$1" \
+        ${@:2}
 }
+
+# diff.ignore.end
