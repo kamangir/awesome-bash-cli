@@ -48,7 +48,7 @@ function abcli_log() {
 function abcli_log_error() {
     local message="$@"
 
-    printf "${RED}error: $message$NC\n"
+    printf "${RED}$message$NC\n"
 
     echo "error: $message" >> $abcli_log_filename
 }
