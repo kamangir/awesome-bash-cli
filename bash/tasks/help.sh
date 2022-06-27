@@ -4,7 +4,7 @@ function abcli_help() {
     local keyword=$1
 
     if [ "$(abcli_keyword_is $keyword help)" == true ] ; then
-        abcli_help_line "help [task]" \
+        abcli_help_line "abcli help [task]" \
             "show help [for task]."
         return
     fi

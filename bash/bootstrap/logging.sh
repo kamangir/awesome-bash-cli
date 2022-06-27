@@ -19,11 +19,11 @@ function abcli_log() {
     local message="$@"
 
     if [ "$message" == "help" ] ; then
-        abcli_help_line "log \"sth happened\"" \
+        abcli_help_line "abcli log \"sth happened\"" \
             "log sth happened."
-        abcli_help_line "log verbose" \
+        abcli_help_line "abcli log verbose" \
             "verbose logging on."
-        abcli_help_line "log verbose off" \
+        abcli_help_line "abcli log verbose off" \
             "verbose logging off."
         return
     fi
