@@ -3,6 +3,7 @@ from datetime import timezone
 import math
 import os
 from random import randrange
+import string
 import time
 from .. import *
 from ..options import Options
@@ -63,15 +64,18 @@ def before(s, sub_string, n=1):
         return sub_string.join(s.split(sub_string)[:n])
 
 
-def between(var, sub_string1, sub_string2):
+def between(s, sub_string_1, sub_string_2):
+    """return what is between sub_string_1 and sub_string2 in string.
+
+    Args:
+        s (str): string.
+        sub_string_1 (str): sub string.
+        sub_string_2 (str): sub string.
+
+    Returns:
+        str: what is between sub_string_1 and sub_string2 in string.
     """
-    return what is between sub_string1 and sub_string2 in string.
-    :param var: string
-    :param sub_string1: sub string 1
-    :param sub_string2: sub string 2
-    :return: string
-    """
-    return before(after(var, sub_string1), sub_string2)
+    return before(after(s, sub_string_1), sub_string_2)
 
 
 def pretty_bytes(byte_count):
@@ -456,6 +460,19 @@ def pretty_time(duration, options=""):
 
 
 def random(length=8, options=""):
+    """_summary_
+
+    Args:
+        length (int, optional): _description_. Defaults to 8.
+        options (str, optional): _description_. Defaults to "".
+
+    Raises:
+        NameError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+
     """
     Generate random string.
     :param length: string length. default: 8
@@ -472,7 +489,6 @@ def random(length=8, options=""):
                      Default: not binary.
     :return: Randomly generated string.
     """
-    import string
 
     options = Options(options).default("binary", False)
     options = options.default("digit", not options["binary"])
@@ -506,55 +522,34 @@ def random(length=8, options=""):
     return output
 
 
-def timestamp(options=""):
-    """
-    return timestamp.
-    :param options:
-        . ms   : Include milli-seconds.
-                 default: False
-        . timestamp_template().
-    :return: string
-    """
-    options = Options(options).default("ms", False)
+def timestamp(
+    compact=True,
+    include_ms=False,
+    include_time=True,
+):
+    """return timestamp.
 
+    Args:
+        compact (bool, optional): compact form. Defaults to True.
+        include_ms (bool, optional: include milliseconds. Default yo False.
+        include_time (bool, optional): include time. Defaults to True.
+
+    Returns:
+        str: timestamp.
+    """
     current_time = time.time()
-    output = time.strftime(timestamp_template(options), time.localtime(current_time))
 
-    if options["ms"]:
-        output += "-{:03.0f}".format((current_time % 1) * 1000)
-
-    return output
-
-
-def timestamp_template(options=""):
-    """
-    return template for a time stamp.
-    :param options:
-              . day : return day.
-                       default: False
-              . full : return full time stamp. When full is False, then a more compact time stamp is generated.
-                       default: False
-              . time : Include time. This options is only applicable if full is False.
-                       default: True
-    :return: Output
-    """
-    options = (
-        Options(options)
-        .default("day", False)
-        .default("full", False)
-        .default("time", True)
+    output = time.strftime(
+        ("%Y-%m-%d-%H-%M-%S" if compact else "%d %B %Y, %H:%M:%S")
+        if include_time
+        else ("%Y-%m-%d" if compact else "%d %B %Y"),
+        time.localtime(current_time),
     )
 
-    if options["day"]:
-        return "%Y-%m-%d"
+    if include_time and include_ms:
+        output += f"{'-' if compact else ':'}{(current_time % 1) * 1000:03.0f}"
 
-    if options["full"]:
-        return "%d %B %Y, %H:%M:%S"
-
-    if options["time"]:
-        return "%Y-%m-%d-%H-%M-%S"
-
-    return "%Y-%m-%d"
+    return output
 
 
 def utc_timestamp(
@@ -562,7 +557,7 @@ def utc_timestamp(
     format="%Y-%m-%d-%H-%M-%S",
     timezone_="America/New_York",
 ):
-    """return utc timestamp.
+    """generate utc timestamp.
 
     Args:
         date (Any, optional): date. Defaults to None.
