@@ -13,3 +13,7 @@ function abcli() {
         abcli_log_error "-abcli: $task: command not found."
     fi
 }
+
+function abcli_get_version() {
+    export abcli_version=$(python3 -c "import abcli; print(abcli.version)")
+}

@@ -171,8 +171,10 @@ function abcli_get_git_branch() {
     branch_name="master"     # detached HEAD
     popd > /dev/null
 
+    abcli_get_version
+
     export abcli_git_branch=${branch_name##refs/heads/}
-    export abcli_fullname=abcli.${abcli_revision}.${abcli_git_branch}
+    export abcli_fullname=abcli-$abcli_version.$abcli_git_branch
 }
 
 abcli_get_git_branch
@@ -214,7 +216,7 @@ function abcli_git_pull() {
         return
     fi
 
-    abcli_get_revision
+    abcli_get_version
     abcli_get_git_branch
 
     if [ "$abcli_fullname" == "$abcli_fullname_before" ] ; then
