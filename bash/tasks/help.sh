@@ -15,6 +15,17 @@ function abcli_help() {
     # https://ma.ttias.be/grep-show-lines-before-and-after-the-match-in-linux/
     cat $(find $abcli_path_bash -type f -name "*.sh") | grep -A 1 "abcli_help_line \""  | grep -v -- "^--$" > $temp_file
 
+    local plugin
+    local filename
+    local external_plugins=$(abcli_external_plugins space)
+    for plugin in $(echo "$external_plugins" | tr _ -) ; do
+        if [ -d "$abcli_path_git/$plugin" ] ; then
+            for filename in $abcli_path_git/$plugin/abcli/*.sh ; do
+                cat $filename | grep -A 1 "abcli_help_line \""  | grep -v -- "^--$" >> $temp_file
+            done
+        fi
+    done
+
     python3 -c "from abcli import help; help.sort('$temp_file')" 
 
     chmod +x $temp_file
