@@ -4,7 +4,7 @@ name = "awesome_bash_cli"
 
 shortname = "abcli"
 
-version = "1.1.142"
+version = "1.1.143"
 
 fullname = f"{shortname}-{version}-{os.getenv('abcli_git_branch')}"
 
