@@ -3,7 +3,7 @@ from . import file
 
 
 def sort(filename):
-    """sort help file - used by "bolt help".
+    """sort help file - used by "abcli help".
 
     Args:
         filename (str): filename.

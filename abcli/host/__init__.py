@@ -19,13 +19,13 @@ def get_name():
     )
 
     if is_ec2():
-        return os.getenv("bolt_ec2_instance_id", random_output)
+        return os.getenv("abcli_ec2_instance_id", random_output)
 
     if is_jetson():
-        return os.getenv("bolt_jetson_nano_serial_number", random_output)
+        return os.getenv("abcli_jetson_nano_serial_number", random_output)
 
     if is_ubuntu():
-        return os.getenv("bolt_ubuntu_computer_id", random_output)
+        return os.getenv("abcli_ubuntu_computer_id", random_output)
 
     if is_mac():
         return os.getenv("USER", "")
@@ -49,20 +49,20 @@ def get_name():
 
 
 def is_ec2():
-    return os.getenv("bolt_is_ec2", "false") == "true"
+    return os.getenv("abcli_is_ec2", "false") == "true"
 
 
 def is_jetson():
-    return os.getenv("bolt_is_jetson", "false") == "true"
+    return os.getenv("abcli_is_jetson", "false") == "true"
 
 
 def is_mac():
-    return os.getenv("bolt_is_mac", "false") == "true"
+    return os.getenv("abcli_is_mac", "false") == "true"
 
 
 def is_rpi():
-    return os.getenv("bolt_is_rpi", "false") == "true"
+    return os.getenv("abcli_is_rpi", "false") == "true"
 
 
 def is_ubuntu():
-    return os.getenv("bolt_is_ubuntu", "false") == "true"
+    return os.getenv("abcli_is_ubuntu", "false") == "true"
