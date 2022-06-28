@@ -26,7 +26,7 @@ function abcli_help() {
         fi
     done
 
-    python3 -c "from abcli import help; help.sort('$temp_file')" 
+    python3 -c "from abcli.bash import help; help.sort('$temp_file')"
 
     chmod +x $temp_file
     source $temp_file | grep "$keyword"
