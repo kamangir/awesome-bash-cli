@@ -20,7 +20,8 @@ function abcli_source_dependencies() {
 
             local plugin_name
             for plugin_name in $external_plugins ; do
-                local list_of_scripts="$list_of_scripts $(ls $abcli_path_git/$plugin_name/abcli/*.sh)"
+                local repo_name=$(echo "$plugin_name" | tr _ -)
+                local list_of_scripts="$list_of_scripts $(ls $abcli_path_git/$repo_name/abcli/*.sh)"
             done
         fi
 
