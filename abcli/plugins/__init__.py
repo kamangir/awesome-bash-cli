@@ -19,7 +19,7 @@ def list_of_external():
     return list(
         file.load_json(
             os.path.join(
-                os.getenv("bolt_path_bash"),
+                os.getenv("abcli_path_bash"),
                 "plugins/external.json",
             ),
             civilized=True,
