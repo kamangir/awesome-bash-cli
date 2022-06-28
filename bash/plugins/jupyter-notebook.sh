@@ -5,9 +5,9 @@ function abcli_notebook() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli notebook [browse] [notebook] [args]" \
-            "browse $abcli_asset_name/notebook.ipynb [and pass args]."
+            "browse $abcli_object_name/notebook.ipynb [and pass args]."
         abcli_help_line "abcli notebook build [notebook]" \
-            "build $abcli_asset_name/notebook.ipynb."
+            "build $abcli_object_name/notebook.ipynb."
         abcli_help_line "abcli notebook connect 1-2-3-4 [setup]" \
             "[setup and] connect to jupyter notebook on ec2:1-2-3-4."
         abcli_help_line "abcli notebook host [setup]" \
@@ -29,9 +29,9 @@ function abcli_notebook() {
             $notebook_name.ipynb \
             -y --ExecutePreprocessor.timeout=-1 --execute --allow-errors \
             --to html \
-            --output-dir $abcli_asset_folder
+            --output-dir $abcli_object_path
 
-        mv $abcli_asset_folder/$notebook_name.html $abcli_asset_folder/$abcli_asset_name.html
+        mv $abcli_object_path/$notebook_name.html $abcli_object_path/$abcli_object_name.html
 
         return
     fi
