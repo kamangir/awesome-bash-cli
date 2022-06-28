@@ -10,9 +10,7 @@ function abcli_source_dependencies() {
         local list_of_scripts=$(ls $abcli_path_bash/$module_name/*.sh)
 
         if [ "$module_name" == "plugins" ] ; then
-            local external_plugins=$(python3 -m abcli.plugins \
-                list_of_external \
-                --delim space)
+            local external_plugins=$(abcli_external_plugins space)
 
             local plugin_names="$external_plugins"
             for script_filename in $list_of_scripts ; do
