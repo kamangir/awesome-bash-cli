@@ -18,13 +18,16 @@ function abcli_source_dependencies() {
             done
             abcli_log_list "$plugin_names" space "plugin(s)" "loading "
 
-            local external_scripts=$(python3 -c "import os.path; print(' '.join([os.path.join('$abcli_path_git',repo,'abcli/plugin.sh') for repo in '$external_plugins'.split(' ') if repo]))")
-            local list_of_scripts="$list_of_scripts $external_scripts"
+            local plugin_name
+            for plugin_name in $external_plugins ; do
+                local list_of_scripts="$list_of_scripts $(ls $abcli_path_git/$plugin_name/abcli/*.sh)"
+            done
         fi
 
         for script_filename in $list_of_scripts ; do
             source $script_filename
         done
+
     done
 
     export abcli_external_repo_list="$external_plugins"
