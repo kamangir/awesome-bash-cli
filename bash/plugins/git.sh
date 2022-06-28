@@ -6,7 +6,7 @@ function abcli_git() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "git cd repo_name" \
             "cd $abcli_path_git/repo_name."
-        abcli_help_line "git clone repo_name [asset,pull,source=username/some_repo,terraform]" \
+        abcli_help_line "git clone repo_name [asset,cd,pull,source=username/some_repo,terraform]" \
             "clone [and terraform] [a private fork of username/some_repo as] [$abcli_asset_name/]repo_name [and pull if already exists]."
 
         abcli_git_pull $@
@@ -41,6 +41,7 @@ function abcli_git() {
         local in_asset=$(abcli_option_int "$options" "asset" 0)
         local source=$(abcli_option "$options" "source" "")
         local terraform=$(abcli_option_int "$options" "terraform" 0)
+        local then_cd=$(abcli_option_int "$options" "cd" 0)
 
         if [ "$in_asset" == "0" ] ; then
             pushd $abcli_path_git > /dev/null
@@ -76,6 +77,10 @@ function abcli_git() {
 
         if [ "$in_asset" == "0" ] ; then
             popd > /dev/null
+        fi
+
+        if [ "$then_cd" == "1" ] ; then
+            cd $abcli_path_git/$repo_name
         fi
 
         return
