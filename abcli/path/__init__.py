@@ -145,6 +145,38 @@ def exist(path):
     )
 
 
+def list_of(path, recursive=False):
+    """return list of folders in path.
+
+    Args:
+        path (_type_): path.
+        recursive (bool, optional): look in all sub-folders as well. Defaults to False.
+
+    Returns:
+        list: list of paths.
+    """
+    if not exist(path):
+        return []
+
+    # http://stackabuse.com/python-list-files-in-a-directory/
+    output = []
+    try:
+        for entry in os.scandir(path):
+            if entry.is_file():
+                continue
+
+            path_name = os.path.join(path, entry.name)
+
+            output.append(path_name)
+
+            if recursive:
+                output += list_of(path_name, recursive=recursive)
+    except:
+        crash_report(f"-{name}: list_of({path}) failed.")
+
+    return output
+
+
 def move(source, destination):
     """move source to destination.
 

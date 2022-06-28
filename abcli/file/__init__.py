@@ -1,4 +1,6 @@
 import datetime
+import fnmatch
+from functools import reduce
 import json
 import os
 import shutil
@@ -237,6 +239,55 @@ def extension(filename):
         return "py" + filename.__name__.lower()
 
     return "py" + filename.__class__.__name__.lower()
+
+
+def list_of(template, recursive=False):
+    """return list of files that match template.
+
+    Args:
+        template (str): template.
+        recursive (bool, optional): recursive. Defaults to False.
+
+    Returns:
+        List[str]: list of filenames.
+    """
+    from . import path as abcli_path
+
+    if isinstance(template, list):
+        return reduce(
+            lambda x, y: x + y,
+            [list_of(template_, recursive) for template_ in template],
+            [],
+        )
+
+    if recursive:
+        return reduce(
+            lambda x, y: x + y,
+            [
+                list_of(
+                    os.path.join(pathname, name_and_extension_of(template)),
+                    recursive,
+                )
+                for pathname in abcli_path.list_of(path(template))
+            ],
+            list_of(template),
+        )
+
+    # https://stackoverflow.com/a/40566802
+    template_path = path(template)
+    if template_path == "":
+        template_path = abcli_path.current()
+
+    try:
+        return [
+            os.path.join(template_path, filename)
+            for filename in fnmatch.filter(
+                os.listdir(template_path),
+                name_and_extension_of(template),
+            )
+        ]
+    except:
+        return []
 
 
 def load(filename, civilized=True, default={}):
