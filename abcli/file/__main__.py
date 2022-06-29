@@ -24,7 +24,7 @@ if args.task == "size":
     print(string.pretty_bytes(size(args.filename)))
     success = True
 else:
-    logger.error(f"-{name}: {args.task}: command not found")
+    logger.error(f"-{name}: {args.task}: command not found.")
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed")
+    logger.error(f"-{name}: {args.task}: failed.")

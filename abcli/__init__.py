@@ -2,7 +2,7 @@ import os
 
 name = "awesome_bash_cli"
 shortname = "abcli"
-version = "1.1.154"
+version = "1.1.155"
 description = "a framework for quickly building awesome bash cli's for machine vision/deep learning."
 
 

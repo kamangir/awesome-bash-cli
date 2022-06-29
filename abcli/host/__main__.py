@@ -1,5 +1,6 @@
 import argparse
 from . import *
+from .. import tags
 from .. import logging
 import logging
 
@@ -33,6 +34,11 @@ success = False
 if args.task == "get":
     if args.keyword == "name":
         print(get_name())
+        success = True
+    elif args.keyword == "tags":
+        print(
+            ",".join(tags.get(args.name if args.name not in ",.".split(",") else name))
+        )
         success = True
     else:
         logger.error(f"-{name}: get: {args.keyword}: unknown keyword.")
