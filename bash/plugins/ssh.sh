@@ -25,7 +25,7 @@ function abcli_ssh() {
     local options="$4"
 
     if [ -z "$address" ] ; then
-        abcli_log_error "-abcli.ssh: address missing."
+        abcli_log_error "-abcli: ssh: address missing."
         return
     fi
 
@@ -56,6 +56,6 @@ function abcli_ssh() {
     elif [ "$kind" == "rpi" ] ; then
         ssh pi@$address.local
     else
-        abcli_log_error "-abcli.ssh: $kind: unknown kind."
+        abcli_log_error "-abcli: ssh: $kind: kind not found."
     fi
 }

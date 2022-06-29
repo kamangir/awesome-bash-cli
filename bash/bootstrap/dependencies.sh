@@ -1,7 +1,8 @@
 #! /usr/bin/env bash
 
 function abcli_source_dependencies() {
-    source $abcli_path_bash/bootstrap/consts.sh
+    source $abcli_path_bash/bootstrap/paths.sh
+    source $abcli_path_bash/bootstrap/system.sh
     source $abcli_path_bash/bootstrap/logging.sh
 
     local module_name

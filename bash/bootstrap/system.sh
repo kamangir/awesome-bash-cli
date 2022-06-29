@@ -1,14 +1,5 @@
 #! /usr/bin/env bash
 
-export abcli_path_abcli=$(python3 -c "import os;print(os.sep.join('$abcli_path_bash'.split(os.sep)[:-1]))")
-export abcli_path_git=$(python3 -c "import os;print(os.sep.join('$abcli_path_abcli'.split(os.sep)[:-1]))")
-export abcli_path_home=$(python3 -c "import os;print(os.sep.join('$abcli_path_git'.split(os.sep)[:-1]))")
-export abcli_path_storage="$abcli_path_home/storage"
-export abcli_object_root="$abcli_path_storage/abcli"
-export abcli_path_static="$abcli_path_abcli/hmi/static"
-
-mkdir -p $abcli_path_storage
-
 export abcli_is_64bit=false
 export abcli_is_amazon_linux=false
 export abcli_is_ec2=false
@@ -66,10 +57,18 @@ if [[ "$OSTYPE" == "linux-gnu" ]] ; then
     fi
 fi
 
-export abcli_wifi_ssid=""
+if [[ "$abcli_is_ec2" == true ]] ; then
+    source $abcli_path_home/.bashrc
+fi
 
-if [[ "$abcli_is_jetson" == true ]] ; then
-    # https://code.luasoftware.com/tutorials/jetson-nano/jetson-nano-connect-to-wifi-via-command-line/
-    abcli_wifi_ssid=$(iwgetid)
-    export abcli_wifi_ssid=$(python3 -c "print('$abcli_wifi_ssid'.split('\"')[1])")
+if [[ "$abcli_is_rpi" == true ]] ; then
+    if [[ "$abcli_is_lite" == false ]] ; then
+        # https://www.geeks3d.com/hacklab/20160108/how-to-disable-the-blank-screen-on-raspberry-pi-raspbian/
+        sudo xset s off
+        sudo xset -dpms
+        sudo xset s noblank
+
+        # wait for internet connection to establish
+        sleep 5
+    fi
 fi

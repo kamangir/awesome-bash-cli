@@ -47,5 +47,5 @@ function abcli_conda() {
         return
     fi
 
-    abcli_log_error "-abcli.conda: $task: command not found."
+    abcli_log_error "-abcli: conda: $task: command not found."
 }
