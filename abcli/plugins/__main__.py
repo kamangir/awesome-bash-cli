@@ -21,7 +21,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-delim = ", " if args.log else " " if args.delim == "space" else args.delim
+delim = " " if args.delim == "space" else args.delim
 
 success = False
 if args.task == "list_of_external":

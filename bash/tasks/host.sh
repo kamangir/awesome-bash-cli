@@ -203,7 +203,7 @@ function abcli_host() {
         local host_name=$3
 
         if [ "$tags" == "as" ] ; then
-            local tags=$(python3 -m abcli.tags tag_as --type $3)
+            local tags=$(python3 -m abcli.tags for_type --type $3)
             local host_name=$4
         fi
 

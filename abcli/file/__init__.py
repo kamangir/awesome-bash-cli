@@ -251,7 +251,7 @@ def list_of(template, recursive=False):
     Returns:
         List[str]: list of filenames.
     """
-    from . import path as abcli_path
+    from .. import path as abcli_path
 
     if isinstance(template, list):
         return reduce(
