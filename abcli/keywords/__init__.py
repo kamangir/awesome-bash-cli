@@ -10,6 +10,7 @@ keywords = {
     "--help": "help",
     "T": "terraform",
     "abcli": "awesome-bash-cli",
+    "am": "add_month",
     "bld": "build",
     "br": "browse",
     "cce": "create_conda_env",
