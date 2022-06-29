@@ -1,3 +1,3 @@
 from .. import *
 
-name = f"{shortname}.string"
+name = f"{shortname}.tags"

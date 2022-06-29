@@ -108,7 +108,7 @@ elif args.task == "search":
 elif args.task == "set":
     success = set_(args.object, args.tags)
 else:
-    logger.error('tags: unknown task "{}".'.format(args.task))
+    logger.error(f"-{name}: {args.task}: command not found.")
 
 if not success:
-    logger.error("tags({}): failed.".format(args.task))
+    logger.error(f"-{name}: {args.task}: failed.")
