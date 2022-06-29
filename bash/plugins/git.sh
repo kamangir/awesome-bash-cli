@@ -98,7 +98,7 @@ function abcli_git() {
         fi
 
         git add .
-        git commit -a -m "$abcli_fullname.git"
+        git commit -a -m "$abcli_fullname-git"
         git push
 
         if [ "$do_delete" == "1" ] ; then
