@@ -32,7 +32,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-success = args.task in "after,before,pretty_date,timestamp,today".split(",")
+success = args.task in list_of_tasks.split(",")
 if args.task == "after":
     print(after(args.string, args.substring))
 elif args.task == "before":

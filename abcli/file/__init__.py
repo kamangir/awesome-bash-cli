@@ -102,7 +102,13 @@ def auxiliary(nickname, extension, add_timestamp=True):
         "-".join(
             [nickname]
             + (
-                [string.pretty_date(as_filename=True, squeeze=True, unique=True)]
+                [
+                    string.pretty_date(
+                        as_filename=True,
+                        squeeze=True,
+                        unique=True,
+                    )
+                ]
                 if add_timestamp
                 else []
             )
