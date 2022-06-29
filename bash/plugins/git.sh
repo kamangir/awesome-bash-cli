@@ -100,12 +100,14 @@ function abcli_git() {
         git add .
         git commit -a -m "$abcli_fullname.git"
         git push
-        popd > /dev/null
 
         if [ "$do_delete" == "1" ] ; then
             abcli_log "deleting $repo_name"
+            cd ..
             rm -rf $repo_name
         fi
+
+        popd > /dev/null
 
         return
     fi
