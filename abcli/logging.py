@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 def crash_report(description):
 
-    logger.info("crash: {}".format(description))
+    logger.info(f"crash: {description}")
 
     # https://stackoverflow.com/a/10645855
     logging.error("exception ", exc_info=1)

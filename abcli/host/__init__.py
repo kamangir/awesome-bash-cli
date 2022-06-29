@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.string"
+name = f"{shortname}.host"
 
 arguments = {}
 
@@ -43,7 +43,7 @@ def get_name():
                 return line.strip().replace(chr(0), "")
 
     except:
-        crash_report(f"-{name}: get_name() failed")
+        crash_report(f"-{name}: get_name(): failed.")
 
     return random_output
 

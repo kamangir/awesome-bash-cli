@@ -133,7 +133,7 @@ def copy(source, destination, log=True):
         # https://stackoverflow.com/a/8858026
         shutil.copyfile(source, destination)
     except:
-        crash_report(f"-{name}: copy({source},{destination}) failed.")
+        crash_report(f"-{name}: copy({source},{destination}): failed.")
         return False
 
     if log:
@@ -172,7 +172,7 @@ def delete(filename):
 
         return True
     except:
-        crash_report(f"-{name}: delete({filename}) failed.")
+        crash_report(f"-{name}: delete({filename}): failed.")
         return False
 
 
@@ -202,7 +202,7 @@ def download(url, filename, overwrite=True):
         response.release_conn()  # not 100% sure this is required though
         return True
     except:
-        crash_report(f"-{name}: download({url},{filename}) failed.")
+        crash_report(f"-{name}: download({url},{filename}): failed.")
         return False
 
 
@@ -314,7 +314,7 @@ def load(filename, civilized=True, default={}):
         return True, data
     except:
         if not civilized:
-            crash_report(f"-{name}: load({filename}) failed.")
+            crash_report(f"-{name}: load({filename}): failed.")
 
         return False, data
 
@@ -347,7 +347,7 @@ def load_image(filename, civilized=True):
 
     except:
         if not civilized:
-            crash_report(f"-{name}: load_image({filename}) failed.")
+            crash_report(f"-{name}: load_image({filename}): failed.")
         success = False
 
     return success, image
@@ -375,7 +375,7 @@ def load_json(filename, civilized=True, default={}):
         success = True
     except:
         if not civilized:
-            crash_report(f"-{name}: load_json({filename}) failed.")
+            crash_report(f"-{name}: load_json({filename}): failed.")
 
     return success, data
 
@@ -406,7 +406,7 @@ def load_text(filename, civilized=True, count=-1):
                 text = [next(fp) for _ in range(count)]
     except:
         if not civilized:
-            crash_report(f"-{name}: load_text({filename}) failed.")
+            crash_report(f"-{name}: load_text({filename}): failed.")
 
     return success, text
 
@@ -428,7 +428,7 @@ def move(source, destination):
         # https://stackoverflow.com/a/8858026
         shutil.move(source, destination)
     except:
-        crash_report(f"-{name}: move({source},{destination}) failed.")
+        crash_report(f"-{name}: move({source},{destination}): failed.")
         return False
 
     return True
@@ -524,7 +524,7 @@ def save(filename, data):
         with open(filename, "wb") as fp:
             dill.dump(data, fp)
     except:
-        crash_report(f"-{name}: save({filename}) failed.")
+        crash_report(f"-{name}: save({filename}): failed.")
         return False
 
     return True
@@ -551,7 +551,7 @@ def save_csv(filename, data):
                     fh.write("%s\n" % str(row))
 
         except:
-            crash_report(f"-{name}: save_csv({filename}) failed.")
+            crash_report(f"-{name}: save_csv({filename}): failed.")
             success = False
 
     return success
@@ -588,7 +588,7 @@ def save_image(filename, image):
         return True
     except:
         crash_report(
-            f"-{name}: save_image({string.pretty_size_of_matrix(image)},{filename}) failed."
+            f"-{name}: save_image({string.pretty_size_of_matrix(image)},{filename}): failed."
         )
         return False
 
@@ -622,7 +622,7 @@ def save_json(filename, data):
 
         return True
     except:
-        crash_report(f"-{name}: save_json({filename}) failed.")
+        crash_report(f"-{name}: save_json({filename}): failed.")
         return False
 
 
@@ -683,7 +683,7 @@ def save_text(filename, text, if_different=False, remove_empty_lines=False):
 
         return True
     except:
-        crash_report(f"-{name}: save_text({filename}) failed.")
+        crash_report(f"-{name}: save_text({filename}): failed.")
         return False
 
 

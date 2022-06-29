@@ -365,5 +365,5 @@ def utc_timestamp(
             local_dt = local.localize(naive, is_dst=None)
             return local_dt.astimezone(pytz.utc).timestamp()
         except:
-            crash_report(f"-{name}: utc_timestamp({date},{format}) failed.")
+            crash_report(f"-{name}: utc_timestamp({date},{format}): failed.")
             return "unknown"
