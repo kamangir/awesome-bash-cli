@@ -26,6 +26,7 @@ keywords = {
     "rndr": "render",
     "sel": "select",
     "sl": "solid",
+    "tf": "training_framework",
     "tr": "train",
     "uf": "update_fork",
     "uk": "unpack_keyword",
