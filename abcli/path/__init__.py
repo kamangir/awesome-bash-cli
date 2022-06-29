@@ -42,7 +42,7 @@ def auxiliary(nickname, add_timestamp=True):
         str: auxiliary path.
     """
     path = os.path.join(
-        os.getenv("abcli_object_folder", "."),
+        os.getenv("abcli_object_path", "."),
         "auxiliary",
         "-".join(
             [nickname]
