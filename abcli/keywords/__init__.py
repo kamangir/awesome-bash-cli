@@ -16,6 +16,7 @@ keywords = {
     "cce": "create_conda_env",
     "det": "detect",
     "dl": "download",
+    "em": "earthdaily_mosaic",
     "eval": "evaluate",
     "id": "identify",
     "ing": "ingest",
