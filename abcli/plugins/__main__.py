@@ -11,7 +11,7 @@ parser.add_argument(
 parser.add_argument(
     "--delim",
     type=str,
-    default=", ",
+    default="space",
 )
 parser.add_argument(
     "--log",

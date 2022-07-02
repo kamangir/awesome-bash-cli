@@ -17,7 +17,7 @@ function abcli_help() {
 
     local plugin
     local filename
-    local external_plugins=$(abcli_external_plugins --delim space)
+    local external_plugins=$(abcli_external_plugins)
     for plugin in $(echo "$external_plugins" | tr _ -) ; do
         if [ -d "$abcli_path_git/$plugin" ] ; then
             for filename in $abcli_path_git/$plugin/abcli/*.sh ; do
