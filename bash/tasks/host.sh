@@ -33,13 +33,13 @@ function abcli_host() {
         abcli_log_list "$host_type_list" , "host type(s)"
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
-            python3 -m abcli.host --help
+            python3 -m abcli.tasks.host --help
         fi
         return
     fi
 
     if [ $task == "get" ] ; then
-        python3 -m abcli.host \
+        python3 -m abcli.tasks.host \
             get \
             --keyword "$2" \
             --name $(abcli_clarify_arg "$3" ".") \

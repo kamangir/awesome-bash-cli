@@ -7,5 +7,5 @@ function abcli_initialize() {
     git config --global user.name "kamangir"
     git config --global credential.helper store
 
-    export abcli_host_name=$(python3 -m abcli.host get --keyword name)
+    export abcli_host_name=$(python3 -m abcli.tasks.host get --keyword name)
 }
