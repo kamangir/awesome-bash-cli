@@ -1,9 +1,9 @@
 import os
 import random
 import string
-from .. import *
-from ..logging import crash_report
-from .. import logging
+from ... import *
+from ...logging import crash_report
+from ... import logging
 import logging
 
 logger = logging.getLogger(__name__)

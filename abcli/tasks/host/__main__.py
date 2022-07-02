@@ -1,7 +1,7 @@
 import argparse
 from . import *
-from ..plugins import tags
-from .. import logging
+from ...plugins import tags
+from ... import logging
 import logging
 
 logger = logging.getLogger(__name__)

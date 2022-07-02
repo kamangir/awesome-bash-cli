@@ -1,5 +1,5 @@
-from .. import *
-from .. import logging
+from ... import *
+from ... import logging
 import logging
 
 logger = logging.getLogger(__name__)
