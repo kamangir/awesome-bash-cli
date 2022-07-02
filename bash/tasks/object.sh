@@ -19,3 +19,28 @@ function abcli_clarify_object() {
 
     echo $object_name
 }
+
+function abcli_object() {
+    local task=$(abcli_unpack_keyword $1 help)
+
+    if [ "$task" == "help" ] ; then
+        abcli_help_line "object open" \
+            "open $abcli_object_name."
+        return
+    fi
+
+    if [ "$task" == "open" ] ; then
+        abcli_download
+
+        rm ../$abcli_object_name.tar.gz
+        aws s3 rm "s3://kamangir/abcli/$abcli_object_name.tar.gz"
+
+        abcli_tag set $abcli_object_name ~solid
+
+        abcli_upload open
+
+        return
+    fi
+
+    abcli_log_error "-abcli: object: $task: command not found."
+}
