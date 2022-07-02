@@ -1,7 +1,7 @@
 import argparse
 from . import *
 
-list_of_tasks = "after,before,pretty_date"
+list_of_tasks = "after,before,pretty_date,random"
 
 
 parser = argparse.ArgumentParser(name)
@@ -15,6 +15,11 @@ parser.add_argument(
     type=int,
     help="0/1",
     default=1,
+)
+parser.add_argument(
+    "--length",
+    type=int,
+    default=16,
 )
 parser.add_argument(
     "--string",
@@ -45,6 +50,8 @@ elif args.task == "pretty_date":
             unique=args.unique,
         )
     )
+if args.task == "random":
+    print(random_(args.length))
 else:
     print(f"-{name}: {args.task}: command not found")
 

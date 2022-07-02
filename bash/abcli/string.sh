@@ -16,6 +16,12 @@ function abcli_string_before() {
         ${@:3}
 }
 
+function abcli_string_random() {
+    python3 -m abcli.string \
+        random \
+        $@
+}
+
 function abcli_string_timestamp() {
     python3 -m abcli.string \
         pretty_date \

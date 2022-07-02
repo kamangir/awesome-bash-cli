@@ -2,7 +2,8 @@ import datetime
 from datetime import timezone
 import math
 import os
-from random import randrange
+import random
+import string
 import time
 from .. import *
 from ..logging import crash_report
@@ -167,7 +168,7 @@ def pretty_date(
         if include_seconds:
             format += ":%S"
     if unique:
-        format += f":{randrange(100000):05d}"
+        format += f":{random.randrange(100000):05d}"
     if as_filename:
         format = (
             format.replace(" ", "-")
@@ -332,6 +333,22 @@ def pretty_duration(
         output = "None"
 
     return ("-" if negative_duration else "") + output
+
+
+def random_(
+    length=16,
+    alphabet=string.ascii_lowercase + string.digits + string.ascii_uppercase,
+):
+    """generate random string.
+
+    Args:
+        length (int, optional): length. Defaults to 16.
+        alphabet (str, optional): alphabet. Defaults to string.ascii_lowercase+string.digits+string.ascii_uppercase.
+
+    Returns:
+        str: random string
+    """
+    return "".join(random.choice(alphabet) for _ in range(length))
 
 
 def utc_timestamp(

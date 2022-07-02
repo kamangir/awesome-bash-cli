@@ -2,6 +2,7 @@ import os
 import random
 import string
 from ... import *
+from ... import string
 from ...plugins import tags
 from ...logging import crash_report
 from ... import logging
@@ -15,9 +16,7 @@ arguments = {}
 
 
 def get_name():
-    random_output = "".join(
-        random.choice(string.ascii_lowercase + string.digits) for _ in range(5)
-    )
+    random_output = string.random_(5)
 
     if is_ec2():
         return os.getenv("abcli_ec2_instance_id", random_output)
