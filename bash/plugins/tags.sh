@@ -21,6 +21,7 @@ function abcli_tag() {
     if [ "$task" == "get" ] ; then
         python3 -m abcli.plugins.tags \
             get \
+            --item_name tag \
             --object "$object" \
             ${@:3}
         return
