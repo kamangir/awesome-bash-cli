@@ -21,13 +21,25 @@ function abcli_source_dependencies() {
             source $filename
         done
         popd > /dev/null
-
-        export abcli_host_tags=$(abcli_host get tags . --delim , --log 0)
-        local external_plugins=$(abcli_external_plugins --delim ,)
-
     done
 
+    export abcli_host_tags=$(abcli_host get tags . --delim , --log 0)
 
+    local external_plugins=$(abcli_external_plugins --delim ,)
+    export abcli_external_plugins=$(abcli_list_intersect $abcli_host_tags $external_plugins)
+
+    local plugin_name
+    for plugin_name in $(echo $abcli_external_plugins | tr , " ") ; do
+        abcli_log "loading $plugin_name"
+        local repo_name=$(echo "$plugin_name" | tr _ -)
+
+        pushd $abcli_path_git/$repo_name/abcli > /dev/null
+        local filename
+        for filename in *.sh ; do
+            source $filename
+        done
+        popd > /dev/null
+    done
 }
 
 
@@ -39,8 +51,4 @@ function abcli_source_dependencies() {
 # done
 # abcli_log_list "$plugin_names" space "plugin(s)" "loading "
 # 
-# local plugin_name
-# for plugin_name in $external_plugins ; do
-#     local repo_name=$(echo "$plugin_name" | tr _ -)
-#     local list_of_scripts="$list_of_scripts $(ls $abcli_path_git/$repo_name/abcli/*.sh)"
-# done
+
