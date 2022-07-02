@@ -32,12 +32,12 @@ function abcli_object() {
     if [ "$task" == "open" ] ; then
         abcli_download
 
-        rm ../$abcli_object_name.tar.gz
+        rm -v ../$abcli_object_name.tar.gz
         aws s3 rm "s3://kamangir/abcli/$abcli_object_name.tar.gz"
 
         abcli_tag set $abcli_object_name ~solid
 
-        abcli_upload open
+        abcli_upload
 
         return
     fi

@@ -21,6 +21,7 @@ keywords = {
     "id": "identify",
     "ing": "ingest",
     "ls": "list",
+    "obj": "object",
     "op": "open",
     "pk": "pack_keyword",
     "pr": "predict",
