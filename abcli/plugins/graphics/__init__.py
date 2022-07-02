@@ -35,8 +35,7 @@ def add_signature(image, header, footer=[]):
     return np.concatenate(
         [
             render_text(
-                None,
-                line,
+                text=line,
                 image_width=image.shape[1],
                 color_depth=image.shape[2],
             )
@@ -45,8 +44,7 @@ def add_signature(image, header, footer=[]):
         + [image]
         + [
             render_text(
-                None,
-                line,
+                text=line,
                 image_width=image.shape[1],
                 color_depth=image.shape[2],
             )
