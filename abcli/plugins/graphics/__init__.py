@@ -97,11 +97,13 @@ def render_text(
     Returns:
         np.ndarray: image.
     """
-    if image is None and image_width is None:
-        logger.error(f"-{name}: render_text(None): image_width is missing.")
-        return image
-    if not image.shape or len(image.shape) < 2:
-        return image
+    if image is None:
+        if image_width is None:
+            logger.error(f"-{name}: render_text(None): image_width is missing.")
+            return image
+    else:
+        if not image.shape or len(image.shape) < 2:
+            return image
 
     if not isinstance(font_color, list) and not isinstance(font_color, tuple):
         font_color = 3 * (font_color,)
