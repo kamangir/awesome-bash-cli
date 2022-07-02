@@ -52,9 +52,7 @@ function abcli_host() {
         abcli_log "loop started: $mode"
 
         while true; do
-            local list_of_tags=$(abcli_host get tags)
-
-            if [[ $(abcli_list_in main $list_of_tags) == "True" ]] ; then
+            if [[ $(abcli_list_in main $abcli_host_tags) == "True" ]] ; then
                 abcli_git . checkout main
             fi
 
@@ -71,7 +69,7 @@ function abcli_host() {
             abcli_select
 
             local found=false
-            local tags=$(echo "$list_of_tags" | tr , " ")
+            local tags=$(echo "$abcli_host_tags" | tr , " ")
             local external_plugins=$(abcli_external_plugins space)
             for tag in $tags ; do
                 if [ "$tag" == "void" ] && [ -z "$mode" ] ; then
@@ -108,7 +106,7 @@ function abcli_host() {
             if [ "$found" == false ] ; then
                 abcli_log "no instruction file, loop started."
 
-                abcli_tag set $abcli_object_name loop,$list_of_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,open,$(abcli_wifi_ssid)
+                abcli_tag set $abcli_object_name loop,$abcli_host_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,open,$(abcli_wifi_ssid)
 
                 if [[ "$abcli_is_rpi" == true ]] ; then
                     LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1 \
