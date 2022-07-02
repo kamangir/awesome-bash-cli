@@ -2,9 +2,9 @@ from functools import reduce
 import os
 import random
 import re
-from ..options import Options
-from ..table import Table
-from .. import logging
+from ...options import Options
+from ...table import Table
+from ... import logging
 import logging
 
 logger = logging.getLogger(__name__)

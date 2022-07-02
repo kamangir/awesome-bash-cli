@@ -1,6 +1,6 @@
 import argparse
 from . import *
-from .. import tags
+from ..plugins import tags
 from .. import logging
 import logging
 

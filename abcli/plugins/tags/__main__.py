@@ -1,7 +1,6 @@
 import argparse
 from . import *
 from .types import *
-from .utils import *
 from .. import logging
 import logging
 
@@ -66,7 +65,7 @@ parser.add_argument(
     "--tags",
     type=str,
     default="",
-    help="this,~that",
+    help="tag_1,~tag_2",
 )
 parser.add_argument(
     "--type",

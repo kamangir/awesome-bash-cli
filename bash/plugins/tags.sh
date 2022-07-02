@@ -9,17 +9,17 @@ function abcli_tag() {
             "get object_1 tags."
         abcli_help_line "tag search tag_1" \
             "search for all objects that are tagged tag_1."
-        abcli_help_line "tag set object_1,object_2 this,~that [validate]" \
-            "add this and remove that from object_1 and object_2 [and validate]."
+        abcli_help_line "tag set object_1,object_2 tag_1,~tag_2 [validate]" \
+            "add tag_1 and remove tag_2 from object_1 and object_2 [and validate]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
-            python3 -m abcli.tags --help
+            python3 -m abcli.plugins.tags --help
         fi
         return
     fi
 
     if [ "$task" == "get" ] ; then
-        python3 -m abcli.tags \
+        python3 -m abcli.plugins.tags \
             get \
             --object "$object" \
             ${@:3}
@@ -27,7 +27,7 @@ function abcli_tag() {
     fi
 
     if [ "$task" == "search" ] ; then
-        python3 -m abcli.tags \
+        python3 -m abcli.plugins.tags \
             search \
             --log 1 \
             --tags "$2" \
@@ -43,7 +43,7 @@ function abcli_tag() {
 
         local object
         for object in $object_list ; do
-            python3 -m abcli.tags \
+            python3 -m abcli.plugins.tags \
                 set \
                 --object $object \
                 --tags "$3" \

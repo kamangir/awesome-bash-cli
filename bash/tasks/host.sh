@@ -14,8 +14,8 @@ function abcli_host() {
             "reboot $abcli_host_name/host_name_1,host_name_2."
         abcli_help_line "abcli host shutdown [host_name_1,host_name_2]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "abcli host tag this,~that [host_name_1]" \
-            "tag [host_name_1] this,~that."
+        abcli_help_line "abcli host tag tag_1,~tag_2 [host_name_1]" \
+            "tag [host_name_1] tag_1,~tag_2."
         abcli_help_line "abcli host tag as host_type_1" \
             "tag [host_name_1] as host_type_1."
 
@@ -29,7 +29,7 @@ function abcli_host() {
         local host_tag_list=$(abcli_list_sort_non_empty_unique "$host_tag_list")
         abcli_log_list "$host_tag_list" , "host tag(s)"
 
-        local host_type_list=$(python3 -m abcli.tags list_of_types)
+        local host_type_list=$(python3 -m abcli.plugins.tags list_of_types --delim ,)
         abcli_log_list "$host_type_list" , "host type(s)"
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
@@ -108,7 +108,7 @@ function abcli_host() {
             if [ "$found" == false ] ; then
                 abcli_log "no instruction file, loop started."
 
-                abcli_tag set $abcli_asset_name loop,$list_of_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,open,$(abcli_wifi_ssid)
+                abcli_tag set $abcli_object_name loop,$list_of_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,open,$(abcli_wifi_ssid)
 
                 if [[ "$abcli_is_rpi" == true ]] ; then
                     LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1 \
@@ -203,7 +203,7 @@ function abcli_host() {
         local host_name=$3
 
         if [ "$tags" == "as" ] ; then
-            local tags=$(python3 -m abcli.tags for_type --type $3)
+            local tags=$(python3 -m abcli.plugins.tags for_type --type $3 --delim ,)
             local host_name=$4
         fi
 
