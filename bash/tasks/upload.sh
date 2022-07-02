@@ -14,7 +14,7 @@ function abcli_upload() {
     if [ -z "$exists" ]; then
         abcli_log_local "confirmed: $abcli_object_name does not exist."
     else
-        abcli_log_error "$abcli_object_name already exists."
+        abcli_log_error "-abcli: upload: $abcli_object_name already exists."
         return
     fi
 
