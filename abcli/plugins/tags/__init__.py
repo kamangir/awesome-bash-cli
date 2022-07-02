@@ -113,22 +113,20 @@ def search(
     list_of_keywords = None
     timestamp = {}
     for tag in included_tags:
-        query = (
-            "SELECT t.keyword,t.value,t.timestamp "
-            "FROM abcli.tags t "
-            "INNER JOIN ( "
-            "SELECT keyword, MAX(timestamp) AS max_timestamp "
-            "FROM abcli.tags "
-            'WHERE tag="{}" '.format(tag) + "GROUP BY keyword "
-            ") tm "
-            "ON t.keyword=tm.keyword AND t.timestamp=tm.max_timestamp "
-            'WHERE tag="{}"; '.format(tag)
-        )
-
         success, output = table.execute(
-            query,
+            (
+                "SELECT t.keyword,t.value,t.timestamp "
+                "FROM abcli.tags t "
+                "INNER JOIN ( "
+                "SELECT keyword, MAX(timestamp) AS max_timestamp "
+                "FROM abcli.tags "
+                f'WHERE tag="{tag}" GROUP BY keyword '
+                ") tm "
+                "ON t.keyword=tm.keyword AND t.timestamp=tm.max_timestamp "
+                f'WHERE tag="{tag}"; '
+            ),
             commit=False,
-            return_results=True,
+            returns_output=True,
         )
         if not success:
             list_of_keywords = []
@@ -141,12 +139,13 @@ def search(
                 if thing[1] == b"\x01":
                     timestamp[thing[0]] = thing[2]
 
-        if list_of_keywords is None:
-            list_of_keywords = list_of_keywords_
-        else:
-            list_of_keywords = [
+        list_of_keywords = (
+            list_of_keywords_
+            if list_of_keywords is None
+            else [
                 keyword for keyword in list_of_keywords if keyword in list_of_keywords_
             ]
+        )
 
     table.disconnect()
 
@@ -190,10 +189,13 @@ def search(
             keyword for keyword in list_of_keywords if not p.match(keyword)
         ]
 
-    if count > 0:
-        list_of_keywords = list_of_keywords[-count:]
-    elif count != -1:
-        list_of_keywords = []
+    list_of_keywords = (
+        list_of_keywords[-count:]
+        if count > 0
+        else []
+        if count != -1
+        else list_of_keywords
+    )
 
     return (list_of_keywords, timestamp) if return_timestamp else list_of_keywords
 

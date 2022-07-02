@@ -96,13 +96,11 @@ elif args.task == "list_of_types":
 elif args.task == "search":
     output = search(
         args.tags,
-        {
-            "after": args.after,
-            "before": args.before,
-            "count": args.count,
-            "host": args.host,
-            "shuffle": args.shuffle,
-        },
+        after=args.after,
+        before=args.before,
+        count=args.count,
+        host=args.host,
+        shuffle=args.shuffle,
     )
     success = True
 elif args.task == "set":
