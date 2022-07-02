@@ -10,8 +10,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-columns = "keyword,tag,value,timestamp".split(",")
-
 create_command = [
     "keyword VARCHAR(256) NOT NULL",
     "tag VARCHAR(4096) NOT NULL",
@@ -207,7 +205,10 @@ def set_(keyword, tags):
 
     success = True
     for tag in tags:
-        if not table.insert(columns, [keyword, tag, 1 if tags[tag] else 0]):
+        if not table.insert(
+            "keyword,tag,value".split(","),
+            [keyword, tag, 1 if tags[tag] else 0],
+        ):
             success = False
         else:
             if tags[tag]:
