@@ -1,9 +1,9 @@
 import os
 import os.path
 import pymysql
-from . import file
-from . import logging
-from .logging import crash_report
+from .. import file
+from .. import logging
+from ..logging import crash_report
 import logging
 
 logger = logging.getLogger(__name__)
