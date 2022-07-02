@@ -19,7 +19,7 @@ function abcli_list_len() {
 
 function abcli_list_nonempty() {
     python3 -m abcli.bash.list \
-        non_empty \
+        nonempty \
         --items "$1" \
         --delim "$2" \
         ${@:3}

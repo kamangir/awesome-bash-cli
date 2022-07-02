@@ -14,11 +14,24 @@ from .. import *
 name = f"{shortname}.tags"
 
 
-create_command = [
-    "keyword VARCHAR(256) NOT NULL",
-    "tag VARCHAR(4096) NOT NULL",
-    "value BIT NOT NULL",
-]
+def create():
+    """create the tags table.
+
+    Returns:
+        bool: success.
+    """
+    table = Table(name="tags")
+
+    if not table.connect(
+        [
+            "keyword VARCHAR(256) NOT NULL",
+            "tag VARCHAR(4096) NOT NULL",
+            "value BIT NOT NULL",
+        ]
+    ):
+        return False
+
+    return table.disconnect()
 
 
 def get(keyword):
@@ -32,7 +45,7 @@ def get(keyword):
     """
     table = Table(name="tags")
 
-    if not table.connect(create_command):
+    if not table.connect():
         return []
 
     success, output = table.execute(
@@ -95,7 +108,7 @@ def search(
 
     table = Table(name="tags")
 
-    table.connect(create_command)
+    table.connect()
 
     list_of_keywords = None
     timestamp = {}
@@ -202,7 +215,7 @@ def set_(keyword, tags):
     if isinstance(tags, str):
         tags = Options(tags)
 
-    if not table.connect(create_command):
+    if not table.connect():
         return False
 
     tags = {tag.strip(): value for tag, value in tags.items()}
