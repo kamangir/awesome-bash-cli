@@ -1,15 +1,19 @@
 #! /usr/bin/env bash
 
+function tag() {
+    abcli_tag $@
+}
+
 function abcli_tag() {
     local task=$(abcli_unpack_keyword $1 help)
     local object=$(abcli_clarify_object "$2" $abcli_object_name)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "tag get object_1" \
+        abcli_help_line "abcli tag get object_1" \
             "get object_1 tags."
-        abcli_help_line "tag search tag_1" \
+        abcli_help_line "abcli tag search tag_1" \
             "search for all objects that are tagged tag_1."
-        abcli_help_line "tag set object_1,object_2 tag_1,~tag_2 [validate]" \
+        abcli_help_line "abcli tag set object_1,object_2 tag_1,~tag_2 [validate]" \
             "add tag_1 and remove tag_2 from object_1 and object_2 [and validate]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
@@ -30,7 +34,6 @@ function abcli_tag() {
     if [ "$task" == "search" ] ; then
         python3 -m abcli.plugins.tags \
             search \
-            --log 1 \
             --tags "$2" \
             ${@:3}
         return
