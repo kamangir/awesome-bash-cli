@@ -23,6 +23,7 @@ function abcli_source_dependencies() {
         popd > /dev/null
 
         export abcli_host_tags=$(abcli_host get tags . --delim , --log 0)
+        local external_plugins=$(abcli_external_plugins --delim ,)
 
     done
 
@@ -30,7 +31,7 @@ function abcli_source_dependencies() {
 }
 
 
-# local external_plugins=$(abcli_external_plugins space)
+# 
 # 
 # local plugin_names="$external_plugins"
 # for script_filename in $list_of_scripts ; do
