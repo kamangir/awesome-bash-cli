@@ -104,20 +104,22 @@ def tensor_processing_signature():
 
         tensorflow_version = "TensorFlow {}".format(tensorflow.__version__)
     except:
-        pass
+        tensorflow_version = ""
 
     try:
         import tensorflow.keras as keras
 
         keras_version = "Keras {}".format(keras.__version__)
     except:
-        pass
+        keras_version = ""
+
     try:
         import tflite_runtime.interpreter as tflite
 
         tflite_version = "TensorFlow Lite"
     except:
-        pass
+        tflite_version = ""
+
     return [
         thing for thing in [tflite_version, tensorflow_version, keras_version] if thing
     ]
