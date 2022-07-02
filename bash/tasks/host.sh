@@ -106,7 +106,7 @@ function abcli_host() {
             if [ "$found" == false ] ; then
                 abcli_log "no instruction file, loop started."
 
-                abcli_tag set $abcli_object_name loop,$abcli_host_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,open,$(abcli_wifi_ssid)
+                abcli_tag set $abcli_object_name loop,$abcli_host_tags,$abcli_host_name,$(abcli_string_today),$abcli_fullname,open,$abcli_wifi_ssid
 
                 if [[ "$abcli_is_rpi" == true ]] ; then
                     LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1 \

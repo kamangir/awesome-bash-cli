@@ -2,13 +2,14 @@ import os
 import random
 import string
 from ... import *
+from ...plugins import tags
 from ...logging import crash_report
 from ... import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.host"
+name = f"{shortname}.tasks.host"
 
 arguments = {}
 
@@ -48,6 +49,19 @@ def get_name():
     return random_output
 
 
+host_tags = None
+
+
+def get_tags(cache=True):
+    global host_tags
+
+    if cache and host_tags is not None:
+        return host_tags
+
+    host_tags = tags.get(get_name())
+    return host_tags
+
+
 def is_ec2():
     return os.getenv("abcli_is_ec2", "false") == "true"
 
@@ -66,3 +80,44 @@ def is_rpi():
 
 def is_ubuntu():
     return os.getenv("abcli_is_ubuntu", "false") == "true"
+
+
+def signature():
+    import platform
+
+    return (
+        [fullname()]
+        + get_tags()
+        + [get_name()]
+        + tensor_processing_signature()
+        + [
+            "Python {}".format(platform.python_version()),
+            "{} {}".format(platform.system(), platform.release()),
+        ]
+        + (lambda x: [x] if x else [])(os.getenv("abcli_wifi_ssid"))
+    )
+
+
+def tensor_processing_signature():
+    try:
+        import tensorflow
+
+        tensorflow_version = "TensorFlow {}".format(tensorflow.__version__)
+    except:
+        pass
+
+    try:
+        import tensorflow.keras as keras
+
+        keras_version = "Keras {}".format(keras.__version__)
+    except:
+        pass
+    try:
+        import tflite_runtime.interpreter as tflite
+
+        tflite_version = "TensorFlow Lite"
+    except:
+        pass
+    return [
+        thing for thing in [tflite_version, tensorflow_version, keras_version] if thing
+    ]

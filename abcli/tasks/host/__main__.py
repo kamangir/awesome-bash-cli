@@ -1,6 +1,7 @@
 import argparse
 from . import *
 from ...plugins import tags
+from ... import file
 from ... import logging
 import logging
 
@@ -42,7 +43,7 @@ parser.add_argument(
 parser.add_argument(
     "--keyword",
     type=str,
-    help="name/tags",
+    help="name,tags",
 )
 args = parser.parse_args()
 
@@ -60,6 +61,23 @@ if args.task == "get":
     else:
         logger.error(f"-{name}: get: {args.keyword}: unknown keyword.")
         print("unknown")
+elif args.task == "sign":
+    success, image = file.load_image(args.filename)
+    if success:
+        from abcli.graphics import add_signature
+        from abcli.tasks.objects import signature as header
+
+        success = file.save_image(
+            args.filename,
+            add_signature(
+                image,
+                [" | ".join(header())],
+                [" | ".join(signature())],
+            ),
+        )
+
+    if success:
+        logger.info("host.sign({})".format(args.filename))
 else:
     logger.error(f"-{name}: {args.task}: command not found.")
 
