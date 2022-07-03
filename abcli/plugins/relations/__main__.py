@@ -13,14 +13,6 @@ parser.add_argument(
     help="get,list,search,set",
 )
 parser.add_argument(
-    "--object_1",
-    type=str,
-)
-parser.add_argument(
-    "--object_2",
-    type=str,
-)
-parser.add_argument(
     "--count",
     type=int,
     default=-1,
@@ -41,7 +33,16 @@ parser.add_argument(
     help="0/1",
 )
 parser.add_argument(
+    "--object_1",
+    type=str,
+)
+parser.add_argument(
+    "--object_2",
+    type=str,
+)
+parser.add_argument(
     "--relation",
+    default="",
     type=str,
 )
 parser.add_argument(
@@ -50,6 +51,8 @@ parser.add_argument(
     default=0,
 )
 args = parser.parse_args()
+
+delim = " " if args.delim == "space" else args.delim
 
 success = False
 if args.task == "get":
@@ -68,25 +71,17 @@ elif args.task == "list":
         print(thing)
     success = True
 elif args.task == "search":
-    success = True
-    output = {}
-    for object in args.object_1.split(","):
-        output_ = search(object, {"relation": args.relation})
-        for key in output_:
-            output[key] = output.get(key, []) + output_[key]
+    output = search(args.object_1, args.relation, args.count)
 
-    if args.return_list:
-        output = reduce(lambda x, y: x + y, output.values(), [])
-        if args.count != -1:
-            output = list(reversed(output))[: args.count]
+    if args.relation:
+        if args.log:
+            logger.info(f"{len(output):,} {args.item_name}(s): {delim.join(output)}")
+        else:
+            print(delim.join(output))
+    else:
+        print(output)
 
-    if args.filename:
-        success = file.save_json(args.filename, output)
-
-    if args.return_list:
-        output = (" " if args.delim == "space" else args.delim).join(output)
-
-    print(output)
+    success = file.save_json(args.filename, output) if args.filename else True
 elif args.task == "set":
     success = set_(args.object_1, args.object_2, args.relation)
 else:

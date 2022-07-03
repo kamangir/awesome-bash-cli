@@ -79,20 +79,23 @@ def get(object_1, object_2):
     return "" if not output else output[-1][0]
 
 
-def search(object, relation=""):
+def search(object, relation="", count=-1):
     """search for relations.
 
     Args:
         object (str): object
         relation (str, optional): only this relation. Defaults to "".
+        count (int, optional): return count, only relevant if relation. Defaults to -1 (all).
 
     Returns:
         Any: {"relation_1": ["object_1","object_2"], "relation_2": ["object_3" ,"object_4"]} or ["object_1", "object_2"] if relation is given.
     """
     table = Table(name="relations")
 
+    output = [] if relation else {}
+
     if not table.connect():
-        return {}
+        return output
 
     success, output_right = table.execute(
         "SELECT r.relation, r.object_2 "
@@ -120,10 +123,10 @@ def search(object, relation=""):
         f'WHERE object_2="{object}"; '
     )
     if not success:
-        return {}
+        return output
 
     if not table.disconnect():
-        return {}
+        return output
 
     raw_output = {thing[1]: thing[0] for thing in output_right}
     raw_output.update({thing[1]: inverse_of[thing[0]] for thing in output_left})
@@ -131,10 +134,18 @@ def search(object, relation=""):
     raw_output = {thing: relation for thing, relation in raw_output.items() if relation}
 
     output = {}
-    for object_, relation in raw_output.items():
-        output[relation] = output.get(relation, []) + [object_]
+    for object_, relation_ in raw_output.items():
+        output[relation_] = output.get(relation_, []) + [object_]
 
-    return output.get(relation, []) if relation else output
+    if not relation:
+        return output
+
+    output = output.get(relation, [])
+
+    if count != -1:
+        output = output[-count:]
+
+    return output
 
 
 def set_(object_1, object_2, relation):
