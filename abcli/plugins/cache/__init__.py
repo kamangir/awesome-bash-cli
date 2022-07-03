@@ -220,7 +220,7 @@ def write(keyword, value):
         return False
 
     success = table.execute(
-        f"INSERT INTO abcli.cache (keyword, value, log_id) VALUES ('{keyword}','{value}');"
+        f"INSERT INTO abcli.cache (keyword, value) VALUES ('{keyword}','{value}');"
     )
 
     if success:
