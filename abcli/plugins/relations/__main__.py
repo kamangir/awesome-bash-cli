@@ -27,6 +27,11 @@ parser.add_argument(
     type=str,
 )
 parser.add_argument(
+    "--item_name",
+    default="object",
+    type=str,
+)
+parser.add_argument(
     "--log",
     default=1,
     type=int,
