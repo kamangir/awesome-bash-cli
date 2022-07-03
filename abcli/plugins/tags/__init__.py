@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 from .. import *
 
-name = f"{shortname}.tags"
+name = f"{shortname}.plugins.tags"
 
 
 def create():
