@@ -22,17 +22,13 @@ def create():
     Returns:
         bool: success.
     """
-    table = Table(name="cache")
-
-    if not table.connect(
+    return Table.Create(
+        "cache",
         [
             "keyword VARCHAR(1024) NOT NULL",
             "value VARCHAR(4096) NOT NULL",
-        ]
-    ):
-        return False
-
-    return table.disconnect()
+        ],
+    )
 
 
 def clone(source, destination):
@@ -83,34 +79,35 @@ def read(keyword, all=False, dataframe=False, like=False, unique=False):
     if not table.connect():
         return None
 
-    query = (
+    success, output = table.execute(
         (
-            "SELECT {} FROM ".format(
-                ",".join(["c.{}".format(column) for column in columns])
-            )
-            + "abcli.cache c "
-        )
-        + (
             (
-                "INNER JOIN ( "
-                "SELECT keyword, MAX(timestamp) AS max_timestamp "
-                "From abcli.cache "
-                "GROUP BY keyword "
-                ") cm ON c.keyword = cm.keyword AND c.timestamp = cm.max_timestamp "
+                "SELECT {} FROM ".format(
+                    ",".join(["c.{}".format(column) for column in columns])
+                )
+                + "abcli.cache c "
             )
-            if unique
-            else ""
-        )
-        + (
-            "WHERE c.keyword {} '{}' ".format("like" if like else "=", keyword)
-            + "ORDER BY c.timestamp DESC "
-            + "{};".format(
-                "" if all else "LIMIT 1",
+            + (
+                (
+                    "INNER JOIN ( "
+                    "SELECT keyword, MAX(timestamp) AS max_timestamp "
+                    "From abcli.cache "
+                    "GROUP BY keyword "
+                    ") cm ON c.keyword = cm.keyword AND c.timestamp = cm.max_timestamp "
+                )
+                if unique
+                else ""
             )
-        )
+            + (
+                "WHERE c.keyword {} '{}' ".format("like" if like else "=", keyword)
+                + "ORDER BY c.timestamp DESC "
+                + "{};".format(
+                    "" if all else "LIMIT 1",
+                )
+            )
+        ),
+        returns_output=True,
     )
-
-    success, output = table.execute(query, commit=False, returns_output=True)
     if not success:
         return None
 
@@ -158,7 +155,6 @@ def search(keyword):
             f"WHERE keyword like '{keyword}' "
             "ORDER BY timestamp ASC;"
         ),
-        commit=False,
         returns_output=True,
     )
 
@@ -188,7 +184,6 @@ def search_value(value):
             f"WHERE value = '{value}' "
             "ORDER BY timestamp DESC;"
         ),
-        commit=False,
         returns_output=True,
     )
 

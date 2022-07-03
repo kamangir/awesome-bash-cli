@@ -50,11 +50,26 @@ class Table(object):
 
         return True if not create_command else self.create(create_command)
 
+    @staticmethod
+    def Create(table_name, create_command):
+        """create table_name.
+
+        Args:
+            table_name (str): table name.
+            create_command (List[str]): create command.
+
+        Returns:
+            bool: success
+        """
+        table = Table(name=table_name)
+
+        return table.disconnect() if table.connect(create_command) else False
+
     def create(self, create_command):
         """create self.
 
         Args:
-            create_command (str): create command.
+            create_command (List[str]): create command.
 
         Returns:
             bool: success.
@@ -101,12 +116,11 @@ class Table(object):
         """
         return self.execute(f"DROP table {self.name};")
 
-    def execute(self, sql, commit=True, returns_output=False):
+    def execute(self, sql, returns_output=False):
         """execute sql command.
 
         Args:
             sql (str): sql command.
-            commit (bool, True): this command causes a change, commit. Defaults to True.
             returns_output (bool, optional): this command returns some output. Defaults to False.
 
         Returns:
@@ -125,7 +139,7 @@ class Table(object):
                 if returns_output:
                     output = cursor.fetchall()
 
-                if commit:
+                if not returns_output:
                     # connection is not autocommit by default. So you must commit to save
                     # your changes.
                     self.connection.commit()

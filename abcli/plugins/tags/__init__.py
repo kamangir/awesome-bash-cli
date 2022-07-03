@@ -20,18 +20,14 @@ def create():
     Returns:
         bool: success.
     """
-    table = Table(name="tags")
-
-    if not table.connect(
+    return Table.Create(
+        "tags",
         [
             "keyword VARCHAR(256) NOT NULL",
             "tag VARCHAR(4096) NOT NULL",
             "value BIT NOT NULL",
-        ]
-    ):
-        return False
-
-    return table.disconnect()
+        ],
+    )
 
 
 def get(keyword):
@@ -58,7 +54,6 @@ def get(keyword):
         ") tm "
         "ON t.tag=tm.tag AND t.timestamp=tm.max_timestamp "
         f'WHERE keyword="{keyword}";',
-        commit=False,
         returns_output=True,
     )
 
@@ -125,7 +120,6 @@ def search(
                 "ON t.keyword=tm.keyword AND t.timestamp=tm.max_timestamp "
                 f'WHERE tag="{tag}"; '
             ),
-            commit=False,
             returns_output=True,
         )
         if not success:

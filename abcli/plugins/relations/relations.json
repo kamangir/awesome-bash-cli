@@ -1,0 +1,9 @@
+{
+  "added-to": "contains",
+  "cloned": "cloned-by",
+  "evaluation-of": "evaluated-in",
+  "ingested": "ingested-by",
+  "predicted": "predicted-by",
+  "produced": "produced-from",
+  "trained": "trained-on"
+}
