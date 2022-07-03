@@ -60,18 +60,15 @@ def get(object_1, object_2):
         return ""
 
     success, output = table.execute(
-        (
-            "SELECT r.relation "
-            "FROM abcli.relations r "
-            "INNER JOIN ( "
-            "SELECT MAX(timestamp) AS max_timestamp "
-            "FROM abcli.relations "
-            f'WHERE object_1="{object_1}" AND object_2="{object_2}" '
-            ") rm "
-            "ON r.timestamp=rm.max_timestamp "
-            f'WHERE object_1="{object_1}" AND object_2="{object_2}";'
-        ),
-        returns_output=True,
+        "SELECT r.relation "
+        "FROM abcli.relations r "
+        "INNER JOIN ( "
+        "SELECT MAX(timestamp) AS max_timestamp "
+        "FROM abcli.relations "
+        f'WHERE object_1="{object_1}" AND object_2="{object_2}" '
+        ") rm "
+        "ON r.timestamp=rm.max_timestamp "
+        f'WHERE object_1="{object_1}" AND object_2="{object_2}";'
     )
     if not success:
         return ""
@@ -98,35 +95,29 @@ def search(object, relation=""):
         return {}
 
     success, output_right = table.execute(
-        (
-            "SELECT r.relation, r.object_2 "
-            "FROM abcli.relations r "
-            "INNER JOIN (  "
-            "SELECT object_2, MAX(timestamp) AS max_timestamp "
-            "FROM abcli.relations "
-            f'WHERE object_1="{object}" GROUP BY object_2'
-            ") rm  "
-            "ON r.timestamp=rm.max_timestamp "
-            f'WHERE object_1="{object}"; '
-        ),
-        returns_output=True,
+        "SELECT r.relation, r.object_2 "
+        "FROM abcli.relations r "
+        "INNER JOIN (  "
+        "SELECT object_2, MAX(timestamp) AS max_timestamp "
+        "FROM abcli.relations "
+        f'WHERE object_1="{object}" GROUP BY object_2'
+        ") rm  "
+        "ON r.timestamp=rm.max_timestamp "
+        f'WHERE object_1="{object}"; '
     )
     if not success:
         return {}
 
     success, output_left = table.execute(
-        (
-            "SELECT r.relation, r.object_1 "
-            "FROM abcli.relations r "
-            "INNER JOIN (  "
-            "SELECT object_1, MAX(timestamp) AS max_timestamp "
-            "FROM abcli.relations "
-            f'WHERE object_2="{object}" GROUP BY object_1'
-            ") rm  "
-            "ON r.timestamp=rm.max_timestamp "
-            f'WHERE object_2="{object}"; '
-        ),
-        returns_output=True,
+        "SELECT r.relation, r.object_1 "
+        "FROM abcli.relations r "
+        "INNER JOIN (  "
+        "SELECT object_1, MAX(timestamp) AS max_timestamp "
+        "FROM abcli.relations "
+        f'WHERE object_2="{object}" GROUP BY object_1'
+        ") rm  "
+        "ON r.timestamp=rm.max_timestamp "
+        f'WHERE object_2="{object}"; '
     )
     if not success:
         return {}
@@ -169,12 +160,9 @@ def set_(object_1, object_2, relation):
     if not table.connect():
         return False
 
-    if not table.execute(
-        (
-            "INSERT INTO abcli.relations "
-            "(object_1, object_2, relation) "
-            f"VALUES ('{object_1}', '{object_2}', '{relation}');"
-        )
+    if not table.insert(
+        ["object_1", "object_2", "relation"],
+        [object_1, object_2, relation],
     ):
         return False
 

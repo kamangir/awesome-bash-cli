@@ -54,7 +54,6 @@ def get(keyword):
         ") tm "
         "ON t.tag=tm.tag AND t.timestamp=tm.max_timestamp "
         f'WHERE keyword="{keyword}";',
-        returns_output=True,
     )
 
     if success:
@@ -109,18 +108,15 @@ def search(
     timestamp = {}
     for tag in included_tags:
         success, output = table.execute(
-            (
-                "SELECT t.keyword,t.value,t.timestamp "
-                "FROM abcli.tags t "
-                "INNER JOIN ( "
-                "SELECT keyword, MAX(timestamp) AS max_timestamp "
-                "FROM abcli.tags "
-                f'WHERE tag="{tag}" GROUP BY keyword '
-                ") tm "
-                "ON t.keyword=tm.keyword AND t.timestamp=tm.max_timestamp "
-                f'WHERE tag="{tag}"; '
-            ),
-            returns_output=True,
+            "SELECT t.keyword,t.value,t.timestamp "
+            "FROM abcli.tags t "
+            "INNER JOIN ( "
+            "SELECT keyword, MAX(timestamp) AS max_timestamp "
+            "FROM abcli.tags "
+            f'WHERE tag="{tag}" GROUP BY keyword '
+            ") tm "
+            "ON t.keyword=tm.keyword AND t.timestamp=tm.max_timestamp "
+            f'WHERE tag="{tag}"; '
         )
         if not success:
             list_of_keywords = []

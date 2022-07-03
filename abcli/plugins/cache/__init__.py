@@ -81,32 +81,29 @@ def read(keyword, all=False, dataframe=False, like=False, unique=False):
 
     success, output = table.execute(
         (
+            "SELECT {} FROM ".format(
+                ",".join(["c.{}".format(column) for column in columns])
+            )
+            + "abcli.cache c "
+        )
+        + (
             (
-                "SELECT {} FROM ".format(
-                    ",".join(["c.{}".format(column) for column in columns])
-                )
-                + "abcli.cache c "
+                "INNER JOIN ( "
+                "SELECT keyword, MAX(timestamp) AS max_timestamp "
+                "From abcli.cache "
+                "GROUP BY keyword "
+                ") cm ON c.keyword = cm.keyword AND c.timestamp = cm.max_timestamp "
             )
-            + (
-                (
-                    "INNER JOIN ( "
-                    "SELECT keyword, MAX(timestamp) AS max_timestamp "
-                    "From abcli.cache "
-                    "GROUP BY keyword "
-                    ") cm ON c.keyword = cm.keyword AND c.timestamp = cm.max_timestamp "
-                )
-                if unique
-                else ""
+            if unique
+            else ""
+        )
+        + (
+            "WHERE c.keyword {} '{}' ".format("like" if like else "=", keyword)
+            + "ORDER BY c.timestamp DESC "
+            + "{};".format(
+                "" if all else "LIMIT 1",
             )
-            + (
-                "WHERE c.keyword {} '{}' ".format("like" if like else "=", keyword)
-                + "ORDER BY c.timestamp DESC "
-                + "{};".format(
-                    "" if all else "LIMIT 1",
-                )
-            )
-        ),
-        returns_output=True,
+        )
     )
     if not success:
         return None
@@ -150,12 +147,9 @@ def search(keyword):
         return {}
 
     success, output = table.execute(
-        (
-            "SELECT keyword,value FROM abcli.cache "
-            f"WHERE keyword like '{keyword}' "
-            "ORDER BY timestamp ASC;"
-        ),
-        returns_output=True,
+        "SELECT keyword,value FROM abcli.cache "
+        f"WHERE keyword like '{keyword}' "
+        "ORDER BY timestamp ASC;"
     )
 
     if success:
@@ -179,12 +173,9 @@ def search_value(value):
         return []
 
     success, output = table.execute(
-        (
-            "SELECT keyword,value FROM abcli.cache "
-            f"WHERE value = '{value}' "
-            "ORDER BY timestamp DESC;"
-        ),
-        returns_output=True,
+        "SELECT keyword,value FROM abcli.cache "
+        f"WHERE value = '{value}' "
+        "ORDER BY timestamp DESC;"
     )
 
     if success:
@@ -214,9 +205,7 @@ def write(keyword, value):
     if not table.connect():
         return False
 
-    success = table.execute(
-        f"INSERT INTO abcli.cache (keyword, value) VALUES ('{keyword}','{value}');"
-    )
+    success = table.inset(["keyword", "value"], [keyword, value])
 
     if success:
         success = table.disconnect()

@@ -116,12 +116,13 @@ class Table(object):
         """
         return self.execute(f"DROP table {self.name};")
 
-    def execute(self, sql, returns_output=False):
+    def execute(self, sql, commit=False, returns_output=True):
         """execute sql command.
 
         Args:
             sql (str): sql command.
-            returns_output (bool, optional): this command returns some output. Defaults to False.
+            commit (bool, optional): commit changes. Defaults to False.
+            returns_output (bool, optional): return output. Defaults to True.
 
         Returns:
             bool: success.
@@ -139,7 +140,7 @@ class Table(object):
                 if returns_output:
                     output = cursor.fetchall()
 
-                if not returns_output:
+                if commit:
                     # connection is not autocommit by default. So you must commit to save
                     # your changes.
                     self.connection.commit()
@@ -169,22 +170,7 @@ class Table(object):
                 + ", ".join(len(columns) * ["%s"])
                 + ")",
                 values,
-            )
-        )
-
-    def read(self, columns, condition):
-        """read data from self.
-
-        Args:
-            columns (List[str]): list of column to read.
-            condition (str): condition.
-
-        Returns:
-            bool: success
-            List[Any]: content that is read from self.
-        """
-        return self.execute(
-            f"SELECT {', '.join(columns)} FROM {self.name} WHERE {condition}",
-            commit=False,
+            ),
+            commit=True,
             returns_output=True,
         )
