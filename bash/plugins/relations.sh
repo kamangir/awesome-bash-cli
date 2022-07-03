@@ -30,7 +30,7 @@ function abcli_relation() {
     fi
 
     if [ "$task" == "get" ] ; then
-        python3 -m abcli.relations \
+        python3 -m abcli.plugins.relations \
             get \
             --object_1 "$object_1" \
             --object_2 "$object_2" \
@@ -39,14 +39,14 @@ function abcli_relation() {
     fi
 
     if [ "$task" == "list" ] ; then
-        python3 -m abcli.relations \
+        python3 -m abcli.plugins.relations \
             list \
             ${@:2}
         return
     fi
 
     if [ "$task" == "search" ] ; then
-        python3 -m abcli.relations \
+        python3 -m abcli.plugins.relations \
             search \
             --object_1 "$object_1" \
             ${@:3}
@@ -57,7 +57,7 @@ function abcli_relation() {
         local options="$5"
         local do_validate=$(abcli_option_int "$options" "validate" 0)
 
-        python3 -m abcli.relations \
+        python3 -m abcli.plugins.relations \
             set \
             --object_1 "$object_1" \
             --object_2 "$object_2" \
