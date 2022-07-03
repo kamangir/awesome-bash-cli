@@ -9,13 +9,13 @@ function abcli_relation() {
     local object_1=$(abcli_clarify_object "$2" $abcli_object_name)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "relation get object_1 object_2" \
+        abcli_help_line "abcli relation get object_1 object_2" \
             "get relation between object_1 and object_2."
-        abcli_help_line "relation list" \
+        abcli_help_line "abcli relation list" \
             "list possible relations."
-        abcli_help_line "relation search object_1 [--relation relation_1]" \
+        abcli_help_line "abcli relation search object_1 [--relation relation_1]" \
             "search for all relations of/relation_1 to object_1."
-        abcli_help_line "relation set object_1 object_2 relation_1 [validate]" \
+        abcli_help_line "abcli relation set object_1 object_2 relation_1 [validate]" \
             "set object_1 =relation_1=> object_2 [and validate]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
