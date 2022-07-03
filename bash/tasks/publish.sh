@@ -4,8 +4,8 @@ function abcli_publish() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "publish object_1 [safe]" \
-            "publish object_1 [safely]."
+        abcli_help_line "publish object_1 [random_url]" \
+            "publish object_1 [and randmoize public url]."
         abcli_help_line "publish object_1 .mp4" \
             "publish every .mp4 in object_1."
         abcli_help_line "publish object_1 filename_1 [othername]" \
@@ -24,12 +24,12 @@ function abcli_publish() {
         local othername=$filename
     fi
 
-    if [ -z "$filename" ] || [ "$filename" == "safe" ] ; then
+    if [ -z "$filename" ] || [ "$filename" == "random_url" ] ; then
         abcli_log "publishing $object_name"
 
         local abcli_object_name_current=$abcli_object_name
 
-        if [ "$filename" == "safe" ] ; then
+        if [ "$filename" == "random_url" ] ; then
             local public_object_name=$(abcli_string_random --length 64)
         else
             local public_object_name=$object_name-published
