@@ -24,6 +24,30 @@ list_of = sorted(list(set(list(inverse_of.keys()) + list(inverse_of.values()))))
 columns = "object_1,object_2,relation,timestamp".split(",")
 
 
+def clone(object_1, object_2):
+    """clone object_1 relations -> object_2.
+
+    Args:
+        object_1 (str): object 1.
+        object_2 (str): object 2.
+
+    Returns:
+        bool: success
+    """
+    return reduce(
+        lambda x, y: x and y,
+        [
+            reduce(
+                lambda x, y: x and y,
+                [set_(object_2, object, relation) for object in object_list],
+                True,
+            )
+            for relation, object_list in search(object_1).items()
+        ],
+        True,
+    )
+
+
 def create():
     """create the relations table.
 

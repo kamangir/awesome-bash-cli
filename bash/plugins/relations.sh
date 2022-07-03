@@ -34,8 +34,8 @@ function abcli_relation() {
     if [ "$task" == "clone" ] ; then
         python3 -m abcli.plugins.relations \
             clone \
-            --object_1 object_1 \
-            --object_2 object_2 \
+            --object_1 $object_1 \
+            --object_2 $object_2 \
             ${@:4}
         return
     fi
@@ -43,8 +43,8 @@ function abcli_relation() {
     if [ "$task" == "get" ] ; then
         python3 -m abcli.plugins.relations \
             get \
-            --object_1 object_1 \
-            --object_2 object_2 \
+            --object_1 $object_1 \
+            --object_2 $object_2 \
             ${@:4}
         return
     fi
@@ -59,7 +59,7 @@ function abcli_relation() {
     if [ "$task" == "search" ] ; then
         python3 -m abcli.plugins.relations \
             search \
-            --object_1 object_1 \
+            --object_1 $object_1 \
             ${@:3}
         return
     fi
@@ -70,9 +70,9 @@ function abcli_relation() {
 
         python3 -m abcli.plugins.relations \
             set \
-            --object_1 object_1 \
-            --object_2 object_2 \
-            --relation "$4" \
+            --object_1 $object_1 \
+            --object_2 $object_2 \
+            --relation $4 \
             ${@:6}
 
         if [ "$do_validate" == "1" ] ; then
