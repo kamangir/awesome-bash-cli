@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.plugins.tags"
+name = f"{shortname}.plugins.relations"
 
 _, inverse_of = file.load_json(
     os.path.join(
