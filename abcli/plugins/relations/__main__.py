@@ -56,9 +56,7 @@ if args.task == "get":
     relation = get(args.object_1, args.object_2)
     if args.log:
         logger.info(
-            f"{args.object_1} -{relation}-> {args.object_2}"
-            if relation
-            else f"{args.object_1} ->no relation found<- {args.object_2}"
+            f"{args.object_1} -{f'{relation}->' if relation else 'X-'} {args.object_2}"
         )
     else:
         print(relation)

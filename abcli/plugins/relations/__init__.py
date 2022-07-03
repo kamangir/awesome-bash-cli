@@ -169,10 +169,6 @@ def set_(object_1, object_2, relation):
     if not table.disconnect():
         return False
 
-    logger.info(
-        "relation: {} -{}-> {}".format(
-            object_1, relation if relation else "X", object_2
-        )
-    )
+    logger.info("{} ={}=> {}".format(object_1, relation if relation else "X", object_2))
 
     return True
