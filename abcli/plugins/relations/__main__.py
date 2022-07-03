@@ -35,6 +35,12 @@ parser.add_argument(
     type=str,
 )
 parser.add_argument(
+    "--log",
+    default=1,
+    type=int,
+    help="0/1",
+)
+parser.add_argument(
     "--relation",
     type=str,
 )
@@ -47,7 +53,15 @@ args = parser.parse_args()
 
 success = False
 if args.task == "get":
-    print(get(args.object_1, args.object_2))
+    relation = get(args.object_1, args.object_2)
+    if args.log:
+        logger.info(
+            f"{args.object_1} -{relation}-> {args.object_2}"
+            if relation
+            else "no relation found."
+        )
+    else:
+        print(relation)
     success = True
 elif args.task == "list":
     for thing in sorted(
