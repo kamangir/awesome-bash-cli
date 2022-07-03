@@ -68,3 +68,5 @@ function abcli_cache() {
 
     abcli_log_error "-abcli: cache: $task: command not found."
 }
+
+python3 -m abcli.plugins.cache create

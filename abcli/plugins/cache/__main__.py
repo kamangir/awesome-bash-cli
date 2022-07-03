@@ -10,7 +10,7 @@ parser.add_argument(
     "task",
     type=str,
     default="read",
-    help="clone,read,search,write",
+    help="clone,create,read,search,write",
 )
 parser.add_argument(
     "--all",
@@ -57,6 +57,8 @@ args = parser.parse_args()
 success = False
 if args.task == "clone":
     success = clone(args.source, args.destination)
+elif args.task == "create":
+    success = create()
 elif args.task == "read":
     output = read(
         args.keyword,

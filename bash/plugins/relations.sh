@@ -73,3 +73,5 @@ function abcli_relation() {
 
     abcli_log_error "-abcli: relation: $task: command not found."
 }
+
+python3 -m abcli.plugins.relations create

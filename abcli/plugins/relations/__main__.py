@@ -10,7 +10,7 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="get,list,search,set",
+    help="create,get,list,search,set",
 )
 parser.add_argument(
     "--count",
@@ -60,7 +60,9 @@ args = parser.parse_args()
 delim = " " if args.delim == "space" else args.delim
 
 success = False
-if args.task == "get":
+if args.task == "create":
+    success = create()
+elif args.task == "get":
     relation = get(args.object_1, args.object_2)
     if args.log:
         logger.info(
