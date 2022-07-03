@@ -11,18 +11,13 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="for_type,get,list_of_types,search,set",
+    help="clone,for_type,get,list_of_types,search,set",
 )
 parser.add_argument(
     "--after",
     type=str,
     default="",
     help="123-4-e",
-)
-parser.add_argument(
-    "--object",
-    type=str,
-    default=None,
 )
 parser.add_argument(
     "--before",
@@ -57,6 +52,16 @@ parser.add_argument(
     help="0/1",
 )
 parser.add_argument(
+    "--object",
+    type=str,
+    default="",
+)
+parser.add_argument(
+    "--object_2",
+    type=str,
+    default="",
+)
+parser.add_argument(
     "--shuffle",
     default=0,
     type=int,
@@ -84,7 +89,9 @@ delim = " " if args.delim == "space" else args.delim
 
 success = False
 output = None
-if args.task == "for_type":
+if args.tasj == "clone":
+    success = clone(args.object, args.object_2)
+elif args.task == "for_type":
     output = host_type.get(args.type, [])
     success = True
 elif args.task == "get":

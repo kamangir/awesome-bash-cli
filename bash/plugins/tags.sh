@@ -9,6 +9,8 @@ function abcli_tag() {
     local object=$(abcli_clarify_object "$2" $abcli_object_name)
 
     if [ "$task" == "help" ] ; then
+        abcli_help_line "abcli tag clone object_1 object_2" \
+            "clone object_1 tags -> object_2."
         abcli_help_line "abcli tag get object_1" \
             "get object_1 tags."
         abcli_help_line "abcli tag search tag_1" \
@@ -22,11 +24,20 @@ function abcli_tag() {
         return
     fi
 
+    if [ "$task" == "clone" ] ; then
+        python3 -m abcli.plugins.tags \
+            clone \
+            --object $object \
+            --object_2 $(abcli_clarify_object "$3" $abcli_object_name) \
+            ${@:4}
+        return
+    fi
+
     if [ "$task" == "get" ] ; then
         python3 -m abcli.plugins.tags \
             get \
             --item_name tag \
-            --object "$object" \
+            --object $object \
             ${@:3}
         return
     fi
@@ -34,23 +45,21 @@ function abcli_tag() {
     if [ "$task" == "search" ] ; then
         python3 -m abcli.plugins.tags \
             search \
-            --tags "$2" \
+            --tags $2 \
             ${@:3}
         return
     fi
 
     if [ "$task" == "set" ] ; then
-        local object_list=$(echo "$object" | tr , " ")
-
         local options="$4"
         local do_validate=$(abcli_option_int "$options" "validate" 0)
 
         local object
-        for object in $object_list ; do
+        for object in $(echo "$object" | tr , " ") ; do
             python3 -m abcli.plugins.tags \
                 set \
                 --object $object \
-                --tags "$3" \
+                --tags $3 \
                 ${@:5}
 
             if [ "$do_validate" == "1" ] ; then

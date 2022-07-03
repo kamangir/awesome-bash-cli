@@ -14,6 +14,19 @@ from .. import *
 name = f"{shortname}.plugins.tags"
 
 
+def clone(object_1, object_2):
+    """clone object_1 tags -> object_2.
+
+    Args:
+        object_1 (str): object 1.
+        object_2 (str): object 2.
+
+    Returns:
+        bool: success
+    """
+    return set_(object_2, get(object_1))
+
+
 def create():
     """create the tags table.
 
