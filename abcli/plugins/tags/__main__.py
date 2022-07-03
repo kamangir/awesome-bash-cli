@@ -89,7 +89,7 @@ delim = " " if args.delim == "space" else args.delim
 
 success = False
 output = None
-if args.tasj == "clone":
+if args.task == "clone":
     success = clone(args.object, args.object_2)
 elif args.task == "for_type":
     output = host_type.get(args.type, [])
