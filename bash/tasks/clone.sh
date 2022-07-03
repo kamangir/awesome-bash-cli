@@ -33,12 +33,12 @@ function abcli_clone() {
         abcli_cache clone $object_name $abcli_object_name
     fi
 
-    if [ "$clone_relation" == "1" ] ; then
+    if [ "$clone_relations" == "1" ] ; then
         abcli_relation clone $object_name $abcli_object_name
         abcli_relation set $abcli_object_name $object_name cloned
     fi
 
-    if [ "$clone_tag" == "1" ] ; then
+    if [ "$clone_tags" == "1" ] ; then
         abcli_tag clone $object_name $abcli_object_name
         abcli_tag set $abcli_object_name clone
     fi
