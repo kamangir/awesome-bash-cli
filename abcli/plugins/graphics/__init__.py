@@ -23,12 +23,6 @@ def add_signature(image, header, footer=[]):
     Returns:
         bool: success
     """
-    logger.info(
-        "graphics.add_signature({},{},{})".format(
-            string.pretty_size_of_matrix(image), "|".join(header), "|".join(footer)
-        )
-    )
-
     if not image.shape:
         return image
 
