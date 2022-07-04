@@ -50,7 +50,7 @@ elif args.task == "pretty_date":
             unique=args.unique,
         )
     )
-if args.task == "random":
+elif args.task == "random":
     print(random_(args.length))
 else:
     print(f"-{name}: {args.task}: command not found")
