@@ -14,21 +14,31 @@ name = f"{shortname}.tasks.host"
 
 arguments = {}
 
+host_name_ = None
 
-def get_name():
-    random_output = string.random_(5)
 
+def get_name(cache=True):
+    global host_name_
+
+    if cache and host_name_ is not None:
+        return host_name_
+
+    host_name_ = get_name()
+    return host_name_
+
+
+def get_name_():
     if is_ec2():
-        return os.getenv("abcli_ec2_instance_id", random_output)
+        return os.getenv("abcli_ec2_instance_id")
 
     if is_jetson():
-        return os.getenv("abcli_jetson_nano_serial_number", random_output)
+        return os.getenv("abcli_jetson_nano_serial_number")
 
     if is_ubuntu():
-        return os.getenv("abcli_ubuntu_computer_id", random_output)
+        return os.getenv("abcli_ubuntu_computer_id")
 
     if is_mac():
-        return os.getenv("USER", "")
+        return os.getenv("USER")
 
     try:
         if is_rpi():
@@ -45,20 +55,20 @@ def get_name():
     except:
         crash_report(f"-{name}: get_name(): failed.")
 
-    return random_output
+    return string.random_(5)
 
 
-host_tags = None
+host_tags_ = None
 
 
 def get_tags(cache=True):
-    global host_tags
+    global host_tags_
 
-    if cache and host_tags is not None:
-        return host_tags
+    if cache and host_tags_ is not None:
+        return host_tags_
 
-    host_tags = tags.get(get_name())
-    return host_tags
+    host_tags_ = tags.get(get_name(cache=cache))
+    return host_tags_
 
 
 def is_ec2():

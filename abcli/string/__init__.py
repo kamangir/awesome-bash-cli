@@ -1,5 +1,6 @@
 import datetime
 from datetime import timezone
+import json
 import math
 import os
 import random
@@ -349,6 +350,28 @@ def random_(
         str: random string
     """
     return "".join(random.choice(alphabet) for _ in range(length))
+
+
+def as_json(thing):
+    """return thing as json.
+
+    Args:
+        thing (Any): thing.
+
+    Returns:
+        str: thing as json.
+    """
+    from ..file import JsonEncoder
+
+    # https://docs.python.org/2/library/json.html
+    return json.dumps(
+        thing,
+        sort_keys=True,
+        cls=JsonEncoder,
+        indent=0,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).replace("\n", "")
 
 
 def utc_timestamp(
