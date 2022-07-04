@@ -169,6 +169,6 @@ class MessageQueue(object):
             crash_report(f"-{name}: submit: failed.")
             return False
 
-        logger.info(f"{message.as_string()} -> {self.name}")
+        logger.info(message.as_string())
 
         return True

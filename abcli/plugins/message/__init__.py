@@ -55,11 +55,17 @@ class Message(object):
         Returns:
             str: description of self.
         """
-        output = f"message:{self.sender}-{self.subject}->{self.recipient}#{self.id}:#{self.reply_id}"
+        output = "-message: {} -{}-> {}{}{}".format(
+            self.sender,
+            self.subject,
+            self.recipient,
+            f" #{self.id}" if self.id.strip() else "",
+            f" :#{self.reply_id}" if self.reply_id.strip() else "",
+        )
         if "object_name" in self.data:
             output += f":{self.data['object_name']}"
         if "utc_timestamp" in self.data:
-            output += "-{}".format(
+            output += " - {}".format(
                 string.pretty_duration(
                     string.utc_timestamp() - self.data["utc_timestamp"],
                     largest=True,
