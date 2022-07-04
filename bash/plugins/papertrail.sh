@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+source $abcli_path_abcli/assets/papertrail/consts.sh
+
 function abcli_trail() {
     local task=$(abcli_unpack_keyword "$1" help)
 
@@ -32,8 +34,8 @@ function abcli_trail() {
         
         if [[ "$abcli_rpi_model" != "pizero_w" ]] ; then
             sudo $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
-                -p 30742 \
-                -d logs3.papertrailapp.com \
+                -p $abcli_papertrail_dest_port \
+                -d $abcli_papertrail_dest_host \
                 --pid-file=/var/run/remote_syslog.pid \
                 --hostname="$abcli_fullname.$(hostname).$abcli_host_name" \
                 "$log_filename"
