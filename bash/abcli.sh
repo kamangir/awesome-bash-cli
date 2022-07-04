@@ -8,11 +8,9 @@ else
     source $abcli_path_bash/bootstrap/dependencies.sh
     abcli_source_dependencies
 
-    abcli_initialize
-
     abcli_terraform
 
-    abcli_add_ssh_keys
+    abcli_initialize
 
     abcli_select $abcli_object_name
 fi
