@@ -33,3 +33,7 @@ config files are carried through the seed and are mainly [excluded from git](./.
 1. login to [papertrail](https://papertrailapp.com/dashboard).
 
 1. visit [Setup Logging](https://papertrailapp.com/systems/setup?type=app&platform=unix) and copy the destination port (`-p nnnnn`) and destination host (`-d logsx.papertrailapp.com`).
+
+## ec2 key pair
+
+follow [these instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to create a `.pem` file and drop it in this folder - all `pem` files are excluded from git.
