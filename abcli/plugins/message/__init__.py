@@ -32,7 +32,7 @@ class Message(object):
         self.sender = raw.get("sender", host.get_name())
         self.recipient = raw.get("recipient", recipient)
 
-        self.id = raw.get("id", id if id else string.random_(16))
+        self.id = raw.get("id", string.random_(16) if id == "random" else id)
         self.reply_id = raw.get("reply_id", reply_id)
 
         self.data = raw.get("data", data)
