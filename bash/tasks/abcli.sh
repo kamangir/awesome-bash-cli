@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-eval "$abcli_name() { abcli $@; }"
+alias $abcli_name=abcli
 
 function abcli() {
     local task=$(abcli_unpack_keyword $1 help)
