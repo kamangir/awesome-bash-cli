@@ -12,7 +12,7 @@ abc ?
 
 ---
 
-`abcli` can be installed manually or through the [seed](bash/plugins/seed.sh) - either way add this line to the end of `~/.bashrc`/`~/.bash_profile` after the install.
+`abcli` can be installed manually or through the seed. - either way add this line to the end of `~/.bashrc`/`~/.bash_profile` after the install.
 
 ```
 source ~/git/awesome-bash-cli/bash/abcli.sh
