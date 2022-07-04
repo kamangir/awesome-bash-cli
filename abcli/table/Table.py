@@ -14,7 +14,7 @@ class Table(object):
         self.name = name
 
         _, info = file.load_json(
-            os.path.join(os.getenv("abcli_path_abcli"), "assets/aws/info.json")
+            os.path.join(os.getenv("abcli_path_bash"), "bootstrap/config/aws.json")
         )
         self.db = info["rds"]["db"]
         self.host = info["rds"]["host"]

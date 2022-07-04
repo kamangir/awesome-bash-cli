@@ -1,3 +1,4 @@
 *.json
 *.sh
 !abcli.sh
+!aws_template.json
