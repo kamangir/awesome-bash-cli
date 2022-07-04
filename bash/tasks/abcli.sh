@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-function abc() {
+function $abcli_name() {
     abcli $@
 }
 
