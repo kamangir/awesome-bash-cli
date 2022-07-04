@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
     
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli conda create_env" \
+        abcli_help_line "$abcli_name conda create_env" \
             "create conda environmnt."
         return
     fi

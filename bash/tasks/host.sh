@@ -4,19 +4,19 @@ function abcli_host() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli host get name" \
+        abcli_help_line "$abcli_name host get name" \
             "get $abcli_host_name."
-        abcli_help_line "abcli host get tags [host_name_1]" \
+        abcli_help_line "$abcli_name host get tags [host_name_1]" \
             "get $abcli_host_name/host_name_1 tags."
-        abcli_help_line "abcli host loop [force]" \
+        abcli_help_line "$abcli_name host loop [force]" \
             "[force] start a loop."
-        abcli_help_line "abcli host reboot [host_name_1,host_name_2]" \
+        abcli_help_line "$abcli_name host reboot [host_name_1,host_name_2]" \
             "reboot $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "abcli host shutdown [host_name_1,host_name_2]" \
+        abcli_help_line "$abcli_name host shutdown [host_name_1,host_name_2]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "abcli host tag tag_1,~tag_2 [host_name_1]" \
+        abcli_help_line "$abcli_name host tag tag_1,~tag_2 [host_name_1]" \
             "tag [host_name_1] tag_1,~tag_2."
-        abcli_help_line "abcli host tag as host_type_1" \
+        abcli_help_line "$abcli_name host tag as host_type_1" \
             "tag [host_name_1] as host_type_1."
 
         local host_tag_list=""

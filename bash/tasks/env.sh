@@ -4,7 +4,7 @@ function abcli_env() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli env [keyword_1]" \
+        abcli_help_line "$abcli_name env [keyword_1]" \
             "show environment variables [relevant to keyword_1]."
         return
     fi
