@@ -86,11 +86,11 @@ function abcli_seed() {
 
     seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
 
-    seed="${seed}abcli_git_ssh_key=\"$(cat ~/.ssh/abcli_git_ssh_key | $base64)\"$delim"
-    seed="${seed}echo \$abcli_git_ssh_key | base64 --decode >> abcli_git_ssh_key$delim"
-    seed="$seed${sudo_prefix}mv abcli_git_ssh_key ~/.ssh/abcli_git_ssh_key$delim"
-    seed="${seed}chmod 600 ~/.ssh/abcli_git_ssh_key$delim"
-    seed="${seed}ssh-add -k ~/.ssh/abcli_git_ssh_key$delim_section"
+    seed="${seed}git_ssh_key=\"$(cat ~/.ssh/$abcli_git_ssh_key_name | $base64)\"$delim"
+    seed="${seed}echo \$git_ssh_key | base64 --decode >> git_ssh_key$delim"
+    seed="$seed${sudo_prefix}mv git_ssh_key ~/.ssh/$abcli_git_ssh_key_name$delim"
+    seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
+    seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
 
     seed="${seed}ssh-keyscan github.com >> ~/.ssh/known_hosts$delim_section"
 

@@ -3,7 +3,7 @@
 function abcli_add_ssh_keys() {
     if [ -z "$abcli_ssh_keys_added" ] || [ "$1" == "force" ] ; then
         eval "$(ssh-agent -s)"
-        ssh-add -k $abcli_path_home/.ssh/bolt_git_ssh_key
+        ssh-add -k $abcli_path_home/.ssh/$abcli_git_ssh_key_name
 
         export abcli_ssh_keys_added="true"
     fi

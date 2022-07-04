@@ -1,6 +1,6 @@
 # configuring `abcli`
 
-config files are carried through the seed and are mainly [excluded from git](./.gitignore).
+config files are carried through the seed and are mainly [excluded from git](./.gitignore) - create new copies based on [the given templates](./template) and fill up the files using the following instructions. 
 
 ## [abcli.sh](./abcli.sh)
 
@@ -8,7 +8,7 @@ config files are carried through the seed and are mainly [excluded from git](./.
 
 ## [aws.json](./template/aws.json)
 
-`aws.json` is excluded from git - create it using [template/aws.json](./template/aws.json) - to complete the `rds` section create a database as follows:
+to complete the `rds` section create a database as follows:
 
 1. go to `AWS Management Console` -> `RDS` -> `Create database`.
 
@@ -26,9 +26,12 @@ config files are carried through the seed and are mainly [excluded from git](./.
 
 1. in `Additional Configuration` set `initial database name` to `abcli`.
 
+## [git.sh](./template/git.sh)
+
+`abcli_git_ssh_key_name` is the name of the git ssh key.
 ## [papertrail.sh](./template/papertrail.sh)
 
-`papertrail.sh` is excluded from git - create it using [template/papertrail.sh](./template/papertrail.sh) - follow these steps to acquire the values for `abcli_papertrail_dest_host` and `abcli_papertrail_dest_port`.
+follow these steps to acquire the values for `abcli_papertrail_dest_host` and `abcli_papertrail_dest_port`.
 
 1. login to [papertrail](https://papertrailapp.com/dashboard).
 
@@ -36,4 +39,4 @@ config files are carried through the seed and are mainly [excluded from git](./.
 
 ## ec2 key pair
 
-follow [these instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to create a `.pem` file and drop it in this folder - all `pem` files are excluded from git.
+follow [these instructions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to create a `.pem` file and then drop it in this folder - add the name of the key file to `aws.json` under `ec2->key_name`.
