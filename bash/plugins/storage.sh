@@ -22,9 +22,9 @@ function abcli_storage() {
     fi
 
     if [[ "$task" == "clear" ]]; then
-        rm -rf $abcli_path_storage/*
         cd
-        abcli_select $abcli_asset_name
+        rm -rf $abcli_path_storage/*
+        abcli_select $abcli_object_name
         return
     fi
 
@@ -53,10 +53,10 @@ function abcli_storage() {
         return
     fi
 
-    if [[ "$task" == "clear" ]]; then
-        cd    
-        rm -rf $abcli_path_storage/*
-        abcli_select $abcli_object_name
+    if [ "$task" == "status" ] ; then
+        pushd $abcli_path_storage > /dev/null
+        du -h -d 1 abcli
+        popd > /dev/null
         return
     fi
 
