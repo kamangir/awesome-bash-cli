@@ -27,13 +27,8 @@ function abcli_conda() {
         # https://stackoverflow.com/a/65993776/17619982
         conda install -y numpy==1.19.5
 
-        pushd $abcli_path_git > /dev/null
-        local folder
-        for folder in bolt awesome-bash-cli ; do
-            cd $folder
-            pip3 install -e .
-            cd ..
-        done
+        pushd $abcli_path_git/awesome-bash-cli > /dev/null
+        pip3 install -e .
         popd > /dev/null
 
         return
