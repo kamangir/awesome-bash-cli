@@ -2,6 +2,10 @@
 
 config files are carried through the seed and are mainly [excluded from git](./.gitignore).
 
+## [abcli.sh](./abcli.sh)
+
+`abcli_name` is the name that the cli replies to.
+
 ## [aws.json](./template/aws.json)
 
 `aws.json` is excluded from git - create it using [template/aws.json](./template/aws.json) - to complete the `rds` section create a database as follows:
@@ -28,4 +32,4 @@ config files are carried through the seed and are mainly [excluded from git](./.
 
 1. login to [papertrail](https://papertrailapp.com/dashboard).
 
-1. visit [Setup Logging](https://papertrailapp.com/systems/setup?type=app&platform=unix) and copy the destination port (`-p nnnnn`) and destination host (`-d logsx.papertrailapp.com`) - 
+1. visit [Setup Logging](https://papertrailapp.com/systems/setup?type=app&platform=unix) and copy the destination port (`-p nnnnn`) and destination host (`-d logsx.papertrailapp.com`).
