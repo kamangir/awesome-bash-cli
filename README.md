@@ -20,10 +20,14 @@ source ~/git/awesome-bash-cli/bash/abcli.sh
 
 ### manual install
 
-clone this repo:
-
 ```
-mkdir -p ~/git; cd ~/git; git clone git@github.com:kamangir/awesome-bash-cli.git
+mkdir -p ~/git
+cd ~/git
+git clone git@github.com:kamangir/awesome-bash-cli.git
+
+conda create -y -n abcli python=3.9
+conda activate abcli
+pip3 install pymysql==0.10.1
 ```
 
 then open a terminal and walk through the install process.
