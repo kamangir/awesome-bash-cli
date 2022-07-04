@@ -1,7 +1,5 @@
 #! /usr/bin/env bash
 
-source $abcli_path_abcli/assets/papertrail/consts.sh
-
 function abcli_trail() {
     local task=$(abcli_unpack_keyword "$1" help)
 
