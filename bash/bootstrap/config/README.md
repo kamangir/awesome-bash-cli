@@ -4,7 +4,7 @@ config files are carried through the seed and are mainly [excluded from git](./.
 
 ## aws.json
 
-`aws.json` is excluded from git - create it using [this template](./aws_template.json) - to complete the `rds` section create a database as follows:
+`aws.json` is excluded from git - create it using [aws_template.json](./aws_template.json) - to complete the `rds` section create a database as follows:
 
 1. go to `AWS Management Console` -> `RDS` -> `Create database`.
 
