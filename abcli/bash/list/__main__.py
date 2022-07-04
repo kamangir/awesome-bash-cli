@@ -37,12 +37,18 @@ parser.add_argument(
     "--items_2",
     type=str,
 )
+parser.add_argument(
+    "--unique",
+    type=int,
+    help="0/1",
+    default=0,
+)
 args = parser.parse_args()
 
 delim = " " if args.delim == "space" else args.delim
 
 list_of_items = (
-    [thing for thing in args.items.split(delim) if thing]
+    [item for item in args.items.split(delim) if item]
     if isinstance(args.items, str)
     else None
 )
@@ -54,9 +60,9 @@ elif args.task == "intersect":
     print(
         delim.join(
             [
-                thing
-                for thing in [thing for thing in args.items_1.split(delim)]
-                if thing in [thing for thing in args.items_2.split(delim)] and thing
+                item
+                for item in [item for item in args.items_1.split(delim)]
+                if item in [item for item in args.items_2.split(delim)] and item
             ]
         )
     )
@@ -67,6 +73,9 @@ elif args.task == "nonempty":
 elif args.task == "resize":
     print(delim.join(list_of_items[: args.count]))
 elif args.task == "sort":
+    if args.unique:
+        list_of_items = list(set(list_of_items))
+
     print(delim.join(sorted(list_of_items)))
 else:
     print(f"-{name}: {args.task}: command not found")
