@@ -4,13 +4,13 @@ function abcli_message() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "message listen_to host_1" \
+        abcli_help_line "abcli message listen_to host_1" \
             "listen to host_1 messages."
-        abcli_help_line "message listen_as host_1" \
+        abcli_help_line "abcli message listen_as host_1" \
             "listen to messages as host_1."
-        abcli_help_line "message submit [--data data] [--filename filename_1] [--recipient host_1,host_2] [--subject subject_1]" \
+        abcli_help_line "abcli message submit [--data data] [--filename filename_1] [--recipient host_1,host_2] [--subject subject_1]" \
             "submit message [w/ subject_1] [+data] [+filename_1] [to host_1, host_2]."
-        abcli_help_line "message update [--recipient host_1,host_2]" \
+        abcli_help_line "abcli message update [--recipient host_1,host_2]" \
             "send update message [to host_1, host_2]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
