@@ -10,6 +10,8 @@ to see list of `abcli` commands type in:
 abc ?
 ```
 
+---
+
 `abcli` can be installed manually or through the [seed](bash/plugins/seed.sh) - either way add this line to the end of `~/.bashrc`/`~/.bash_profile` after the install.
 
 ```
