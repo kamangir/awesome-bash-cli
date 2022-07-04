@@ -43,14 +43,14 @@ function abcli_ssh() {
 
         abcli_seed ec2 clipboard $intent
 
-        pushd $abcli_path_git/abcli/assets/aws > /dev/null
-        chmod 400 abcli.pem
+        local key_name=$(abcli_aws_json_get "['ec2']['key_name']")
+        local pem_filename=$abcli_path_bash/bootstrap/config/$key_name.pem
+        chmod 400 $pem_filename
         if [[ "$intent" == "vnc" ]] ; then
-            ssh -i abcli.pem -L 5901:localhost:5901 $url
+            ssh -i $pem_filename -L 5901:localhost:5901 $url
         else
-            ssh -i abcli.pem $url
+            ssh -i $pem_filename $url
         fi
-        popd > /dev/null
     elif [ "$kind" == "jetson_nano" ] ; then
         ssh abcli@$address.local
     elif [ "$kind" == "rpi" ] ; then
