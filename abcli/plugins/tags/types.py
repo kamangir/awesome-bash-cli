@@ -3,7 +3,6 @@ host_type = {
     "browse": ["training_framework"],
     "cloud_dev": [
         "blue",
-        "abcli",
         "bracket",
         "CV",
         "dart",
@@ -12,8 +11,8 @@ host_type = {
     ],
     "dev": [
         "blue",
-        "abcli",
         "bracket",
+        "browse",
         "CV",
         "dart",
         "Kanata",
@@ -23,7 +22,6 @@ host_type = {
     ],
     "worker": [
         "blue",
-        "abcli",
         "bracket",
         "dart",
         "Kanata",
