@@ -38,7 +38,7 @@ function abcli_notebook() {
 
     if [ "$task" == "browse" ] ; then
         if [ ! -f $notebook_name.ipynb ]; then
-            cp $abcli_path_abcli/assets/script/notebook.ipynb ./$notebook_name.ipynb
+            cp $abcli_path_abcli/assets/notebook.ipynb ./$notebook_name.ipynb
             abcli_log "$notebook_name.ipynb copied."
         fi
 
