@@ -110,12 +110,6 @@ function abcli_seed() {
         seed="${seed}source ~/.bashrc$delim_section"
     fi
 
-    local tags=$3
-    if [ ! -z "$tags" ] ; then
-        seed="${seed}abcli_host tag $tags$delim"
-        seed="${seed}abcli_screen$delim_section"
-    fi
-
     if [ "$output" == "clipboard" ] ; then
         if [ "$abcli_is_mac" == true ] ; then
             echo $seed | pbcopy
@@ -125,14 +119,14 @@ function abcli_seed() {
     elif [ "$output" == "key" ] ; then
         mkdir -p $seed_path/abcli/
 
-        filename="$seed_path/abcli/$target.sh"
+        filename="$seed_path/abcli/$target"
 
-        echo -en $seed > $filename
-        chmod +x $filename
+        echo -en $seed > $filename.sh
+        chmod +x $filename.sh
 
         echo "{\"version\":$abcli_version}" > $filename.json
 
-        abcli_log "saved seed in $filename(.json)"
+        abcli_log "seed -> $filename."
     elif [ "$output" == "screen" ] ; then
         printf "$GREEN$seed$NC\n"
     else
