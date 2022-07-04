@@ -2,8 +2,8 @@ import argparse
 from functools import reduce
 from . import *
 import time
-from .... import file
-from .... import logging
+from ... import file
+from ... import logging
 import logging
 
 logger = logging.getLogger(__name__)

@@ -3,9 +3,6 @@ import os
 import os.path
 from ... import *
 from ... import string
-from .agent import instance as messenger
-from ...plugins.storage import instance as storage
-from ... import string
 from ... import logging
 import logging
 
@@ -26,6 +23,7 @@ class Message(object):
         subject="",
     ):
         from ...tasks import host
+        from ...plugins.storage import instance as storage
 
         self.subject = raw.get("subject", subject)
 
@@ -79,6 +77,8 @@ class Message(object):
         Returns:
             str: filename.
         """
+        from ...plugins.storage import instance as storage
+
         if not self.filename_:
             if self.data.get("bucket_name", "") and self.data.get("object_name", ""):
                 filename = os.path.join(
@@ -116,6 +116,8 @@ class Message(object):
         Returns:
             bool: success.
         """
+        from .agent import instance as messenger
+
         self.data["utc_timestamp"] = string.utc_timestamp()
 
         return messenger.queue(self.recipient).submit(self)
