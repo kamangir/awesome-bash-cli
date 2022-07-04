@@ -22,7 +22,7 @@ function abcli_conda() {
         conda install -y -c conda-forge jupyter
         conda install -y pandas
         conda install -y -c conda-forge scikit-learn
-        conda install -y -c anaconda pymysql==0.10.1
+        pip3 install pymysql==0.10.1
 
         # https://stackoverflow.com/a/65993776/17619982
         conda install -y numpy==1.19.5
