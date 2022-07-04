@@ -1,6 +1,13 @@
 #! /usr/bin/env bash
 
 function abcli_source_dependencies() {
+    pushd $abcli_path_bash/bootstrap/config > /dev/null
+    local filename
+    for filename in *.sh ; do
+        source $filename
+    done
+    popd > /dev/null
+
     source $abcli_path_bash/bootstrap/consts.sh
     source $abcli_path_bash/bootstrap/paths.sh
     source $abcli_path_bash/bootstrap/system.sh
