@@ -2,7 +2,7 @@
 
 ![image](./assets/marquee.png)
 
-`abcli` is a framework for quickly building awesome bash cli's for machine vision/deep learning, like [this robot](https://github.com/kamangir/blue-rvr) - `abcli` is a [`bashly`](https://github.com/DannyBen/bashly) that doesn't need a docker image to run and expands less painfully.
+`abcli` is a framework for quickly building awesome bash cli's for machine vision/deep learning applications, like [this robot](https://github.com/kamangir/blue-rvr) - `abcli` is a [`bashly`](https://github.com/DannyBen/bashly) that doesn't need a docker image to run and expands less painfully.
 
 to see list of `abcli` commands type in:
 
