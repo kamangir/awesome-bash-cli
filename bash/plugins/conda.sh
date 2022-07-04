@@ -29,7 +29,7 @@ function abcli_conda() {
 
         pushd $abcli_path_git > /dev/null
         local folder
-        for folder in bolt abcli ; do
+        for folder in bolt awesome-bash-cli ; do
             cd $folder
             pip3 install -e .
             cd ..
