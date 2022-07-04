@@ -4,20 +4,14 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "seed [./ec2/jetson/mac/rpi] [clipboard/key/screen] [tag1,tag2]" \
-            "generate an ec2/jetson/mac/rpi seed and output to clipboard/key/screen [and tag the host tag1,tag2]."
+        abcli_help_line "seed [target=./ec2/jetson/mac/rpi,output=clipboard/key/screen]" \
+            "generate an ec2/jetson/mac/rpi seed and output to clipboard/key/screen."
         abcli_help_line "seed eject" \
             "eject seed"
         return
     fi
 
-    local target=$1
-
-    if [ -z "$target" ] ; then
-        local target="ec2"
-    fi
-
-    if [ "$target" == "eject" ] ; then
+    if [ "$task" == "eject" ] ; then
         if [[ "$abcli_is_jetson" == true ]] ; then
             sudo eject /media/abcli/SEED
         else
@@ -26,20 +20,18 @@ function abcli_seed() {
         return
     fi
 
+    local options="$1"
+    local target=$(abcli_option "$options" "target" ec2)
+    local output=$(abcli_option "$options" "output" screen)
+
     if [ "$target" == "." ] ; then
         for target in ec2 jetson mac rpi ; do
-            abcli_seed $target ${@:2}
+            abcli_seed $(abcli_option_update "$options" target $target) ${@:2}
         done
-
         return
     fi
 
-    local destination=$2
-    if [ -z "$destination" ] ; then
-        local destination="screen"
-    fi
-
-    if [ "$destination" == "key" ] ; then
+    if [ "$output" == "key" ] ; then
         if [[ "$abcli_is_jetson" == true ]] ; then
             local seed_path="/media/abcli/SEED"
         else
@@ -52,14 +44,14 @@ function abcli_seed() {
         fi
     fi
 
-    abcli_log "seed: $abcli_fullname -$target-> $destination"
+    abcli_log "seed: $abcli_fullname -$target-> $output"
 
     local sudo_prefix="sudo "
     local delim="\n"
     local delim_section="\n\n"
     local base64="base64"
     seed="#! /bin/bash$delim"
-    if [ "$destination" == "clipboard" ] ; then
+    if [ "$output" == "clipboard" ] ; then
         local delim="; "
         local delim_section="; "
         seed=""
@@ -124,13 +116,13 @@ function abcli_seed() {
         seed="${seed}abcli_screen$delim_section"
     fi
 
-    if [ "$destination" == "clipboard" ] ; then
+    if [ "$output" == "clipboard" ] ; then
         if [ "$abcli_is_mac" == true ] ; then
             echo $seed | pbcopy
         elif [ "$abcli_is_ubuntu" == true ] ; then
             echo $seed | xclip -sel clip
         fi
-    elif [ "$destination" == "key" ] ; then
+    elif [ "$output" == "key" ] ; then
         mkdir -p $seed_path/abcli/
 
         filename="$seed_path/abcli/$target.sh"
@@ -141,9 +133,9 @@ function abcli_seed() {
         echo "{\"version\":$abcli_version}" > $filename.json
 
         abcli_log "saved seed in $filename(.json)"
-    elif [ "$destination" == "screen" ] ; then
+    elif [ "$output" == "screen" ] ; then
         printf "$GREEN$seed$NC\n"
     else
-        abcli_log_error "-abcli: seed: $destination: destination not found."
+        abcli_log_error "-abcli: seed: $output: output not found."
     fi
 }

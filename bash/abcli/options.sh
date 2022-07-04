@@ -18,6 +18,16 @@ function abcli_option_default() {
         ${@:4}
 }
 
+function abcli_option_get_unpacked() {
+    python3 -m abcli.options \
+        get_unpacked \
+        --options "$1" \
+        --keyword "$2" \
+        --default "$3" \
+        --is_int 1 \
+        ${@:4}
+}
+
 function abcli_option_int() {
     python3 -m abcli.options \
         get \
@@ -28,12 +38,11 @@ function abcli_option_int() {
         ${@:4}
 }
 
-function abcli_option_get_unpacked() {
+function abcli_option_update() {
     python3 -m abcli.options \
-        get_unpacked \
+        update \
         --options "$1" \
         --keyword "$2" \
         --default "$3" \
-        --is_int 1 \
         ${@:4}
 }
