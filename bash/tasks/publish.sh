@@ -4,13 +4,13 @@ function abcli_publish() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "publish object_1 [random_url]" \
+        abcli_help_line "$abcli_name publish object_1 [random_url]" \
             "publish object_1 [and randmoize public url]."
-        abcli_help_line "publish object_1 .mp4" \
+        abcli_help_line "$abcli_name publish object_1 .mp4" \
             "publish every .mp4 in object_1."
-        abcli_help_line "publish object_1 filename_1 [othername]" \
+        abcli_help_line "$abcli_name publish object_1 filename_1 [othername]" \
             "publish object_1/filename_1 [as othername]."
-        abcli_help_line "publish object_1 open" \
+        abcli_help_line "$abcli_name publish object_1 open" \
             "publish every file in object_1."
         return
     fi
