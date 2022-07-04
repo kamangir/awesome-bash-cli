@@ -4,7 +4,7 @@ import os.path
 from ... import *
 from ... import string
 from .agent import instance as messenger
-from ...tasks.storage import instance as storage
+from ...plugins.storage import instance as storage
 from ... import string
 from ... import logging
 import logging
