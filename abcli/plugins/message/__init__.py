@@ -15,11 +15,11 @@ class Message(object):
     def __init__(
         self,
         raw={},
-        id="",
+        id=" ",
         data={},
         filename="",
         recipient="",
-        reply_id="",
+        reply_id=" ",
         subject="",
     ):
         from ...tasks import host
@@ -60,7 +60,7 @@ class Message(object):
             output += f":{self.data['object_name']}"
         if "utc_timestamp" in self.data:
             output += "-{}".format(
-                string.pretty_time(
+                string.pretty_duration(
                     string.utc_timestamp() - self.data["utc_timestamp"],
                     largest=True,
                     ms=True,

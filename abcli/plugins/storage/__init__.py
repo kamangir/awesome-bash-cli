@@ -249,7 +249,9 @@ class Storage(object):
                         string.pretty_bytes(file.size(filename)),
                         bucket_name,
                         object_name,
-                        string.pretty_time(time.time() - time_, ms=True, short=True),
+                        string.pretty_duration(
+                            time.time() - time_, ms=True, short=True
+                        ),
                     )
                 )
 
