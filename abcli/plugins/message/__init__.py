@@ -55,7 +55,7 @@ class Message(object):
         Returns:
             str: description of self.
         """
-        output = "-message: {} -{}-> {}{}{}".format(
+        output = "message: {} -{}-> {}{}{}".format(
             self.sender,
             self.subject,
             self.recipient,
@@ -63,7 +63,7 @@ class Message(object):
             f" :#{self.reply_id}" if self.reply_id.strip() else "",
         )
         if "object_name" in self.data:
-            output += f":{self.data['object_name']}"
+            output += f" : {self.data['object_name']}"
         if "utc_timestamp" in self.data:
             output += " - {}".format(
                 string.pretty_duration(

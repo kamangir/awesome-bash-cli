@@ -4,7 +4,7 @@ name = "awesome_bash_cli"
 
 shortname = "abcli"
 
-version = "1.1.288"
+version = "1.1.289"
 
 description = "a framework for quickly building awesome bash cli's for machine vision/deep learning."
 
