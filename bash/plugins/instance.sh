@@ -43,7 +43,7 @@ function abcli_instance() {
     if [ "$task" == "from_image" ] ; then
         local instance_type=$2
         if [ "$instance_type" == "-" ] || [ -z "$instance_type" ] ; then
-            local instance_type=$(abcli_ec2_terraform_get ".get('default_instance_type','')")
+            local instance_type=$(abcli_aws_json_get "['ec2'].get('default_instance_type','')")
         fi
 
         local instance_name=$3
@@ -54,22 +54,22 @@ function abcli_instance() {
             local instance_name=$USER-$(abcli_string_timestamp)
         fi
 
-        local image_id=$(abcli_ec2_terraform_get ".get('image_id','')")
-        local security_group_ids=$(abcli_ec2_terraform_get ".get('security_group_ids','')")
-        local subnet_id=$(abcli_ec2_terraform_get ".get('subnet_id','')")
+        local image_id=$(abcli_aws_json_get "['ec2'].get('image_id','')")
+        local security_group_ids=$(abcli_aws_json_get "['ec2'].get('security_group_ids','')")
+        local subnet_id=$(abcli_aws_json_get "['ec2'].get('subnet_id','')")
 
         abcli_log "abcli_instance: $task $instance_type -$image_id:$security_group_ids:$subnet_id-> $instance_name"
 
         # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#launch-templates-as
         aws ec2 run-instances \
             --image-id $image_id \
-            --key-name abcli \
+            --key-name $(abcli_aws_json_get "['ec2']['key_name']") \
             --security-group-ids $security_group_ids \
             --subnet-id $subnet_id \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
             --region $abcli_s3_region \
             --count 1 \
-            --instance-type $instance_type > ${abcli_path_git}/abcli_instance_log.txt
+            --instance-type $instance_type > $abcli_path_git/abcli_instance_log.txt
 
         local instance_ip_address=$(abcli_instance describe $instance_name)
         abcli_log "instance created at $instance_ip_address"
@@ -90,10 +90,10 @@ function abcli_instance() {
     if [ "$task" == "from_template" ] ; then
         local template_name=$2
         if [ -z "$template_name" ] || [ "$template_name" == "-" ] ; then
-            local template_name=$(abcli_ec2_terraform_get ".get('default_template','')")
+            local template_name=$(abcli_aws_json_get "['ec2'].get('default_template','')")
         fi
 
-        local template_id=$(abcli_ec2_terraform_get ".get('templates',{}).get('$template_name','')")
+        local template_id=$(abcli_aws_json_get "['ec2'].get('templates',{}).get('$template_name','')")
         if [ -z "$template_id" ] ; then
             abcli_log_error "unknown template id for '$template_name'."
             return
