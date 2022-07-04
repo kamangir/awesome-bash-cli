@@ -250,7 +250,9 @@ class Storage(object):
                         bucket_name,
                         object_name,
                         string.pretty_duration(
-                            time.time() - time_, ms=True, short=True
+                            time.time() - time_,
+                            include_ms=True,
+                            short=True,
                         ),
                     )
                 )

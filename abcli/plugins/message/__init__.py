@@ -63,7 +63,7 @@ class Message(object):
                 string.pretty_duration(
                     string.utc_timestamp() - self.data["utc_timestamp"],
                     largest=True,
-                    ms=True,
+                    include_ms=True,
                     short=True,
                 ),
             )
