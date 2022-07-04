@@ -23,7 +23,7 @@ def get_name(cache=True):
     if cache and host_name_ is not None:
         return host_name_
 
-    host_name_ = get_name()
+    host_name_ = get_name_()
     return host_name_
 
 
