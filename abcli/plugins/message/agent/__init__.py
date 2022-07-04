@@ -62,8 +62,11 @@ class Messenger(object):
 instance = Messenger(
     recipients=list(
         set(
-            host.get_tags()
-            + [host.get_name(), "abcli"]
+            [
+                "public",
+                host.get_name(),
+            ]
+            + host.get_tags()
             + [
                 thing
                 for thing in host.arguments.get("messenger.recipients", "").split(",")

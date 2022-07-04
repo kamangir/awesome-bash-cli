@@ -13,7 +13,7 @@ parser.add_argument(
     "task",
     type=str,
     default="update",
-    help="listen_to,stream,submit,update",
+    help="listen_to,submit,update",
 )
 parser.add_argument(
     "--count",
@@ -43,7 +43,7 @@ parser.add_argument(
 parser.add_argument(
     "--recipient",
     type=str,
-    default="abcli",
+    default="public",
 )
 parser.add_argument(
     "--sender",
@@ -60,6 +60,8 @@ args = parser.parse_args()
 
 success = False
 if args.task == "listen_to":
+    from .agent import instance as messenger
+
     messages = []
 
     while len(messages) < args.count:
