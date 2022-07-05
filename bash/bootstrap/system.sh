@@ -73,8 +73,6 @@ if [[ "$abcli_is_rpi" == true ]] ; then
     fi
 fi
 
-if [[ "$abcli_is_ec2" == true ]] ; then
-    conda activate tensorflow2_latest_p37
-else
+if [[ "$abcli_is_ec2" == false ]] ; then
     conda activate abcli
 fi
