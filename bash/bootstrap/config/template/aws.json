@@ -24,6 +24,6 @@
     },
     "region": "ca-central-1",
     "s3": {
-        "default_bucket": "kamangir"
+        "bucket_name": "kamangir"
     }
 }

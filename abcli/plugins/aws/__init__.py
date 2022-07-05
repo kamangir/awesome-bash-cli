@@ -20,8 +20,13 @@ def get_from_json(thing, default={}):
     Returns:
         Any: aws.json[thing]
     """
-    success, content = file.load_json(os.path.join(os.getenv(), ""))
+    success, content = file.load_json(
+        os.path.join(
+            os.getenv("abcli_path_bash"),
+            "bootstrap/config/aws.json",
+        )
+    )
     if not success:
         return default
 
-    return content.get(thing, default)
+    return content.get(thing, default) if thing else content

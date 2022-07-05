@@ -10,7 +10,7 @@ function abcli_upload() {
     fi
 
     # https://stackoverflow.com/a/45200066
-    local exists=$(aws s3 ls kamangir/abcli/$abcli_object_name.tar.gz)
+    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$abcli_object_name.tar.gz)
     if [ -z "$exists" ]; then
         abcli_log_local "confirmed: $abcli_object_name does not exist."
     else
@@ -25,7 +25,7 @@ function abcli_upload() {
     if [ "$do_open" == "1" ]; then
         abcli_log "$abcli_object_name open upload started."
 
-        aws s3 sync $abcli_object_path/ s3://kamangir/abcli/$abcli_object_name/
+        aws s3 sync $abcli_object_path/ s3://$(abcli_aws_s3_bucket)/abcli/$abcli_object_name/
 
         abcli_tag set $abcli_object_name open
     fi
@@ -37,7 +37,7 @@ function abcli_upload() {
 
         abcli_log "$abcli_object_name solid upload started - $(abcli_file_size $abcli_object_path.tar.gz)"
 
-        aws s3 cp $abcli_object_name.tar.gz s3://kamangir/abcli/
+        aws s3 cp $abcli_object_name.tar.gz s3://$(abcli_aws_s3_bucket)/abcli/
 
         abcli_tag set $abcli_object_name solid
 

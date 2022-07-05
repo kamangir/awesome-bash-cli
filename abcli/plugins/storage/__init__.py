@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 name = f"{shortname}.plugins.storage"
 
-default_bucket_name = aws.get_from_json("s3").get("default_bucket", "")
+default_bucket_name = aws.get_from_json("s3").get("bucket_name", "")
 
 
 class Storage(object):
