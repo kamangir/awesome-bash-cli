@@ -18,10 +18,12 @@ function abcli_instance() {
         printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
 
         local templates=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('templates',{}).keys()))")
-        abcli_log_list $templates , "ec2 template(s)"
+        local default_template=$(abcli_aws_json_get "['ec2'].get('default_template','')")
+        abcli_log_list $templates , "ec2 template(s)" "" "default: $default_template"
 
         local image_names=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('image_id',{}).keys()))")
-        abcli_log_list $image_names , "image(s)"
+        local default_image_name=$(abcli_aws_json_get "['ec2'].get('default_image_name','')")
+        abcli_log_list $image_names , "image(s)" "" "default: $default_image_name"
 
         return
     fi

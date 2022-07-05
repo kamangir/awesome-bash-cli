@@ -63,8 +63,14 @@ function abcli_log_list() {
 
     local postfix="$3"
     local prefix="$4"
+    local message="$prefix$GREEN$count$NC $postfix: $GREEN$items$NC"
 
-    printf "$prefix$GREEN$count$NC $postfix: $GREEN$items$NC\n"
+    local after="$5"
+    if [ ! -z "$after" ] ; then
+        local message="$message - $after"
+    fi
+
+    printf "$message\n"
 }
 
 function abcli_log_local() {
