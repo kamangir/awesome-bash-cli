@@ -140,12 +140,16 @@ function abcli_instance() {
             
         local instance_ip_address=$(abcli_instance describe $instance_name)
         abcli_log "instance created at $instance_ip_address"
-        if [ "$5" == "ssh" ] ; then
+
+        local options="$5"
+        local do_ssh=$(abcli_option_int "$options" "ssh" 0)
+        local do_vnc=$(abcli_option_int "$options" "vnc" 0)
+
+        if [ "$do_ssh" == "1" ] ; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
             abcli_ssh ec2 $instance_ip_address
-        fi
-        if [ "$5" == "vnc" ] ; then
+        elif [ "$do_vnc" == "1" ] ; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
             abcli_ssh ec2 $instance_ip_address vnc
