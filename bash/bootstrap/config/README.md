@@ -26,6 +26,10 @@ to complete the `rds` section create a database as follows:
 
 1. in `Additional Configuration` set `initial database name` to `abcli`.
 
+## [external_plugins.json](./external_plugins.json)
+
+every key in `external_plugins.json` points to a repo that contains an `abcli` plugin.
+
 ## [git.sh](./template/git.sh)
 
 `abcli_git_ssh_key_name` is the name of the git ssh key.

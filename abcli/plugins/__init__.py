@@ -20,7 +20,7 @@ def list_of_external():
         file.load_json(
             os.path.join(
                 os.getenv("abcli_path_bash"),
-                "plugins/external.json",
+                "bootstrap/config/external_plugins.json",
             ),
             civilized=True,
         )[1].keys()
