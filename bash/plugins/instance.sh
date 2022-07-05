@@ -74,7 +74,7 @@ function abcli_instance() {
             --security-group-ids $security_group_ids \
             --subnet-id $subnet_id \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
-            --region $abcli_s3_region \
+            --region $(abcli_aws_region) \
             --count 1 \
             --instance-type $instance_type > $abcli_path_git/abcli_instance_log.txt
 
@@ -133,7 +133,7 @@ function abcli_instance() {
         aws ec2 run-instances \
             --launch-template LaunchTemplateId=$template_id \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
-            --region $abcli_s3_region \
+            --region $(abcli_aws_region) \
             --count 1 \
             $extra_args > ${abcli_path_git}/abcli_instance_log.txt
             

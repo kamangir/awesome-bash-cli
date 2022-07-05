@@ -21,5 +21,9 @@
         "password": "...",
         "port": 3306,
         "user": "admin"
+    },
+    "region": "ca-central-1",
+    "s3": {
+        "default_bucket": "kamangir"
     }
 }

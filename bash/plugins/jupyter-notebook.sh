@@ -57,7 +57,7 @@ function abcli_notebook() {
             ssh \
                 -i $abcli_path_git/abcli/assets/aws/abcli.pem \
                 -N -f -L 8888:localhost:8888 \
-                ubuntu@ec2-$ip_address.$abcli_s3_region.compute.amazonaws.com
+                ubuntu@ec2-$ip_address.$(abcli_aws_region).compute.amazonaws.com
         fi
 
         open https://localhost:8888

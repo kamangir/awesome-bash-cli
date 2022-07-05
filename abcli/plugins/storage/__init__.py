@@ -4,22 +4,23 @@ import os.path
 import time
 from ... import *
 from ... import file
-from ...logging import crash_report
 from ... import path
 from ... import string
 from ... import logging
+from ...logging import crash_report
+from ...plugins import aws
 import logging
 
 logger = logging.getLogger(__name__)
 
 name = f"{shortname}.plugins.storage"
 
-default_bucket_name = os.getenv("abcli_bucket_name")
+default_bucket_name = aws.get_from_json("s3").get("default_bucket", "")
 
 
 class Storage(object):
     def __init__(self, bucket_name=default_bucket_name):
-        self.region = os.getenv("abcli_s3_region")
+        self.region = aws.get_from_json("region", "")
 
         try:
             import boto3

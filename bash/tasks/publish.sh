@@ -47,7 +47,7 @@ function abcli_publish() {
 
         aws s3 cp s3://kamangir/abcli/$abcli_object_name.tar.gz s3://kamangir-public/
 
-        local url="https://kamangir-public.s3.$abcli_s3_region.amazonaws.com/$abcli_object_name.tar.gz"
+        local url="https://kamangir-public.s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
         abcli_log "published $object_name as $url"
 
         abcli_select $abcli_object_name_current
@@ -68,7 +68,7 @@ function abcli_publish() {
 
         aws s3 sync s3://kamangir/abcli/$abcli_object_name s3://kamangir-public/$abcli_object_name
 
-        local url="https://kamangir-public.s3.$abcli_s3_region.amazonaws.com/$abcli_object_name"
+        local url="https://kamangir-public.s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
         abcli_log "published $object_name as $url"
 
         abcli_select $abcli_object_name_current
@@ -82,7 +82,7 @@ function abcli_publish() {
             local public_filename=$(echo $othername | tr / -)
             aws s3 cp s3://kamangir/abcli/$object_name/$filename s3://kamangir-public/${object_name}-${public_filename}
 
-            local url="https://kamangir-public.s3.$abcli_s3_region.amazonaws.com/${object_name}-${public_filename}"
+            local url="https://kamangir-public.s3.$(abcli_aws_region).amazonaws.com/${object_name}-${public_filename}"
             abcli_log "published $object_name/$filename as $url"
         else
             local list_of_files=(`ls *$filename`)

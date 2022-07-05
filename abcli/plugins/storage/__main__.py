@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser(name)
 parser.add_argument(
     "task",
     type=str,
-    default="create_bucket",
+    default="",
     help="create_bucket,download_file,exists,list_of_objects,upload_file",
 )
 parser.add_argument(

@@ -31,7 +31,7 @@ function abcli_ssh() {
 
     if [ "$kind" == "ec2" ] ; then
         local ip_address=$(echo "$address" | tr . -)
-        local region=$(abcli_option "$options" "region" $abcli_s3_region)
+        local region=$(abcli_option "$options" "region" $(abcli_aws_region))
         local url="ec2-$ip_address.$region.compute.amazonaws.com"
 
         ssh-keyscan $url >> ~/.ssh/known_hosts
