@@ -18,7 +18,7 @@ abc ?
 source ~/git/awesome-bash-cli/bash/abcli.sh
 ```
 
-### manual install
+## manual install
 
 ```
 mkdir -p ~/git
