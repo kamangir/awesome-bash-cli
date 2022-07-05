@@ -1,24 +1,24 @@
 #! /usr/bin/env bash
 
-function abcli_GPU() {
+function abcli_gpu() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_name GPU validate" \
-            "validate GPU."
+        abcli_help_line "$abcli_name gpu validate" \
+            "validate gpu."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
-            python3 -m abcli.plugins.GPU --help
+            python3 -m abcli.plugins.gpu --help
         fi
         return
     fi
 
     if [ $task == "validate" ] ; then
-        python3 -m abcli.plugins.GPU \
+        python3 -m abcli.plugins.gpu \
             validate \
             ${@:2}
         return
     fi
 
-    abcli_log_error "-abcli: GPU: $task: command not found."
+    abcli_log_error "-abcli: gpu: $task: command not found."
 }
