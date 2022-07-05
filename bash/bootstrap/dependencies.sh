@@ -47,14 +47,3 @@ function abcli_source_dependencies() {
         popd > /dev/null
     done
 }
-
-
-# 
-# 
-# local plugin_names="$external_plugins"
-# for script_filename in $list_of_scripts ; do
-#     local plugin_names="$plugin_names $(basename $script_filename .sh)"
-# done
-# abcli_log_list "$plugin_names" space "plugin(s)" "loading "
-# 
-
