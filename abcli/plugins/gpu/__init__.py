@@ -11,8 +11,8 @@ def validate():
     import tensorflow as tf
 
     logger.info("TensorFlow: {}".format(tf.__version__))
-    logger.info(
-        "{} GPU(s) available".format(len(tf.config.list_physical_devices("GPU")))
-    )
+
+    devices = tf.config.list_physical_devices("GPU")
+    logger.info(f"{len(devices)} GPU(s) available: {devices}.")
 
     return True
