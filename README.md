@@ -28,9 +28,9 @@ git clone git@github.com:kamangir/awesome-bash-cli.git
 conda create -y -n abcli python=3.9
 conda activate abcli
 pip3 install pymysql==0.10.1
-```
 
-then open a terminal and walk through the install process.
+source ~/git/awesome-bash-cli/bash/abcli.sh
+```
 ## install through the seed
 
 find a machine that is already terraformed by `abcli` and open two terminals - in the first terminal ssh to the target machine - in the second terminal run:
