@@ -15,7 +15,7 @@ function abcli_instance() {
         abcli_help_line "$abcli_name instance terminate instance_id" \
             "terminate ec2 instance."
 
-        printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
+        printf "suggested instance_type(s): ${GREEN}p2.xlarge$NC, ${GREEN}g4dn.xlarge$NC if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
 
         local templates=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('templates',{}).keys()))")
         local default_template=$(abcli_aws_json_get "['ec2'].get('default_template','')")
