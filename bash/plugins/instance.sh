@@ -80,7 +80,7 @@ function abcli_instance() {
 
         local instance_ip_address=$(abcli_instance describe $instance_name)
 
-        if [ z "$instance_ip_address" ] ; then
+        if [ -z "$instance_ip_address" ] ; then
             abcli_log_error "-abcli: instance: from_image: failed."
             return
         fi
