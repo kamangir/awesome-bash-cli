@@ -73,6 +73,8 @@ if [[ "$abcli_is_rpi" == true ]] ; then
     fi
 fi
 
-if [[ "$abcli_is_ec2" == false ]] ; then
+if [[ "$abcli_is_ec2" == true ]] ; then
+    conda activate amazonei_tensorflow2_p36
+else
     conda activate abcli
 fi
