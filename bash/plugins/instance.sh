@@ -4,7 +4,7 @@ function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_name instance [from_image] [-/instance_type] [-/instance_name] [ssh/vnc]" \
+        abcli_help_line "$abcli_name instance [from_image] [-/image_name] [-/instance_type] [-/instance_name] [ssh/vnc]" \
             "create ec2 instance from image."
         abcli_help_line "$abcli_name instance describe instance_name" \
             "describe ec2 instance instance_name."
@@ -19,6 +19,9 @@ function abcli_instance() {
 
         local templates=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('templates',{}).keys()))")
         abcli_log_list $templates , "ec2 template(s)"
+
+        local image_names=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('image_id',{}).keys()))")
+        abcli_log_list $image_names , "image(s)"
 
         return
     fi
@@ -41,20 +44,22 @@ function abcli_instance() {
     fi
 
     if [ "$task" == "from_image" ] ; then
-        local instance_type=$2
-        if [ "$instance_type" == "-" ] || [ -z "$instance_type" ] ; then
+        local image_name=$2
+        if [ -z "$image_name" ] || [ "$image_name" == "-" ] ; then
+            local image_name=$(abcli_aws_json_get "['ec2'].get('default_image_name','')")
+        fi
+
+        local instance_type=$3
+        if [ -z "$instance_type" ] || [ "$instance_type" == "-" ] ; then
             local instance_type=$(abcli_aws_json_get "['ec2'].get('default_instance_type','')")
         fi
 
-        local instance_name=$3
-        if [ "$instance_name" == "-" ] ; then
-            local instance_name=""
-        fi
-        if [ -z "$instance_name" ] ; then
+        local instance_name=$4
+        if [ -z "$instance_name" ] || [ "$instance_name" == "-" ] ; then
             local instance_name=$USER-$(abcli_string_timestamp)
         fi
 
-        local image_id=$(abcli_aws_json_get "['ec2'].get('image_id','')")
+        local image_id=$(abcli_aws_json_get "['ec2'].get('image_id',{}).get('$image_name','')")
         local security_group_ids=$(abcli_aws_json_get "['ec2'].get('security_group_ids','')")
         local subnet_id=$(abcli_aws_json_get "['ec2'].get('subnet_id','')")
 
@@ -73,12 +78,14 @@ function abcli_instance() {
 
         local instance_ip_address=$(abcli_instance describe $instance_name)
         abcli_log "instance created at $instance_ip_address"
-        if [ "$4" == "ssh" ] ; then
+
+        # TODO: add options
+        if [ "$5" == "ssh" ] ; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
             abcli_ssh ec2 $instance_ip_address
         fi
-        if [ "$4" == "vnc" ] ; then
+        if [ "$5" == "vnc" ] ; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
             abcli_ssh ec2 $instance_ip_address vnc

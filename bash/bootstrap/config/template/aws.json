@@ -1,8 +1,12 @@
 {
     "ec2": {
+        "default_image_name": "abcli",
         "default_instance_type": "t2.medium",
         "default_template": "abcli",
-        "image_id": "ami-...",
+        "image_id": {
+            "abcli": "ami-...",
+            "abcli-gpu": "ami-..."
+        },
         "key_name": "abcli",
         "security_group_ids": "sg-...",
         "subnet_id": "subnet-...",
