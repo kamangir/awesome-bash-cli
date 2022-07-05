@@ -41,7 +41,7 @@ function abcli_ssh() {
 
         abcli_log "ssh to $url started: $intent"
 
-        abcli_seed ec2 clipboard $intent
+        abcli_seed output=clipboard,target=ec2 $intent
 
         local key_name=$(abcli_aws_json_get "['ec2']['key_name']")
         local pem_filename=$abcli_path_bash/bootstrap/config/$key_name.pem
