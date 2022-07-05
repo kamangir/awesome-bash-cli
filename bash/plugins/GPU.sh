@@ -14,6 +14,7 @@ function abcli_gpu() {
     fi
 
     if [ $task == "validate" ] ; then
+        nvidia-smi
         python3 -m abcli.plugins.gpu \
             validate \
             ${@:2}
