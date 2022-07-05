@@ -58,7 +58,7 @@ function abcli_instance() {
 
         local instance_name=$4
         if [ -z "$instance_name" ] || [ "$instance_name" == "-" ] ; then
-            local instance_name=$USER-$(abcli_string_timestamp)
+            local instance_name=$USER-$image_name-$(abcli_string_timestamp)
         fi
 
         local image_id=$(abcli_aws_json_get "['ec2'].get('image_id',{}).get('$image_name','')")
