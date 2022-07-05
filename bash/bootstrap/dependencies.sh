@@ -34,10 +34,10 @@ function abcli_source_dependencies() {
     export abcli_host_tags=$(abcli_host get tags . --delim , --log 0)
 
     local external_plugins=$(abcli_external_plugins --delim ,)
-    export abcli_external_plugins=$(abcli_list_intersect $abcli_host_tags $external_plugins)
+    export abcli_active_external_plugins=$(abcli_list_intersect $abcli_host_tags $external_plugins)
 
     local plugin_name
-    for plugin_name in $(echo $abcli_external_plugins | tr , " ") ; do
+    for plugin_name in $(echo $abcli_active_external_plugins | tr , " ") ; do
         abcli_log "loading $plugin_name"
         local repo_name=$(echo "$plugin_name" | tr _ -)
 
