@@ -41,7 +41,7 @@ function abcli_instance() {
             --query "Reservations[*].Instances[*].PublicDnsName" \
             --output text)
 
-        echo $(python -c "print('-'.join('$ec2_address'.split('.')[0].split('-')[1:]))")
+        python3 -c "print('-'.join('$ec2_address'.split('.')[0].split('-')[1:]))"
         return
     fi
 
@@ -89,6 +89,7 @@ function abcli_instance() {
         local options="$5"
         local do_ssh=$(abcli_option_int "$options" "ssh" 0)
         local do_vnc=$(abcli_option_int "$options" "vnc" 0)
+
         if [ "$do_ssh" == "1" ] ; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
@@ -162,10 +163,7 @@ function abcli_instance() {
 
     if [ "$task" == "terminate" ] ; then
         local host_name=$2
-        if [ "$host_name" == "." ] ; then
-            local host_name=""
-        fi
-        if [ -z "$host_name" ] ; then
+        if [ "$host_name" == "." ] || [ -z "$host_name" ] ; then
             local host_name=$abcli_host_name
         fi
 
