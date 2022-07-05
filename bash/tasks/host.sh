@@ -70,7 +70,6 @@ function abcli_host() {
 
             local found=false
             local tags=$(echo "$abcli_host_tags" | tr , " ")
-            local external_plugins=$(abcli_external_plugins)
             for tag in $tags ; do
                 if [ "$tag" == "void" ] && [ -z "$mode" ] ; then
                     abcli_log "void tag detected."
@@ -87,7 +86,7 @@ function abcli_host() {
                 fi
 
                 local repo
-                for repo in abcli $(echo "$external_plugins" | tr _ -) ; do
+                for repo in abcli $(echo "$abcli_tagged_external_plugins" | tr _ - | tr , " ") ; do
                     local filename=$abcli_path_git/$repo/abcli/host/$tag.sh
                     if [ -f $filename ] ; then
                         abcli_log "-> $filename"
