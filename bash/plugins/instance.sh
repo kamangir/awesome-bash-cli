@@ -65,7 +65,7 @@ function abcli_instance() {
         local security_group_ids=$(abcli_aws_json_get "['ec2'].get('security_group_ids','')")
         local subnet_id=$(abcli_aws_json_get "['ec2'].get('subnet_id','')")
 
-        abcli_log "abcli_instance: $task $image_id:$security_group_ids:$subnet_id-$instance_type-> $instance_name"
+        abcli_log "abcli_instance: $task $image_id:$security_group_ids:$subnet_id -$instance_type-> $instance_name"
 
         # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#launch-templates-as
         aws ec2 run-instances \
@@ -79,6 +79,11 @@ function abcli_instance() {
             --instance-type $instance_type > $abcli_path_git/abcli_instance_log.txt
 
         local instance_ip_address=$(abcli_instance describe $instance_name)
+
+        if [ z "$instance_ip_address" ] ; then
+            abcli_log_error "-abcli: instance: from_image: failed."
+            return
+        fi
         abcli_log "instance created at $instance_ip_address"
 
         local options="$5"
