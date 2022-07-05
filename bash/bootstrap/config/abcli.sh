@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
 
-# this is the name of the cli.
-export abcli_name="abc"
+export abcli_name="abcli"
+
+export abcli_cli_name="abc"

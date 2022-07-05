@@ -13,7 +13,7 @@ function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_name ssh ec2/jetson_nano/rpi 1-2-3-4 [./vnc/worker/worker,gpu] [region=region_1,user=ec2-user/ubuntu]" \
+        abcli_help_line "$abcli_cli_name ssh ec2/jetson_nano/rpi 1-2-3-4 [./vnc/worker/worker,gpu] [region=region_1,user=ec2-user/ubuntu]" \
             "ssh to 1-2-3-4 [on region_1] [for vnc/worker/worker,gpu] [as user]."
         return
     fi

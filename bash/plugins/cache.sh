@@ -9,13 +9,13 @@ function abcli_cache() {
     local keyword=$2
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_name cache clone object_1 object_2" \
+        abcli_help_line "$abcli_cli_name cache clone object_1 object_2" \
             "clone cache from object_1 to object_2."
-        abcli_help_line "$abcli_name cache read keyword" \
+        abcli_help_line "$abcli_cli_name cache read keyword" \
             "read cache[keyword]."
-        abcli_help_line "$abcli_name cache search keyword" \
+        abcli_help_line "$abcli_cli_name cache search keyword" \
             "search in cache for keyword."
-        abcli_help_line "$abcli_name cache write keyword value [validate]" \
+        abcli_help_line "$abcli_cli_name cache write keyword value [validate]" \
             "write cache[keyword]=value [and validate]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then

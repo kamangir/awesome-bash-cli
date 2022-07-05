@@ -4,7 +4,7 @@ config files are carried through the seed and are mainly [excluded from git](./.
 
 ## [abcli.sh](./abcli.sh)
 
-`abcli_name` is the name that the cli replies to.
+`abcli_cli_name` is the name that the cli replies to.
 
 ## [aws.json](./template/aws.json)
 
