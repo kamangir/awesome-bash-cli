@@ -39,11 +39,15 @@ function abcli_source_dependencies() {
     for repo_name in $(echo $abcli_tagged_external_plugins | tr _ - | tr , " ") ; do
         abcli_log "loading $repo_name"
 
-        pushd $abcli_path_git/$repo_name/abcli > /dev/null
-        local filename
-        for filename in *.sh ; do
-            source $filename
-        done
-        popd > /dev/null
+        if [ -d "$abcli_path_git/$repo_name/abcli" ] ; then
+            pushd $abcli_path_git/$repo_name/abcli > /dev/null
+            local filename
+            for filename in *.sh ; do
+                source $filename
+            done
+            popd > /dev/null
+        else
+            echo "wip: clone $repo_name"
+        fi
     done
 }
