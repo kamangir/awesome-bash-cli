@@ -39,7 +39,7 @@ find a machine that is already terraformed by `abcli` and open two terminals - i
 abc seed
 ```
 
-now switch to the first terminal and paste the clipboard (`Ctrl+V`)
+now switch to the first terminal and paste the clipboard (`Ctrl+V`).
 
 ---
 
