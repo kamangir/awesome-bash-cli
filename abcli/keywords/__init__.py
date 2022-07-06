@@ -18,7 +18,7 @@ keywords = {
     "dl": "download",
     "em": "earthdaily_mosaic",
     "eval": "evaluate",
-    "ic": "image-classifier",
+    "ic": "image_classifier",
     "id": "identify",
     "ing": "ingest",
     "ls": "list",
