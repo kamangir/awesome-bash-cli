@@ -27,16 +27,16 @@ function abcli_log() {
     fi
 
     if [ "$task" == "verbose" ] ; then
-        local what=$(bolt_clarify_arg "$2" "on")
+        local what=$(abcli_clarify_arg "$2" "on")
 
         if [ "$what" == "on" ] ; then
             touch $abcli_path_git/verbose
             abcli_set_log_verbosity
-        elif [ "$task" == "off" ] ; then
+        elif [ "$what" == "off" ] ; then
             rm $abcli_path_git/verbose
             abcli_set_log_verbosity
         else
-            abclo_log_error "-abcli: log: verbose: $what: command not found."
+            abcli_log_error "-abcli: log: verbose: $what: command not found."
         fi
 
         return
@@ -91,3 +91,9 @@ function abcli_set_log_verbosity() {
         set +x
     fi
 }
+
+abcli_set_log_verbosity
+
+if [ -z "$abcli_log_filename" ] ; then
+    export abcli_log_filename="abcli.log"
+fi

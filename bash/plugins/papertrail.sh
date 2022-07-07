@@ -42,7 +42,3 @@ function abcli_trail() {
 
     export abcli_log_filename=$log_filename
 }
-
-if [ -z "$abcli_log_filename" ] ; then
-    export abcli_log_filename="abcli.log"
-fi
