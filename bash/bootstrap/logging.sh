@@ -16,9 +16,9 @@ function abcli_help_line() {
 }
 
 function abcli_log() {
-    local task=$(abcli_unpack_keyword $1 help)
+    local task=$(abcli_unpack_keyword "$1" help)
 
-    if [ "$message" == "help" ] ; then
+    if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name log \"sth happened\"" \
             "log sth happened."
         abcli_help_line "$abcli_cli_name log verbose [on/off]" \
