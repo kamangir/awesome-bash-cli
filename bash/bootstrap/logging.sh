@@ -16,27 +16,29 @@ function abcli_help_line() {
 }
 
 function abcli_log() {
-    local message="$@"
+    local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$message" == "help" ] ; then
         abcli_help_line "$abcli_cli_name log \"sth happened\"" \
             "log sth happened."
-        abcli_help_line "$abcli_cli_name log verbose" \
-            "verbose logging on."
-        abcli_help_line "$abcli_cli_name log verbose off" \
-            "verbose logging off."
+        abcli_help_line "$abcli_cli_name log verbose [on/off]" \
+            "verbose logging on/off."
         return
     fi
 
-    if [ "$message" == "verbose" ] ; then
-        touch $abcli_path_git/verbose
-        abcli_set_log_verbosity
-        return
-    fi
+    if [ "$task" == "verbose" ] ; then
+        local what=$(bolt_clarify_arg "$2" "on")
 
-    if [ "$message" == "verbose off" ] ; then
-        rm $abcli_path_git/verbose
-        abcli_set_log_verbosity
+        if [ "$what" == "on" ] ; then
+            touch $abcli_path_git/verbose
+            abcli_set_log_verbosity
+        elif [ "$task" == "off" ] ; then
+            rm $abcli_path_git/verbose
+            abcli_set_log_verbosity
+        else
+            abclo_log_error "-abcli: log: verbose: $what: command not found."
+        fi
+
         return
     fi
 
