@@ -15,7 +15,8 @@ function abcli_instance() {
         abcli_help_line "$abcli_cli_name instance terminate instance_id" \
             "terminate ec2 instance."
 
-        printf "suggested instance_type(s): ${GREEN}p2.xlarge$NC, ${GREEN}g4dn.xlarge$NC if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
+        local default_instance_type=$(abcli_aws_json_get "['ec2'].get('default_instance_type','')")
+        printf "instance_types: gpu: ${GREEN}p2.xlarge$NC, ${GREEN}g4dn.xlarge$NC, cpu: ${GREEN}t2.xlarge$NC, default: $GREEN$default_instance_type$NC.\n"
 
         local templates=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('templates',{}).keys()))")
         local default_template=$(abcli_aws_json_get "['ec2'].get('default_template','')")
@@ -24,7 +25,6 @@ function abcli_instance() {
         local image_names=$(python3 -c "from abcli import file; print(','.join(file.load_json('$abcli_path_bash/bootstrap/config/aws.json')[1]['ec2'].get('image_id',{}).keys()))")
         local default_image_name=$(abcli_aws_json_get "['ec2'].get('default_image_name','')")
         abcli_log_list $image_names , "image(s)" "" "default: $default_image_name"
-
         return
     fi
 
