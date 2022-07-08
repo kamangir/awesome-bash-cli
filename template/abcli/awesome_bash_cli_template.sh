@@ -8,10 +8,8 @@ function awesome_bash_cli_template() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ $task == "help" ] ; then
-        abcli_help_line "awesome_bash_cli_template terraform" \
-            "terraform awesome_bash_cli_template."
-        abcli_help_line "awesome_bash_cli_template validate" \
-            "validate awesome_bash_cli_template."
+        abcli_help_line "abct task_1" \
+            "run abct task_1."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m awesome_bash_cli_template --help
@@ -20,13 +18,10 @@ function awesome_bash_cli_template() {
         return
     fi
 
-    if [ "$task" == "terraform" ] ; then
-        abcli_git terraform awesome-plugin
-        return
-    fi
-
-    if [ "$task" == "validate" ] ; then
-        python3 -m awesome_bash_cli_template validate
+    if [ "$task" == "task_1" ] ; then
+        python3 -m awesome_bash_cli_template \
+            task_1 \
+            ${@:2}
         return
     fi
 
