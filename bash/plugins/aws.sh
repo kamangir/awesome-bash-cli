@@ -11,3 +11,11 @@ function abcli_aws_region() {
 function abcli_aws_s3_bucket() {
     abcli_aws_json_get "['s3']['bucket_name']"
 }
+
+function abcli_aws_s3_prefix() {
+    abcli_aws_json_get "['s3']['prefix']"
+}
+
+function abcli_aws_s3_public_bucket() {
+    abcli_aws_json_get "['s3']['public_bucket_name']"
+}

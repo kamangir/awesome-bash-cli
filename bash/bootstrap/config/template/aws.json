@@ -24,6 +24,8 @@
     },
     "region": "ca-central-1",
     "s3": {
-        "bucket_name": "kamangir"
+        "bucket_name": "kamangir",
+        "prefix": "abcli",
+        "public_bucket_name": "abcli-public"
     }
 }

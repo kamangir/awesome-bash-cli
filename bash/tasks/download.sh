@@ -37,13 +37,13 @@ function abcli_download() {
     local filename=$1
     if [ ! -z "$filename" ] ; then
         abcli_log "$abcli_object_name/$filename download started."
-        aws s3 cp "s3://$(abcli_aws_s3_bucket)/$abcli_name/$abcli_object_name/$filename" "$abcli_object_path/$filename"
+        aws s3 cp "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name/$filename" "$abcli_object_path/$filename"
     else
         local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/$abcli_name/$abcli_object_name.tar.gz)
         if [ -z "$exists" ] ; then
             abcli_log "$abcli_object_name open download started."
 
-            aws s3 sync "s3://$(abcli_aws_s3_bucket)/$abcli_name/$abcli_object_name" .
+            aws s3 sync "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name" .
         else
             abcli_log "$abcli_object_name solid download started."
 

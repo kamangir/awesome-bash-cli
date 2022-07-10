@@ -33,7 +33,7 @@ function abcli_object() {
         abcli_download
 
         rm -v ../$abcli_object_name.tar.gz
-        aws s3 rm "s3://$(abcli_aws_s3_bucket)/$abcli_name/$abcli_object_name.tar.gz"
+        aws s3 rm "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz"
 
         abcli_tag set $abcli_object_name ~solid
 

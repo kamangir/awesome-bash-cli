@@ -45,9 +45,9 @@ function abcli_publish() {
 
         abcli_upload solid
 
-        aws s3 cp s3://kamangir/abcli/$abcli_object_name.tar.gz s3://kamangir-public/
+        aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz s3://$(abcli_aws_s3_public_bucket)/
 
-        local url="https://kamangir-public.s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
+        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
         abcli_log "published $object_name as $url"
 
         abcli_select $abcli_object_name_current
@@ -66,9 +66,9 @@ function abcli_publish() {
 
         abcli_upload open
 
-        aws s3 sync s3://kamangir/abcli/$abcli_object_name s3://kamangir-public/$abcli_object_name
+        aws s3 sync s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name s3://$(abcli_aws_s3_public_bucket)/$abcli_object_name
 
-        local url="https://kamangir-public.s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
+        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
         abcli_log "published $object_name as $url"
 
         abcli_select $abcli_object_name_current
@@ -80,9 +80,9 @@ function abcli_publish() {
             abcli_upload open
 
             local public_filename=$(echo $othername | tr / -)
-            aws s3 cp s3://kamangir/abcli/$object_name/$filename s3://kamangir-public/${object_name}-${public_filename}
+            aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/$filename s3://$(abcli_aws_s3_public_bucket)/${object_name}-${public_filename}
 
-            local url="https://kamangir-public.s3.$(abcli_aws_region).amazonaws.com/${object_name}-${public_filename}"
+            local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/${object_name}-${public_filename}"
             abcli_log "published $object_name/$filename as $url"
         else
             local list_of_files=(`ls *$filename`)
