@@ -13,7 +13,7 @@ keywords = {
     "am": "add_month",
     "bld": "build",
     "br": "browse",
-    "cce": "create_conda_env",
+    "ce": "create_env",
     "det": "detect",
     "dl": "download",
     "em": "earthdaily_mosaic",
