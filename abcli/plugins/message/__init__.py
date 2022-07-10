@@ -41,13 +41,13 @@ class Message(object):
                 self.data = {}
                 logger.warning(f"-message: bad data: {raw}")
 
-        self.filename_ = filename
-        if self.filename_:
+        if filename:
+            self.data["filename"] = filename
             (
                 _,
                 self.data["bucket_name"],
                 self.data["object_name"],
-            ) = storage.upload_file(self.filename_)
+            ) = storage.upload_file(filename)
 
     def as_string(self):
         """return self as string.
@@ -85,24 +85,27 @@ class Message(object):
         """
         from ...plugins.storage import instance as storage
 
-        if not self.filename_:
-            if self.data.get("bucket_name", "") and self.data.get("object_name", ""):
-                filename = os.path.join(
-                    os.getenv("abcli_object_path"),
-                    "auxiliary",
-                    "-".join(
-                        [self.data["bucket_name"]] + self.data["object_name"].split("/")
-                    ),
-                )
+        if (
+            not self.data["filename"]
+            and self.data.get("bucket_name", "")
+            and self.data.get("object_name", "")
+        ):
+            filename = os.path.join(
+                os.getenv("abcli_object_path"),
+                "auxiliary",
+                "-".join(
+                    [self.data["bucket_name"]] + self.data["object_name"].split("/")
+                ),
+            )
 
-                if storage.download_file(
-                    self.data["bucket_name"],
-                    self.data["object_name"],
-                    filename,
-                ):
-                    self.filename_ = filename
+            if storage.download_file(
+                self.data["bucket_name"],
+                self.data["object_name"],
+                filename,
+            ):
+                self.data["filename"] = filename
 
-        return self.filename_
+        return self.data["filename"]
 
     def reply(self):
         """reply to message
