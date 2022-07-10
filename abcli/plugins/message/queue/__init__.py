@@ -99,6 +99,7 @@ class MessageQueue(object):
                             "StringValue"
                         )
                         for attribute in attributes
+                        if msg.message_attributes.get(attribute) is not None
                     }
                 )
 
