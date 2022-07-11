@@ -125,23 +125,25 @@ class Storage(object):
         self,
         prefix,
         bucket_name=None,
-        count=9999,
+        count=-1,
         postfix="",
         recursive=True,
+        include_folders=False,
     ):
         """list objects.
 
         Args:
             prefix (str): prefix.
             bucket_name (str, optional): bucket name. Defaults to None.
-            count (int, optional): count to return. Defaults to 9999.
+            count (int, optional): count to return. Defaults to -1.
             postfix (str, optional): postfix. Defaults to "".
             recursive (bool, optional): recursive. Defaults to True.
+            include_folders (bool, optional): include folders. Defaults to False.
 
         Returns:
             List[str]: list of objects.
         """
-        prefix = "/".join([object_prefix, prefix])
+        prefix = f"{object_prefix}/{prefix}"
 
         if bucket_name is None:
             bucket_name = self.bucket_name
@@ -155,18 +157,23 @@ class Storage(object):
                 for object_summary in boto3.resource("s3")
                 .Bucket(bucket_name)
                 .objects.filter(Prefix=prefix)
-                .limit(count)
+                # .limit(count)
             ]
         except:
             crash_report("-storage: list_of_objects: failed.")
 
         output = [thing[1:] if thing.startswith("/") else thing for thing in output]
 
-        if not recursive:
+        if include_folders:
+            output = sorted(list(set([thing.split("/")[0] for thing in output])))
+        elif not recursive:
             output = [thing for thing in output if "/" not in thing]
 
         if postfix:
             output = [thing for thing in output if thing.endswith(postfix)]
+
+        if count != -1:
+            output = output[:count]
 
         return output
 
