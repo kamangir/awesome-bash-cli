@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 
 name = f"{shortname}.plugins.storage"
 
-default_bucket_name = aws.get_from_json("s3").get("bucket_name", "")
+default_bucket_name = aws.get_from_json("s3").get("bucket_name", "kamangir")
+object_prefix = aws.get_from_json("s3").get("prefix", "abcli")
 
 
 class Storage(object):
@@ -140,7 +141,7 @@ class Storage(object):
         Returns:
             List[str]: list of objects.
         """
-        prefix = "/".join(["abcli", prefix])
+        prefix = "/".join([object_prefix, prefix])
 
         if bucket_name is None:
             bucket_name = self.bucket_name
@@ -229,7 +230,8 @@ class Storage(object):
 
         if object_name is None:
             abcli_object_name = os.getenv("abcli_object_name")
-            object_name = "abcli/{}{}".format(
+            object_name = "{}/{}{}".format(
+                object_prefix,
                 abcli_object_name,
                 string.after(filename, abcli_object_name),
             )
@@ -270,8 +272,8 @@ class Storage(object):
         Returns:
             bool: success.
         """
-        return "https://{}.s3.{}.amazonaws.com/abcli/{}/{}".format(
-            self.bucket_name, self.region, object_name, filename
+        return "https://{}.s3.{}.amazonaws.com/{}/{}/{}".format(
+            self.bucket_name, self.region, object_prefix, object_name, filename
         )
 
 
