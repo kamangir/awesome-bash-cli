@@ -32,7 +32,7 @@ function abcli_source_dependencies() {
 
     export abcli_host_tags=$(abcli_host get tags . --delim , --log 0)
 
-    local external_plugins=$(abcli_external_plugins --delim ,)
+    local external_plugins=$(abcli_plugins list_of_external --log 0 --delim ,)
     export abcli_tagged_external_plugins=$(abcli_list_intersect $abcli_host_tags $external_plugins)
 
     local repo_name

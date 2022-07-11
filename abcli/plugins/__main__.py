@@ -11,11 +11,11 @@ parser.add_argument(
 parser.add_argument(
     "--delim",
     type=str,
-    default="space",
+    default=", ",
 )
 parser.add_argument(
     "--log",
-    default=0,
+    default=1,
     type=int,
     help="0/1",
 )
@@ -27,7 +27,7 @@ success = False
 if args.task == "list_of_external":
     output = list_of_external()
     if args.log:
-        logger.info("{:,} external plugin(s): {}".format(len(output), output))
+        logger.info(f"{len(output):,} external plugin(s): {delim.join(output)}")
     else:
         print(delim.join(output))
     success = True
