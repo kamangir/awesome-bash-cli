@@ -6,8 +6,8 @@ function abcli_git() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name git cd repo_name" \
             "cd $abcli_path_git/repo_name."
-        abcli_help_line "$abcli_cli_name git clone repo_name [cd,object,pull,source=username/some_repo,terraform]" \
-            "clone [and terraform] [a private fork of username/some_repo as] [$abcli_object_name/]repo_name [and pull if already exists]."
+        abcli_help_line "$abcli_cli_name git clone repo_name [cd,install,object,pull,source=username/some_repo]" \
+            "clone [and install] [a private fork of username/some_repo as] [$abcli_object_name/]repo_name [and pull if already exists]."
 
         abcli_git_pull $@
 
@@ -39,8 +39,8 @@ function abcli_git() {
         local options="$3"
         local do_pull=$(abcli_option_int "$options" "pull" 0)
         local in_object=$(abcli_option_int "$options" "object" 0)
+        local install=$(abcli_option_int "$options" "install" 0)
         local source=$(abcli_option "$options" "source" "")
-        local terraform=$(abcli_option_int "$options" "terraform" 0)
         local then_cd=$(abcli_option_int "$options" "cd" 0)
 
         if [ "$in_object" == "0" ] ; then
@@ -64,7 +64,7 @@ function abcli_git() {
         if [ ! -d "$repo_name" ] ; then
             git clone git@github.com:kamangir/$repo_name.git
 
-            if [ "$terraform" == "1" ] ; then
+            if [ "$install" == "1" ] ; then
                 cd $repo_name
                 pip3 install -e .
                 cd ..
@@ -138,28 +138,6 @@ function abcli_git() {
         popd > /dev/null
         return
     fi
-
-    if [ "$task" == "terraform" ] ; then
-        if [ -z "$repo_name" ] ; then
-            abcli_log_error "-abcli: git: terraform: missing repo_name."
-            return
-        fi
-
-        abcli_log "git.terraform($repo_name)"
-
-        pushd $abcli_path_git > /dev/null
-
-        if [ ! -d "$repo_name" ] ; then
-            git clone git@github.com:kamangir/$repo_name.git
-        fi
-
-        cd $repo_name
-        pip3 install -e .
-
-        popd > /dev/null
-        return
-    fi
-
 
     local repo_name=$(abcli_unpack_repo_name $1)
 
