@@ -15,6 +15,8 @@ keywords = {
     "am": "add_month",
     "bld": "build",
     "br": "browse",
+    "bw": "blue-wiki",
+    "bwiki": "blue-wiki",
     "ce": "create_env",
     "det": "detect",
     "dl": "download",

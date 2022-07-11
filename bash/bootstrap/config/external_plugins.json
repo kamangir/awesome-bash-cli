@@ -2,6 +2,7 @@
   "blue": {
     "public": "blue-rvr"
   },
+  "blue_wiki": {},
   "bracket": {
     "public": "blue-bracket"
   },
@@ -13,6 +14,5 @@
   "ferfereh": {},
   "image_classifier": {},
   "training_framework": {},
-  "yolov5": {},
-  "wiki": {}
+  "yolov5": {}
 }

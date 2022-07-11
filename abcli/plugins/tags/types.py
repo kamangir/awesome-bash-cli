@@ -12,6 +12,7 @@ host_type = {
     ],
     "dev": [
         "blue",
+        "blue_wiki",
         "bracket",
         "browse",
         "CV",
@@ -19,16 +20,15 @@ host_type = {
         "Kanata",
         "image_classifier",
         "training_framework",
-        "wiki",
         "yolov5",
     ],
     "worker": [
         "blue",
+        "blue_wiki",
         "bracket",
         "dart",
         "Kanata",
         "training_framework",
-        "wiki",
         "worker",
     ],
 }
