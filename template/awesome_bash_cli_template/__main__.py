@@ -18,8 +18,6 @@ if args.task == "TBD":
     success = True
 else:
     logger.error(f"-{name}: {args.task}: command not found.")
-    # print(f"-{name}: {args.task}: command not found.")
 
 if not success:
     logger.error(f"-{name}: {args.task}: failed.")
-    # print(f"-{name}: {args.task}: failed.")
