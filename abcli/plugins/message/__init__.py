@@ -48,6 +48,8 @@ class Message(object):
                 self.data["bucket_name"],
                 self.data["object_name"],
             ) = storage.upload_file(filename)
+        else:
+            self.data["filename"] = ""
 
     def as_string(self):
         """return self as string.
@@ -99,9 +101,9 @@ class Message(object):
             )
 
             if storage.download_file(
-                self.data["bucket_name"],
-                self.data["object_name"],
-                filename,
+                object_name=self.data["object_name"],
+                bucket_name=self.data["bucket_name"],
+                filename=filename,
             ):
                 self.data["filename"] = filename
 

@@ -65,8 +65,8 @@ class Storage(object):
     def download_file(
         self,
         object_name,
-        bucket_name=None,
         filename="",
+        bucket_name=None,
         civilized=False,
         log=True,
         overwrite=False,
@@ -75,8 +75,8 @@ class Storage(object):
 
         Args:
             object_name (str): object name.
-            bucket_name (str, optional): bucket name. Default to None.
             filename (str, optional): filename to download. Defaults to "".
+            bucket_name (str, optional): bucket name. Default to None.
             civilized (bool, optional): if failed, do not print error message. Defaults to False.
             log (bool, optional): log. Default to False.
             overwrite (bool, optional): overwrite filename. Defaults to False.
