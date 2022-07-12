@@ -15,6 +15,7 @@ function abcli_huggingface() {
 
     if [ $task == "install" ] ; then
         python3 -m pip install huggingface_hub
+        huggingface-cli login
         return
     fi
 
