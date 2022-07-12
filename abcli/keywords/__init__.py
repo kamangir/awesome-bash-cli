@@ -23,6 +23,7 @@ keywords = {
     "ds": "dataset",
     "em": "earthdaily_mosaic",
     "eval": "evaluate",
+    "fm": "fashion_mnist",
     "hf": "huggingface",
     "ic": "image_classifier",
     "id": "identify",
