@@ -14,7 +14,7 @@ function abcli_kaggle() {
             # https://github.com/Kaggle/kaggle-api
             pip3 install kaggle
             mkdir -p ~/.kaggle/
-            cp -v $abcli_path_abcli/assets/kaggle.json ~/.kaggle/
+            cp -v $abcli_path_bash/bootstrap/config/kaggle.json ~/.kaggle/
             chmod 600 ~/.kaggle/kaggle.json
         fi
 
