@@ -18,7 +18,7 @@ function abcli_huggingface() {
     if [ $task == "clone" ] ; then
         pushd $abcli_path_git > /dev/null
         git clone https://huggingface.co/kamangir/$2
-        popd /dev/null
+        popd > /dev/null
         return
     fi
 
