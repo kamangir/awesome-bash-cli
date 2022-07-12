@@ -14,7 +14,9 @@
   "fashion_mnist": {},
   "ferfereh": {},
   "image_classifier": {},
-  "mayo_clinic_strip_ai": {},
+  "mayo_clinic_strip_ai": {
+    "python_module": "mcsai"
+  },
   "training_framework": {},
   "yolov5": {}
 }
