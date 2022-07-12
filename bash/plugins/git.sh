@@ -4,17 +4,17 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name git cd repo_name" \
-            "cd $abcli_path_git/repo_name."
-        abcli_help_line "$abcli_cli_name git clone repo_name [cd,install,object,pull,source=username/some_repo]" \
-            "clone [and install] [a private fork of username/some_repo as] [$abcli_object_name/]repo_name [and pull if already exists]."
+        abcli_help_line "$abcli_cli_name git cd repo_1" \
+            "cd $abcli_path_git/repo_1."
+        abcli_help_line "$abcli_cli_name git clone repo_1 [cd,install,object,pull,source=username/some_repo]" \
+            "clone [and install] [a private fork of username/some_repo as] [$abcli_object_name/]repo_1 [and pull if already exists]."
 
         abcli_git_pull $@
 
-        abcli_help_line "$abcli_cli_name git repo_name command args" \
-            "run 'git command args' in $abcli_path_git/repo_name."
-        abcli_help_line "$abcli_cli_name git push repo_name [object,delete]" \
-            "push to [and delete] [$abcli_object_name/]repo_name."
+        abcli_help_line "$abcli_cli_name git repo_1 command args" \
+            "run 'git command args' in $abcli_path_git/repo_1."
+        abcli_help_line "$abcli_cli_name git push repo_1 [object,delete]" \
+            "push to [and delete] [$abcli_object_name/]repo_1."
         abcli_help_line "$abcli_cli_name git recreate_ssh" \
             "recreate github ssh key."
         abcli_help_line "$abcli_cli_name git status" \

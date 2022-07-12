@@ -4,12 +4,19 @@ function abcli_huggingface() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
+        abcli_help_line "$abcli_cli_name git clone repo_1" \
+            "clone huggingface/repo_1."
         abcli_help_line "$abcli_cli_name huggingface install" \
             "install huggingface."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.huggingface --help
         fi
+        return
+    fi
+
+    if [ $task == "clone" ] ; then
+        git clone https://huggingface.co/kamangir/$2
         return
     fi
 
