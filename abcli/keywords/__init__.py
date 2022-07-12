@@ -27,6 +27,7 @@ keywords = {
     "ing": "ingest",
     "le": "list_of_external",
     "ls": "list",
+    "mcsai": "mayo_clinic_strip_ai",
     "obj": "object",
     "op": "open",
     "pk": "pack_keyword",
