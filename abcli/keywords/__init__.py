@@ -14,7 +14,7 @@ keywords = {
     "abcli": "awesome-bash-cli",
     "am": "add_month",
     "bld": "build",
-    "br": "browse",
+    "br": "browser",
     "bw": "blue-wiki",
     "bwiki": "blue-wiki",
     "ce": "create_env",
