@@ -1,6 +1,6 @@
 host_type = {
     "blue": ["blue", "driving_blue", "rvr"],
-    "browse": ["training_framework"],
+    "browser": ["training_framework"],
     "cloud_dev": [
         "blue",
         "bracket",
@@ -14,7 +14,7 @@ host_type = {
         "blue",
         "blue_wiki",
         "bracket",
-        "browse",
+        "browser",
         "CV",
         "dart",
         "Kanata",
