@@ -20,6 +20,7 @@ keywords = {
     "ce": "create_env",
     "det": "detect",
     "dl": "download",
+    "ds": "dataset",
     "em": "earthdaily_mosaic",
     "eval": "evaluate",
     "ic": "image_classifier",
