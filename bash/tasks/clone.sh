@@ -9,7 +9,7 @@ function abcli_clone() {
         return
     fi
 
-    local options="$2"
+    local options=$2
     local clone_meta=$(abcli_option_int "$options" "meta" 1)
     local clone_cache=$(abcli_option_int "$options" "cache" $clone_meta)
     local clone_relations=$(abcli_option_int "$options" "relations" $clone_meta)

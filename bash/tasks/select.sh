@@ -11,7 +11,7 @@ function abcli_select() {
 
     local object_name=$(abcli_clarify_object "$1" $(abcli_string_timestamp))
 
-    local options="$2"
+    local options=$2
     local update_trail=$(abcli_option_int "$options" "trail" 1)
 
     export abcli_object_name_prev=$abcli_object_name

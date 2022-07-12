@@ -36,7 +36,7 @@ function abcli_git() {
     fi
 
     if [ "$task" == "clone" ] ; then
-        local options="$3"
+        local options=$3
         local do_pull=$(abcli_option_int "$options" "pull" 0)
         local in_object=$(abcli_option_int "$options" "object" 0)
         local install=$(abcli_option_int "$options" "install" 0)
@@ -87,7 +87,7 @@ function abcli_git() {
     fi
 
     if [ "$task" == "push" ] ; then
-        local options="$3"
+        local options=$3
         local in_object=$(abcli_option_int "$options" "object" 0)
         local do_delete=$(abcli_option_int "$options" "delete" 0)
 

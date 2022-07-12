@@ -86,7 +86,7 @@ function abcli_instance() {
         fi
         abcli_log "instance created at $instance_ip_address"
 
-        local options="$5"
+        local options=$5
         local do_ssh=$(abcli_option_int "$options" "ssh" 0)
         local do_vnc=$(abcli_option_int "$options" "vnc" 0)
 
@@ -141,7 +141,7 @@ function abcli_instance() {
         local instance_ip_address=$(abcli_instance describe $instance_name)
         abcli_log "instance created at $instance_ip_address"
 
-        local options="$5"
+        local options=$5
         local do_ssh=$(abcli_option_int "$options" "ssh" 0)
         local do_vnc=$(abcli_option_int "$options" "vnc" 0)
 

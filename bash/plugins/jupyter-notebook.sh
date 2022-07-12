@@ -38,7 +38,7 @@ function abcli_notebook() {
 
     # https://docs.aws.amazon.com/dlami/latest/devguide/setup-jupyter.html
     if [ "$task" == "connect" ] ; then
-        local options="$3"
+        local options=$3
         local do_setup=$(abcli_option_int "$options" "setup" 0)
 
         if [ "$do_setup" == 1 ] ; then
@@ -58,7 +58,7 @@ function abcli_notebook() {
     fi
 
     if [ "$task" == "host" ] ; then
-        local options="$2"
+        local options=$2
         local do_setup=$(abcli_option_int "$options" "setup" 0)
 
         if [ "$do_setup" == 1 ] ; then

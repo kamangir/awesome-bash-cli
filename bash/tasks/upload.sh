@@ -18,7 +18,7 @@ function abcli_upload() {
         return
     fi
 
-    local options="$1"
+    local options=$1
     local do_open=$(abcli_option_int "$options" "open" 1)
     local do_solid=$(abcli_option_int "$options" "solid" 0)
 

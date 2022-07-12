@@ -20,7 +20,7 @@ function abcli_seed() {
         return
     fi
 
-    local options="$1"
+    local options=$1
     local target=$(abcli_option "$options" "target" ec2)
     local output=$(abcli_option "$options" "output" screen)
     local do_update=$(abcli_option "$options" "update" 0)

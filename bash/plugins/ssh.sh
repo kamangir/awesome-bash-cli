@@ -22,7 +22,7 @@ function abcli_ssh() {
     local address="$2"
     local intent="$3"
 
-    local options="$4"
+    local options=$4
 
     if [ -z "$address" ] ; then
         abcli_log_error "-abcli: ssh: address missing."
