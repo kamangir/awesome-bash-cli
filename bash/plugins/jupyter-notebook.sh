@@ -1,21 +1,21 @@
 #! /usr/bin/env bash
 
 function abcli_notebook() {
-    local task=$(abcli_unpack_keyword "$1" browse)
+    local task=$(abcli_unpack_keyword "$1" open)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name notebook [browse] [notebook] [args]" \
-            "browse $abcli_object_name/notebook.ipynb [and pass args]."
         abcli_help_line "$abcli_cli_name notebook build [notebook]" \
             "build $abcli_object_name/notebook.ipynb."
         abcli_help_line "$abcli_cli_name notebook connect 1-2-3-4 [setup]" \
             "[setup and] connect to jupyter notebook on ec2:1-2-3-4."
         abcli_help_line "$abcli_cli_name notebook host [setup]" \
             "[setup and] host jupyter notebook on ec2."
+        abcli_help_line "$abcli_cli_name notebook [open] [notebook] [args]" \
+            "open $abcli_object_name/notebook.ipynb [and pass args]."
         return
     fi
 
-    if [ "$task" == "build" ] || [ "$task" == "browse" ] ; then
+    if [ "$task" == "build" ] || [ "$task" == "open" ] ; then
         local notebook_name=$2
         if [ -z "$notebook_name" ] || [ "$notebook_name" == "-" ] ; then
             local notebook_name="notebook"
@@ -32,17 +32,6 @@ function abcli_notebook() {
             --output-dir $abcli_object_path
 
         mv $abcli_object_path/$notebook_name.html $abcli_object_path/$abcli_object_name.html
-
-        return
-    fi
-
-    if [ "$task" == "browse" ] ; then
-        if [ ! -f $notebook_name.ipynb ]; then
-            cp $abcli_path_abcli/assets/notebook.ipynb ./$notebook_name.ipynb
-            abcli_log "$notebook_name.ipynb copied."
-        fi
-
-        jupyter notebook
 
         return
     fi
@@ -84,6 +73,17 @@ function abcli_notebook() {
         jupyter notebook \
             --certfile=$abcli_path_home/ssl/mycert.pem \
             --keyfile $abcli_path_home/ssl/mykey.key
+
+        return
+    fi
+
+    if [ "$task" == "open" ] ; then
+        if [ ! -f $notebook_name.ipynb ]; then
+            cp $abcli_path_abcli/assets/notebook.ipynb ./$notebook_name.ipynb
+            abcli_log "$notebook_name.ipynb copied."
+        fi
+
+        jupyter notebook
 
         return
     fi
