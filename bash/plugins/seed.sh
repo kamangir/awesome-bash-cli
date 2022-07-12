@@ -4,8 +4,8 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name seed [output=clipboard/key/screen,target=./ec2/jetson/mac/rpi]" \
-            "generate an ec2/jetson/mac/rpi seed and output to clipboard/key/screen."
+        abcli_help_line "$abcli_cli_name seed [output=clipboard/key/screen,target=./ec2/jetson/mac/rpi,update]" \
+            "generate an [update] ec2/jetson/mac/rpi seed and output to clipboard/key/screen."
         abcli_help_line "$abcli_cli_name seed eject" \
             "eject seed"
         return
@@ -23,6 +23,7 @@ function abcli_seed() {
     local options="$1"
     local target=$(abcli_option "$options" "target" ec2)
     local output=$(abcli_option "$options" "output" screen)
+    local do_update=$(abcli_option "$options" "update" 0)
 
     if [ "$target" == "." ] ; then
         for target in ec2 jetson mac rpi ; do
@@ -63,36 +64,38 @@ function abcli_seed() {
 
     seed="${seed}echo \"$abcli_fullname seed\"$delim_section"
 
-    seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
-
     seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
     seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
 
     seed="${seed}aws_config=\"$(cat ~/.aws/config | $base64)\"$delim"
-    seed="${seed}echo \${aws_config} | base64 --decode > aws_config$delim"
+    seed="${seed}echo \$aws_config | base64 --decode > aws_config$delim"
     seed="$seed${sudo_prefix}mv aws_config ~/.aws/config$delim_section"
 
     seed="${seed}aws_credentials=\"$(cat ~/.aws/credentials | $base64)\"$delim"
-    seed="${seed}echo \${aws_credentials} | base64 --decode > aws_credentials$delim"
+    seed="${seed}echo \$aws_credentials | base64 --decode > aws_credentials$delim"
     seed="$seed${sudo_prefix}mv aws_credentials ~/.aws/credentials$delim_section"
 
-    seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
+    if [ "$do_update" == "0" ] ; then
+        seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
 
-    seed="${seed}git_ssh_key=\"$(cat ~/.ssh/$abcli_git_ssh_key_name | $base64)\"$delim"
-    seed="${seed}echo \$git_ssh_key | base64 --decode >> git_ssh_key$delim"
-    seed="$seed${sudo_prefix}mv git_ssh_key ~/.ssh/$abcli_git_ssh_key_name$delim"
-    seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
-    seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
+        seed="${seed}git_ssh_key=\"$(cat ~/.ssh/$abcli_git_ssh_key_name | $base64)\"$delim"
+        seed="${seed}echo \$git_ssh_key | base64 --decode >> git_ssh_key$delim"
+        seed="$seed${sudo_prefix}mv git_ssh_key ~/.ssh/$abcli_git_ssh_key_name$delim"
+        seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
+        seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
 
-    seed="${seed}ssh-keyscan github.com >> ~/.ssh/known_hosts$delim_section"
+        seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
 
-    seed="${seed}"'ssh -T git@github.com'"$delim_section"
+        seed="${seed}ssh-keyscan github.com >> ~/.ssh/known_hosts$delim_section"
 
-    seed="${seed}cd; mkdir -p git; cd git$delim"
-    seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
-    seed="${seed}cd awesome-bash-cli${delim}"
-    seed="${seed}git checkout $abcli_git_branch; git pull$delim"
-    seed="${seed}cd ..$delim_section"
+        seed="${seed}"'ssh -T git@github.com'"$delim_section"
+
+        seed="${seed}cd; mkdir -p git; cd git$delim"
+        seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
+        seed="${seed}cd awesome-bash-cli${delim}"
+        seed="${seed}git checkout $abcli_git_branch; git pull$delim"
+        seed="${seed}cd ..$delim_section"
+    fi
 
     pushd $abcli_path_bash/bootstrap/config > /dev/null
     local filename
@@ -102,12 +105,14 @@ function abcli_seed() {
     done
     popd > /dev/null
 
-    seed="${seed}source ./abcli/bash/abcli.sh$delim_section"
+    if [ "$do_update" == "0" ] ; then
+        seed="${seed}source ./abcli/bash/abcli.sh$delim_section"
 
-    if [ "$target" == "ec2" ] ; then
-        seed="${seed}source ~/.bash_profile$delim_section"
-    elif [ "$target" == "rpi" ] ; then
-        seed="${seed}source ~/.bashrc$delim_section"
+        if [ "$target" == "ec2" ] ; then
+            seed="${seed}source ~/.bash_profile$delim_section"
+        elif [ "$target" == "rpi" ] ; then
+            seed="${seed}source ~/.bashrc$delim_section"
+        fi
     fi
 
     if [ "$output" == "clipboard" ] ; then
