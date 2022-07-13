@@ -54,9 +54,9 @@ def render_confusion_matrix(cm, class_names, filename, footer=[], header=[], siz
             success = file.save_image(
                 filename,
                 add_signature(
-                    image,
-                    header,
-                    footer,
+                    image=image,
+                    header=header,
+                    footer=footer,
                 ),
             )
 
