@@ -8,6 +8,8 @@ function abcli_huggingface() {
             "clone huggingface/repo_1."
         abcli_help_line "$abcli_cli_name huggingface install" \
             "install huggingface."
+        abcli_help_line "$abcli_cli_name huggingface release repo_1 name_1 object_1 [init,force]" \
+            "[init repo_1 and] [force] release object_1 as huggingface/repo_1/name_1."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.huggingface --help
@@ -25,6 +27,41 @@ function abcli_huggingface() {
     if [ $task == "install" ] ; then
         python3 -m pip install huggingface_hub
         huggingface-cli login
+        return
+    fi
+
+    if [ $task == "release" ] ; then
+        local repo_name=$(abcli_clarify_keyword "$2")
+        local model_name==$(abcli_clarify_keyword "$3")
+        local object_name=$(abcli_clarify_object "$4" $abcli_object_name)
+
+        abcli_download object $object_name
+
+        local options=$5
+        local do_force=$(abcli_option_int "$options" "force" 0)
+        local do_init=$(abcli_option_int "$options" "init" 0)
+
+        pushd $abcli_path_git/$repo_name > /dev/null
+
+        if [ "$do_init" == 1 ] ; then
+            mkdir -p release
+            cd release
+            git lfs track "*.png"
+            git lfs track "*.jpg"
+            git lfs track "*.json"
+            git lfs track "*.pyndarray"
+            cd ..
+        fi
+
+        if [ -d "./release/$model_name" ] && [ "$force" == 0 ] ; then
+            abcli_log_error "-abcli: huggingface: release: $model_name: already exists."
+            return
+        fi
+
+        mkdir -p release/$model_name
+
+        cp -Rv $abcli_object_path/* release/$model_name/
+
         return
     fi
 
