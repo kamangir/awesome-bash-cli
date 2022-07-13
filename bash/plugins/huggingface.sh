@@ -31,8 +31,8 @@ function abcli_huggingface() {
     fi
 
     if [ $task == "release" ] ; then
-        local repo_name=$(abcli_clarify_keyword "$2")
-        local model_name==$(abcli_clarify_keyword "$3")
+        local repo_name=$(abcli_unpack_keyword "$2")
+        local model_name==$(abcli_unpack_keyword "$3")
         local object_name=$(abcli_clarify_object "$4" $abcli_object_name)
 
         local options=$5
