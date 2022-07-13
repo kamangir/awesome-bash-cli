@@ -64,6 +64,8 @@ function abcli_huggingface() {
 
         cp -av $abcli_object_path/. release/$model_name/
 
+        find . -name "*.jpg" -type f -delete
+
         return
     fi
 
