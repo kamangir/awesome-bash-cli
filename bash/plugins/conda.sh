@@ -23,6 +23,7 @@ function abcli_conda() {
         conda install -y pandas
         conda install -y -c conda-forge scikit-learn
         conda install -y -c conda-forge opencv
+        conda install -y -c conda-forge dill
 
         pip3 install boto3
         pip3 install pymysql==0.10.1
