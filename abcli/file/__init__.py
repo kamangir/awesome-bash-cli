@@ -1,3 +1,4 @@
+from copy import deepcopy
 import datetime
 import fnmatch
 from functools import reduce
@@ -309,7 +310,7 @@ def load(filename, civilized=True, default={}):
         data: Any.
     """
     # https://wiki.python.org/moin/UsingPickle
-    data = copy.deepcopy(default)
+    data = deepcopy(default)
 
     try:
         import dill
