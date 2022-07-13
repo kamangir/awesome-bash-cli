@@ -1,3 +1,4 @@
+from ... import string
 from ... import logging
 import logging
 
@@ -35,7 +36,9 @@ def render_distribution(distribution, class_names, filename, options=""):
 
     logger.info(
         "graphics.render_distribution({}:{}) -> {}".format(
-            len(class_names), string.pretty_size_of_matrix(distribution), filename
+            len(class_names),
+            string.pretty_shape_of_matrix(distribution),
+            filename,
         )
     )
 

@@ -16,7 +16,9 @@ def render_confusion_matrix(cm, class_names, filename, footer=[], header=[], siz
 
     logger.info(
         "graphics.render_confusion_matrix({}:{}) -> {}".format(
-            len(class_names), string.pretty_size_of_matrix(cm), filename
+            len(class_names),
+            string.pretty_shape_of_matrix(cm),
+            filename,
         )
     )
 
