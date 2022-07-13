@@ -41,21 +41,19 @@ function abcli_huggingface() {
 
         abcli_log "releasing $object_name as $repo_name/$model_name: $options"
 
-        pushd $abcli_path_git/$repo_name > /dev/null
+        abcli_download object $object_name
 
-        echo "-1------options: $options"
+        pushd $abcli_path_git/$repo_name > /dev/null
 
         if [ "$do_init" == 1 ] ; then
             mkdir -p release
-            cd release
+            pushd release > /dev/null
             git lfs track "*.png"
             git lfs track "*.jpg"
             git lfs track "*.json"
             git lfs track "*.pyndarray"
-            cd ..
+            popd > /dev/null
         fi
-
-        return
 
         if [ -d "./release/$model_name" ] && [ "$force" == 0 ] ; then
             abcli_log_error "-abcli: huggingface: release: $model_name: already exists."
@@ -64,8 +62,7 @@ function abcli_huggingface() {
 
         mkdir -p release/$model_name
 
-        abcli_download object $object_name
-        cp -Rv $abcli_object_path/* release/$model_name/
+        cp -av $abcli_object_path/. release/$model_name/
 
         return
     fi
