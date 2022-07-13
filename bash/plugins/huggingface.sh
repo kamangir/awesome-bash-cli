@@ -32,7 +32,7 @@ function abcli_huggingface() {
 
     if [ $task == "release" ] ; then
         local repo_name=$(abcli_unpack_keyword "$2")
-        local model_name==$(abcli_unpack_keyword "$3")
+        local model_name=$(abcli_clarify_arg "$3" "$repo_name")
         local object_name=$(abcli_clarify_object "$4" $abcli_object_name)
 
         local options=$5
@@ -43,6 +43,8 @@ function abcli_huggingface() {
 
         pushd $abcli_path_git/$repo_name > /dev/null
 
+        echo "-1------options: $options"
+
         if [ "$do_init" == 1 ] ; then
             mkdir -p release
             cd release
@@ -52,6 +54,8 @@ function abcli_huggingface() {
             git lfs track "*.pyndarray"
             cd ..
         fi
+
+        return
 
         if [ -d "./release/$model_name" ] && [ "$force" == 0 ] ; then
             abcli_log_error "-abcli: huggingface: release: $model_name: already exists."
