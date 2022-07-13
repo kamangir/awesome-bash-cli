@@ -35,11 +35,11 @@ function abcli_huggingface() {
         local model_name==$(abcli_clarify_keyword "$3")
         local object_name=$(abcli_clarify_object "$4" $abcli_object_name)
 
-        abcli_download object $object_name
-
         local options=$5
         local do_force=$(abcli_option_int "$options" "force" 0)
         local do_init=$(abcli_option_int "$options" "init" 0)
+
+        abcli_log "releasing $object_name as $repo_name/$model_name: $options"
 
         pushd $abcli_path_git/$repo_name > /dev/null
 
@@ -60,6 +60,7 @@ function abcli_huggingface() {
 
         mkdir -p release/$model_name
 
+        abcli_download object $object_name
         cp -Rv $abcli_object_path/* release/$model_name/
 
         return
