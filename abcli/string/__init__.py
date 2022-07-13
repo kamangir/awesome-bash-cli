@@ -225,7 +225,13 @@ def pretty_frequency(frequency):
         else:
             return f"{frequency / 10**9:.1f} GHz"
 
-    return f"1/{pretty_duration(1 / frequency, largest=True, short=True)}"
+    return "1/{}".format(
+        pretty_duration(
+            1 / frequency,
+            largest=True,
+            short=True,
+        )
+    )
 
 
 def pretty_shape(shape):

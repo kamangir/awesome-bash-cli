@@ -70,8 +70,8 @@ class Message(object):
             output += " - {}".format(
                 string.pretty_duration(
                     string.utc_timestamp() - self.data["utc_timestamp"],
-                    largest=True,
                     include_ms=True,
+                    largest=True,
                     short=True,
                 ),
             )
