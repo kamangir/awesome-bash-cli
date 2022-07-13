@@ -8,8 +8,8 @@ function abcli_huggingface() {
             "clone huggingface/repo_1."
         abcli_help_line "$abcli_cli_name huggingface install" \
             "install huggingface."
-        abcli_help_line "$abcli_cli_name huggingface release repo_1 name_1 object_1 [init,force]" \
-            "[init repo_1 and] [force] release object_1 as huggingface/repo_1/name_1."
+        abcli_help_line "$abcli_cli_name huggingface save repo_1 name_1 object_1 [init,force]" \
+            "[init repo_1 and] [force] save object_1 as huggingface/repo_1/name_1."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.huggingface --help
@@ -30,7 +30,7 @@ function abcli_huggingface() {
         return
     fi
 
-    if [ $task == "release" ] ; then
+    if [ $task == "save" ] ; then
         local repo_name=$(abcli_unpack_keyword "$2")
         local model_name=$(abcli_clarify_arg "$3" "$repo_name")
         local object_name=$(abcli_clarify_object "$4" $abcli_object_name)
@@ -39,8 +39,8 @@ function abcli_huggingface() {
         local do_force=$(abcli_option_int "$options" "force" 0)
         local do_init=$(abcli_option_int "$options" "init" 0)
 
-        if [ -d "$abcli_path_git/$repo_name/release/$model_name" ] && [ "$do_force" == 0 ] ; then
-            abcli_log_error "-abcli: huggingface: release: $model_name: already exists."
+        if [ -d "$abcli_path_git/$repo_name/saved_model/$model_name" ] && [ "$do_force" == 0 ] ; then
+            abcli_log_error "-abcli: huggingface: save: $model_name: already exists."
             return
         fi
 
@@ -51,13 +51,13 @@ function abcli_huggingface() {
         pushd $abcli_path_git/$repo_name > /dev/null
 
         if [ "$do_init" == 1 ] ; then
-            mkdir -p release
-            git lfs track "release/**"
+            mkdir -p saved_model
+            git lfs track "saved_model/**/*"
         fi
 
-        mkdir -p release/$model_name
+        mkdir -p saved_model/$model_name
 
-        cp -av $abcli_object_path/. release/$model_name/
+        cp -av $abcli_object_path/. saved_model/$model_name/
 
         find . -name "*.jpg" -type f -delete
 
