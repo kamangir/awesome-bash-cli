@@ -228,7 +228,19 @@ def pretty_frequency(frequency):
     return f"1/{pretty_duration(1 / frequency, largest=True, short=True)}"
 
 
-def pretty_size_of_matrix(matrix):
+def pretty_shape(shape):
+    """describe shape as a string.
+
+    Args:
+        shape (List[int]): shape.
+
+    Returns:
+        str: shape as string.
+    """
+    return "x".join([str(value) for value in list(shape)])
+
+
+def pretty_shape_of_matrix(matrix):
     """describe size of matrix as a string.
 
     Args:
@@ -240,7 +252,7 @@ def pretty_size_of_matrix(matrix):
     import numpy as np
 
     return (
-        "x".join([str(value) for value in list(matrix.shape)]) + f":{matrix.dtype}"
+        f"{pretty_shape(matrix.shape)}:{matrix.dtype}"
         if isinstance(matrix, np.ndarray)
         else "-"
     )

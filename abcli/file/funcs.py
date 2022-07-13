@@ -573,7 +573,7 @@ def save_image(filename, image):
         return True
     except:
         crash_report(
-            f"-{name}: save_image({string.pretty_size_of_matrix(image)},{filename}): failed."
+            f"-{name}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
         )
         return False
 
@@ -625,7 +625,7 @@ def save_tensor(filename, tensor, log=True):
     success = save(set_extension(filename, "pyndarray"), tensor)
 
     if success and log:
-        logger.info(f"-{name}: {string.pretty_size_of_matrix(tensor)} -> {filename}")
+        logger.info(f"-{name}: {string.pretty_shape_of_matrix(tensor)} -> {filename}")
 
     return success
 
