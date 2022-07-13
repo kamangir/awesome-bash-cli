@@ -2,6 +2,7 @@ import argparse
 from . import *
 from . import *
 from . import string
+from .funcs import *
 from . import logging
 import logging
 
