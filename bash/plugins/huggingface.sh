@@ -66,6 +66,8 @@ function abcli_huggingface() {
 
         find . -name "*.jpg" -type f -delete
 
+        git status
+
         return
     fi
 
