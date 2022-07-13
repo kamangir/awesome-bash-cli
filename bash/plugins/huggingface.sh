@@ -52,13 +52,7 @@ function abcli_huggingface() {
 
         if [ "$do_init" == 1 ] ; then
             mkdir -p release
-            pushd release > /dev/null
-            git lfs track "*.png"
-            git lfs track "*.jpg"
-            git lfs track "*.json"
-            git lfs track "*.pyndarray"
-            git lfs track "variables.*"
-            popd > /dev/null
+            git lfs track "release/**"
         fi
 
         mkdir -p release/$model_name
