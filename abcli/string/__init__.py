@@ -386,6 +386,16 @@ def as_json(thing):
     ).replace("\n", "")
 
 
+def shorten(thing, shorten_length=16):
+    if isinstance(thing, list):
+        return [shorten(item) for item in thing]
+    return (
+        thing
+        if len(thing) < shorten_length
+        else f"{thing[: shorten_length - 4]}..{thing[-2:]}"
+    )
+
+
 def utc_timestamp(
     date=None,
     format="%Y-%m-%d-%H-%M-%S",
