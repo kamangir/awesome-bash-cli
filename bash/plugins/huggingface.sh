@@ -33,8 +33,6 @@ function abcli_huggingface() {
     fi
 
     if [ "$task" == "predict" ] ; then
-        # 5: options: e.g. "~object"
-
         local repo_name=$(abcli_unpack_keyword "$2")
         local data_object=$(abcli_clarify_object "$3" $abcli_object_name)
 
@@ -67,6 +65,8 @@ function abcli_huggingface() {
             --model_path $model_path \
             --output_path $abcli_object_path \
             ${@:6}
+
+        abcli_tag set . predict,huggingface,$repo_name
 
         return
     fi
