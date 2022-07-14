@@ -29,16 +29,16 @@ function abcli_huggingface() {
     if [ "$task" == "get_model_path" ] ; then
         local repo_name=$(abcli_unpack_keyword "$2")
 
+        local model_name=$3
+
         local options=$4
         local model_source=$(abcli_option "$options" "model" saved)
 
         if [ "$model_source" == "saved" ] ; then
-            local model_path=$abcli_path_git/$repo_name/saved_model/$(abcli_clarify_arg "$3" $repo_name)
+            echo $abcli_path_git/$repo_name/saved_model/$(abcli_clarify_arg "$model_name" $repo_name)
         else
-            local model_path=$abcli_object_root/$(abcli_clarify_object "$3" $abcli_object_name)
+            echo model_path=$abcli_object_root/$(abcli_clarify_object "$model_name" $abcli_object_name)
         fi
-
-        echo $model_path
 
         return
     fi
