@@ -59,14 +59,16 @@ function abcli_huggingface() {
 
         abcli_log "huggingface($repo_name:$model_path).predict($data_object): $options"
 
-        python3 -m $(echo $repo_name | tr - _) \
+        local module_name=$(echo $repo_name | tr - _)
+
+        python3 -m $module_name \
             predict \
             --data_path $abcli_object_root/$data_object \
             --model_path $model_path \
             --output_path $abcli_object_path \
             ${@:6}
 
-        abcli_tag set . predict,huggingface,$repo_name
+        abcli_tag set . predict,huggingface,$module_name
 
         return
     fi
