@@ -37,7 +37,7 @@ function abcli_huggingface() {
         if [ "$model_source" == "saved" ] ; then
             echo $abcli_path_git/$repo_name/saved_model/$(abcli_clarify_arg "$model_name" $repo_name)
         else
-            echo model_path=$abcli_object_root/$(abcli_clarify_object "$model_name" $abcli_object_name)
+            echo $abcli_object_root/$(abcli_clarify_object "$model_name" $abcli_object_name)
         fi
 
         return
