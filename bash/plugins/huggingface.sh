@@ -27,11 +27,6 @@ function abcli_huggingface() {
     fi
 
     if [ "$task" == "get_model_path" ] ; then
-        # Args
-        #  $2: model_repo_1
-        #  $3: name_1
-        #  $4 options: model=object/*saved
-
         local repo_name=$(abcli_unpack_keyword "$2")
 
         local options=$4
