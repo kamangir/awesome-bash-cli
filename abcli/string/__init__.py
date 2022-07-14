@@ -349,7 +349,7 @@ def pretty_duration(
         output += " ago"
 
     if not output:
-        output = "None"
+        output = "< 1 {}".format(millisecond_name if include_ms else second_name)
 
     return ("-" if negative_duration else "") + output
 
