@@ -8,8 +8,8 @@ function abcli_huggingface() {
             "clone huggingface/repo_1."
         abcli_help_line "$abcli_cli_name huggingface install" \
             "install huggingface."
-        abcli_help_line "$abcli_cli_name huggingface predict model_repo_1 object_1 [name_1] [object]" \
-            "run model_repo_1 saved/object model name_1 predict on object_1."
+        abcli_help_line "$abcli_cli_name huggingface get_model_path model_repo_1 [name_1] [model=object/*saved]" \
+            "return model_path for saved/object model model_repo_1/name_1."
         abcli_help_line "$abcli_cli_name huggingface save repo_1 name_1 object_1 [force]" \
             "[force] save object_1 as huggingface/repo_1/name_1."
 
@@ -26,50 +26,31 @@ function abcli_huggingface() {
         return
     fi
 
-    if [ $task == "install" ] ; then
-        python3 -m pip install huggingface_hub
-        huggingface-cli login
+    if [ "$task" == "get_model_path" ] ; then
+        # Args
+        #  $2: model_repo_1
+        #  $3: name_1
+        #  $4 options: model=object/*saved
+
+        local repo_name=$(abcli_unpack_keyword "$2")
+
+        local options=$4
+        local model_source=$(abcli_option "$options" "model" saved)
+
+        if [ "$model_source" == "saved" ] ; then
+            local model_path=$abcli_path_git/$repo_name/saved_model/$model_name/$3
+        else
+            local model_path=$abcli_object_root/$(abcli_clarify_object "$3")
+        fi
+
+        echo $model_path
+
         return
     fi
 
-    if [ "$task" == "predict" ] ; then
-        local repo_name=$(abcli_unpack_keyword "$2")
-        local data_object=$(abcli_clarify_object "$3" $abcli_object_name)
-
-        abcli_download object $data_object
-
-        local options=$5
-        local model_is_object=$(abcli_option_int "$options" "object" 0)
-
-        if [ "$model_is_object" == 1 ] ; then
-            local model_object=$(abcli_clarify_object "$4")
-
-            abcli_download object $model_object
-
-            local model_path=$abcli_object_root/$model_object
-        else
-            local model_name=$(abcli_clarify_arg "$4")
-
-            local model_path=$abcli_path_git/image-classifier/saved_model/$model_name
-        fi
-        if [ ! -d "$model_path" ] ; then
-            abcli_log_error "-abcli: huggingface: predict: $model_path: path not found."
-            return
-        fi
-
-        abcli_log "huggingface($repo_name:$model_path).predict($data_object): $options"
-
-        local module_name=$(echo $repo_name | tr - _)
-
-        python3 -m $module_name \
-            predict \
-            --data_path $abcli_object_root/$data_object \
-            --model_path $model_path \
-            --output_path $abcli_object_path \
-            ${@:6}
-
-        abcli_tag set . predict,huggingface,$module_name
-
+    if [ $task == "install" ] ; then
+        python3 -m pip install huggingface_hub
+        huggingface-cli login
         return
     fi
 
