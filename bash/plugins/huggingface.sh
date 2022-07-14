@@ -4,7 +4,7 @@ function abcli_huggingface() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name git clone repo_1" \
+        abcli_help_line "$abcli_cli_name huggingface clone repo_1" \
             "clone huggingface/repo_1."
         abcli_help_line "$abcli_cli_name huggingface install" \
             "install huggingface."
