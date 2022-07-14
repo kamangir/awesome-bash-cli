@@ -65,6 +65,7 @@ function abcli_huggingface() {
             predict \
             --data_path $abcli_object_root/$data_object \
             --model_path $model_path \
+            --output_path $abcli_object_path \
             ${@:6}
 
         return
