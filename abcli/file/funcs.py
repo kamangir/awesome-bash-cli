@@ -161,12 +161,18 @@ def delete(filename):
         return False
 
 
-def download(url, filename, overwrite=True):
+def download(
+    url,
+    filename,
+    log=True,
+    overwrite=True,
+):
     """download url as filename.
 
     Args:
         url (str): url.
         filename (str): filename.
+        log (bool, optional): log. Defaults to True.
         overwrite (bool, optional): overwrite. Defaults to True.
 
     Returns:
@@ -175,6 +181,7 @@ def download(url, filename, overwrite=True):
     if not overwrite and exist(filename):
         return True
 
+    success = True
     try:
         import urllib3
 
@@ -185,10 +192,15 @@ def download(url, filename, overwrite=True):
             shutil.copyfileobj(response, fp)
 
         response.release_conn()  # not 100% sure this is required though
-        return True
+
     except:
         crash_report(f"-{name}: download({url},{filename}): failed.")
         return False
+
+    if log:
+        logger.info(f"downloaded {url} -> {filename}")
+
+    return True
 
 
 def exist(filename):
