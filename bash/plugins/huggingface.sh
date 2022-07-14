@@ -51,9 +51,9 @@ function abcli_huggingface() {
 
         mkdir -p saved_model/$model_name
 
-        rm -rf saved_model/$model_name/auxiliary
-
         cp -av $abcli_object_path/. saved_model/$model_name/
+
+        rm -rf saved_model/$model_name/auxiliary
 
         find . -name "*.jpg" -type f -delete
 
