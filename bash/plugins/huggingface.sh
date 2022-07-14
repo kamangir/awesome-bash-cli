@@ -41,7 +41,7 @@ function abcli_huggingface() {
         abcli_download object $data_object
 
         local options=$5
-        local model_is_object=$(abcli_option_get_unpacked "$options" "object" 0)
+        local model_is_object=$(abcli_option_int "$options" "object" 0)
 
         if [ "$model_is_object" == 1 ] ; then
             local model_object=$(abcli_clarify_object "$4")
