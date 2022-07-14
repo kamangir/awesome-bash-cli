@@ -8,6 +8,8 @@ function abcli_huggingface() {
             "clone huggingface/repo_1."
         abcli_help_line "$abcli_cli_name huggingface install" \
             "install huggingface."
+        abcli_help_line "$abcli_cli_name huggingface predict model_repo_1 object_1 [name_1] [object]" \
+            "run model_repo_1 saved/object model name_1 predict on object_1."
         abcli_help_line "$abcli_cli_name huggingface save repo_1 name_1 object_1 [force]" \
             "[force] save object_1 as huggingface/repo_1/name_1."
 
@@ -27,6 +29,36 @@ function abcli_huggingface() {
     if [ $task == "install" ] ; then
         python3 -m pip install huggingface_hub
         huggingface-cli login
+        return
+    fi
+
+    if [ "$task" == "predict" ] ; then
+        #  1: predict
+        #  2: model_repo_1: image-classifier
+        #  3: data_object
+        # 4: model_object/name
+        #  5: options:object=0
+
+        local repo_name=$(abcli_unpack_keyword "$2")
+        local data_object=$(abcli_clarify_object "$3" $abcli_object_name)
+
+        local options=$5
+        local model_is_object=$(abcli_option_get_unpacked "$options" "object" 0)
+
+        if [ "$model_is_object" == 1 ] ; then
+            local model_object=$(abcli_clarify_object "$4")
+
+            abcli_download object $model_object
+
+            local model_path=$abcli_object_root/$model_object
+        else
+            local model_name=$(abcli_clarify_arg "$4" fashion-mnist)
+
+            local model_path=$abcli_path_git/image-classifier/saved_model/$model_name
+        fi
+        
+        abcli_log "huggingface($repo_name[$model_path]).predict($data_object): $options"
+
         return
     fi
 
