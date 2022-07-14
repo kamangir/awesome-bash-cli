@@ -56,6 +56,10 @@ function abcli_huggingface() {
 
             local model_path=$abcli_path_git/image-classifier/saved_model/$model_name
         fi
+        if [ ! -d "$model_path" ] ; then
+            abcli_log_error "-abcli: huggingface: predict: $model_path: path not found."
+            return
+        fi
         
         abcli_log "huggingface($repo_name[$model_path]).predict($data_object): $options"
 
