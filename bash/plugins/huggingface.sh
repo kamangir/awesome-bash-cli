@@ -74,8 +74,6 @@ function abcli_huggingface() {
 
         rm -rf saved_model/$model_name/auxiliary
 
-        find . -name "*.jpg" -type f -delete
-
         git status
 
         return
