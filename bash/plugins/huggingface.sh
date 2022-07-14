@@ -33,14 +33,12 @@ function abcli_huggingface() {
     fi
 
     if [ "$task" == "predict" ] ; then
-        #  1: predict
-        #  2: model_repo_1: image-classifier
-        #  3: data_object
-        # 4: model_object/name
-        #  5: options:object=0
+        # 5: options: e.g. "~object"
 
         local repo_name=$(abcli_unpack_keyword "$2")
         local data_object=$(abcli_clarify_object "$3" $abcli_object_name)
+
+        abcli_download object $data_object
 
         local options=$5
         local model_is_object=$(abcli_option_get_unpacked "$options" "object" 0)
@@ -52,7 +50,7 @@ function abcli_huggingface() {
 
             local model_path=$abcli_object_root/$model_object
         else
-            local model_name=$(abcli_clarify_arg "$4" fashion-mnist)
+            local model_name=$(abcli_clarify_arg "$4")
 
             local model_path=$abcli_path_git/image-classifier/saved_model/$model_name
         fi
@@ -60,8 +58,14 @@ function abcli_huggingface() {
             abcli_log_error "-abcli: huggingface: predict: $model_path: path not found."
             return
         fi
-        
-        abcli_log "huggingface($repo_name[$model_path]).predict($data_object): $options"
+
+        abcli_log "huggingface($repo_name:$model_path).predict($data_object): $options"
+
+        python3 -m $(echo $repo_name | tr - _) \
+            predict \
+            --data_path $abcli_object_root/$data_object \
+            --model_path $model_path \
+            ${@:6}
 
         return
     fi
