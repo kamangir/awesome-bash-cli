@@ -19,13 +19,19 @@ parser.add_argument(
     type=int,
     help="0/1",
 )
+parser.add_argument(
+    "--repo_names",
+    default=0,
+    type=int,
+    help="0/1",
+)
 args = parser.parse_args()
 
 delim = " " if args.delim == "space" else args.delim
 
 success = False
 if args.task == "list_of_external":
-    output = list_of_external()
+    output = list_of_external(args.repo_names)
     if args.log:
         logger.info(f"{len(output):,} external plugin(s): {delim.join(output)}")
     else:

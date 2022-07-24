@@ -182,7 +182,7 @@ function abcli_git_pull() {
     if [ "$do_all" == "1" ] ; then
         local repo
         local filename
-        for repo in $(echo "$abcli_tagged_external_plugins" | tr _ - | tr , " ") ; do
+        for repo in $(abcli_plugins list_of_external --delim space --log 0 --repo_names 1) ; do
             if [ -d "$abcli_path_git/$repo" ] ; then
                 abcli_log $repo
                 cd ../$repo
