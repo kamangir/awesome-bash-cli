@@ -7,7 +7,7 @@
 to see list of `abcli` commands type in:
 
 ```
-abc ?
+abcli ?
 ```
 
 ---
@@ -36,7 +36,7 @@ source ~/git/awesome-bash-cli/bash/abcli.sh
 find a machine that is already terraformed by `abcli` and open two terminals - in the first terminal ssh to the target machine - in the second terminal run:
 
 ```
-abc seed
+abcli seed
 ```
 
 now switch to the first terminal and paste the clipboard (`Ctrl+V`).
