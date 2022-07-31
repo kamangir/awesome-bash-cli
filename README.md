@@ -2,9 +2,9 @@
 
 ![image](./assets/marquee.png)
 
-`abcli` is a framework for quickly building awesome bash cli's for machine vision/deep learning applications, like [this robot](https://github.com/kamangir/blue-rvr) - `abcli` is a [`bashly`](https://github.com/DannyBen/bashly) that doesn't need a docker image to run and expands less painfully.
+`abcli` is a framework for quickly building awesome bash cli's for machine vision/deep learning applications, like [this robot](https://github.com/kamangir/blue-rvr). `abcli` is a [`bashly`](https://github.com/DannyBen/bashly) that doesn't need a docker image to run and expands less painfully.
 
-to see list of `abcli` commands type in:
+To see the list of `abcli` commands type in:
 
 ```
 abcli ?
@@ -12,13 +12,17 @@ abcli ?
 
 ---
 
-`abcli` can be installed manually or through the seed. - either way add this line to the end of `~/.bashrc`/`~/.bash_profile` after the install.
+`abcli` supports Ubuntu and macOS. Raspberry Pi and Jetson Nano support is work in progress.
+
+First [set up Linux](#installing-linux), then install `abcli` using the [manual method](#manual-install) or [through the seed](#install-through-the-seed). Finally, add this line to the end of `~/.bashrc`/`~/.bash_profile`.
 
 ```
 source ~/git/awesome-bash-cli/bash/abcli.sh
 ```
 
 ## manual install
+
+
 
 ```
 mkdir -p ~/git
