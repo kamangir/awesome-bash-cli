@@ -4,12 +4,12 @@ function abcli_message() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name message listen_to host_1" \
-            "listen to host_1 messages."
-        abcli_help_line "$abcli_cli_name message listen_as host_1" \
-            "listen to messages as host_1."
-        abcli_help_line "$abcli_cli_name message submit [--data data] [--filename filename_1] [--recipient host_1,host_2] [--subject subject_1]" \
-            "submit message [w/ subject_1] [+data] [+filename_1] [to host_1, host_2]."
+        abcli_help_line "$abcli_cli_name message listen_to <host_name>" \
+            "listen to host_name messages."
+        abcli_help_line "$abcli_cli_name message listen_as <host_name>" \
+            "listen to messages as host_name."
+        abcli_help_line "$abcli_cli_name message submit [--data <data>] [--filename <filename>] [--recipient <host_1,host_2>] [--subject <subject>]" \
+            "submit message [w/ subject] [+data] [+filename] [to host_1, host_2]."
         abcli_help_line "$abcli_cli_name message update [--recipient host_1,host_2]" \
             "send update message [to host_1, host_2]."
 

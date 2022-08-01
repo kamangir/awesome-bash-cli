@@ -9,16 +9,16 @@ function abcli_relation() {
     local object_1=$(abcli_clarify_object "$2" $abcli_object_name)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name relation clone object_1 object_2" \
+        abcli_help_line "$abcli_cli_name relation clone <object_1> <object_2>" \
             "clone object_1 relation -> object_2."
-        abcli_help_line "$abcli_cli_name relation get object_1 object_2" \
+        abcli_help_line "$abcli_cli_name relation get <object_1> <object_2>" \
             "get relation between object_1 and object_2."
         abcli_help_line "$abcli_cli_name relation list" \
             "list possible relations."
-        abcli_help_line "$abcli_cli_name relation search object_1 [--relation relation_1]" \
-            "search for all relations of/relation_1 to object_1."
-        abcli_help_line "$abcli_cli_name relation set object_1 object_2 relation_1 [validate]" \
-            "set object_1 =relation_1=> object_2 [and validate]."
+        abcli_help_line "$abcli_cli_name relation search <object_name> [--relation <relation>]" \
+            "search for all relations of/relation to object_name."
+        abcli_help_line "$abcli_cli_name relation set <object_1> <object_2> <relation> [validate]" \
+            "set object_1 =relation=> object_2 [and validate]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.relations --help

@@ -6,16 +6,16 @@ function abcli_host() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name host get name" \
             "get $abcli_host_name."
-        abcli_help_line "$abcli_cli_name host get tags [host_name_1]" \
-            "get $abcli_host_name/host_name_1 tags."
-        abcli_help_line "$abcli_cli_name host reboot [host_name_1,host_name_2]" \
+        abcli_help_line "$abcli_cli_name host get tags [<host_name>]" \
+            "get $abcli_host_name/host_name tags."
+        abcli_help_line "$abcli_cli_name host reboot [<host_name_1,host_name_2>]" \
             "reboot $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "$abcli_cli_name host shutdown [host_name_1,host_name_2]" \
+        abcli_help_line "$abcli_cli_name host shutdown [<host_name_1,host_name_2>]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "$abcli_cli_name host tag tag_1,~tag_2 [host_name_1]" \
-            "tag [host_name_1] tag_1,~tag_2."
-        abcli_help_line "$abcli_cli_name host tag as host_type_1" \
-            "tag [host_name_1] as host_type_1."
+        abcli_help_line "$abcli_cli_name host tag <tag_1,~tag_2> [<host_name>]" \
+            "tag [host_name] tag_1,~tag_2."
+        abcli_help_line "$abcli_cli_name host tag as <host_type> [<host_name>]" \
+            "tag [host_name] as host_type."
 
         local host_tag_list=""
         local host_tag

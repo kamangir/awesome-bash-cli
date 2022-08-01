@@ -7,7 +7,7 @@ function abcli_seed() {
         abcli_help_line "$abcli_cli_name seed [output=clipboard/key/screen,target=./ec2/jetson/mac/rpi,update]" \
             "generate an [update] ec2/jetson/mac/rpi seed and output to clipboard/key/screen."
         abcli_help_line "$abcli_cli_name seed eject" \
-            "eject seed"
+            "eject seed."
         return
     fi
 

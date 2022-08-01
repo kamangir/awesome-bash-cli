@@ -6,8 +6,8 @@ function abcli_plugins() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name plugins list_of_external" \
             "show list of expernal plugins."
-        abcli_help_line "$abcli_cli_name plugins install [plugin_1]" \
-            "install plugin_1/all plugins."
+        abcli_help_line "$abcli_cli_name plugins install [<plugin>]" \
+            "install plugin/all plugins."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins --help

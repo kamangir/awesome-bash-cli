@@ -6,12 +6,12 @@ function abcli_download() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name download" \
             "download $abcli_object_name."
-        abcli_help_line "$abcli_cli_name download object object_1" \
-            "download object_1."
-        abcli_help_line "$abcli_cli_name download object object_1 filename_1" \
-            "download object_1/filename_1."
-        abcli_help_line "$abcli_cli_name download filename_1" \
-            "download $abcli_object_name/filename_1."
+        abcli_help_line "$abcli_cli_name download <filename>" \
+            "download $abcli_object_name/filename."
+        abcli_help_line "$abcli_cli_name download object <object_name>" \
+            "download object_name."
+        abcli_help_line "$abcli_cli_name download object <object_name> <filename>" \
+            "download object_name/filename."
         return
     fi
 

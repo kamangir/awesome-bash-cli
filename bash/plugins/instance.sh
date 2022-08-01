@@ -4,15 +4,15 @@ function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name instance [from_image] [-/image_name] [-/instance_type] [-/instance_name] [ssh/vnc]" \
+        abcli_help_line "$abcli_cli_name instance [from_image] [<image_name>] [<instance_type>] [<instance_name>] [ssh/vnc]" \
             "create ec2 instance from image."
-        abcli_help_line "$abcli_cli_name instance describe instance_name" \
+        abcli_help_line "$abcli_cli_name instance describe <instance_name>" \
             "describe ec2 instance instance_name."
-        abcli_help_line "$abcli_cli_name instance from_template [-/template_name] [-/instance_type] [-/instance_name] [ssh/vnc]" \
+        abcli_help_line "$abcli_cli_name instance from_template [<template_name>] [<instance_type>] [<instance_name>] [ssh/vnc]" \
             "create ec2 instance from template."
         abcli_help_line "$abcli_cli_name instance list" \
             "list ec2 instances."
-        abcli_help_line "$abcli_cli_name instance terminate instance_id" \
+        abcli_help_line "$abcli_cli_name instance terminate <instance_id>" \
             "terminate ec2 instance."
 
         local default_instance_type=$(abcli_aws_json_get "['ec2'].get('default_instance_type','')")
