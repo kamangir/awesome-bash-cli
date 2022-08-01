@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
 function abcli_clarify_arg() {
-    local arg_name=$1
     local default=$2
+    local arg_name=${1:-$default}
 
-    if [ -z "$arg_name" ] || [ "$arg_name" == "-" ] ; then
+    if [ "$arg_name" == "-" ] ; then
         local arg_name=$default
     fi
 

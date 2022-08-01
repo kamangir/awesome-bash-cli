@@ -16,18 +16,18 @@ function abcli_help_line() {
 }
 
 function abcli_log() {
-    local task=$(abcli_unpack_keyword "$1" help)
+    local task=$(abcli_unpack_keyword "$1")
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name log \"sth happened\"" \
-            "log sth happened."
+        abcli_help_line "$abcli_cli_name log <message>" \
+            "log message."
         abcli_help_line "$abcli_cli_name log verbose [on/off]" \
             "verbose logging on/off."
         return
     fi
 
     if [ "$task" == "verbose" ] ; then
-        local what=$(abcli_clarify_arg "$2" "on")
+        local what=${2-on}
 
         if [ "$what" == "on" ] ; then
             touch $abcli_path_git/verbose
