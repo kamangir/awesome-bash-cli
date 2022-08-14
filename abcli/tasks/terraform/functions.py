@@ -85,9 +85,7 @@ def terraform(filenames, commands):
             continue
 
         content_updated = [
-            string
-            for string in content
-            if ("git/awesome-bash-cli" not in string) and string
+            string for string in content if ("git/abcli" not in string) and string
         ] + [command]
 
         if file.save_text(filename, content_updated, if_different=True):
