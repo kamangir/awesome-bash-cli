@@ -13,7 +13,7 @@ name = f"{shortname}.file"
 def lxde(user):
     return terraform(
         ["/etc/xdg/lxsession/LXDE/autostart"],
-        ["@bash /home/pi/git/abcli/bash/main.sh start_session"],
+        ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh start_session"],
     )
 
 
@@ -53,20 +53,20 @@ def poster(filename):
 def mac(user):
     return terraform(
         ["/Users/{}/.bash_profile".format(user)],
-        ["source ~/git/abcli/bash/main.sh"],
+        ["source ~/git/awesome-bash-cli/bash/abcli.sh"],
     )
 
 
 def rpi(user, is_headless=False):
     success = terraform(
         ["/home/pi/.bashrc"],
-        ["source /home/pi/git/abcli/bash/main.sh"],
+        ["source /home/pi/git/awesome-bash-cli/bash/abcli.sh"],
     )
 
     if not is_headless:
         if not terraform(
             ["/etc/xdg/lxsession/LXDE-pi/autostart"],
-            ["@bash /home/pi/git/abcli/bash/main.sh start_session"],
+            ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh start_session"],
         ):
             success = False
 
@@ -85,7 +85,9 @@ def terraform(filenames, commands):
             continue
 
         content_updated = [
-            string for string in content if ("git/abcli" not in string) and string
+            string
+            for string in content
+            if ("git/awesome-bash-cli" not in string) and string
         ] + [command]
 
         if not file.save_text(
@@ -129,5 +131,5 @@ def signature():
 def ubuntu(user):
     return terraform(
         ["/home/{}/.bashrc".format(user)],
-        ["source /home/{}/git/abcli/bash/main.sh".format(user)],
+        ["source /home/{}/git/awesome-bash-cli/bash/abcli.sh".format(user)],
     )
