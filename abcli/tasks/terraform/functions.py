@@ -116,7 +116,7 @@ def signature():
             [
                 string.pretty_date(include_time=False),
                 string.pretty_date(
-                    include_fate=False,
+                    include_date=False,
                     include_zone=True,
                 ),
             ]
