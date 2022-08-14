@@ -22,15 +22,17 @@ def list_of_external(repo_names=False):
 
     abcli_path_git = os.getenv("abcli_path_git")
 
-    output = [
-        repo_name
-        for repo_name in [
-            path.name(path_)
-            for path_ in path.list_of(abcli_path_git)
-            if path.exist(os.path.join(path_, "abcli"))
+    output = sorted(
+        [
+            repo_name
+            for repo_name in [
+                path.name(path_)
+                for path_ in path.list_of(abcli_path_git)
+                if path.exist(os.path.join(path_, "abcli"))
+            ]
+            if repo_name != "awesome-bash-cli"
         ]
-        if repo_name != "awesome-bash-cli"
-    ]
+    )
 
     if not repo_names:
         output = [repo_name.replace("-", "_") for repo_name in output]
