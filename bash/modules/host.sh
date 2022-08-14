@@ -12,8 +12,8 @@ function abcli_host() {
             "reboot $abcli_host_name/host_name_1,host_name_2."
         abcli_help_line "$abcli_cli_name host shutdown [<host_name_1,host_name_2>]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "$abcli_cli_name start_session" \
-            "start a host session."
+        abcli_help_line "$abcli_cli_name start_session [~pull] [<args>]" \
+            "[do't pull repos and] start a host session [w/ <args>]."
         abcli_help_line "$abcli_cli_name host tag <tag_1,~tag_2> [<host_name>]" \
             "tag [host_name] tag_1,~tag_2."
 
@@ -74,10 +74,15 @@ function abcli_host() {
     fi
 
     if [ $task == "start_session" ] ; then
-        abcli_log "host: session started: ${@:2}"
+        local options=$2
+        local do_pull=$(abcli_option_int "$options" "pull" 1)
+
+        abcli_log "host: session started: $options: ${@:3}"
 
         while true; do
-            abcli_git_pull init
+            if [ "$do_pull" == 1 ] ; then
+                abcli_git_pull init
+            fi
 
             abcli_log "host: session initialized."
 
@@ -93,7 +98,7 @@ function abcli_host() {
             for plugin_name in $(abcli_plugins list_of_external --delim space --log 0) ; do
                 local function_name=${plugin_name}_start_session
                 if [[ $(type -t $function_name) == "function" ]] ; then
-                    $function_name ${@:2}
+                    $function_name ${@:3}
                 fi
             done
 
