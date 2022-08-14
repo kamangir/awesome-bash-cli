@@ -643,12 +643,19 @@ def save_tensor(filename, tensor, log=True):
     return success
 
 
-def save_text(filename, text, if_different=False, remove_empty_lines=False):
+def save_text(
+    filename,
+    text,
+    if_different=False,
+    log=False,
+    remove_empty_lines=False,
+):
     """save text to filename.
 
     Args:
         filename (str): filename.
         text (List[str]): text.
+        log (bool, optional): log. Defaults to False.
         if_different (bool, optional): save if text is different from current filename content. Defaults to False.
         remove_empty_lines (bool, optional): remove empty lines. Defaults to False.
 
@@ -666,10 +673,9 @@ def save_text(filename, text, if_different=False, remove_empty_lines=False):
     if if_different:
         _, content = load_text(filename, civilized=True)
 
-        if "|".join(content) == "|".join(text):
-            logger.debug(
-                f"{name}.save_text({filename}): content is the same as disk, skipped."
-            )
+        if "|".join([line for line in content if line]) == "|".join(
+            [line for line in text if line]
+        ):
             return True
 
     if not prepare_for_saving(filename):
@@ -678,11 +684,13 @@ def save_text(filename, text, if_different=False, remove_empty_lines=False):
     try:
         with open(filename, "w") as fp:
             fp.writelines([string + "\n" for string in text])
-
-        return True
     except:
         crash_report(f"-{name}: save_text({filename}): failed.")
         return False
+
+    if log:
+        logger.info(f"{name}.save_text({filename}): {len(text)} lines.")
+    return True
 
 
 def set_extension(filename, extension_, force=True):

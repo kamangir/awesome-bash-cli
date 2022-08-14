@@ -88,9 +88,12 @@ def terraform(filenames, commands):
             string for string in content if ("git/abcli" not in string) and string
         ] + [command]
 
-        if file.save_text(filename, content_updated, if_different=True):
-            logger.info(f"terraform: updated {filename}.")
-        else:
+        if not file.save_text(
+            filename,
+            content_updated,
+            if_different=True,
+            log=True,
+        ):
             success = False
 
     return success
