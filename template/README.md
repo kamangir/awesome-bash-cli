@@ -1,16 +1,19 @@
 # abcli plugins
 
-An `abcli` plugin is a mechanism to quickly build a bash cli around existing code to automate parameter selection and other tasks. Here are eamples for `abcli` plugins:
+An `abcli` plugin is a mechanism to quickly build a bash cli around existing code to codify parameter selection and provide a scripting language for workflow automation. Here are examples of `abcli` plugins:
 
 1. [blue-rvr](https://github.com/kamangir/blue-rvr): A low-cost rover that carries a camera, runs deep learning vision models through python and TensorFlow, and is cloud-connected.
 1. [blue-bracket](https://github.com/kamangir/blue-bracket): Multiple machine vision & ai designs on raspberry pi and jetson nano on the edge.
-1. [rv22](https://github.com/kamangir/RAW-Vancouver-PORTAL-2022): A digital art installation.
+1. [RAW Vancouver PORTAL 2022](https://github.com/kamangir/RAW-Vancouver-PORTAL-2022): A [digital art installation](https://rawartists.com/vancouver).
 
-To build an `abcli` plugin you need existing code or code under development that is executed through the command line. Then, follow these steps.
+---
 
+To build an `abcli` plugin you need existing code or code under development that is executed through the command line. This code must exist in a separate repo. Now, follow these steps:
+
+1. Make sure that you have an up-to-date copy of [`abcli`](../README.md) running on a dev machine.
 1. Checkout the repo.
 1. Add the contents of this folder to the repo.
-1. Checkout and configure `abcli`.
+1. Run `abc init` and validate that your plugin is loaded.
 
 ## Advanced
 
