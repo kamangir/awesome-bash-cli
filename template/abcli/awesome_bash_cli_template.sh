@@ -18,6 +18,10 @@ function awesome_bash_cli_template() {
         return
     fi
 
+    if [[ $(type -t awesome_bash_cli_template_$task) == "function" ]] ; then
+        awesome_bash_cli_template_$task ${@:2}
+    fi
+
     if [ "$task" == "task_1" ] ; then
         python3 -m awesome_bash_cli_template \
             task_1 \
