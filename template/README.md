@@ -11,4 +11,4 @@ To build an `abcli` plugin you need existing code or code under development that
 1. Checkout the repo.
 1. Add the contents of this folder to the repo.
 1. Checkout and configure `abcli`.
-1. 🚧 
+1. Update `keywords`. 🚧 
