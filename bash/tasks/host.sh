@@ -14,8 +14,6 @@ function abcli_host() {
             "shutdown $abcli_host_name/host_name_1,host_name_2."
         abcli_help_line "$abcli_cli_name host tag <tag_1,~tag_2> [<host_name>]" \
             "tag [host_name] tag_1,~tag_2."
-        abcli_help_line "$abcli_cli_name host tag as <host_type> [<host_name>]" \
-            "tag [host_name] as host_type."
 
         local host_tag_list=""
         local host_tag
@@ -90,11 +88,6 @@ function abcli_host() {
         local tags=$2
 
         local host_name=$3
-        if [ "$tags" == "as" ] ; then
-            local tags=$(python3 -m abcli.plugins.tags for_type --type $3 --delim , --log 0)
-            local host_name=$4
-        fi
-
         if [ -z "$host_name" ] || [ "$host_name" == "." ] ; then
             local host_name=$abcli_host_name
         fi

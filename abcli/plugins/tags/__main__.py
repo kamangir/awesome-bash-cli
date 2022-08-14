@@ -11,7 +11,7 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="clone,create,for_type,get,list_of_types,search,set",
+    help="clone,create,get,list_of_types,search,set",
 )
 parser.add_argument(
     "--after",
