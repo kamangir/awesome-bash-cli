@@ -4,7 +4,7 @@ export abcli_is_64bit=false
 export abcli_is_amazon_linux=false
 export abcli_is_ec2=false
 export abcli_is_jetson=false
-export abcli_is_lite=false
+export abcli_is_headless=false
 export abcli_is_mac=false
 export abcli_is_rpi=false
 export abcli_is_ubuntu=false
@@ -14,8 +14,8 @@ if [ "$(uname -m)" == "x86_64" ] ; then
     export abcli_is_64bit=true
 fi
 
-if [ -f "$abcli_path_git/lite" ] ; then
-    export abcli_is_lite=true
+if [ -f "$abcli_path_git/headless" ] ; then
+    export abcli_is_headless=true
 fi
 
 if [ -f "$abcli_path_git/vnc" ] ; then
@@ -62,7 +62,7 @@ if [[ "$abcli_is_ec2" == true ]] ; then
 fi
 
 if [[ "$abcli_is_rpi" == true ]] ; then
-    if [[ "$abcli_is_lite" == false ]] ; then
+    if [[ "$abcli_is_headless" == false ]] ; then
         # https://www.geeks3d.com/hacklab/20160108/how-to-disable-the-blank-screen-on-raspberry-pi-raspbian/
         sudo xset s off
         sudo xset -dpms

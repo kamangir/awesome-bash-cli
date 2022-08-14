@@ -4,8 +4,8 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name seed [output=clipboard/key/screen,target=./ec2/jetson/mac/rpi,update]" \
-            "generate an [update] ec2/jetson/mac/rpi seed and output to clipboard/key/screen."
+        abcli_help_line "$abcli_cli_name seed [output=clipboard/key/screen,target=./ec2/jetson/headless_rpi/mac/rpi,update]" \
+            "generate an [update] seed and output to clipboard/key/screen."
         abcli_help_line "$abcli_cli_name seed eject" \
             "eject seed."
         return
@@ -26,7 +26,7 @@ function abcli_seed() {
     local do_update=$(abcli_option "$options" "update" 0)
 
     if [ "$target" == "." ] ; then
-        for target in ec2 jetson mac rpi ; do
+        for target in ec2 jetson headless_rpi mac rpi ; do
             abcli_seed $(abcli_option_update "$options" target $target) ${@:2}
         done
         return
@@ -86,9 +86,24 @@ function abcli_seed() {
 
         seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
 
-        seed="${seed}ssh-keyscan github.com >> ~/.ssh/known_hosts$delim_section"
+        if [ "$target" == "headless_rpi" ] ; then
+            seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
+        else
+            seed="${seed}ssh-keyscan github.com >> ~/.ssh/known_hosts$delim_section"
+        fi
 
         seed="${seed}"'ssh -T git@github.com'"$delim_section"
+
+        if [ "$target" == "headless_rpi" ] ; then
+            # https://serverfault.com/a/1093530
+            # https://packages.ubuntu.com/bionic/all/ca-certificates/download
+            seed="${seed}wget --no-check-certificate http://security.ubuntu.com/ubuntu/pool/main/c/ca-certificates/ca-certificates_20210119~18.04.2_all.deb$delim"
+            seed="$seed${sudo_prefix}sudo dpkg -i ca-certificates_20210119~18.04.2_all.deb$delim_section"
+
+            seed="$seed${sudo_prefix}apt-get update --allow-releaseinfo-change$delim"
+            seed="$seed${sudo_prefix}apt-get install -y ca-certificates libgnutls30$delim"
+            seed="$seed${sudo_prefix}apt-get --yes --force-yes install git$delim_section"
+        fi
 
         seed="${seed}cd; mkdir -p git; cd git$delim"
         seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
@@ -104,6 +119,10 @@ function abcli_seed() {
         seed="${seed}echo \$content | base64 --decode > ~/git/awesome-bash-cli/bash/bootstrap/config/$filename$delim_section"
     done
     popd > /dev/null
+
+    if [ "$target" == "headless_rpi" ] ; then
+        seed="${seed}touch ~/git/headless$delim_section"
+    fi
 
     if [ "$do_update" == "0" ] ; then
         seed="${seed}source ./abcli/bash/abcli.sh$delim_section"

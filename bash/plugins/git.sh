@@ -113,7 +113,7 @@ function abcli_git() {
     fi
 
     if [ "$task" == "recreate_ssh" ] ; then
-        if [[ "$abcli_is_lite" == true ]] ; then
+        if [[ "$abcli_is_headless" == true ]] ; then
             # https://www.cyberciti.biz/faq/sudo-append-data-text-to-file-on-linux-unix-macos/
             local var=$(ssh-keyscan github.com)
             echo "$var" | sudo tee -a ~/.ssh/known_hosts

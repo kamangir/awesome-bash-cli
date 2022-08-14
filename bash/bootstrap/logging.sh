@@ -80,6 +80,11 @@ function abcli_log_local() {
     printf "${CYAN}${message}${NC}\n"
 }
 
+function abcli_log_local_and_cat() {
+    abcli_log_local "$1"
+    cat "$1"
+}
+
 function abcli_log_remote() {
     echo "$@" >> $abcli_log_filename
 }

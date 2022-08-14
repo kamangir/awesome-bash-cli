@@ -33,6 +33,7 @@ keywords = {
     "pr": "predict",
     "pub": "publish",
     "rndr": "render",
+    "rv22": "RAW_Vancouver_PORTAL_2022",
     "sel": "select",
     "sl": "solid",
     "tf": "training_framework",
