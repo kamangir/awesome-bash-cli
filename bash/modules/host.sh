@@ -74,7 +74,7 @@ function abcli_host() {
     fi
 
     if [ $task == "start_session" ] ; then
-        abcli_log "session started: ${@:2}"
+        abcli_log "host: session started: ${@:2}"
 
         while true; do
             abcli_git_pull init
@@ -96,7 +96,7 @@ function abcli_host() {
                 fi
             done
 
-            abcli_log "host: session ended."
+            abcli_log "host: session closed."
 
             if [ -f "$abcli_path_abcli/abcli_host_return_to_bash_exit" ] ; then
                 abcli_log "abcli.return_to_bash(exit)"
