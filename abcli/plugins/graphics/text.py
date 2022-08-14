@@ -13,7 +13,6 @@ def render_text(
     box=False,
     centered=False,
     color_depth=3,
-    fill=False,
     font_color=3 * (127,),
     font_face=cv2.FONT_HERSHEY_SIMPLEX,
     font_size=2,
@@ -33,7 +32,6 @@ def render_text(
         box (bool, optional): draw a box around text. Defaults to False.
         centered (bool, optional): centered. Defaults to False.
         color_depth (int, optional): color depth. Defaults to 3.
-        fill (bool, optional): fill the box. Defaults to False.
         font_color (_type_, optional): font color. Defaults to 3*(127,).
         font_face (_type_, optional): font face. Defaults to cv2.FONT_HERSHEY_SIMPLEX.
         font_size (int, optional): font size. Defaults to 2.

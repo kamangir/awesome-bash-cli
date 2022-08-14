@@ -16,10 +16,9 @@ parser.add_argument(
     "--filename",
     type=str,
     default="background.jpg",
-    help="",
 )
 parser.add_argument(
-    "--is_lite",
+    "--is_headless",
     type=str,
     default="false",
     help="true/false",
@@ -34,7 +33,6 @@ parser.add_argument(
     "--user",
     type=str,
     default="user",
-    help="",
 )
 args, _ = parser.parse_known_args()
 
@@ -49,7 +47,10 @@ elif args.task == "terraform":
     elif args.target == "mac":
         success = mac(args.user)
     elif args.target == "rpi":
-        success = rpi(args.user, args.is_lite == "true")
+        success = rpi(
+            args.user,
+            is_headless=args.is_headless == "true",
+        )
     elif args.target == "ubuntu":
         success = ubuntu(args.user)
     else:

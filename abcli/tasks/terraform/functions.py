@@ -18,6 +18,14 @@ def lxde(user):
 
 
 def poster(filename):
+    """generate background poster.
+
+    Args:
+        filename (str): filename.
+
+    Returns:
+        bool: success.
+    """
     import numpy as np
     from ...plugins import graphics
 
@@ -27,13 +35,10 @@ def poster(filename):
         np.concatenate(
             [
                 graphics.render_text(
-                    None,
-                    line,
-                    {
-                        "centered": True,
-                        "image_width": graphics.screen_width,
-                        "thickness": 4,
-                    },
+                    centered=True,
+                    image_width=graphics.screen_width,
+                    text=line,
+                    thickness=4,
                 )
                 for line in signature()
             ],
@@ -42,9 +47,7 @@ def poster(filename):
         32,
     )
 
-    return (
-        file.save_image(filename, image, "~archive") if filename is not None else image
-    )
+    return image if filename is None else file.save_image(filename, image)
 
 
 def mac(user):
@@ -54,13 +57,13 @@ def mac(user):
     )
 
 
-def rpi(user, is_lite=False):
+def rpi(user, is_headless=False):
     success = terraform(
         ["/home/pi/.bashrc"],
         ["source /home/pi/git/abcli/bash/main.sh"],
     )
 
-    if not is_lite:
+    if not is_headless:
         if not terraform(
             ["/etc/xdg/lxsession/LXDE-pi/autostart"],
             ["@bash /home/pi/git/abcli/bash/main.sh listen"],
@@ -87,13 +90,10 @@ def terraform(filenames, commands):
             if ("git/awesome-bash-cli" not in string) and string
         ] + [command]
 
-        if "|".join(content) == "|".join(content_updated + [""]):
-            logger.info("validated {}".format(filename))
+        if file.save_text(filename, content_updated, if_different=True):
+            logger.info("terraform: updated {filename}.")
         else:
-            if file.save_text(filename, content_updated, "~archive"):
-                logger.info("updated {}".format(filename))
-            else:
-                success = False
+            success = False
 
     return success
 
