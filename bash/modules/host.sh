@@ -89,10 +89,11 @@ function abcli_host() {
 
             abcli_select
 
-            for repo in $(abcli_plugins list_of_external --delim space --log 0 --repo_names 1) ; do
-                local filename=$abcli_path_git/$repo/abcli/host/session.sh
-                if [ -f $filename ] ; then
-                    source $filename ${@:2}
+            local plugin_name
+            for plugin_name in $(abcli_plugins list_of_external --delim space --log 0) ; do
+                local function_name=${plugin_name}_start_session
+                if [[ $(type -t $function_name) == "function" ]] ; then
+                    $function_name ${@:2}
                 fi
             done
 
