@@ -1,6 +1,5 @@
 import argparse
 from . import *
-from .types import *
 from .. import logging
 import logging
 
