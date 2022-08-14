@@ -22,7 +22,7 @@ class Message(object):
         reply_id=" ",
         subject="",
     ):
-        from ...tasks import host
+        from ...modules import host
         from ...plugins.storage import instance as storage
 
         self.subject = raw.get("subject", subject)

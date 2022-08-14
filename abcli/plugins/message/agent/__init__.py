@@ -1,5 +1,5 @@
 from .... import *
-from ....tasks import host
+from ....modules import host
 from ..queue import *
 from .... import logging
 import logging

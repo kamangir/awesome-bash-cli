@@ -65,7 +65,7 @@ elif args.task == "sign":
     success, image = file.load_image(args.filename)
     if success:
         from abcli.plugins.graphics import add_signature
-        from abcli.tasks.objects import signature as header
+        from abcli.modules.objects import signature as header
 
         success = file.save_image(
             args.filename,

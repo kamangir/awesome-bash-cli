@@ -66,7 +66,7 @@ class MessageQueue(object):
             List[Message]: list of messages.
         """
         import abcli.plugins.message
-        import abcli.tasks.host as host
+        import abcli.modules.host as host
 
         messages = []
         success = False

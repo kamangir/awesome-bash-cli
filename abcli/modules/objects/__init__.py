@@ -6,7 +6,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.tasks.objects"
+name = f"{shortname}.modules.objects"
 
 
 def signature(info=None):

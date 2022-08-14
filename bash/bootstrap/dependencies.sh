@@ -13,7 +13,7 @@ function abcli_source_dependencies() {
     source $abcli_path_bash/bootstrap/logging.sh
 
     local module_name
-    for module_name in abcli install tasks plugins ; do
+    for module_name in abcli install modules plugins ; do
         pushd $abcli_path_bash/$module_name > /dev/null
 
         if [ "$module_name" == "plugins" ] ; then

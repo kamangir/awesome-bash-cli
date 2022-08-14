@@ -10,7 +10,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.tasks.host"
+name = f"{shortname}.modules.host"
 
 arguments = {}
 

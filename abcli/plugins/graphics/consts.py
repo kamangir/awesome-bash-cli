@@ -1,5 +1,5 @@
 import os
-from ...tasks import host
+from ...modules import host
 from ... import logging
 import logging
 

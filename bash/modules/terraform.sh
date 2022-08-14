@@ -14,7 +14,7 @@ function abcli_terraform() {
             "enable terraform."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
-            python3 -m abcli.tasks.terraform --help
+            python3 -m abcli.modules.terraform --help
         fi
         return
     fi
@@ -64,7 +64,7 @@ function abcli_terraform() {
         rm ${abcli_path_abcli}/assets/images/background*
         local background_image=$abcli_path_abcli/assets/images/background-$(abcli_string_timestamp).jpg
 
-        python3 -m abcli.tasks.terraform poster \
+        python3 -m abcli.modules.terraform poster \
             --filename $background_image
     fi
 
@@ -74,7 +74,7 @@ function abcli_terraform() {
         # https://davidwalsh.name/desktop-wallpaper-command-line
         # osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$background_image\""
 
-        sudo python3 -m abcli.tasks.terraform \
+        sudo python3 -m abcli.modules.terraform \
             terraform \
             --target mac \
             --user $USER
@@ -91,7 +91,7 @@ function abcli_terraform() {
                 --wallpaper-mode center
         fi
 
-        sudo python3 -m abcli.tasks.terraform \
+        sudo python3 -m abcli.modules.terraform \
             terraform \
             --is_headless $abcli_is_headless \
             --target rpi \
@@ -142,7 +142,7 @@ function abcli_terraform() {
             abcli_log "terraforming ec2"
             sudo cp $abcli_path_abcli/assets/aws/bash_profile /home/$USER/.bash_profile
         else
-            sudo python3 -m abcli.tasks.terraform \
+            sudo python3 -m abcli.modules.terraform \
                 terraform \
                 --target ubuntu \
                 --user $USER

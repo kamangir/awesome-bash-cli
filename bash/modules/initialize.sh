@@ -7,7 +7,7 @@ function abcli_initialize() {
 
     abcli_add_ssh_keys
 
-    export abcli_host_name=$(python3 -m abcli.tasks.host get --keyword name)
+    export abcli_host_name=$(python3 -m abcli.modules.host get --keyword name)
 
     abcli_set_prompt
 

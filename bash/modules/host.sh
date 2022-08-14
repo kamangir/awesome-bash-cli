@@ -16,13 +16,13 @@ function abcli_host() {
             "tag [host_name] tag_1,~tag_2."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
-            python3 -m abcli.tasks.host --help
+            python3 -m abcli.modules.host --help
         fi
         return
     fi
 
     if [ $task == "get" ] ; then
-        python3 -m abcli.tasks.host \
+        python3 -m abcli.modules.host \
             get \
             --keyword "$2" \
             --name $(abcli_clarify_arg "$3" .) \
