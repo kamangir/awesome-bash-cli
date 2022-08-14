@@ -91,7 +91,7 @@ def terraform(filenames, commands):
         ] + [command]
 
         if file.save_text(filename, content_updated, if_different=True):
-            logger.info("terraform: updated {filename}.")
+            logger.info(f"terraform: updated {filename}.")
         else:
             success = False
 
