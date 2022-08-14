@@ -12,6 +12,8 @@ function abcli_host() {
             "reboot $abcli_host_name/host_name_1,host_name_2."
         abcli_help_line "$abcli_cli_name host shutdown [<host_name_1,host_name_2>]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
+        abcli_help_line "$abcli_cli_name start_session" \
+            "start a host session."
         abcli_help_line "$abcli_cli_name host tag <tag_1,~tag_2> [<host_name>]" \
             "tag [host_name] tag_1,~tag_2."
 
@@ -68,6 +70,67 @@ function abcli_host() {
                 --event shutdown \
                 --recipient $recipient
         fi
+        return
+    fi
+
+    if [ $task == "start_session" ] ; then
+        abcli_log "session started: ${@:2}"
+
+        while true; do
+            abcli_git_pull init
+
+            abcli_log "host: session initialized."
+
+            rm $abcli_path_abcli/abcli_host_return_to_bash_*
+
+            if [[ "$abcli_is_rpi" == true ]] || [[ "$abcli_is_ubuntu" == true ]] || [[ "$abcli_is_ec2" == true ]] ; then
+                abcli_storage clear
+            fi
+
+            abcli_select
+
+            for repo in $(abcli_plugins list_of_external --delim space --log 0 --repo_names 1) ; do
+                local filename=$abcli_path_git/$repo/abcli/host/session.sh
+                if [ -f $filename ] ; then
+                    source $filename ${@:2}
+                fi
+            done
+
+            abcli_log "host: session ended."
+
+            if [ -f "$abcli_path_abcli/abcli_host_return_to_bash_exit" ] ; then
+                abcli_log "abcli.return_to_bash(exit)"
+                return
+            fi
+
+            if [ -f "$abcli_path_abcli/abcli_host_return_to_bash_reboot" ] ; then
+                abcli_log "abcli.return_to_bash(reboot)"
+                abcli_host reboot
+            fi
+
+            if [ -f "$abcli_path_abcli/abcli_host_return_to_bash_seed" ] ; then
+                abcli_log "abcli.return_to_bash(seed)"
+
+                abcli_git_pull
+                abcli_init
+
+                cat "$abcli_path_abcli/abcli_host_return_to_bash_seed" | while read line 
+                do
+                    abcli_log "executing: $line"
+                    bash "$line"
+                done
+            fi
+
+            if [ -f "$abcli_path_abcli/abcli_host_return_to_bash_shutdown" ] ; then
+                abcli_host shutdown
+            fi
+
+            if [ -f "$abcli_path_abcli/abcli_host_return_to_bash_update" ] ; then
+                abcli_log "abcli.return_to_bash(update)"
+            fi
+
+        done
+
         return
     fi
 

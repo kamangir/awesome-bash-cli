@@ -4,9 +4,9 @@ function abcli_terraform() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "terraform" \
+        abcli_help_line "$abcli_cli_name terraform" \
             "terraform this machine."
-        abcli_help_line "terraform cat" \
+        abcli_help_line "$abcli_cli_name terraform cat" \
             "cat terraform files."
         abcli_help_line "$abcli_cli_name terraform disable" \
             "disable terraform."

@@ -13,7 +13,7 @@ name = f"{shortname}.file"
 def lxde(user):
     return terraform(
         ["/etc/xdg/lxsession/LXDE/autostart"],
-        ["@bash /home/pi/git/abcli/bash/main.sh listen"],
+        ["@bash /home/pi/git/abcli/bash/main.sh start_session"],
     )
 
 
@@ -66,7 +66,7 @@ def rpi(user, is_headless=False):
     if not is_headless:
         if not terraform(
             ["/etc/xdg/lxsession/LXDE-pi/autostart"],
-            ["@bash /home/pi/git/abcli/bash/main.sh listen"],
+            ["@bash /home/pi/git/abcli/bash/main.sh start_session"],
         ):
             success = False
 

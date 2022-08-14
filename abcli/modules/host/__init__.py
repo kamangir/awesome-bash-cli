@@ -1,7 +1,5 @@
 import os
-import random
-import string
-from ... import *
+from ... import shortname
 from ... import string
 from ...plugins import tags
 from ...logging import crash_report
