@@ -4,15 +4,16 @@ from functools import reduce
 import json
 import os
 import shutil
-from . import name
 from .classes import *
 from .. import string
-from .. import logging
+from .. import shortname
 from ..logging import crash_report
+from .. import logging
 import logging
 
-
 logger = logging.getLogger(__name__)
+
+name = f"{shortname}.file"
 
 
 def absolute(filename, reference_path=None):

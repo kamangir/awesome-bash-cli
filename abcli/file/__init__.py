@@ -1,4 +1,1 @@
-from .. import *
-from .funcs import *
-
-name = f"{shortname}.file"
+from .functions import *

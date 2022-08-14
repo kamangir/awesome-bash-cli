@@ -1,9 +1,7 @@
 import argparse
-from . import *
-from . import *
-from . import string
-from .funcs import *
-from . import logging
+from .functions import *
+from .. import string
+from .. import logging
 import logging
 
 logger = logging.getLogger(__name__)
