@@ -10,7 +10,7 @@ parser.add_argument(
     "task",
     type=str,
     default="terraform",
-    help="poster/terraform",
+    help="poster,terraform",
 )
 parser.add_argument(
     "--filename",

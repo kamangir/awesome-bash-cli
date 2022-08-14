@@ -22,11 +22,7 @@ function abcli_host() {
             local host_tag=${host_tag%.*}
             local host_tag_list="$host_tag_list,$host_tag"
         done
-        local host_tag_list=$(abcli_list_sort "$host_tag_list" --unique 1)
-        abcli_log_list "$host_tag_list" , "host tag(s)"
 
-        local host_type_list=$(python3 -m abcli.plugins.tags list_of_types --delim , --log 0)
-        abcli_log_list "$host_type_list" , "host type(s)"
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.tasks.host --help

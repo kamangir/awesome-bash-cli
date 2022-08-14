@@ -10,7 +10,7 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="clone,create,get,list_of_types,search,set",
+    help="clone,create,get,search,set",
 )
 parser.add_argument(
     "--after",
@@ -92,14 +92,8 @@ if args.task == "clone":
     success = clone(args.object, args.object_2)
 elif args.task == "create":
     success = create()
-elif args.task == "for_type":
-    output = host_type.get(args.type, [])
-    success = True
 elif args.task == "get":
     output = get(args.object)
-    success = True
-elif args.task == "list_of_types":
-    output = list(host_type.keys())
     success = True
 elif args.task == "search":
     output = search(
