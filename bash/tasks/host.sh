@@ -15,15 +15,6 @@ function abcli_host() {
         abcli_help_line "$abcli_cli_name host tag <tag_1,~tag_2> [<host_name>]" \
             "tag [host_name] tag_1,~tag_2."
 
-        local host_tag_list=""
-        local host_tag
-        for host_tag in $abcli_path_abcli/host/*.sh $abcli_path_abcli/host/*.json ; do
-            local host_tag=$(basename -- "$host_tag")
-            local host_tag=${host_tag%.*}
-            local host_tag_list="$host_tag_list,$host_tag"
-        done
-
-
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.tasks.host --help
         fi
