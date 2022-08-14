@@ -36,6 +36,7 @@ keywords = {
     "rv22": "RAW_Vancouver_PORTAL_2022",
     "sel": "select",
     "sl": "solid",
+    "ss": "start_session",
     "tf": "training_framework",
     "tr": "train",
     "uf": "update_fork",

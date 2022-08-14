@@ -129,6 +129,9 @@ function abcli_host() {
                 abcli_log "abcli.return_to_bash(update)"
             fi
 
+            local wait=5s
+            abcli_log_local "pausing for $wait ... (Ctrl+C to stop)"
+            sleep $wait
         done
 
         return
