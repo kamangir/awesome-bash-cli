@@ -11,9 +11,14 @@ An `abcli` plugin is a mechanism to quickly build a bash cli around existing cod
 To build an `abcli` plugin you need existing code or code under development that is executed through the command line. This code must exist in a separate repo. Now, follow these steps:
 
 1. Make sure that you have an up-to-date copy of [`abcli`](../README.md) running on a dev machine.
-1. Checkout the repo.
-1. Add the contents of this folder to the repo.
-1. Run `abc init` and validate that your plugin is loaded.
+1. Checkout the `plugin-name`.
+1. Run these lines to add the contents of this folder to the repo. Replace `eye` with `plugin-name`.
+    ```
+    abcli git cd
+    cp -r * ../plugin-name/ ; \
+    cp .gitignore ../plugin-name/
+    ```
+1. Run `abc init` and validate that `plugin-name` is loaded.
 
 ## Advanced
 
