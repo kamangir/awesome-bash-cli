@@ -60,7 +60,7 @@ function abcli_terraform() {
         return
     fi
 
-    if [[ "$abcli_is_headless" == false ]] ; then
+    if [[ "$abcli_is_headless" == false ]] && [[ "$abcli_is_mac" == false ]] ; then
         rm ${abcli_path_abcli}/assets/images/background*
         local background_image=$abcli_path_abcli/assets/images/background-$(abcli_string_timestamp).jpg
 
@@ -72,7 +72,7 @@ function abcli_terraform() {
         abcli_log "terraforming mac"
 
         # https://davidwalsh.name/desktop-wallpaper-command-line
-        osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$background_image\""
+        # osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$background_image\""
 
         sudo python3 -m abcli.tasks.terraform \
             terraform \
