@@ -104,16 +104,22 @@ def signature():
 
     return [
         fullname(),
-        " | ".join(host.tags + [host.name]),
+        " | ".join(host.get_tags() + [host.get_name()]),
         " | ".join(
             host.tensor_processing_signature()
             + [
-                "Python {}".format(platform.python_version()),
-                "{} {}".format(platform.system(), platform.release()),
+                f"Python {platform.python_version()}",
+                f"{platform.system()} {platform.release()}",
             ]
         ),
         " | ".join(
-            [string.pretty_date("date,~time"), string.pretty_date("~date,time,zone")]
+            [
+                string.pretty_date(include_time=False),
+                string.pretty_date(
+                    include_fate=False,
+                    include_zone=True,
+                ),
+            ]
             + (lambda x: [x] if x else [])(os.getenv("bolt_wifi_ssid", ""))
         ),
     ]
