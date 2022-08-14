@@ -104,7 +104,7 @@ def signature():
 
     return [
         fullname(),
-        " | ".join(host.get_tags() + [host.get_name()]),
+        host.get_name(),
         " | ".join(
             host.tensor_processing_signature()
             + [
