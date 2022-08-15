@@ -2,6 +2,7 @@ import copy
 from . import arguments
 from ...modules import terraform
 from ... import string
+from ...timer import Timer
 from ... import logging
 import logging
 
