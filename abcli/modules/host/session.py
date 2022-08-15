@@ -26,7 +26,7 @@ class Session(object):
         self.frame_image = terraform.poster(None)
         self.frame_filename = ""
 
-        self.external_messages = []
+        self.messages = []
 
         self.model = None
 
@@ -106,16 +106,16 @@ class Session(object):
         return None
 
     def check_messages(self):
-        self.external_messages = []
+        self.messages = []
 
         if not self.timer["messenger"].tick():
             return None
 
-        _, self.external_messages = messenger.request()
-        if self.external_messages:
+        _, self.messages = messenger.request()
+        if self.messages:
             hardware.pulse(hardware.incoming_pin)
 
-        for message in self.external_messages:
+        for message in self.messages:
             output = self.process_message(message)
             if output in [True, False]:
                 return output
