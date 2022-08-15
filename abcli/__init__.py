@@ -4,7 +4,7 @@ name = "awesome_bash_cli"
 
 shortname = os.getenv("abcli_name")
 
-version = "1.849.1"
+version = "1.851.1"
 
 description = "a framework for quickly building awesome bash cli's for machine vision/deep learning."
 
