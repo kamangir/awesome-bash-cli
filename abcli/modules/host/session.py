@@ -3,6 +3,7 @@ from . import arguments
 from ...modules import terraform
 from ... import string
 from ...timer import Timer
+from ...logging import crash_report
 from ... import logging
 import logging
 
