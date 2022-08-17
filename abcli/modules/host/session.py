@@ -52,10 +52,10 @@ class Session(object):
         }.items():
             self.add_timer(name, period)
 
-        self.auto_upload = arguments.get("looper.auto_upload", True)
-        self.outbound_queue = arguments.get("looper.outbound_queue", "stream")
-        self.do_annotate = arguments.get("looper.capture.annotate", True)
-        self.capture_enabled = arguments.get("looper.capture.enabled", True)
+        self.auto_upload = arguments.get("host.session.auto_upload", True)
+        self.outbound_queue = arguments.get("host.session.outbound_queue", "stream")
+        self.do_annotate = arguments.get("host.session.capture.annotate", True)
+        self.capture_enabled = arguments.get("host.session.capture.enabled", True)
 
     def add_timer(self, name, period):
         if name not in self.timer:
@@ -92,9 +92,13 @@ class Session(object):
             camera.annotate()
 
         if self.outbound_queue:
-            import abcli.message as message
+            from ...plugins.message import Message
 
-            message.mail(self.frame_filename, self.outbound_queue)
+            Message(
+                filename=self.frame_filename,
+                recipient=self.outbound_queue,
+                subject="frame",
+            ).submit()
         elif self.auto_upload:
             storage.upload_file(self.frame_filename)
 
@@ -164,14 +168,14 @@ class Session(object):
             return None
 
         logger.info(f"host.session: seed {seed_version} detected.")
-        host.return_to_bash("seed", [seed_filename])
+        return_to_bash("seed", [seed_filename])
         return False
 
     def check_switch(self):
         if hardware.activated(hardware.switch_pin):
             if self.switch_on_time is None:
                 self.switch_on_time = time.time()
-                logger.info("host.session: looper.switch_on_time was set.")
+                logger.info("host.session: switch_on_time was set.")
         else:
             self.switch_on_time = None
 
@@ -179,7 +183,7 @@ class Session(object):
             hardware.pulse("outputs")
 
             if time.time() - self.switch_on_time > 10:
-                host.return_to_bash("shutdown")
+                return_to_bash("shutdown")
                 return False
             else:
                 return True
@@ -195,7 +199,7 @@ class Session(object):
             )
 
         if self.timer["reboot"].tick("wait"):
-            host.return_to_bash("reboot")
+            return_to_bash("reboot")
             return False
 
         if self.timer["temperature"].tick():
@@ -204,10 +208,6 @@ class Session(object):
         return None
 
     def close(self):
-        for tag in sorted(modules.keys()):
-            if tag in host.tags:
-                modules[tag].release(self)
-
         hardware.release()
 
     # https://www.cyberciti.biz/faq/linux-find-out-raspberry-pi-gpu-and-arm-cpu-temperature-command/
