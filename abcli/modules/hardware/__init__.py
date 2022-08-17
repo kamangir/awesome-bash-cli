@@ -1,6 +1,6 @@
 from functools import reduce
 from ... import shortname
-from ... import host
+from ...modules import host
 from ... import logging
 import logging
 
