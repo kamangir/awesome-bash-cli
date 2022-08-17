@@ -1,4 +1,3 @@
-from functools import reduce
 from ... import shortname
 from ...modules import host
 from ... import logging

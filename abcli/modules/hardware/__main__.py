@@ -1,12 +1,13 @@
 import argparse
+import time
 from . import instance as hardware
 from . import name
 from ... import string
 from ... import logging
 import logging
-import time
 
 logger = logging.getLogger(__name__)
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
