@@ -25,6 +25,7 @@ args = parser.parse_args()
 
 success = False
 if args.task == "input":
+    logger.info("loop started (Ctrl+C to stop)")
     # https://stackoverflow.com/a/18994932/10917551
     try:
         while True:
@@ -46,6 +47,7 @@ elif args.task == "output":
     hardware.release()
     success = True
 elif args.task == "validate":
+    logger.info("loop started (Ctrl+C to stop)")
     value = True
     try:
         while True:
