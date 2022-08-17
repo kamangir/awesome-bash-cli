@@ -2,6 +2,7 @@ import copy
 from . import arguments
 from ...modules import terraform
 from ... import string
+from ...modules.hardware import instance as hardware
 from ...timer import Timer
 from ...logging import crash_report
 from ... import logging
