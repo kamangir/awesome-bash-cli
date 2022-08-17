@@ -2,7 +2,7 @@ keywords = {
     "!": "run",
     "?": "help",
     "--help": "help",
-    "H": "Hardware",
+    "H": "hardware",
     "I": "install",
     "P": "plugins",
     "T": "terraform",
