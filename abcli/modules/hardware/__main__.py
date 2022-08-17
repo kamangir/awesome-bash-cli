@@ -9,7 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(name)
 parser.add_argument(
     "task",
     type=str,
