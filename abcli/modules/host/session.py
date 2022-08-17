@@ -1,8 +1,12 @@
 import copy
+import time
 from . import arguments
+from ... import version
 from ...modules import terraform
+from ... import file
 from ... import string
 from ...modules.hardware import instance as hardware
+from ...modules import host
 from ...timer import Timer
 from ...logging import crash_report
 from ... import logging
@@ -136,7 +140,7 @@ class Session(object):
 
         if message.event == "update":
             try:
-                if message.data["revision"] > abcli.revision:
+                if message.data["version"] > version:
                     host.return_to_bash("update")
                     return False
             except:
@@ -155,24 +159,10 @@ class Session(object):
 
         hardware.pulse("outputs")
 
-        try:
-            seed_revision = float(content.get("revision", 0.00))
-        except:
-            crash_report("looper.check_seed() bad seed")
-            success = False
-        if not success:
+        if content.get("version", "") <= version:
             return None
 
-        if seed_revision <= abcli.revision:
-            logger.debug(
-                "seed {:.2f} ignored (<={:.2f}).".format(
-                    seed_revision,
-                    abcli.revision,
-                )
-            )
-            return None
-
-        logger.info("seed {:.2f} detected.".format(seed_revision))
+        logger.info("seed {} detected.".format(content.get("version", "")))
         host.return_to_bash("seed", [seed_filename])
         return False
 
