@@ -5,3 +5,4 @@ __pycache__
 *.log
 , .json
 bash/abcli_disabled
+abcli_host_return_to_bash_*

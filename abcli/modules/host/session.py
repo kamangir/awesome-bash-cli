@@ -1,12 +1,12 @@
 import copy
 import time
 from . import arguments
+from .functions import *
 from ... import version
 from ...modules import terraform
 from ... import file
 from ... import string
 from ...modules.hardware import instance as hardware
-from ...modules import host
 from ...timer import Timer
 from ...logging import crash_report
 from ... import logging
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class Session(object):
-    def __init__(self, options=""):
+    def __init__(self):
         super(Session, self).__init__()
 
         self.keys = {
@@ -35,8 +35,6 @@ class Session(object):
         self.messages = []
 
         self.model = None
-
-        self.options = copy.deepcopy(options)
 
         self.params = {"iteration": -1}
 
@@ -61,10 +59,12 @@ class Session(object):
 
     def add_timer(self, name, period):
         if name not in self.timer:
-            period = arguments.get("looper.{}.period".format(name), period)
+            period = arguments.get("host.session.{}.period".format(name), period)
             self.timer[name] = Timer(period, name)
             logger.info(
-                "looper.timer[{}]:{}".format(name, string.pretty_frequency(1 / period))
+                "host.session: timer[{}]:{}".format(
+                    name, string.pretty_frequency(1 / period)
+                )
             )
             return True
         return False
@@ -101,7 +101,7 @@ class Session(object):
     def check_keyboard(self):
         for key in display.key_buffer:
             if key in self.keys:
-                host.return_to_bash(self.keys[key])
+                return_to_bash(self.keys[key])
                 return False
 
         if " " in display.key_buffer:
@@ -130,18 +130,18 @@ class Session(object):
 
     def process_message(self, message):
         if message.event == "capture":
-            logger.info("received capture command.")
+            logger.info("host.session: capture message received.")
             self.capture_command = "forced"
 
         if message.event in "reboot,shutdown".split(","):
-            logger.info("{} message received.".format(message.event))
-            host.return_to_bash(message.event)
+            logger.info(f"host.session: {message.event} message received.")
+            return_to_bash(message.event)
             return False
 
         if message.event == "update":
             try:
                 if message.data["version"] > version:
-                    host.return_to_bash("update")
+                    return_to_bash("update")
                     return False
             except:
                 crash_report("looper.process_message() bad update message")
@@ -149,20 +149,21 @@ class Session(object):
         return None
 
     def check_seed(self):
-        seed_filename = host.get_seed_filename()
+        seed_filename = get_seed_filename()
         if not file.exist(seed_filename):
             return None
 
-        success, content = file.load_json(seed_filename + ".json")
+        success, content = file.load_json(f"{seed_filename}.json")
         if not success:
             return None
 
         hardware.pulse("outputs")
 
-        if content.get("version", "") <= version:
+        seed_version = content.get("version", "")
+        if seed_version <= version:
             return None
 
-        logger.info("seed {} detected.".format(content.get("version", "")))
+        logger.info(f"host.session: seed {seed_version} detected.")
         host.return_to_bash("seed", [seed_filename])
         return False
 
@@ -170,7 +171,7 @@ class Session(object):
         if hardware.activated(hardware.switch_pin):
             if self.switch_on_time is None:
                 self.switch_on_time = time.time()
-                logger.info("looper.switch_on_time was set.")
+                logger.info("host.session: looper.switch_on_time was set.")
         else:
             self.switch_on_time = None
 
@@ -191,7 +192,6 @@ class Session(object):
                 self.frame_image,
                 self.signature(),
                 string.pretty_param(self.params),
-                self.options,
             )
 
         if self.timer["reboot"].tick("wait"):
@@ -211,48 +211,24 @@ class Session(object):
         hardware.release()
 
     # https://www.cyberciti.biz/faq/linux-find-out-raspberry-pi-gpu-and-arm-cpu-temperature-command/
-    def read_temperature(self, options=""):
-        options = Options(options).default("cpu", True).default("gpu", False)
-
+    def read_temperature(self):
         if not host.is_rpi():
             return
 
         params = {}
 
-        if options["cpu"]:
-            success, output = file.load_text("/sys/class/thermal/thermal_zone0/temp")
-            if success:
-                output = [thing for thing in output if thing]
-                if output:
-                    try:
-                        params["temperature.cpu"] = float(output[0]) / 1000
-                    except:
-                        crash_report("looper.read_temperature(cpu) failed")
-                        return
-
-        if options["gpu"]:
-            success, output = host.shell(
-                "/opt/vc/bin/vcgencmd measure_temp", "clean,output"
-            )
-            if success:
-                output = [
-                    thing
-                    for thing in [string.between(thing, "=", "'") for thing in output]
-                    if thing
-                ]
-                if output:
-                    try:
-                        params["temperature.gpu"] = float(output[0])
-                    except:
-                        crash_report("looper.read_temperature(gpu) failed")
-                        return
+        success, output = file.load_text("/sys/class/thermal/thermal_zone0/temp")
+        if success:
+            output = [thing for thing in output if thing]
+            if output:
+                try:
+                    params["temperature.cpu"] = float(output[0]) / 1000
+                except:
+                    crash_report("looper.read_temperature(cpu) failed")
+                    return
 
         self.params.update(params)
-        logger.info(
-            "looper.read_temperature(): {}".format(
-                ", ".join(string.pretty_param(params))
-            )
-        )
+        logger.info("host.session: {}".format(", ".join(string.pretty_param(params))))
 
     def signature_(self):
         return (
@@ -279,26 +255,25 @@ class Session(object):
             [] if self.model is None else [" | ".join(self.model.signature())]
         )
 
-    def step(self, options=""):
-        options = (
-            Options(options)
-            .default("keyboard", True)
-            .default("messages", True)
-            .default("seed", True)
-            .default("switch", True)
-            .default("timers", True)
-        )
+    def step(
+        self,
+        keyboard=True,
+        messages=True,
+        seed=True,
+        switch=True,
+        timers=True,
+    ):
         self.params["iteration"] += 1
 
         hardware.pulse(hardware.looper_pin, 0)
 
         for enabled, step_ in zip(
             [
-                options["keyboard"],
-                options["messages"],
-                options["timers"],
-                options["switch"],
-                options["seed"],
+                keyboard,
+                messages,
+                timers,
+                switch,
+                seed,
             ],
             [
                 self.check_keyboard,
@@ -315,14 +290,5 @@ class Session(object):
                 return output
 
         self.check_camera()
-
-        for tag in sorted(modules.keys()):
-            output = (
-                modules[tag].step(self)
-                if tag in host.tags
-                else modules[tag].not_step(self)
-            )
-            if output in [False, True]:
-                return output
 
         return True

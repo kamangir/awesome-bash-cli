@@ -1,6 +1,7 @@
 import os
 from . import host_name_, host_tags_, name
 from ... import fullname
+from ... import file
 from ... import string
 from ...plugins import tags
 from ...logging import crash_report
@@ -51,6 +52,18 @@ def get_name_():
     return string.random_(5)
 
 
+def get_seed_filename():
+    return (
+        "/media/abcli/SEED/abcli/jetson.sh"
+        if is_jetson()
+        else "/Volumes/seed/abcli/ubuntu.sh"
+        if is_ubuntu()
+        else "/media/pi/SEED/abcli/rpi.sh"
+        if is_rpi()
+        else ""
+    )
+
+
 def get_tags(cache=True):
     global host_tags_
 
@@ -79,6 +92,74 @@ def is_rpi():
 
 def is_ubuntu():
     return os.getenv("abcli_is_ubuntu", "false") == "true"
+
+
+def return_to_bash(message, content=[]):
+    """return to bash with message.
+
+    Args:
+        message (str): exit/reboot/seed/shutdown/update
+        content (list, optional): content of the message. Defaults to [].
+    """
+    logger.info(f"host.return_to_bash({message}).")
+    file.create(
+        os.path.join(
+            os.getenv("abcli_path_abcli", ""),
+            f"abcli_host_return_to_bash_{message}",
+        ),
+        content,
+    )
+
+
+def shell(
+    command,
+    clean_after=False,
+    return_output=False,
+    work_dir=".",
+):
+    """execute command in shell.
+
+    Args:
+        command (str): command
+        keep_blank (bool, optional): keep blank lines in output. Defaults to True.
+        clean_after (bool, optional): delete output file. Defaults to False.
+        return_output (bool, optional): return output. Defaults to False.
+        work_dir (str, optional): working directory. Defaults to ".".
+        strip (bool, optional): strip output. Defaults to False.
+
+    Returns:
+        bool: success.
+        (List[str], optional): output.
+    """
+    logger.debug(f"host.shell({command})")
+
+    success = True
+    output = []
+
+    if return_output:
+        output_filename = file.auxiliary(None, "txt")
+        command += f" > {output_filename}"
+
+    current_path = os.getcwd()
+    try:
+        os.chdir(work_dir)
+
+        try:
+            os.system(command)
+        except:
+            crash_report(f"host.shell({command}) failed")
+            success = False
+
+    finally:
+        os.chdir(current_path)
+
+    if success and return_output:
+        success, output = file.load_text(output_filename)
+
+        if clean_after:
+            file.delete(output_filename)
+
+    return (success, output) if return_output else success
 
 
 def signature():
