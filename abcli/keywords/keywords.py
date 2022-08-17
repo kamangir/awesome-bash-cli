@@ -1,11 +1,12 @@
 keywords = {
     "!": "run",
     "?": "help",
-    "V": "verbose",
     "--help": "help",
+    "H": "Hardware",
     "I": "install",
     "P": "plugins",
     "T": "terraform",
+    "V": "verbose",
     "abcli": "awesome-bash-cli",
     "am": "add_month",
     "bld": "build",
