@@ -1,6 +1,7 @@
 import argparse
-from .functions import *
-from ... import logging
+from abcli.modules.terraform import NAME
+from abcli.modules.terraform.functions import *
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

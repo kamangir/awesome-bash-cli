@@ -1,13 +1,11 @@
 import os
-from ... import fullname, shortname
-from ... import file
-from ... import string
-from ... import logging
+from abcli import fullname
+from abcli import file
+from abcli import string
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-name = f"{shortname}.file"
 
 
 def lxde(user):

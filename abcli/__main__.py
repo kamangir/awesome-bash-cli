@@ -1,7 +1,7 @@
 import argparse
-from abcli import name, version
+from abcli import NAME, VERSION
 
-parser = argparse.ArgumentParser(name, description=f"{NAME}-{version}")
+parser = argparse.ArgumentParser(NAME, description=f"{NAME}-{VERSION}")
 parser.add_argument("task", type=str, help="TBD")
 args = parser.parse_args()
 
