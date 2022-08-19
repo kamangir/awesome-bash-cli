@@ -8,7 +8,7 @@ from ... import path
 from ... import string
 from ... import logging
 from ...logging import crash_report
-from ...plugins import aws
+from .. import aws
 import logging
 
 logger = logging.getLogger(__name__)

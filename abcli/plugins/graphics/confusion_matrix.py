@@ -1,9 +1,10 @@
-from .signature import add_signature
-from ... import file
-from ... import string
 import matplotlib.pyplot as plt
 import numpy as np
-from ... import logging
+from abcli.plugins.graphics import NAME
+from abcli.plugins.graphics.signature import add_signature
+from abcli import file
+from abcli import string
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -15,7 +16,8 @@ def render_confusion_matrix(cm, class_names, filename, footer=[], header=[], siz
     class_names_short = string.shorten(class_names)
 
     logger.info(
-        "graphics.render_confusion_matrix({}:{}) -> {}".format(
+        "{}.render_confusion_matrix({}:{}) -> {}".format(
+            NAME,
             len(class_names),
             string.pretty_shape_of_matrix(cm),
             filename,
@@ -23,7 +25,7 @@ def render_confusion_matrix(cm, class_names, filename, footer=[], header=[], siz
     )
 
     if len(class_names) != cm.shape[0] or len(class_names) != cm.shape[1]:
-        logger.error("-abcli: graphics: render_confusion_matrix: shape mismatch.")
+        logger.error(f"-{NAME}: render_confusion_matrix: shape mismatch.")
         return False
 
     plt.figure(figsize=(size, size))

@@ -1,5 +1,5 @@
 import cv2
-from . import name
+from abcli.plugins.graphics import NAME
 from functools import reduce
 import numpy as np
 from ... import logging

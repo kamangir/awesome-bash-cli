@@ -1,9 +1,9 @@
 import argparse
 from functools import reduce
-from . import *
+from abcli.plugins.message import *
 import time
-from ... import file
-from ... import logging
+from abcli import file
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -98,7 +98,7 @@ elif args.task == "update":
             Message(
                 recipient=recipient,
                 subject="update",
-                data={"version": version},
+                data={"version": VERSION},
             ).submit()
             for recipient in args.recipient.split(",")
         ],

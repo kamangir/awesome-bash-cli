@@ -1,6 +1,4 @@
-from .. import shortname
-
-name = f"{shortname}.plugins.graphics"
+NAME = "abcli.plugins.graphics"
 
 from .confusion_matrix import *
 from .consts import *
