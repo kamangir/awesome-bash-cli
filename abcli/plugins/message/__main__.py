@@ -60,7 +60,7 @@ args = parser.parse_args()
 
 success = False
 if args.task == "listen_to":
-    from .agent import instance as messenger
+    from abcli.plugins.message.messenger import instance as messenger
 
     messages = []
 

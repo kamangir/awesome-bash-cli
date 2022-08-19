@@ -127,7 +127,7 @@ class Message(object):
         Returns:
             bool: success.
         """
-        from .agent import instance as messenger
+        from abcli.plugins.message.messenger import instance as messenger
 
         self.data["utc_timestamp"] = string.utc_timestamp()
 
