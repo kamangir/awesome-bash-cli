@@ -2,16 +2,16 @@ from functools import reduce
 import os
 import random
 import re
-from ...options import Options
-from ...table import Table
-from ... import logging
+from abcli.options import Options
+from abcli.table import Table
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
 from .. import *
 
-name = f"{shortname}.plugins.tags"
+NAME = "abcli.plugins.tags"
 
 
 def clone(object_1, object_2):
