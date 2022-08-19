@@ -6,10 +6,7 @@ import os
 import random
 import string
 import time
-from .. import *
-from ..logging import crash_report
-
-name = f"{shortname}.string"
+from abcli.logging import crash_report
 
 
 os.environ["TZ"] = "America/New_York"
