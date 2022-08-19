@@ -2,7 +2,7 @@ import os
 
 NAME = "awesome_bash_cli"
 
-VERSION = "1.1118.1"
+VERSION = "1.1121.1"
 
 DESCRIPTION = "a framework for quickly building awesome bash cli's for machine vision/deep learning."
 

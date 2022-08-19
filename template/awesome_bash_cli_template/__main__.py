@@ -1,11 +1,11 @@
 import argparse
-from . import *
+from awesome_bash_cli_template import *
 from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser(name, description=f"{NAME}-{version}")
+parser = argparse.ArgumentParser(NAME, description=f"{NAME}-{VERSION}")
 parser.add_argument(
     "task",
     type=str,
