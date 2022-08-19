@@ -1,12 +1,9 @@
 import os
-from ... import *
-from ... import string
-from ... import logging
+from abcli import string
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-name = f"{shortname}.modules.objects"
 
 
 def signature(info=None):
