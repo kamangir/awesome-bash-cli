@@ -1,6 +1,5 @@
 import argparse
-from abcli.modules.terraform import NAME
-from abcli.modules.terraform.functions import *
+from abcli.modules.terraform import *
 from abcli import logging
 import logging
 

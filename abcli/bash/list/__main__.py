@@ -1,5 +1,5 @@
 import argparse
-from abcli.bash.list import NAME
+from abcli.bash.list import *
 
 
 list_of_tasks = "in,intersect,len,nonempty,resize,sort"

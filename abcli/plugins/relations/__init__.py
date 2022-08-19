@@ -1,6 +1,5 @@
 from functools import reduce
 import os
-from ... import *
 from ... import file
 from ...table import Table
 from ... import logging
@@ -8,7 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.plugins.relations"
+NAME = "abcli.plugins.relations"
 
 _, inverse_of = file.load_json(
     os.path.join(

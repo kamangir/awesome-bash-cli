@@ -1,6 +1,6 @@
 import argparse
-from . import *
-from ... import logging
+from abcli.plugins.relations import *
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

@@ -1,5 +1,5 @@
 import argparse
-from abcli import NAME, VERSION
+from abcli import *
 
 parser = argparse.ArgumentParser(NAME, description=f"{NAME}-{VERSION}")
 parser.add_argument("task", type=str, help="TBD")

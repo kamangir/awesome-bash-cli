@@ -1,6 +1,5 @@
 import argparse
-from abcli.file import NAME
-from abcli.file.functions import size
+from abcli.file import *
 from abcli import string
 from abcli import logging
 import logging

@@ -1,5 +1,5 @@
 import argparse
-from . import *
+from abcli.keywords import *
 
 list_of_tasks = "pack,unpack"
 

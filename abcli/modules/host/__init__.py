@@ -1,3 +1,5 @@
+NAME = "abcli.modules.host"
+
 arguments = {}
 
 host_name_ = None
