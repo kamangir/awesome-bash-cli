@@ -32,7 +32,7 @@ function abcli_source_dependencies() {
 
     local repo_name
     for repo_name in $(abcli_plugins list_of_external --log 0 --delim space --repo_names 1) ; do
-        abcli_log "loading $repo_name"
+        abcli_log "🔵 $repo_name"
 
         if [ ! -d "$abcli_path_git/$repo_name" ] ; then
             abcli_git clone $repo_name
