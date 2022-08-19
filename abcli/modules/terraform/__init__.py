@@ -1,3 +1,3 @@
 NAME = "abcli.modules.file"
 
-from .functions import *
+from abcli.modules.terraform.functions import *

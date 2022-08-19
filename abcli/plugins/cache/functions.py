@@ -1,10 +1,10 @@
 from functools import reduce
 import json
 import os
-from ... import *
-from ... import string
-from ...table import Table
-from ... import logging
+from abcli.plugins.cache import *
+from abcli import string
+from abcli.table import Table
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

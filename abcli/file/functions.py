@@ -24,7 +24,7 @@ def absolute(filename, reference_path=None):
     Returns:
         str: filename.
     """
-    from ..path import absolute as path_absolute
+    from abcli.path import absolute as path_absolute
 
     return os.path.join(
         path_absolute(
@@ -247,7 +247,7 @@ def list_of(template, recursive=False):
     Returns:
         List[str]: list of filenames.
     """
-    from .. import path as abcli_path
+    from abcli import path as abcli_path
 
     if isinstance(template, list):
         return reduce(
@@ -477,7 +477,7 @@ def prepare_for_saving(filename):
     Returns:
         bool: success.
     """
-    from ..path import create as path_create
+    from abcli.path import create as path_create
 
     return path_create(path(filename))
 
@@ -493,7 +493,7 @@ def relative(filename, reference_path=None):
         str: relative filename.
     """
 
-    from ..path import relative as path_relative
+    from abcli.path import relative as path_relative
 
     return path_relative(
         path(filename),

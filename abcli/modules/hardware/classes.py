@@ -1,8 +1,7 @@
 import math
 import time
-from ...modules import host
 from abcli.modules import host
-from ... import logging
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

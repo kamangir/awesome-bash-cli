@@ -25,7 +25,7 @@ def poster(filename):
         bool: success.
     """
     import numpy as np
-    from ...plugins import graphics
+    from abcli.plugins import graphics
 
     logger.debug("terraform.poster({})".format(filename))
 
@@ -101,7 +101,7 @@ def terraform(filenames, commands):
 
 def signature():
     import platform
-    from .. import host
+    from abcli.modules import host
 
     return [
         fullname(),

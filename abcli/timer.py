@@ -1,6 +1,6 @@
 import time
-from . import string
-from . import logging
+from abcli import string
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

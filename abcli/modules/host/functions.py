@@ -1,11 +1,11 @@
 import os
+from abcli import fullname
+from abcli import file
+from abcli import string
+from abcli.plugins import tags
 from abcli.modules.host import HOST_NAME, HOST_TAGS, NAME
-from ... import fullname
-from ... import file
-from ... import string
-from ...plugins import tags
-from ...logging import crash_report
-from ... import logging
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

@@ -6,4 +6,4 @@ HOST_NAME = None
 
 HOST_TAGS = None
 
-from .functions import *
+from abcli.modules.host.functions import *

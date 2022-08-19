@@ -52,7 +52,7 @@ function abcli_log_error() {
 
     printf "${RED}$message$NC\n"
 
-    echo "error: $message" >> $abcli_log_filename
+    echo "error: $message" >> $ABCLI_LOG_FILENAME
 }
 
 function abcli_log_list() {
@@ -86,7 +86,7 @@ function abcli_log_local_and_cat() {
 }
 
 function abcli_log_remote() {
-    echo "$@" >> $abcli_log_filename
+    echo "$@" >> $ABCLI_LOG_FILENAME
 }
 
 function abcli_set_log_verbosity() {
@@ -99,6 +99,6 @@ function abcli_set_log_verbosity() {
 
 abcli_set_log_verbosity
 
-if [ -z "$abcli_log_filename" ] ; then
-    export abcli_log_filename="abcli.log"
+if [ -z "$ABCLI_LOG_FILENAME" ] ; then
+    export ABCLI_LOG_FILENAME="abcli.log"
 fi

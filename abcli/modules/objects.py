@@ -1,9 +1,5 @@
 import os
 from abcli import string
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 def signature(info=None):

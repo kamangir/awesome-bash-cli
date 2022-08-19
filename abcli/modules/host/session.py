@@ -1,15 +1,14 @@
 import copy
 import time
 from abcli.modules.host import COOKIE
-from .functions import *
-from ... import version
-from ...modules import terraform
-from ... import file
-from ... import string
-from ...modules.hardware import instance as hardware
-from ...timer import Timer
-from ...logging import crash_report
-from ... import logging
+from abcli.modules.host.functions import *
+from abcli.modules import terraform
+from abcli import file
+from abcli import string
+from abcli.modules.hardware import instance as hardware
+from abcli.timer import Timer
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -92,7 +91,7 @@ class Session(object):
             camera.annotate()
 
         if self.outbound_queue:
-            from ...plugins.message import Message
+            from abcli.plugins.message import Message
 
             Message(
                 filename=self.frame_filename,
