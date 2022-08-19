@@ -1,10 +1,6 @@
 import os
 
-NAME = "awesome_bash_cli"
-
-VERSION = "1.1153.1"
-
-DESCRIPTION = "a framework for quickly building awesome bash cli's for machine vision/deep learning."
+VERSION = "1.1158.1"
 
 
 def fullname():

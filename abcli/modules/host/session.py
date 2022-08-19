@@ -1,6 +1,6 @@
 import copy
 import time
-from . import arguments
+from abcli.modules.host import COOKIE
 from .functions import *
 from ... import version
 from ...modules import terraform
@@ -52,14 +52,14 @@ class Session(object):
         }.items():
             self.add_timer(name, period)
 
-        self.auto_upload = arguments.get("host.session.auto_upload", True)
-        self.outbound_queue = arguments.get("host.session.outbound_queue", "stream")
-        self.do_annotate = arguments.get("host.session.capture.annotate", True)
-        self.capture_enabled = arguments.get("host.session.capture.enabled", True)
+        self.auto_upload = COOKIE.get("host.session.auto_upload", True)
+        self.outbound_queue = COOKIE.get("host.session.outbound_queue", "stream")
+        self.do_annotate = COOKIE.get("host.session.capture.annotate", True)
+        self.capture_enabled = COOKIE.get("host.session.capture.enabled", True)
 
     def add_timer(self, name, period):
         if name not in self.timer:
-            period = arguments.get("host.session.{}.period".format(name), period)
+            period = COOKIE.get("host.session.{}.period".format(name), period)
             self.timer[name] = Timer(period, name)
             logger.info(
                 "host.session: timer[{}]:{}".format(

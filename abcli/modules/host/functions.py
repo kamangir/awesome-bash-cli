@@ -1,5 +1,5 @@
 import os
-from . import host_name_, host_tags_, name
+from abcli.modules.host import HOST_NAME, HOST_TAGS, NAME
 from ... import fullname
 from ... import file
 from ... import string
@@ -12,13 +12,13 @@ logger = logging.getLogger(__name__)
 
 
 def get_name(cache=True):
-    global host_name_
+    global HOST_NAME
 
-    if cache and host_name_ is not None:
-        return host_name_
+    if cache and HOST_NAME is not None:
+        return HOST_NAME
 
-    host_name_ = get_name_()
-    return host_name_
+    HOST_NAME = get_name_()
+    return HOST_NAME
 
 
 def get_name_():
@@ -65,13 +65,13 @@ def get_seed_filename():
 
 
 def get_tags(cache=True):
-    global host_tags_
+    global HOST_TAGS
 
-    if cache and host_tags_ is not None:
-        return host_tags_
+    if cache and HOST_TAGS is not None:
+        return HOST_TAGS
 
-    host_tags_ = tags.get(get_name(cache=cache))
-    return host_tags_
+    HOST_TAGS = tags.get(get_name(cache=cache))
+    return HOST_TAGS
 
 
 def is_ec2():

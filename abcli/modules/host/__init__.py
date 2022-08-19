@@ -1,9 +1,9 @@
 NAME = "abcli.modules.host"
 
-arguments = {}
+COOKIE = {}
 
-host_name_ = None
+HOST_NAME = None
 
-host_tags_ = None
+HOST_TAGS = None
 
 from .functions import *

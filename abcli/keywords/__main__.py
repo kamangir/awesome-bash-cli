@@ -32,7 +32,7 @@ if args.task == "pack":
 elif args.task == "unpack":
     print(
         (lambda output: args.default if output in ",-".split(",") else output)(
-            keywords.get(args.keyword, args.keyword)
+            KEYWORDS.get(args.keyword, args.keyword)
         )
     )
 else:
