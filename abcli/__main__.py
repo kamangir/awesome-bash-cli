@@ -2,7 +2,11 @@ import argparse
 from abcli import *
 
 parser = argparse.ArgumentParser(NAME, description=f"{NAME}-{VERSION}")
-parser.add_argument("task", type=str, help="TBD")
+parser.add_argument(
+    "task",
+    type=str,
+    help="TBD",
+)
 args = parser.parse_args()
 
 success = False
