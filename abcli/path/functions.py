@@ -1,15 +1,13 @@
 import os
 import pathlib
 import shutil
-from .. import string
-from .. import shortname
-from ..logging import crash_report
-from .. import logging
+from abcli.path import NAME
+from abcli import string
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-name = f"{shortname}.path"
 
 
 def absolute(path, reference=None):
