@@ -1,7 +1,8 @@
 import argparse
 
-from . import *
-from .. import keywords
+from abcli.options import NAME
+from abcli.options.classes import Options
+from abcli import keywords
 
 list_of_tasks = "default,get,get_unpacked,update"
 
