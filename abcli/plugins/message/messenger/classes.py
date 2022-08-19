@@ -1,12 +1,4 @@
-from .... import *
-from ....modules import host
-from ..queue import *
-from .... import logging
-import logging
-
-logger = logging.getLogger(__name__)
-
-name = f"{shortname}.message.agent"
+from abcli.plugins.message.queue import MessageQueue
 
 
 class Messenger(object):
@@ -57,21 +49,3 @@ class Messenger(object):
                 output.extend(messages)
 
         return success, output
-
-
-instance = Messenger(
-    recipients=list(
-        set(
-            [
-                "public",
-                host.get_name(),
-            ]
-            + host.get_tags()
-            + [
-                thing
-                for thing in host.arguments.get("messenger.recipients", "").split(",")
-                if thing
-            ]
-        )
-    )
-)
