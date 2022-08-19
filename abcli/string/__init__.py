@@ -1,7 +1,9 @@
 import os
 import time
 
-os.environ["TZ"] = "America/New_York"
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+# Toronto: "America/New_York"
+os.environ["TZ"] = "America/Los_Angeles"
 time.tzset()
 
 NAME = "abcli.string"
