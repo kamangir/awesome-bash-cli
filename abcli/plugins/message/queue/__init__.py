@@ -24,7 +24,7 @@ class MessageQueue(object):
 
             sqs = boto3.resource("sqs")
         except:
-            crash_report(f"-{name}: connect: {self.name}: failed.")
+            crash_report(f"-{NAME}: connect: {self.name}: failed.")
             return False
 
         self.queue = None
@@ -45,11 +45,11 @@ class MessageQueue(object):
                 )
             except:
                 crash_report(
-                    f"-{name}: connect: sqs.create_queue: {self.name}: failed."
+                    f"-{NAME}: connect: sqs.create_queue: {self.name}: failed."
                 )
 
         if self.queue is None:
-            logger.error(f"-{name}: connect: {self.name}: failed.")
+            logger.error(f"-{NAME}: connect: {self.name}: failed.")
             return False
 
         return True
@@ -72,7 +72,7 @@ class MessageQueue(object):
         success = False
 
         if self.queue is None:
-            logger.error(f"-{name}: request: no queue.")
+            logger.error(f"-{NAME}: request: no queue.")
             return success, messages
 
         attributes = [
@@ -119,7 +119,7 @@ class MessageQueue(object):
 
             success = True
         except:
-            crash_report(f"-{name}: request: failed.")
+            crash_report(f"-{NAME}: request: failed.")
 
         return success, messages
 
@@ -133,7 +133,7 @@ class MessageQueue(object):
             bool: success.
         """
         if self.queue is None:
-            logger.error(f"-{name}: submit: no queue.")
+            logger.error(f"-{NAME}: submit: no queue.")
             return False
 
         try:
@@ -167,7 +167,7 @@ class MessageQueue(object):
                 },
             )
         except:
-            crash_report(f"-{name}: submit: failed.")
+            crash_report(f"-{NAME}: submit: failed.")
             return False
 
         logger.info(message.as_string())

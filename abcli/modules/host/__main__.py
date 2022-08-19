@@ -1,13 +1,13 @@
 import argparse
-from . import *
-from ...plugins import tags
-from ... import file
-from ... import logging
+from abcli import file
+from abcli.modules.host import NAME, get_name, signature
+from abcli.plugins import tags
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -59,7 +59,7 @@ if args.task == "get":
         output = tags.get(args.name if args.name not in ",.".split(",") else get_name())
         success = True
     else:
-        logger.error(f"-{name}: get: {args.keyword}: unknown keyword.")
+        logger.error(f"-{NAME}: get: {args.keyword}: unknown keyword.")
         print("unknown")
 elif args.task == "sign":
     success, image = file.load_image(args.filename)
@@ -79,7 +79,7 @@ elif args.task == "sign":
     if success:
         logger.info("host.sign({})".format(args.filename))
 else:
-    logger.error(f"-{name}: {args.task}: command not found.")
+    logger.error(f"-{NAME}: {args.task}: command not found.")
 
 if success and output is not None:
     if args.log:
@@ -88,4 +88,4 @@ if success and output is not None:
         print(delim.join(output))
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed.")
+    logger.error(f"-{NAME}: {args.task}: failed.")

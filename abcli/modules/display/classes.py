@@ -159,6 +159,3 @@ class Display(object):
             " | ".join(host.signature()),
             " | ".join(assets.signature()),
         ]
-
-
-instance = Display()

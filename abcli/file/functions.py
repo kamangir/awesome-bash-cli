@@ -4,16 +4,14 @@ from functools import reduce
 import json
 import os
 import shutil
-from .classes import *
-from .. import string
-from .. import shortname
-from ..logging import crash_report
-from .. import logging
+from abcli.file import NAME
+from abcli.file.classes import JsonEncoder
+from abcli import string
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-name = f"{shortname}.file"
 
 
 def absolute(filename, reference_path=None):
@@ -119,11 +117,11 @@ def copy(source, destination, log=True):
         # https://stackoverflow.com/a/8858026
         shutil.copyfile(source, destination)
     except:
-        crash_report(f"-{name}: copy({source},{destination}): failed.")
+        crash_report(f"-{NAME}: copy({source},{destination}): failed.")
         return False
 
     if log:
-        logger.info(f"{name}: {source} -> {destination}")
+        logger.info(f"{NAME}: {source} -> {destination}")
 
     return True
 
@@ -158,7 +156,7 @@ def delete(filename):
 
         return True
     except:
-        crash_report(f"-{name}: delete({filename}): failed.")
+        crash_report(f"-{NAME}: delete({filename}): failed.")
         return False
 
 
@@ -195,7 +193,7 @@ def download(
         response.release_conn()  # not 100% sure this is required though
 
     except:
-        crash_report(f"-{name}: download({url},{filename}): failed.")
+        crash_report(f"-{NAME}: download({url},{filename}): failed.")
         return False
 
     if log:
@@ -312,7 +310,7 @@ def load(filename, civilized=False, default={}):
         return True, data
     except:
         if not civilized:
-            crash_report(f"-{name}: load({filename}): failed.")
+            crash_report(f"-{NAME}: load({filename}): failed.")
 
         return False, data
 
@@ -345,7 +343,7 @@ def load_image(filename, civilized=False):
 
     except:
         if not civilized:
-            crash_report(f"-{name}: load_image({filename}): failed.")
+            crash_report(f"-{NAME}: load_image({filename}): failed.")
         success = False
 
     return success, image
@@ -373,7 +371,7 @@ def load_json(filename, civilized=False, default={}):
         success = True
     except:
         if not civilized:
-            crash_report(f"-{name}: load_json({filename}): failed.")
+            crash_report(f"-{NAME}: load_json({filename}): failed.")
 
     return success, data
 
@@ -404,7 +402,7 @@ def load_text(filename, civilized=False, count=-1):
                 text = [next(fp) for _ in range(count)]
     except:
         if not civilized:
-            crash_report(f"-{name}: load_text({filename}): failed.")
+            crash_report(f"-{NAME}: load_text({filename}): failed.")
 
     return success, text
 
@@ -426,7 +424,7 @@ def move(source, destination):
         # https://stackoverflow.com/a/8858026
         shutil.move(source, destination)
     except:
-        crash_report(f"-{name}: move({source},{destination}): failed.")
+        crash_report(f"-{NAME}: move({source},{destination}): failed.")
         return False
 
     return True
@@ -522,7 +520,7 @@ def save(filename, data):
         with open(filename, "wb") as fp:
             dill.dump(data, fp)
     except:
-        crash_report(f"-{name}: save({filename}): failed.")
+        crash_report(f"-{NAME}: save({filename}): failed.")
         return False
 
     return True
@@ -549,7 +547,7 @@ def save_csv(filename, data):
                     fh.write("%s\n" % str(row))
 
         except:
-            crash_report(f"-{name}: save_csv({filename}): failed.")
+            crash_report(f"-{NAME}: save_csv({filename}): failed.")
             success = False
 
     return success
@@ -569,7 +567,7 @@ def save_image(filename, image):
     import numpy as np
 
     if image is None:
-        logger.info(f"-{name}: save_image(None) ignored.")
+        logger.info(f"-{NAME}: save_image(None) ignored.")
         return True
 
     if not prepare_for_saving(filename):
@@ -586,7 +584,7 @@ def save_image(filename, image):
         return True
     except:
         crash_report(
-            f"-{name}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
+            f"-{NAME}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
         )
         return False
 
@@ -620,7 +618,7 @@ def save_json(filename, data):
 
         return True
     except:
-        crash_report(f"-{name}: save_json({filename}): failed.")
+        crash_report(f"-{NAME}: save_json({filename}): failed.")
         return False
 
 
@@ -638,7 +636,7 @@ def save_tensor(filename, tensor, log=True):
     success = save(set_extension(filename, "pyndarray"), tensor)
 
     if success and log:
-        logger.info(f"-{name}: {string.pretty_shape_of_matrix(tensor)} -> {filename}")
+        logger.info(f"-{NAME}: {string.pretty_shape_of_matrix(tensor)} -> {filename}")
 
     return success
 
@@ -685,11 +683,11 @@ def save_text(
         with open(filename, "w") as fp:
             fp.writelines([string + "\n" for string in text])
     except:
-        crash_report(f"-{name}: save_text({filename}): failed.")
+        crash_report(f"-{NAME}: save_text({filename}): failed.")
         return False
 
     if log:
-        logger.info(f"{name}.save_text({filename}): {len(text)} lines.")
+        logger.info(f"{NAME}.save_text({filename}): {len(text)} lines.")
     return True
 
 

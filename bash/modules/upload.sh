@@ -10,7 +10,7 @@ function abcli_upload() {
     fi
 
     # https://stackoverflow.com/a/45200066
-    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/$abcli_name/$abcli_object_name.tar.gz)
+    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$abcli_object_name.tar.gz)
     if [ -z "$exists" ]; then
         abcli_log_local "confirmed: $abcli_object_name does not exist."
     else

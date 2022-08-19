@@ -1,8 +1,7 @@
 import argparse
-from . import *
+from abcli import name, version
 
-
-parser = argparse.ArgumentParser(name, description=f"{name}-{version}")
+parser = argparse.ArgumentParser(name, description=f"{NAME}-{version}")
 parser.add_argument("task", type=str, help="TBD")
 args = parser.parse_args()
 
@@ -10,7 +9,7 @@ success = False
 if args.task == "TBD":
     success = True
 else:
-    print(f"-{name}: {args.task}: command not found.")
+    print(f"-{NAME}: {args.task}: command not found.")
 
 if not success:
-    print(f"-{name}: {args.task}: failed.")
+    print(f"-{NAME}: {args.task}: failed.")

@@ -1,1 +1,3 @@
-from .functions import *
+NAME = "abcli.file"
+
+from abcli.file.functions import *

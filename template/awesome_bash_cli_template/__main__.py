@@ -5,7 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser(name, description=f"{name}-{version}")
+parser = argparse.ArgumentParser(name, description=f"{NAME}-{version}")
 parser.add_argument(
     "task",
     type=str,
@@ -17,7 +17,7 @@ success = False
 if args.task == "TBD":
     success = True
 else:
-    logger.error(f"-{name}: {args.task}: command not found.")
+    logger.error(f"-{NAME}: {args.task}: command not found.")
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed.")
+    logger.error(f"-{NAME}: {args.task}: failed.")

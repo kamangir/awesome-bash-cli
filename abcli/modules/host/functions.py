@@ -47,7 +47,7 @@ def get_name_():
                 return line.strip().replace(chr(0), "")
 
     except:
-        crash_report(f"-{name}: get_name(): failed.")
+        crash_report(f"-{NAME}: get_name(): failed.")
 
     return string.random_(5)
 

@@ -1,11 +1,3 @@
-from ... import shortname
-from ...modules import host
-from ... import logging
-import logging
+from abcli.modules.display.classes import Display
 
-logger = logging.getLogger(__name__)
-
-
-name = f"{shortname}.modules.display"
-
-from .classes import *
+instance = Display()

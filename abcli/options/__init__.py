@@ -59,7 +59,7 @@ class Options(dict):
                         if input:
                             self[input] = True
             else:
-                raise NameError(f"-{name}: cannot read {args[0].__class__.__name__}.")
+                raise NameError(f"-{NAME}: cannot read {args[0].__class__.__name__}.")
         else:
             for index in range(0, len(args), 2):
                 self[args[index]] = args[index + 1]

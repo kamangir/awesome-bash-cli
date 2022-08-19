@@ -88,7 +88,7 @@ def copy(source, destination):
         shutil.copytree(source, destination)
         return True
     except:
-        crash_report(f"-{name}: copy({source},{destination}): failed.")
+        crash_report(f"-{NAME}: copy({source},{destination}): failed.")
         return False
 
 
@@ -108,7 +108,7 @@ def create(path):
         os.makedirs(path)
         return True
     except:
-        crash_report(f"-{name}: create({path}): failed.")
+        crash_report(f"-{NAME}: create({path}): failed.")
         return False
 
 
@@ -135,7 +135,7 @@ def delete(path):
         shutil.rmtree(path)
         return True
     except:
-        crash_report(f"-{name}: delete({path}): failed.")
+        crash_report(f"-{NAME}: delete({path}): failed.")
         return False
 
 
@@ -184,7 +184,7 @@ def list_of(path, recursive=False):
             if recursive:
                 output += list_of(path_name, recursive=recursive)
     except:
-        crash_report(f"-{name}: list_of({path}): failed.")
+        crash_report(f"-{NAME}: list_of({path}): failed.")
 
     return output
 
@@ -206,7 +206,7 @@ def move(source, destination):
         shutil.move(source, destination)
         return True
     except:
-        crash_report(f"-{name}: move({source},{destination}): failed.")
+        crash_report(f"-{NAME}: move({source},{destination}): failed.")
         return False
 
 

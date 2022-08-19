@@ -5,7 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -108,7 +108,7 @@ elif args.task == "search":
 elif args.task == "set":
     success = set_(args.object, args.tags)
 else:
-    logger.error(f"-{name}: {args.task}: command not found.")
+    logger.error(f"-{NAME}: {args.task}: command not found.")
 
 if success and output is not None:
     if args.log:
@@ -117,4 +117,4 @@ if success and output is not None:
         print(delim.join(output))
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed.")
+    logger.error(f"-{NAME}: {args.task}: failed.")

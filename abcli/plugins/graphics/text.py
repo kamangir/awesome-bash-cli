@@ -49,7 +49,7 @@ def render_text(
     """
     if image is None:
         if image_width is None:
-            logger.error(f"-{name}: render_text(None): image_width is missing.")
+            logger.error(f"-{NAME}: render_text(None): image_width is missing.")
             return image
     else:
         if not image.shape or len(image.shape) < 2:

@@ -5,7 +5,7 @@ from .. import keywords
 
 list_of_tasks = "default,get,get_unpacked,update"
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -59,7 +59,7 @@ elif args.task == "update":
     options[args.keyword] = args.default
     print(options.to_str())
 else:
-    print(f"-{name}: {args.task}: command not found")
+    print(f"-{NAME}: {args.task}: command not found")
 
 if not success:
-    print(f"-{name}: {args.task}: failed")
+    print(f"-{NAME}: {args.task}: failed")

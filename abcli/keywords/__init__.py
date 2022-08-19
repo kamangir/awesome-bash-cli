@@ -1,7 +1,6 @@
-from .. import *
-from .keywords import keywords
+from abcli.keywords import keywords
 
-name = f"{shortname}.keywords"
+NAME = f"abcli.keywords"
 
 
 def pack(keyword):
