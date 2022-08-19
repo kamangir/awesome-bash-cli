@@ -238,11 +238,11 @@ class Storage(object):
             return False, bucket_name, ""
 
         if object_name is None:
-            abcli_object_name = os.getenv("abcli_object_name")
+            ABCLI_OBJECT_NAME = os.getenv("ABCLI_OBJECT_NAME")
             object_name = "{}/{}{}".format(
                 object_prefix,
-                abcli_object_name,
-                string.after(filename, abcli_object_name),
+                ABCLI_OBJECT_NAME,
+                string.after(filename, ABCLI_OBJECT_NAME),
             )
 
         success = True

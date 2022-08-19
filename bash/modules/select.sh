@@ -14,17 +14,17 @@ function abcli_select() {
     local options=$2
     local update_trail=$(abcli_option_int "$options" "trail" 1)
 
-    export abcli_object_name_prev=$abcli_object_name
-    export abcli_object_name=$object_name
+    export abcli_object_name_prev=$ABCLI_OBJECT_NAME
+    export ABCLI_OBJECT_NAME=$object_name
     
-    export abcli_object_path=$abcli_object_root/$abcli_object_name
+    export abcli_object_path=$abcli_object_root/$ABCLI_OBJECT_NAME
     mkdir -p $abcli_object_path
 
     cd $abcli_object_path
 
     if [ "$update_trail" == "1" ] ; then
-        abcli_trail $abcli_object_path/$abcli_object_name
+        abcli_trail $abcli_object_path/$ABCLI_OBJECT_NAME
     fi
 
-    abcli_log "$abcli_object_name selected."
+    abcli_log "$ABCLI_OBJECT_NAME selected."
 }

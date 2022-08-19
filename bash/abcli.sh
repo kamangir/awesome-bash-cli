@@ -12,5 +12,5 @@ else
 
     abcli_initialize
 
-    abcli_select $abcli_object_name
+    abcli_select $ABCLI_OBJECT_NAME
 fi

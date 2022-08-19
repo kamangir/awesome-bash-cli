@@ -15,7 +15,7 @@ function abcli_publish() {
         return
     fi
 
-    local object_name=$(abcli_clarify_object "$1" $abcli_object_name)
+    local object_name=$(abcli_clarify_object "$1" $ABCLI_OBJECT_NAME)
 
     local filename=$2
 
@@ -27,7 +27,7 @@ function abcli_publish() {
     if [ -z "$filename" ] || [ "$filename" == "random_url" ] ; then
         abcli_log "publishing $object_name"
 
-        local abcli_object_name_current=$abcli_object_name
+        local abcli_object_name_current=$ABCLI_OBJECT_NAME
 
         if [ "$filename" == "random_url" ] ; then
             local public_object_name=$(abcli_string_random --length 64)
@@ -45,16 +45,16 @@ function abcli_publish() {
 
         abcli_upload solid
 
-        aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz s3://$(abcli_aws_s3_public_bucket)/
+        aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$ABCLI_OBJECT_NAME.tar.gz s3://$(abcli_aws_s3_public_bucket)/
 
-        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
+        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$ABCLI_OBJECT_NAME.tar.gz"
         abcli_log "published $object_name as $url"
 
         abcli_select $abcli_object_name_current
     elif [ "$filename" == "open" ] ; then
         abcli_log "publishing files in $object_name..."
 
-        local abcli_object_name_current=$abcli_object_name
+        local abcli_object_name_current=$ABCLI_OBJECT_NAME
 
         abcli_select $object_name ~trail
         abcli_clone $object_name-published ~meta
@@ -66,9 +66,9 @@ function abcli_publish() {
 
         abcli_upload open
 
-        aws s3 sync s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name s3://$(abcli_aws_s3_public_bucket)/$abcli_object_name
+        aws s3 sync s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$ABCLI_OBJECT_NAME s3://$(abcli_aws_s3_public_bucket)/$ABCLI_OBJECT_NAME
 
-        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
+        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$ABCLI_OBJECT_NAME"
         abcli_log "published $object_name as $url"
 
         abcli_select $abcli_object_name_current

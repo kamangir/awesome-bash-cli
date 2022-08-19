@@ -5,16 +5,16 @@ function abcli_upload() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name upload [-open,solid]" \
-            "upload $abcli_object_name [not as open] [and not as solid]."
+            "upload $ABCLI_OBJECT_NAME [not as open] [and not as solid]."
         return
     fi
 
     # https://stackoverflow.com/a/45200066
-    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$abcli_object_name.tar.gz)
+    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$ABCLI_OBJECT_NAME.tar.gz)
     if [ -z "$exists" ]; then
-        abcli_log_local "confirmed: $abcli_object_name does not exist."
+        abcli_log_local "confirmed: $ABCLI_OBJECT_NAME does not exist."
     else
-        abcli_log_error "-abcli: upload: $abcli_object_name already exists."
+        abcli_log_error "-abcli: upload: $ABCLI_OBJECT_NAME already exists."
         return
     fi
 
@@ -25,23 +25,23 @@ function abcli_upload() {
     local do_solid=$(abcli_option_int "$options" "solid" 0)
 
     if [ "$do_open" == "1" ]; then
-        abcli_log "$abcli_object_name open upload started."
+        abcli_log "$ABCLI_OBJECT_NAME open upload started."
 
-        aws s3 sync $abcli_object_path/ s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name/
+        aws s3 sync $abcli_object_path/ s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$ABCLI_OBJECT_NAME/
 
-        abcli_tag set $abcli_object_name open
+        abcli_tag set $ABCLI_OBJECT_NAME open
     fi
 
     if [ "$do_solid" == "1" ]; then
         pushd $abcli_object_root > /dev/null
 
-        tar -czvf $abcli_object_name.tar.gz ./$abcli_object_name
+        tar -czvf $ABCLI_OBJECT_NAME.tar.gz ./$ABCLI_OBJECT_NAME
 
-        abcli_log "$abcli_object_name solid upload started - $(abcli_file_size $abcli_object_path.tar.gz)"
+        abcli_log "$ABCLI_OBJECT_NAME solid upload started - $(abcli_file_size $abcli_object_path.tar.gz)"
 
-        aws s3 cp $abcli_object_name.tar.gz s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/
+        aws s3 cp $ABCLI_OBJECT_NAME.tar.gz s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/
 
-        abcli_tag set $abcli_object_name solid
+        abcli_tag set $ABCLI_OBJECT_NAME solid
 
         popd > /dev/null
     fi

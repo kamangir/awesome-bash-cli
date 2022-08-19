@@ -6,7 +6,7 @@ function relation() {
 
 function abcli_relation() {
     local task=$(abcli_unpack_keyword $1 help)
-    local object_1=$(abcli_clarify_object "$2" $abcli_object_name)
+    local object_1=$(abcli_clarify_object "$2" $ABCLI_OBJECT_NAME)
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name relation clone <object_1> <object_2>" \
@@ -28,7 +28,7 @@ function abcli_relation() {
     fi
 
     if [ "$task" == "clone" ] || [ "$task" == "get" ] || [ "$task" == "set" ] ; then
-        local object_2=$(abcli_clarify_object "$3" $abcli_object_name)
+        local object_2=$(abcli_clarify_object "$3" $ABCLI_OBJECT_NAME)
     fi
 
     if [ "$task" == "clone" ] ; then

@@ -5,7 +5,7 @@ function abcli_clone() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name clone <object_name> [~cache,~meta,~relations,~tags,~trail] [<postfix>]" \
-            "clone $abcli_object_name[/postfix] -> object_name[/postfix]"
+            "clone $ABCLI_OBJECT_NAME[/postfix] -> object_name[/postfix]"
         return
     fi
 
@@ -18,7 +18,7 @@ function abcli_clone() {
     abcli_download
 
     local object_path=$abcli_object_path
-    local object_name=$abcli_object_name
+    local object_name=$ABCLI_OBJECT_NAME
 
     abcli_select $@
 
@@ -30,16 +30,16 @@ function abcli_clone() {
     rsync -arv "$object_path/$postfix" "./$postfix"
 
     if [ "$clone_cache" == "1" ] ; then
-        abcli_cache clone $object_name $abcli_object_name
+        abcli_cache clone $object_name $ABCLI_OBJECT_NAME
     fi
 
     if [ "$clone_relations" == "1" ] ; then
-        abcli_relation clone $object_name $abcli_object_name
-        abcli_relation set $abcli_object_name $object_name cloned
+        abcli_relation clone $object_name $ABCLI_OBJECT_NAME
+        abcli_relation set $ABCLI_OBJECT_NAME $object_name cloned
     fi
 
     if [ "$clone_tags" == "1" ] ; then
-        abcli_tag clone $object_name $abcli_object_name
-        abcli_tag set $abcli_object_name clone
+        abcli_tag clone $object_name $ABCLI_OBJECT_NAME
+        abcli_tag set $ABCLI_OBJECT_NAME clone
     fi
 }
