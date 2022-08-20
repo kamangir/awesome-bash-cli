@@ -1,9 +1,11 @@
 import time
 from abcli import VERSION
 from abcli.modules import terraform
+from abcli.modules.display import instance as display
 from abcli import file
-from abcli import string
 from abcli.modules.hardware import instance as hardware
+from abcli.modules import host
+from abcli import string
 from abcli.timer import Timer
 from . import COOKIE
 from .functions import *
