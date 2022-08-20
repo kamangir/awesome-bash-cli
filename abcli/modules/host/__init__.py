@@ -1,11 +1,9 @@
-from ... import shortname
+NAME = "abcli.modules.host"
 
-name = f"{shortname}.modules.host"
+COOKIE = {}
 
-arguments = {}
+HOST_NAME = None
 
-host_name_ = None
-
-host_tags_ = None
+HOST_TAGS = None
 
 from .functions import *

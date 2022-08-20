@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from abcli import file
+from abcli import string
 from .signature import add_signature
-from ... import file
-from ... import string
-from ... import logging
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

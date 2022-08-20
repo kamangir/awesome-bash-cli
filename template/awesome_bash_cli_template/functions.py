@@ -1,4 +1,4 @@
-from . import name
+from . import NAME
 from abcli import logging
 import logging
 

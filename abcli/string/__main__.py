@@ -4,7 +4,7 @@ from . import *
 list_of_tasks = "after,before,pretty_date,random"
 
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -53,7 +53,7 @@ elif args.task == "pretty_date":
 elif args.task == "random":
     print(random_(args.length))
 else:
-    print(f"-{name}: {args.task}: command not found")
+    print(f"-{NAME}: {args.task}: command not found")
 
 if not success:
-    print(f"-{name}: {args.task}: failed")
+    print(f"-{NAME}: {args.task}: failed")

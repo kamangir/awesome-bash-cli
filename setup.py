@@ -1,11 +1,11 @@
 from setuptools import setup
 
-from abcli import *
+from abcli import NAME, VERSION
 
 setup(
-    name=name,
+    name=NAME,
     author="kamangir",
-    version=version,
-    description=description,
-    packages=[shortname],
+    version=VERSION,
+    description="a framework for quickly building awesome bash cli's for machine vision/deep learning.",
+    packages=["abcli"],
 )

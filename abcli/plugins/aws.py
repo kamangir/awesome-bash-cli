@@ -1,13 +1,5 @@
 import os
-import os.path
-from ... import *
-from ... import file
-from ... import logging
-import logging
-
-logger = logging.getLogger(__name__)
-
-name = f"{shortname}.plugins.aws"
+from abcli import file
 
 
 def get_from_json(thing, default={}):

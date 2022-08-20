@@ -1,8 +1,8 @@
 import cv2
-from . import name
 from functools import reduce
 import numpy as np
-from ... import logging
+from . import NAME
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ def render_text(
     """
     if image is None:
         if image_width is None:
-            logger.error(f"-{name}: render_text(None): image_width is missing.")
+            logger.error(f"-{NAME}: render_text(None): image_width is missing.")
             return image
     else:
         if not image.shape or len(image.shape) < 2:

@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
-alias $abcli_cli_name=abcli
+function abc() {
+    abcli $@
+}
 
 function abcli() {
     local task=$(abcli_unpack_keyword $1 help)
@@ -13,5 +15,5 @@ function abcli() {
 }
 
 function abcli_get_version() {
-    export abcli_version=$(python3 -c "import abcli; print(abcli.version)")
+    export abcli_version=$(python3 -c "import abcli; print(abcli.VERSION)")
 }

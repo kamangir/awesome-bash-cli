@@ -1,1 +1,3 @@
-from .Table import *
+NAME = "abcli.table"
+
+from .classes import *

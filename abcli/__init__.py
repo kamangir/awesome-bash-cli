@@ -1,16 +1,12 @@
 import os
 
-name = "awesome_bash_cli"
+NAME = "abcli"
 
-shortname = os.getenv("abcli_name")
-
-version = "1.879.1"
-
-description = "a framework for quickly building awesome bash cli's for machine vision/deep learning."
+VERSION = "1.1251.1"
 
 
 def fullname():
-    return f"{shortname}-{version}-{os.getenv('abcli_git_branch')}"
+    return f"abcli-{VERSION}-{os.getenv('abcli_git_branch')}"
 
 
 LOG_ON = 1

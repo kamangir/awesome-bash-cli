@@ -1,13 +1,7 @@
-from ... import shortname
-from ...modules import host
-from ... import logging
-import logging
+NAME = "abcli.modules.hardware"
 
-logger = logging.getLogger(__name__)
+from abcli.modules import host
+from .classes import Jetson, Hardware, RPi
 
-
-name = f"{shortname}.modules.hardware"
-
-from .classes import *
 
 instance = RPi() if host.is_rpi() else Jetson() if host.is_jetson() else Hardware()

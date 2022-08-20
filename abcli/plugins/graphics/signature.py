@@ -1,5 +1,5 @@
-from .text import render_text
 import numpy as np
+from .text import render_text
 
 
 def add_signature(image, header, footer=[]):

@@ -4,9 +4,9 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name seed [output=clipboard/key/screen,target=./ec2/jetson/headless_rpi/mac/rpi,update]" \
+        abcli_help_line "abcli seed [output=clipboard/key/screen,target=./ec2/jetson/headless_rpi/mac/rpi,update]" \
             "generate an [update] seed and output to clipboard/key/screen."
-        abcli_help_line "$abcli_cli_name seed eject" \
+        abcli_help_line "abcli seed eject" \
             "eject seed."
         return
     fi

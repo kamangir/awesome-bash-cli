@@ -4,16 +4,14 @@ from functools import reduce
 import json
 import os
 import shutil
-from .classes import *
-from .. import string
-from .. import shortname
-from ..logging import crash_report
-from .. import logging
+from abcli.file import NAME
+from abcli.file.classes import JsonEncoder
+from abcli import string
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-name = f"{shortname}.file"
 
 
 def absolute(filename, reference_path=None):
@@ -26,14 +24,14 @@ def absolute(filename, reference_path=None):
     Returns:
         str: filename.
     """
-    from ..path import absolute as path_absolute
+    from abcli.path import absolute as path_absolute
 
     return os.path.join(
         path_absolute(
             path(filename),
             os.getcwd() if reference_path is None else reference_path,
         ),
-        name_and_extension_of(filename),
+        name_and_extension(filename),
     )
 
 
@@ -106,11 +104,11 @@ def copy(source, destination, log=True):
 
     Args:
         source (str): source filename.
-        destination (str): description filename.
+        destination (str): desctination filename.
         log (bool, optional): log. Defaults to True.
 
     Returns:
-        _type_: _description_
+        bool: success
     """
     if not prepare_for_saving(destination):
         return False
@@ -119,11 +117,11 @@ def copy(source, destination, log=True):
         # https://stackoverflow.com/a/8858026
         shutil.copyfile(source, destination)
     except:
-        crash_report(f"-{name}: copy({source},{destination}): failed.")
+        crash_report(f"-{NAME}: copy({source},{destination}): failed.")
         return False
 
     if log:
-        logger.info(f"{name}: {source} -> {destination}")
+        logger.info(f"{NAME}: {source} -> {destination}")
 
     return True
 
@@ -158,7 +156,7 @@ def delete(filename):
 
         return True
     except:
-        crash_report(f"-{name}: delete({filename}): failed.")
+        crash_report(f"-{NAME}: delete({filename}): failed.")
         return False
 
 
@@ -177,7 +175,7 @@ def download(
         overwrite (bool, optional): overwrite. Defaults to True.
 
     Returns:
-        _type_: _description_
+        bool: success
     """
     if not overwrite and exist(filename):
         return True
@@ -195,7 +193,7 @@ def download(
         response.release_conn()  # not 100% sure this is required though
 
     except:
-        crash_report(f"-{name}: download({url},{filename}): failed.")
+        crash_report(f"-{NAME}: download({url},{filename}): failed.")
         return False
 
     if log:
@@ -249,7 +247,7 @@ def list_of(template, recursive=False):
     Returns:
         List[str]: list of filenames.
     """
-    from .. import path as abcli_path
+    from abcli import path as abcli_path
 
     if isinstance(template, list):
         return reduce(
@@ -263,7 +261,7 @@ def list_of(template, recursive=False):
             lambda x, y: x + y,
             [
                 list_of(
-                    os.path.join(pathname, name_and_extension_of(template)),
+                    os.path.join(pathname, name_and_extension(template)),
                     recursive,
                 )
                 for pathname in abcli_path.list_of(path(template))
@@ -281,7 +279,7 @@ def list_of(template, recursive=False):
             os.path.join(template_path, filename)
             for filename in fnmatch.filter(
                 os.listdir(template_path),
-                name_and_extension_of(template),
+                name_and_extension(template),
             )
         ]
     except:
@@ -312,7 +310,7 @@ def load(filename, civilized=False, default={}):
         return True, data
     except:
         if not civilized:
-            crash_report(f"-{name}: load({filename}): failed.")
+            crash_report(f"-{NAME}: load({filename}): failed.")
 
         return False, data
 
@@ -321,7 +319,7 @@ def load_image(filename, civilized=False):
     """load image from filename
 
     Args:
-        filename (_type_): _description_
+        filename (str): filename.
         civilized (bool, optional): if failed, do not print error message. Defaults to False.
 
     Returns:
@@ -345,7 +343,7 @@ def load_image(filename, civilized=False):
 
     except:
         if not civilized:
-            crash_report(f"-{name}: load_image({filename}): failed.")
+            crash_report(f"-{NAME}: load_image({filename}): failed.")
         success = False
 
     return success, image
@@ -373,7 +371,7 @@ def load_json(filename, civilized=False, default={}):
         success = True
     except:
         if not civilized:
-            crash_report(f"-{name}: load_json({filename}): failed.")
+            crash_report(f"-{NAME}: load_json({filename}): failed.")
 
     return success, data
 
@@ -404,7 +402,7 @@ def load_text(filename, civilized=False, count=-1):
                 text = [next(fp) for _ in range(count)]
     except:
         if not civilized:
-            crash_report(f"-{name}: load_text({filename}): failed.")
+            crash_report(f"-{NAME}: load_text({filename}): failed.")
 
     return success, text
 
@@ -426,13 +424,13 @@ def move(source, destination):
         # https://stackoverflow.com/a/8858026
         shutil.move(source, destination)
     except:
-        crash_report(f"-{name}: move({source},{destination}): failed.")
+        crash_report(f"-{NAME}: move({source},{destination}): failed.")
         return False
 
     return True
 
 
-def name_of(filename):
+def name(filename):
     """return name of filename.
 
     Args:
@@ -446,7 +444,7 @@ def name_of(filename):
     return filename if "." not in filename else ".".join(filename.split(".")[:-1])
 
 
-def name_and_extension_of(filename):
+def name_and_extension(filename):
     """return name and extension of filename.
 
     Args:
@@ -479,7 +477,7 @@ def prepare_for_saving(filename):
     Returns:
         bool: success.
     """
-    from ..path import create as path_create
+    from abcli.path import create as path_create
 
     return path_create(path(filename))
 
@@ -495,12 +493,12 @@ def relative(filename, reference_path=None):
         str: relative filename.
     """
 
-    from ..path import relative as path_relative
+    from abcli.path import relative as path_relative
 
     return path_relative(
         path(filename),
         os.getcwd() if reference_path is None else reference_path,
-    ) + name_and_extension_of(filename)
+    ) + name_and_extension(filename)
 
 
 def save(filename, data):
@@ -522,7 +520,7 @@ def save(filename, data):
         with open(filename, "wb") as fp:
             dill.dump(data, fp)
     except:
-        crash_report(f"-{name}: save({filename}): failed.")
+        crash_report(f"-{NAME}: save({filename}): failed.")
         return False
 
     return True
@@ -549,7 +547,7 @@ def save_csv(filename, data):
                     fh.write("%s\n" % str(row))
 
         except:
-            crash_report(f"-{name}: save_csv({filename}): failed.")
+            crash_report(f"-{NAME}: save_csv({filename}): failed.")
             success = False
 
     return success
@@ -569,7 +567,7 @@ def save_image(filename, image):
     import numpy as np
 
     if image is None:
-        logger.info(f"-{name}: save_image(None) ignored.")
+        logger.info(f"-{NAME}: save_image(None) ignored.")
         return True
 
     if not prepare_for_saving(filename):
@@ -586,7 +584,7 @@ def save_image(filename, image):
         return True
     except:
         crash_report(
-            f"-{name}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
+            f"-{NAME}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
         )
         return False
 
@@ -620,7 +618,7 @@ def save_json(filename, data):
 
         return True
     except:
-        crash_report(f"-{name}: save_json({filename}): failed.")
+        crash_report(f"-{NAME}: save_json({filename}): failed.")
         return False
 
 
@@ -638,7 +636,7 @@ def save_tensor(filename, tensor, log=True):
     success = save(set_extension(filename, "pyndarray"), tensor)
 
     if success and log:
-        logger.info(f"-{name}: {string.pretty_shape_of_matrix(tensor)} -> {filename}")
+        logger.info(f"-{NAME}: {string.pretty_shape_of_matrix(tensor)} -> {filename}")
 
     return success
 
@@ -685,11 +683,11 @@ def save_text(
         with open(filename, "w") as fp:
             fp.writelines([string + "\n" for string in text])
     except:
-        crash_report(f"-{name}: save_text({filename}): failed.")
+        crash_report(f"-{NAME}: save_text({filename}): failed.")
         return False
 
     if log:
-        logger.info(f"{name}.save_text({filename}): {len(text)} lines.")
+        logger.info(f"{NAME}.save_text({filename}): {len(text)} lines.")
     return True
 
 

@@ -3,7 +3,7 @@ from . import *
 
 list_of_tasks = "pack,unpack"
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -32,11 +32,11 @@ if args.task == "pack":
 elif args.task == "unpack":
     print(
         (lambda output: args.default if output in ",-".split(",") else output)(
-            keywords.get(args.keyword, args.keyword)
+            KEYWORDS.get(args.keyword, args.keyword)
         )
     )
 else:
-    print(f"-{name}: {args.task}: command not found")
+    print(f"-{NAME}: {args.task}: command not found")
 
 if not success:
-    print(f"-{name}: {args.task}: failed")
+    print(f"-{NAME}: {args.task}: failed")

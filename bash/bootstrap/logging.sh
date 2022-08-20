@@ -19,9 +19,9 @@ function abcli_log() {
     local task=$(abcli_unpack_keyword "$1")
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name log <message>" \
+        abcli_help_line "abcli log <message>" \
             "log message."
-        abcli_help_line "$abcli_cli_name log verbose [on/off]" \
+        abcli_help_line "abcli log verbose [on/off]" \
             "verbose logging on/off."
         return
     fi

@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 import abcli
-import abcli.assets as assets
-from abcli.host import arguments
+import abcli.assets
+from abcli.modules import host
 import abcli.file as file
 import abcli.host as host
 import abcli.graphics as graphics
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class Display(object):
     def __init__(self):
-        self.fullscreen = arguments.get("display.fullscreen", True)
+        self.fullscreen = host.COOKIE.get("display.fullscreen", True)
 
         self.canvas = None
         self.notifications = []
@@ -159,6 +159,3 @@ class Display(object):
             " | ".join(host.signature()),
             " | ".join(assets.signature()),
         ]
-
-
-instance = Display()

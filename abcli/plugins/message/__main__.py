@@ -1,14 +1,14 @@
 import argparse
 from functools import reduce
-from . import *
 import time
-from ... import file
-from ... import logging
+from . import *
+from abcli import file
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -60,7 +60,7 @@ args = parser.parse_args()
 
 success = False
 if args.task == "listen_to":
-    from .agent import instance as messenger
+    from .messenger import instance as messenger
 
     messages = []
 
@@ -98,14 +98,14 @@ elif args.task == "update":
             Message(
                 recipient=recipient,
                 subject="update",
-                data={"version": version},
+                data={"version": VERSION},
             ).submit()
             for recipient in args.recipient.split(",")
         ],
         True,
     )
 else:
-    logger.error(f"-{name}: {args.task}: command not found.")
+    logger.error(f"-{NAME}: {args.task}: command not found.")
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed.")
+    logger.error(f"-{NAME}: {args.task}: failed.")

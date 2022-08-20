@@ -1,15 +1,14 @@
-import copy
 import time
-from . import arguments
+from abcli import VERSION
+from abcli.modules import terraform
+from abcli import file
+from abcli import string
+from abcli.modules.hardware import instance as hardware
+from abcli.timer import Timer
+from . import COOKIE
 from .functions import *
-from ... import version
-from ...modules import terraform
-from ... import file
-from ... import string
-from ...modules.hardware import instance as hardware
-from ...timer import Timer
-from ...logging import crash_report
-from ... import logging
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -52,14 +51,14 @@ class Session(object):
         }.items():
             self.add_timer(name, period)
 
-        self.auto_upload = arguments.get("host.session.auto_upload", True)
-        self.outbound_queue = arguments.get("host.session.outbound_queue", "stream")
-        self.do_annotate = arguments.get("host.session.capture.annotate", True)
-        self.capture_enabled = arguments.get("host.session.capture.enabled", True)
+        self.auto_upload = COOKIE.get("host.session.auto_upload", True)
+        self.outbound_queue = COOKIE.get("host.session.outbound_queue", "stream")
+        self.do_annotate = COOKIE.get("host.session.capture.annotate", True)
+        self.capture_enabled = COOKIE.get("host.session.capture.enabled", True)
 
     def add_timer(self, name, period):
         if name not in self.timer:
-            period = arguments.get("host.session.{}.period".format(name), period)
+            period = COOKIE.get("host.session.{}.period".format(name), period)
             self.timer[name] = Timer(period, name)
             logger.info(
                 "host.session: timer[{}]:{}".format(
@@ -92,7 +91,7 @@ class Session(object):
             camera.annotate()
 
         if self.outbound_queue:
-            from ...plugins.message import Message
+            from abcli.plugins.message import Message
 
             Message(
                 filename=self.frame_filename,
@@ -164,7 +163,7 @@ class Session(object):
         hardware.pulse("outputs")
 
         seed_version = content.get("version", "")
-        if seed_version <= version:
+        if seed_version <= VERSION:
             return None
 
         logger.info(f"host.session: seed {seed_version} detected.")

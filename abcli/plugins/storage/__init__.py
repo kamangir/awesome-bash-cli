@@ -1,19 +1,17 @@
-import argparse
 import os
 import os.path
 import time
-from ... import *
-from ... import file
-from ... import path
-from ... import string
-from ... import logging
-from ...logging import crash_report
-from ...plugins import aws
+from abcli import file
+from abcli import path
+from abcli import string
+from abcli.plugins import aws
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
-name = f"{shortname}.plugins.storage"
+NAME = "abcli.plugins.storage"
 
 default_bucket_name = aws.get_from_json("s3").get("bucket_name", "kamangir")
 object_prefix = aws.get_from_json("s3").get("prefix", "abcli")
@@ -238,11 +236,11 @@ class Storage(object):
             return False, bucket_name, ""
 
         if object_name is None:
-            abcli_object_name = os.getenv("abcli_object_name")
+            ABCLI_OBJECT_NAME = os.getenv("ABCLI_OBJECT_NAME")
             object_name = "{}/{}{}".format(
                 object_prefix,
-                abcli_object_name,
-                string.after(filename, abcli_object_name),
+                ABCLI_OBJECT_NAME,
+                string.after(filename, ABCLI_OBJECT_NAME),
             )
 
         success = True

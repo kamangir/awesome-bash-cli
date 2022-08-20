@@ -4,13 +4,13 @@ function abcli_upload() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name upload [-open,solid]" \
+        abcli_help_line "abcli upload [-open,solid]" \
             "upload $abcli_object_name [not as open] [and not as solid]."
         return
     fi
 
     # https://stackoverflow.com/a/45200066
-    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/$abcli_name/$abcli_object_name.tar.gz)
+    local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$abcli_object_name.tar.gz)
     if [ -z "$exists" ]; then
         abcli_log_local "confirmed: $abcli_object_name does not exist."
     else

@@ -1,7 +1,7 @@
 import argparse
 from . import *
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -97,7 +97,7 @@ elif args.task == "upload_file":
         bucket_name=args.bucket_name,
     )
 else:
-    logger.error(f"-{name}: {args.task}: command not found.")
+    logger.error(f"-{NAME}: {args.task}: command not found.")
 
 if success and output is not None:
     if args.log:
@@ -106,4 +106,4 @@ if success and output is not None:
         print(delim.join(output))
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed.")
+    logger.error(f"-{NAME}: {args.task}: failed.")

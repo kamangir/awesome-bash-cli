@@ -1,15 +1,15 @@
 import argparse
 import time
+from . import *
 from . import instance as hardware
-from . import name
-from ... import string
-from ... import logging
+from abcli import string
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -81,7 +81,7 @@ elif args.task == "validate":
         hardware.release()
     success = True
 else:
-    logger.error(f"-{name}: {args.task}: command not found.")
+    logger.error(f"-{NAME}: {args.task}: command not found.")
 
 if not success:
-    logger.error(f"-{name}: {args.task}: failed.")
+    logger.error(f"-{NAME}: {args.task}: failed.")

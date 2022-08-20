@@ -1,24 +1,24 @@
 import os
-from . import host_name_, host_tags_, name
-from ... import fullname
-from ... import file
-from ... import string
-from ...plugins import tags
-from ...logging import crash_report
-from ... import logging
+from abcli import fullname
+from abcli import file
+from abcli import string
+from abcli.plugins import tags
+from . import HOST_NAME, HOST_TAGS, NAME
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 def get_name(cache=True):
-    global host_name_
+    global HOST_NAME
 
-    if cache and host_name_ is not None:
-        return host_name_
+    if cache and HOST_NAME is not None:
+        return HOST_NAME
 
-    host_name_ = get_name_()
-    return host_name_
+    HOST_NAME = get_name_()
+    return HOST_NAME
 
 
 def get_name_():
@@ -47,7 +47,7 @@ def get_name_():
                 return line.strip().replace(chr(0), "")
 
     except:
-        crash_report(f"-{name}: get_name(): failed.")
+        crash_report(f"-{NAME}: get_name(): failed.")
 
     return string.random_(5)
 
@@ -65,13 +65,13 @@ def get_seed_filename():
 
 
 def get_tags(cache=True):
-    global host_tags_
+    global HOST_TAGS
 
-    if cache and host_tags_ is not None:
-        return host_tags_
+    if cache and HOST_TAGS is not None:
+        return HOST_TAGS
 
-    host_tags_ = tags.get(get_name(cache=cache))
-    return host_tags_
+    HOST_TAGS = tags.get(get_name(cache=cache))
+    return HOST_TAGS
 
 
 def is_ec2():
@@ -179,27 +179,27 @@ def signature():
 
 
 def tensor_processing_signature():
+    output = ""
+
     try:
         import tensorflow
 
-        tensorflow_version = "TensorFlow {}".format(tensorflow.__version__)
+        output += [f"TensorFlow {tensorflow.__version__}"]
     except:
-        tensorflow_version = ""
+        pass
 
     try:
         import tensorflow.keras as keras
 
-        keras_version = "Keras {}".format(keras.__version__)
+        output += [f"Keras {keras.__version__}"]
     except:
-        keras_version = ""
+        pass
 
     try:
         import tflite_runtime.interpreter as tflite
 
-        tflite_version = "TensorFlow Lite"
+        output += [f"TensorFlow Lite"]
     except:
-        tflite_version = ""
+        pass
 
-    return [
-        thing for thing in [tflite_version, tensorflow_version, keras_version] if thing
-    ]
+    return output

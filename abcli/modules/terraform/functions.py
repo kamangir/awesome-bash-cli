@@ -1,13 +1,11 @@
 import os
-from ... import fullname, shortname
-from ... import file
-from ... import string
-from ... import logging
+from abcli import fullname
+from abcli import file
+from abcli import string
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-name = f"{shortname}.file"
 
 
 def lxde(user):
@@ -27,7 +25,7 @@ def poster(filename):
         bool: success.
     """
     import numpy as np
-    from ...plugins import graphics
+    from abcli.plugins import graphics
 
     logger.debug("terraform.poster({})".format(filename))
 
@@ -103,7 +101,7 @@ def terraform(filenames, commands):
 
 def signature():
     import platform
-    from .. import host
+    from abcli.modules import host
 
     return [
         fullname(),

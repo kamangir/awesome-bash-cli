@@ -1,12 +1,10 @@
 import argparse
+from . import *
 
-from ... import *
-
-name = f"{shortname}.bash.list"
 
 list_of_tasks = "in,intersect,len,nonempty,resize,sort"
 
-parser = argparse.ArgumentParser(name)
+parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
@@ -78,7 +76,7 @@ elif args.task == "sort":
 
     print(delim.join(sorted(list_of_items)))
 else:
-    print(f"-{name}: {args.task}: command not found")
+    print(f"-{NAME}: {args.task}: command not found")
 
 if not success:
-    print(f"-{name}: {args.task}: failed")
+    print(f"-{NAME}: {args.task}: failed")

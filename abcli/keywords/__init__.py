@@ -1,16 +1,4 @@
-from .. import *
-from .keywords import keywords
-
-name = f"{shortname}.keywords"
+NAME = "abcli.keywords"
 
 
-def pack(keyword):
-    """pack keyword.
-
-    Args:
-        keyword (str): keyword.
-
-    Returns:
-        str: packed keyword.
-    """
-    return {v: k for k, v in keywords.items()}.get(keyword, keyword)
+from .functions import *

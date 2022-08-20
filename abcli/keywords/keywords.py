@@ -1,4 +1,4 @@
-keywords = {
+KEYWORDS = {
     "!": "run",
     "?": "help",
     "--help": "help",

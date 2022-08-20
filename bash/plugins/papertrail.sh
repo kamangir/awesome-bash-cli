@@ -4,9 +4,9 @@ function abcli_trail() {
     local task=$(abcli_unpack_keyword "$1" help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name trail <filename>" \
+        abcli_help_line "abcli trail <filename>" \
             "trail filename."
-        abcli_help_line "$abcli_cli_name trail stop" \
+        abcli_help_line "abcli trail stop" \
             "stop trailing."
         return
     fi
