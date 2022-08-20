@@ -1,7 +1,5 @@
 #! /usr/bin/env bash
 
-alias $abcli_cli_name=abcli
-
 function abcli() {
     local task=$(abcli_unpack_keyword $1 help)
 

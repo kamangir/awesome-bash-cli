@@ -24,7 +24,7 @@ function abcli_object() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name object open" \
+        abcli_help_line "abcli object open" \
             "open $abcli_object_name."
         return
     fi

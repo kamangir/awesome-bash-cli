@@ -4,17 +4,17 @@ function abcli_host() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name host get name" \
+        abcli_help_line "abcli host get name" \
             "get $abcli_host_name."
-        abcli_help_line "$abcli_cli_name host get tags [<host_name>]" \
+        abcli_help_line "abcli host get tags [<host_name>]" \
             "get $abcli_host_name/host_name tags."
-        abcli_help_line "$abcli_cli_name host reboot [<host_name_1,host_name_2>]" \
+        abcli_help_line "abcli host reboot [<host_name_1,host_name_2>]" \
             "reboot $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "$abcli_cli_name host shutdown [<host_name_1,host_name_2>]" \
+        abcli_help_line "abcli host shutdown [<host_name_1,host_name_2>]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
-        abcli_help_line "$abcli_cli_name start_session [~pull] [<args>]" \
+        abcli_help_line "abcli start_session [~pull] [<args>]" \
             "[do't pull repos and] start a host session [w/ <args>]."
-        abcli_help_line "$abcli_cli_name host tag <tag_1,~tag_2> [<host_name>]" \
+        abcli_help_line "abcli host tag <tag_1,~tag_2> [<host_name>]" \
             "tag [host_name] tag_1,~tag_2."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then

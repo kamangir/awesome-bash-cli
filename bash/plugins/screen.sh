@@ -4,13 +4,13 @@ function abcli_screen() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "$abcli_cli_name screen <name>" \
+        abcli_help_line "abcli screen <name>" \
             "start a screen [and call it name].".
-        abcli_help_line "$abcli_cli_name screen kill" \
+        abcli_help_line "abcli screen kill" \
             "kill all screens."
-        abcli_help_line "$abcli_cli_name screen list" \
+        abcli_help_line "abcli screen list" \
             "list screens."
-        abcli_help_line "$abcli_cli_name screen resume <name>" \
+        abcli_help_line "abcli screen resume <name>" \
             "resume screen [named name]."
         return
     fi
