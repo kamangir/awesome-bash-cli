@@ -7,14 +7,14 @@ function abcli_git() {
         abcli_help_line "$abcli_cli_name git cd <repo_name>" \
             "cd $abcli_path_git/repo_name."
         abcli_help_line "$abcli_cli_name git clone <repo_name> [cd,install,object,pull,source=username/some_repo]" \
-            "clone [and install] [a private fork of username/some_repo as] [$ABCLI_OBJECT_NAME/]repo_name [and pull if already exists]."
+            "clone [and install] [a private fork of username/some_repo as] [$abcli_object_name/]repo_name [and pull if already exists]."
 
         abcli_git_pull $@
 
         abcli_help_line "$abcli_cli_name git <repo_name> <command-args>" \
             "run 'git command args' in $abcli_path_git/repo_name."
         abcli_help_line "$abcli_cli_name git push <repo_name> [object,delete]" \
-            "push to [and delete] [$ABCLI_OBJECT_NAME/]repo_name."
+            "push to [and delete] [$abcli_object_name/]repo_name."
         abcli_help_line "$abcli_cli_name git recreate_ssh" \
             "recreate github ssh key."
         abcli_help_line "$abcli_cli_name git status" \

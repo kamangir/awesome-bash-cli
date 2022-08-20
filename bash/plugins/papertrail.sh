@@ -16,13 +16,13 @@ function abcli_trail() {
             sudo killall remote_syslog
         fi
 
-        export ABCLI_LOG_FILENAME=""
+        export abcli_log_filename=""
         return
     fi
 
     local log_filename="$1"
 
-    if [ "$log_filename" != "$ABCLI_LOG_FILENAME" ] ; then
+    if [ "$log_filename" != "$abcli_log_filename" ] ; then
         abcli_trail stop
 
         if [ -f "$log_filename" ]; then
@@ -40,5 +40,5 @@ function abcli_trail() {
         fi
     fi
 
-    export ABCLI_LOG_FILENAME=$log_filename
+    export abcli_log_filename=$log_filename
 }

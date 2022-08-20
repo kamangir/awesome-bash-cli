@@ -5,13 +5,13 @@ function abcli_notebook() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name notebook build [<notebook>]" \
-            "build $ABCLI_OBJECT_NAME/notebook.ipynb."
+            "build $abcli_object_name/notebook.ipynb."
         abcli_help_line "$abcli_cli_name notebook connect 1-2-3-4 [setup]" \
             "[setup and] connect to jupyter notebook on ec2:1-2-3-4."
         abcli_help_line "$abcli_cli_name notebook host [setup]" \
             "[setup and] host jupyter notebook on ec2."
         abcli_help_line "$abcli_cli_name notebook [open] [<notebook>] [<args>]" \
-            "open $ABCLI_OBJECT_NAME/notebook.ipynb [and pass args]."
+            "open $abcli_object_name/notebook.ipynb [and pass args]."
         return
     fi
 
@@ -31,7 +31,7 @@ function abcli_notebook() {
             --to html \
             --output-dir $abcli_object_path
 
-        mv $abcli_object_path/$notebook_name.html $abcli_object_path/$ABCLI_OBJECT_NAME.html
+        mv $abcli_object_path/$notebook_name.html $abcli_object_path/$abcli_object_name.html
 
         return
     fi

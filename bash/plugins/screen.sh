@@ -33,7 +33,7 @@ function abcli_screen() {
 
     local screen_name="$1"
     if [ -z "$screen_name" ]; then
-        local screen_name="abcli-$ABCLI_OBJECT_NAME"
+        local screen_name="abcli-$abcli_object_name"
     fi
 
     screen -q -S $screen_name -t $screen_name

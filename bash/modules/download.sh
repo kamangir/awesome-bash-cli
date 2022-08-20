@@ -5,9 +5,9 @@ function abcli_download() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name download" \
-            "download $ABCLI_OBJECT_NAME."
+            "download $abcli_object_name."
         abcli_help_line "$abcli_cli_name download <filename>" \
-            "download $ABCLI_OBJECT_NAME/filename."
+            "download $abcli_object_name/filename."
         abcli_help_line "$abcli_cli_name download object <object_name>" \
             "download object_name."
         abcli_help_line "$abcli_cli_name download object <object_name> <filename>" \
@@ -18,7 +18,7 @@ function abcli_download() {
     if [ "$task" == "object" ] ; then
         local object_name=$2
 
-        local abcli_object_name_current=$ABCLI_OBJECT_NAME
+        local abcli_object_name_current=$abcli_object_name
 
         abcli_select $object_name ~trail
 
@@ -29,35 +29,35 @@ function abcli_download() {
         return
     fi
 
-    if [ -f "../$ABCLI_OBJECT_NAME.tar.gz" ] ; then
-        echo "$ABCLI_OBJECT_NAME already exists - skipping download."
+    if [ -f "../$abcli_object_name.tar.gz" ] ; then
+        echo "$abcli_object_name already exists - skipping download."
         return
     fi
 
     local filename=$1
     if [ ! -z "$filename" ] ; then
-        abcli_log "$ABCLI_OBJECT_NAME/$filename download started."
-        aws s3 cp "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$ABCLI_OBJECT_NAME/$filename" "$abcli_object_path/$filename"
+        abcli_log "$abcli_object_name/$filename download started."
+        aws s3 cp "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name/$filename" "$abcli_object_path/$filename"
     else
-        local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$ABCLI_OBJECT_NAME.tar.gz)
+        local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/abcli/$abcli_object_name.tar.gz)
         if [ -z "$exists" ] ; then
-            abcli_log "$ABCLI_OBJECT_NAME open download started."
+            abcli_log "$abcli_object_name open download started."
 
-            aws s3 sync "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$ABCLI_OBJECT_NAME" .
+            aws s3 sync "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name" .
         else
-            abcli_log "$ABCLI_OBJECT_NAME solid download started."
+            abcli_log "$abcli_object_name solid download started."
 
             pushd .. > /dev/null
 
-            aws s3 cp "s3://$(abcli_aws_s3_bucket)/abcli/$ABCLI_OBJECT_NAME.tar.gz" .
+            aws s3 cp "s3://$(abcli_aws_s3_bucket)/abcli/$abcli_object_name.tar.gz" .
 
-            abcli_log "$ABCLI_OBJECT_NAME download completed - $(abcli_file_size $ABCLI_OBJECT_NAME.tar.gz)"
+            abcli_log "$abcli_object_name download completed - $(abcli_file_size $abcli_object_name.tar.gz)"
 
-            tar -xvf "$ABCLI_OBJECT_NAME.tar.gz"
+            tar -xvf "$abcli_object_name.tar.gz"
 
             popd > /dev/null
         fi
     fi
 
-    abcli_log "$ABCLI_OBJECT_NAME download completed."
+    abcli_log "$abcli_object_name download completed."
 }

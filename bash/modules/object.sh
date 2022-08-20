@@ -8,7 +8,7 @@ function abcli_clarify_object() {
         local object_name=$default
     fi
     if [ "$object_name" == "." ] ; then
-        local object_name=$ABCLI_OBJECT_NAME
+        local object_name=$abcli_object_name
     fi
     if [ "$object_name" == ".." ] ; then
         local object_name=$abcli_object_name_prev
@@ -25,17 +25,17 @@ function abcli_object() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "$abcli_cli_name object open" \
-            "open $ABCLI_OBJECT_NAME."
+            "open $abcli_object_name."
         return
     fi
 
     if [ "$task" == "open" ] ; then
         abcli_download
 
-        rm -v ../$ABCLI_OBJECT_NAME.tar.gz
-        aws s3 rm "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$ABCLI_OBJECT_NAME.tar.gz"
+        rm -v ../$abcli_object_name.tar.gz
+        aws s3 rm "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz"
 
-        abcli_tag set $ABCLI_OBJECT_NAME ~solid
+        abcli_tag set $abcli_object_name ~solid
 
         abcli_upload
 
