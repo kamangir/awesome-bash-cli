@@ -1,3 +1,3 @@
 NAME = "abcli.file"
 
-from . import *
+from .functions import *
