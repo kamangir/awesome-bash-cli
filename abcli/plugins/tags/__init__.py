@@ -1,4 +1,4 @@
 NAME = "abcli.plugins.tags"
 
 
-from .function import *
+from .functions import *
