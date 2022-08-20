@@ -19,8 +19,8 @@ class Message(object):
         reply_id=" ",
         subject="",
     ):
-        from ...modules import host
-        from ...plugins.storage import instance as storage
+        from abcli.modules import host
+        from abcli.plugins.storage import instance as storage
 
         self.subject = raw.get("subject", subject)
 
@@ -82,7 +82,7 @@ class Message(object):
         Returns:
             str: filename.
         """
-        from ...plugins.storage import instance as storage
+        from abcli.plugins.storage import instance as storage
 
         if (
             not self.data["filename"]

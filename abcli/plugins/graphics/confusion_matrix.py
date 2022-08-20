@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from abcli.plugins.graphics import NAME
-from abcli.plugins.graphics.signature import add_signature
 from abcli import file
 from abcli import string
 from abcli import logging
+from . import NAME
+from .signature import add_signature
 import logging
 
 logger = logging.getLogger(__name__)

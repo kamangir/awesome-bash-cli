@@ -1,6 +1,7 @@
 import os
-from ...modules import host
-from ... import logging
+from abcli.modules import host
+from . import NAME
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,22 +17,16 @@ try:
             screen_width = int(screen.split()[7])
             screen_height = int(screen.split()[9][:-1])
     elif host.is_mac():
-        success_, output = host.shell(
+        success, output = host.shell(
             "system_profiler SPDisplaysDataType |grep Resolution",
-            Options("~blank,clean,output,strip"),
+            clean_after=True,
+            return_output=True,
         )
-        if success_:
-            output = [
-                thing
-                for thing in [
-                    [int(item) for item in thing.split(" ") if item.isnumeric()]
-                    for thing in output
-                ]
-                if len(thing) == 2
+        if success:
+            screen_width, screen_height = [
+                int(thing) for thing in output.split() if thing.isnumeric()
             ]
-            if output:
-                screen_width = output[0][0]
-                screen_height = output[0][1]
+
     else:
         from gi.repository import Gdk
 
@@ -40,11 +35,11 @@ try:
         screen_width = geo.width
         screen_height = geo.height
 except:
-    logger.debug("graphics.initialize(): Failed.")
+    logger.error(f"{NAME}: Failed.")
 
 if screen_height is None or screen_width is None:
-    logger.debug("unknown screen size - will use default.")
+    logger.error(f"{NAME}: screen size not found.")
     screen_height = 480
     screen_width = 640
 
-logger.debug(f"graphics.screen: {screen_height}x{screen_width}")
+logger.info(f"{NAME}: {screen_height}x{screen_width}")

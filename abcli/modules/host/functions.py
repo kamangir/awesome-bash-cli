@@ -3,7 +3,7 @@ from abcli import fullname
 from abcli import file
 from abcli import string
 from abcli.plugins import tags
-from abcli.modules.host import HOST_NAME, HOST_TAGS, NAME
+from . import HOST_NAME, HOST_TAGS, NAME
 from abcli.logging import crash_report
 from abcli import logging
 import logging

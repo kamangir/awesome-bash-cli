@@ -1,8 +1,8 @@
 import cv2
-from abcli.plugins.graphics import NAME
 from functools import reduce
 import numpy as np
-from ... import logging
+from . import NAME
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)

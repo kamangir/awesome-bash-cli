@@ -1,12 +1,11 @@
-import copy
 import time
-from . import COOKIE
-from .functions import *
 from abcli.modules import terraform
 from abcli import file
 from abcli import string
-from ..hardware import instance as hardware
+from abcli.modules.hardware import instance as hardware
 from abcli.timer import Timer
+from . import COOKIE
+from .functions import *
 from abcli.logging import crash_report
 from abcli import logging
 import logging

@@ -1,4 +1,4 @@
-from abcli.keywords.keywords import KEYWORDS
+from .keywords import KEYWORDS
 
 
 def pack(keyword):

@@ -1,6 +1,5 @@
 from functools import reduce
 import json
-from . import *
 from abcli import string
 from abcli.table import Table
 from abcli import logging

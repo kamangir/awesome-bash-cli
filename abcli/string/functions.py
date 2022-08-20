@@ -360,7 +360,7 @@ def as_json(thing):
     Returns:
         str: thing as json.
     """
-    from ..file import JsonEncoder
+    from abcli.file import JsonEncoder
 
     # https://docs.python.org/2/library/json.html
     return json.dumps(
