@@ -6,8 +6,8 @@ NAME = "abcli.modules.host"
 
 _, cookie = file.load_json(
     os.path.join(
-        os.getenv("abcli_path_bash", ""),
-        "bootstrap/cookie/cookie.json",
+        os.getenv("abcli_path_cookie", ""),
+        "cookie.json",
     )
 )
 
