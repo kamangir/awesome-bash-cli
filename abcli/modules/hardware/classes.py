@@ -1,6 +1,6 @@
 import math
 import time
-from abcli.modules import host
+from abcli.modules.host import cookie
 from abcli import logging
 import logging
 
@@ -11,7 +11,7 @@ class Hardware(object):
     def __init__(self):
         logger.info(f"{self.__class__.__name__} initialized.")
 
-        self.hat = host.cookie.get("hardware.hat", "led_switch")
+        self.hat = cookie.get("hardware.hat", "led_switch")
 
         self.switch_pin = -1
 

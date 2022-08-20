@@ -4,7 +4,6 @@ from abcli.modules.display import instance as display
 from abcli import file
 from abcli.modules.hardware import instance as hardware
 from abcli.plugins.message.messenger import instance as messenger
-from abcli.modules import host
 from abcli import string
 from abcli.timer import Timer
 from . import cookie
@@ -48,7 +47,7 @@ class Session(object):
 
     def add_timer(self, name, period):
         if name not in self.timer:
-            period = cookie.get("host.session.{}.period".format(name), period)
+            period = cookie.get(f"host.session.{name}.period", period)
             self.timer[name] = Timer(period, name)
             logger.info(
                 "host.session: timer[{}]:{}".format(

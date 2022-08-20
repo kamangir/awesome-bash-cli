@@ -232,11 +232,11 @@ class Storage(object):
             return False, bucket_name, ""
 
         if object_name is None:
-            ABCLI_OBJECT_NAME = os.getenv("ABCLI_OBJECT_NAME")
+            abcli_object_name = os.getenv("abcli_object_name")
             object_name = "{}/{}{}".format(
                 object_prefix,
-                ABCLI_OBJECT_NAME,
-                string.after(filename, ABCLI_OBJECT_NAME),
+                abcli_object_name,
+                string.after(filename, abcli_object_name),
             )
 
         success = True

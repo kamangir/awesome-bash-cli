@@ -75,7 +75,7 @@ def auxiliary(nickname, extension, add_timestamp=True):
         str: auxiliary filename.
     """
     filename = os.path.join(
-        os.getenv("abcli_object_path"),
+        os.getenv("abcli_object_path", ""),
         "auxiliary",
         "-".join(
             [nickname]

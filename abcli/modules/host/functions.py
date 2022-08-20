@@ -22,17 +22,19 @@ def get_name(cache=True):
 
 
 def get_name_():
+    default = string.random_(5)
+
     if is_ec2():
-        return os.getenv("abcli_ec2_instance_id")
+        return os.getenv("abcli_ec2_instance_id", default)
 
     if is_jetson():
-        return os.getenv("abcli_jetson_nano_serial_number")
+        return os.getenv("abcli_jetson_nano_serial_number", default)
 
     if is_ubuntu():
-        return os.getenv("abcli_ubuntu_computer_id")
+        return os.getenv("abcli_ubuntu_computer_id", default)
 
     if is_mac():
-        return os.getenv("USER")
+        return os.getenv("USER", default)
 
     try:
         if is_rpi():
@@ -49,7 +51,7 @@ def get_name_():
     except:
         crash_report(f"-{NAME}: get_name(): failed.")
 
-    return string.random_(5)
+    return default
 
 
 def get_seed_filename():

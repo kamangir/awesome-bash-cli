@@ -5,7 +5,7 @@ from abcli import string
 def signature(info=None):
     return [
         "{}{}".format(
-            os.getenv("ABCLI_OBJECT_NAME"),
+            os.getenv("abcli_object_name", ""),
             "" if info is None else f"/{str(info)}",
         ),
         string.pretty_date(include_time=False),

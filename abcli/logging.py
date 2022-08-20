@@ -13,7 +13,7 @@ def crash_report(description):
     logging.error("exception ", exc_info=1)
 
 
-ABCLI_LOG_FILENAME = os.getenv("ABCLI_LOG_FILENAME", "abcli.log")
+abcli_log_filename = os.getenv("abcli_log_filename", "abcli.log")
 
 # Based on https://stackoverflow.com/a/22313803
 logging.addLevelName(logging.INFO, "")
@@ -28,7 +28,7 @@ log_formatter = logging.Formatter("%(message)s")
 
 try:
     logger_file_handler = RotatingFileHandler(
-        ABCLI_LOG_FILENAME, maxBytes=10485760, backupCount=10000
+        abcli_log_filename, maxBytes=10485760, backupCount=10000
     )
     logger_file_handler.setLevel(logging_level)
     logger_file_handler.setFormatter(log_formatter)
