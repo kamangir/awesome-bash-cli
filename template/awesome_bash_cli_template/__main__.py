@@ -1,5 +1,5 @@
 import argparse
-from awesome_bash_cli_template import *
+from . import *
 from abcli import logging
 import logging
 
