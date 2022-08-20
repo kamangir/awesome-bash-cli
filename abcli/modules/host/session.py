@@ -1,4 +1,5 @@
 import time
+from abcli import VERSION
 from abcli.modules import terraform
 from abcli import file
 from abcli import string
@@ -162,7 +163,7 @@ class Session(object):
         hardware.pulse("outputs")
 
         seed_version = content.get("version", "")
-        if seed_version <= version:
+        if seed_version <= VERSION:
             return None
 
         logger.info(f"host.session: seed {seed_version} detected.")
