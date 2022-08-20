@@ -1,15 +1,13 @@
 import cv2
 import numpy as np
 import os
-
 import abcli
-import abcli.assets
+from abcli.modules import objects
 from abcli.modules import host
-import abcli.file as file
-import abcli.host as host
-import abcli.graphics as graphics
-from abcli.options import Options
-
+from abcli import file
+from abcli import host
+from abcli import graphics
+from . import NAME
 import abcli.logging
 import logging
 
@@ -35,7 +33,7 @@ class Display(object):
             return
         self.created = True
 
-        logger.info("display.create()")
+        logger.info(f"{NAME}.create()")
 
         if self.fullscreen and not host.is_mac():
             # https://stackoverflow.com/a/34337534
@@ -63,52 +61,54 @@ class Display(object):
 
         return output
 
-    def save(self, filename="", options=""):
+    def save(self, filename=""):
+        """save self.
+
+        Args:
+            filename (str, optional): filename. Defaults to "".
+
+        Returns:
+            str: filename where save was saved.
         """
-        Save self (as filename).
-        :param filename: filename.
-        :param options:
-            . file.auxiliary()
-        :return: filename
-        """
+
         if self.canvas is None:
             return ""
 
         if not filename:
-            filename = file.auxiliary(self, "jpg", options)
+            filename = file.auxiliary(self, "jpg")
 
         return filename if file.save_image(filename, self.canvas) else ""
 
-    def show(self, image, header=[], sidebar=[], options=""):
-        """
-        show
-        :param image: image
-        :param header: header
-        :param sidebar: sidebar
-        :param options:
-            . file   : save as file
-                       default : False
-            . screen : show on screen
-                       default : False
-            . sign   : sign image.
-                       default : True
-        :return: self
-        """
-        options = (
-            Options(options)
-            .default("file", False)
-            .default("screen", False)
-            .default("sign", True)
-        )
+    def show(
+        self,
+        image,
+        header=[],
+        sidebar=[],
+        as_file=False,
+        on_screen=False,
+        sign=True,
+    ):
+        """_summary_
 
+        Args:
+            image (np.ndarray): image.
+            header (list, optional): header. Defaults to [].
+            sidebar (list, optional): sidebar. Defaults to [].
+            as_file (bool, optional): save as file. Defaults to False.
+            on_screen (bool, optional): show on screen. Defaults to False.
+            sign (bool, optional): sign image. Defaults to True.
+
+        Returns:
+            Display(): self.
+        """
         self.notifications = self.notifications[-5:]
 
-        if not options["file"] and not options["screen"]:
+        if not as_file and not on_screen:
             return self
 
         self.canvas = np.copy(image)
 
-        if options["sign"]:
+        if sign:
             self.canvas = graphics.add_signature(
                 self.canvas,
                 self.signature() + header,
@@ -120,10 +120,10 @@ class Display(object):
                 self.notifications,
             )
 
-        if options["file"]:
+        if as_file:
             self.save()
 
-        if options["screen"]:
+        if on_screen:
             self.create()
 
             try:
@@ -144,12 +144,12 @@ class Display(object):
             except:
                 from abcli.logging import crash_report
 
-                crash_report("display.show() failed.")
+                crash_report(f"{NAME} failed.")
 
             key = cv2.waitKey(1)
             if key not in [-1, 255]:
                 key = chr(key).lower()
-                logger.info("display.show(): key press detected: '{}'".format(key))
+                logger.info(f"{NAME}.show(): key press detected: '{key}'")
                 self.key_buffer.append(key)
 
         return self
@@ -157,5 +157,5 @@ class Display(object):
     def signature(self):
         return [
             " | ".join(host.signature()),
-            " | ".join(assets.signature()),
+            " | ".join(objects.signature()),
         ]
