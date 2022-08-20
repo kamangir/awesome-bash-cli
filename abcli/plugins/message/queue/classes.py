@@ -1,6 +1,6 @@
-from abcli.plugins import Message
 from abcli import string
 from . import NAME
+from .classes import Message
 from abcli.logging import crash_report
 from abcli import logging
 import logging
