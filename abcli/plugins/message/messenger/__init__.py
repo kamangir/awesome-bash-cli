@@ -12,7 +12,7 @@ instance = Messenger(
             + host.get_tags()
             + [
                 thing
-                for thing in host.COOKIE.get("messenger.recipients", "").split(",")
+                for thing in host.cookie.get("messenger.recipients", "").split(",")
                 if thing
             ]
         )

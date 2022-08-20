@@ -1,6 +1,6 @@
 NAME = "abcli.modules.host"
 
-COOKIE = {}
+cookie = {}
 
 HOST_NAME = None
 

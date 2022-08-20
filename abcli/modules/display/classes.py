@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 class Display(object):
     def __init__(self):
-        self.fullscreen = host.COOKIE.get("display.fullscreen", True)
+        self.fullscreen = host.cookie.get("display.fullscreen", True)
 
         self.canvas = None
         self.notifications = []

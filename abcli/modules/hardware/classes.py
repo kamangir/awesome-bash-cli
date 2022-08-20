@@ -11,7 +11,7 @@ class Hardware(object):
     def __init__(self):
         logger.info(f"{self.__class__.__name__} initialized.")
 
-        self.hat = host.COOKIE.get("hardware.hat", "led_switch")
+        self.hat = host.cookie.get("hardware.hat", "led_switch")
 
         self.switch_pin = -1
 
