@@ -2,10 +2,6 @@
 
 config files are carried through the seed and are mainly [excluded from git](./.gitignore) - create new copies based on [the given templates](./template) and fill up the files using the following instructions. 
 
-## [abcli.sh](./abcli.sh)
-
-`abcli_cli_name` is the name that the cli replies to.
-
 ## [aws.json](./template/aws.json)
 
 to complete the `rds` section create a database as follows:
