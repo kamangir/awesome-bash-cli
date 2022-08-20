@@ -17,7 +17,7 @@ function abcli_instance() {
 
         printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
 
-        local templates=$(python3 -c "import abcli.file as file; print(','.join(file.load_json('$abcli_path_abcli/assets/aws/info.json')[1]['ec2'].get('templates',{}).keys()))")
+        local templates=$(python3 -c "from abcli.plugins import aws; print(','.join(aws.get_from_json('ec2',{}).get('templates',{}).keys()))")
         abcli_log_list $templates , "ec2 template(s)"
 
         return
