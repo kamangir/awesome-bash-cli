@@ -7,7 +7,11 @@ logger = logging.getLogger(__name__)
 
 
 parser = argparse.ArgumentParser(NAME)
-parser.add_argument("task", type=str, help="validate")
+parser.add_argument(
+    "task",
+    type=str,
+    help="validate",
+)
 args = parser.parse_args()
 
 success = False
