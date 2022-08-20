@@ -1,9 +1,9 @@
 import time
 from abcli import VERSION
-from abcli.modules import terraform
 from abcli.modules.display import instance as display
 from abcli import file
 from abcli.modules.hardware import instance as hardware
+from abcli.plugins.message.messenger import instance as messenger
 from abcli.modules import host
 from abcli import string
 from abcli.timer import Timer
@@ -27,12 +27,6 @@ class Session(object):
             "u": "update",
         }
 
-        self.capture_command = ""
-
-        self.new_frame = False
-        self.frame_image = terraform.poster(None)
-        self.frame_filename = ""
-
         self.messages = []
 
         self.model = None
@@ -45,18 +39,12 @@ class Session(object):
 
         self.timer = {}
         for name, period in {
-            "capture": 60 * 5,
             "display": 4,
             "messenger": 60,
             "reboot": 60 * 60 * 4,
             "temperature": 300,
         }.items():
             self.add_timer(name, period)
-
-        self.auto_upload = COOKIE.get("host.session.auto_upload", True)
-        self.outbound_queue = COOKIE.get("host.session.outbound_queue", "stream")
-        self.do_annotate = COOKIE.get("host.session.capture.annotate", True)
-        self.capture_enabled = COOKIE.get("host.session.capture.enabled", True)
 
     def add_timer(self, name, period):
         if name not in self.timer:
@@ -69,39 +57,6 @@ class Session(object):
             )
             return True
         return False
-
-    def check_camera(self):
-        self.new_frame = False
-
-        if not self.capture_command or not self.capture_enabled:
-            return
-
-        success, filename, image = camera.capture(self.capture_command)
-
-        self.capture_command = ""
-
-        if not filename or filename == "same" or not success:
-            return
-
-        hardware.pulse(hardware.data_pin)
-
-        self.new_frame = True
-        self.frame_image = image
-        self.frame_filename = filename
-
-        if self.do_annotate:
-            camera.annotate()
-
-        if self.outbound_queue:
-            from abcli.plugins.message import Message
-
-            Message(
-                filename=self.frame_filename,
-                recipient=self.outbound_queue,
-                subject="frame",
-            ).submit()
-        elif self.auto_upload:
-            storage.upload_file(self.frame_filename)
 
     def check_keyboard(self):
         for key in display.key_buffer:
@@ -145,7 +100,7 @@ class Session(object):
 
         if message.event == "update":
             try:
-                if message.data["version"] > version:
+                if message.data["version"] > VERSION:
                     return_to_bash("update")
                     return False
             except:
