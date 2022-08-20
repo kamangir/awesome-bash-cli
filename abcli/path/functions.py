@@ -18,7 +18,7 @@ def absolute(path, reference=None):
         reference (str, optional): reference. Defaults to None=current path.
 
     Returns:
-        _type_: _description_
+        str: abcolute path.
     """
     if reference is None:
         reference = current()

@@ -104,11 +104,11 @@ def copy(source, destination, log=True):
 
     Args:
         source (str): source filename.
-        destination (str): description filename.
+        destination (str): desctination filename.
         log (bool, optional): log. Defaults to True.
 
     Returns:
-        _type_: _description_
+        bool: success
     """
     if not prepare_for_saving(destination):
         return False
@@ -175,7 +175,7 @@ def download(
         overwrite (bool, optional): overwrite. Defaults to True.
 
     Returns:
-        _type_: _description_
+        bool: success
     """
     if not overwrite and exist(filename):
         return True
@@ -319,7 +319,7 @@ def load_image(filename, civilized=False):
     """load image from filename
 
     Args:
-        filename (_type_): _description_
+        filename (str): filename.
         civilized (bool, optional): if failed, do not print error message. Defaults to False.
 
     Returns:
