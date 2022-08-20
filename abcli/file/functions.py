@@ -31,7 +31,7 @@ def absolute(filename, reference_path=None):
             path(filename),
             os.getcwd() if reference_path is None else reference_path,
         ),
-        name_and_extension_of(filename),
+        name_and_extension(filename),
     )
 
 
@@ -261,7 +261,7 @@ def list_of(template, recursive=False):
             lambda x, y: x + y,
             [
                 list_of(
-                    os.path.join(pathname, name_and_extension_of(template)),
+                    os.path.join(pathname, name_and_extension(template)),
                     recursive,
                 )
                 for pathname in abcli_path.list_of(path(template))
@@ -279,7 +279,7 @@ def list_of(template, recursive=False):
             os.path.join(template_path, filename)
             for filename in fnmatch.filter(
                 os.listdir(template_path),
-                name_and_extension_of(template),
+                name_and_extension(template),
             )
         ]
     except:
@@ -430,7 +430,7 @@ def move(source, destination):
     return True
 
 
-def name_of(filename):
+def name(filename):
     """return name of filename.
 
     Args:
@@ -444,7 +444,7 @@ def name_of(filename):
     return filename if "." not in filename else ".".join(filename.split(".")[:-1])
 
 
-def name_and_extension_of(filename):
+def name_and_extension(filename):
     """return name and extension of filename.
 
     Args:
@@ -498,7 +498,7 @@ def relative(filename, reference_path=None):
     return path_relative(
         path(filename),
         os.getcwd() if reference_path is None else reference_path,
-    ) + name_and_extension_of(filename)
+    ) + name_and_extension(filename)
 
 
 def save(filename, data):

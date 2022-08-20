@@ -2,7 +2,7 @@ import os
 
 NAME = "abcli"
 
-VERSION = "1.1225.1"
+VERSION = "1.1228.1"
 
 
 def fullname():
