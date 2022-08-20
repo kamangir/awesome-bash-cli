@@ -1,5 +1,5 @@
 import argparse
-from abcli.plugins.cache.functions import *
+from .functions import *
 from abcli import logging
 import logging
 

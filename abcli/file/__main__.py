@@ -1,5 +1,5 @@
 import argparse
-from abcli.file import *
+from . import *
 from abcli import string
 from abcli import logging
 import logging

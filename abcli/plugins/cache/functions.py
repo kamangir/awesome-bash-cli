@@ -1,7 +1,6 @@
 from functools import reduce
 import json
-import os
-from abcli.plugins.cache import *
+from . import *
 from abcli import string
 from abcli.table import Table
 from abcli import logging
@@ -41,7 +40,13 @@ def clone(source, destination):
     lut = search(f"{source}.%")
 
     lut = {
-        "{}.{}".format(destination, string.after(keyword, "{}.".format(source))): value
+        "{}.{}".format(
+            destination,
+            string.after(
+                keyword,
+                f"{source}.",
+            ),
+        ): value
         for keyword, value in lut.items()
     }
 
@@ -52,7 +57,13 @@ def clone(source, destination):
     )
 
 
-def read(keyword, all=False, dataframe=False, like=False, unique=False):
+def read(
+    keyword,
+    all=False,
+    dataframe=False,
+    like=False,
+    unique=False,
+):
     """read keyword form cache.
 
     Args:

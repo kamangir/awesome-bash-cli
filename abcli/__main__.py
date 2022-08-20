@@ -1,5 +1,5 @@
 import argparse
-from abcli import *
+from . import *
 
 parser = argparse.ArgumentParser(NAME, description=f"{NAME}-{VERSION}")
 parser.add_argument(

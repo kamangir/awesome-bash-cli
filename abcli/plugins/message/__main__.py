@@ -1,7 +1,7 @@
 import argparse
 from functools import reduce
 import time
-from abcli.plugins.message import *
+from . import *
 from abcli import file
 from abcli import logging
 import logging

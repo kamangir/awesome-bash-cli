@@ -1,3 +1,3 @@
 NAME = "abcli.path"
 
-from abcli.path.functions import *
+from .functions import *

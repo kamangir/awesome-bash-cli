@@ -1,6 +1,6 @@
 import argparse
 from abcli import file
-from abcli.modules.host import *
+from . import *
 from abcli.plugins import tags
 from abcli import logging
 import logging

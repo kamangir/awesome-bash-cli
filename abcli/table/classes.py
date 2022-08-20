@@ -1,9 +1,10 @@
 import os
 import os.path
 import pymysql
-from .. import file
-from .. import logging
-from ..logging import crash_report
+from . import NAME
+from abcli import file
+from abcli.logging import crash_report
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -45,7 +46,7 @@ class Table(object):
                 db=self.db,
             )
         except:
-            crash_report("-abcli.table: connect: failed.")
+            crash_report(f"-{NAME}: connect: failed.")
             return False
 
         return True if not create_command else self.create(create_command)
@@ -102,7 +103,7 @@ class Table(object):
         try:
             self.connection.close()
         except:
-            crash_report("-abcli.table: disconnect: failed.")
+            crash_report(f"-{NAME}: disconnect: failed.")
             success = False
 
         self.connection = None
@@ -147,7 +148,7 @@ class Table(object):
 
             success = True
         except:
-            crash_report(f"-abcli.table: execute({sql}): failed.")
+            crash_report(f"-{NAME}: execute({sql}): failed.")
 
         return (success, output) if returns_output else success
 

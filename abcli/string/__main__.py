@@ -1,5 +1,5 @@
 import argparse
-from abcli.string import *
+from . import *
 
 list_of_tasks = "after,before,pretty_date,random"
 

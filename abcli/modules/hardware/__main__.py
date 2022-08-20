@@ -1,7 +1,7 @@
 import argparse
 import time
-from abcli.modules.hardware import *
-from abcli.modules.hardware import instance as hardware
+from . import *
+from . import instance as hardware
 from abcli import string
 from abcli import logging
 import logging
