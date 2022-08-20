@@ -176,7 +176,7 @@ def signature():
             "Python {}".format(platform.python_version()),
             "{} {}".format(platform.system(), platform.release()),
         ]
-        + (lambda x: [x] if x else [])(os.getenv("abcli_wifi_ssid"))
+        + (lambda x: [x] if x else [])(os.getenv("abcli_wifi_ssid", ""))
     )
 
 

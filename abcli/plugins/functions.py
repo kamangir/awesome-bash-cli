@@ -12,7 +12,7 @@ def list_of_external(repo_names=False):
         list[str]: list of external plugins.
     """
 
-    abcli_path_git = os.getenv("abcli_path_git")
+    abcli_path_git = os.getenv("abcli_path_git", "")
 
     output = sorted(
         [

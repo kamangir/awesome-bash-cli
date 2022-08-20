@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 
 _, inverse_of = file.load_json(
     os.path.join(
-        os.getenv("abcli_path_abcli"), "abcli/plugins/relations/relations.json"
+        os.getenv("abcli_path_abcli", ""),
+        "abcli/plugins/relations/relations.json",
     )
 )
 inverse_of.update({inverse_of[relation]: relation for relation in inverse_of})

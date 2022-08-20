@@ -2,11 +2,11 @@ import os
 
 NAME = "abcli"
 
-VERSION = "1.1286.1"
+VERSION = "1.1288.1"
 
 
 def fullname():
-    return f"abcli-{VERSION}-{os.getenv('abcli_git_branch')}"
+    return f"abcli-{VERSION}-{os.getenv('abcli_git_branch','unknown')}"
 
 
 LOG_ON = 1

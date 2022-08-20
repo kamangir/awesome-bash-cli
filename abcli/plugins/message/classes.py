@@ -90,7 +90,7 @@ class Message(object):
             and self.data.get("object_name", "")
         ):
             filename = os.path.join(
-                os.getenv("abcli_object_path"),
+                os.getenv("abcli_object_path", ""),
                 "auxiliary",
                 "-".join(
                     [self.data["bucket_name"]] + self.data["object_name"].split("/")

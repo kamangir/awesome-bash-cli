@@ -81,13 +81,13 @@ class Storage(object):
         """
         if filename == "static":
             filename = os.path.join(
-                os.getenv("abcli_path_static"),
+                os.getenv("abcli_path_static", ""),
                 object_name.replace("/", "-"),
             )
 
         if filename == "object":
             filename = os.path.join(
-                os.getenv("abcli_object_root"),
+                os.getenv("abcli_object_root", ""),
                 "/".join(object_name.split("/")[1:]),
             )
 
@@ -232,7 +232,7 @@ class Storage(object):
             return False, bucket_name, ""
 
         if object_name is None:
-            abcli_object_name = os.getenv("abcli_object_name")
+            abcli_object_name = os.getenv("abcli_object_name", "")
             object_name = "{}/{}{}".format(
                 object_prefix,
                 abcli_object_name,

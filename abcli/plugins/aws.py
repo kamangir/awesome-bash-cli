@@ -14,7 +14,7 @@ def get_from_json(thing, default={}):
     """
     success, content = file.load_json(
         os.path.join(
-            os.getenv("abcli_path_bash"),
+            os.getenv("abcli_path_bash", ""),
             "bootstrap/config/aws.json",
         )
     )
