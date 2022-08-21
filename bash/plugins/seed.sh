@@ -121,7 +121,7 @@ function abcli_seed() {
     popd > /dev/null
 
     if [ "$target" == "headless_rpi" ] ; then
-        seed="${seed}touch ~/git/headless$delim_section"
+        seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
     fi
 
     if [ "$do_update" == "0" ] ; then
