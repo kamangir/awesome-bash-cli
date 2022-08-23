@@ -10,6 +10,8 @@ function abcli_host() {
             "get $abcli_host_name/host_name tags."
         abcli_help_line "abcli host reboot [<host_name_1,host_name_2>]" \
             "reboot $abcli_host_name/host_name_1,host_name_2."
+        abcli_help_line "abcli host set_session <plugin-name>" \
+            "set <plugin_name> as the session."
         abcli_help_line "abcli host shutdown [<host_name_1,host_name_2>]" \
             "shutdown $abcli_host_name/host_name_1,host_name_2."
         abcli_help_line "abcli start_session [~pull] [<args>]" \
@@ -50,6 +52,12 @@ function abcli_host() {
                 --recipient $recipient
         fi
 
+        return
+    fi
+
+    if [ "$task" == "set_session" ] ; then
+        local plugin_name=$2
+         abcli_cookie write "['session']" "'$plugin_name'"
         return
     fi
 
@@ -94,13 +102,10 @@ function abcli_host() {
 
             abcli_select
 
-            local plugin_name
-            for plugin_name in $(abcli_plugins list_of_external --delim space --log 0) ; do
-                local function_name=${plugin_name}_start_session
-                if [[ $(type -t $function_name) == "function" ]] ; then
-                    $function_name ${@:3}
-                fi
-            done
+            local plugin_name=$(abcli_cookie read ".get('session','')")
+            if [ ! -z "$plugin_name" ] ; then
+                eval ${plugin_name}_start_session
+            fi
 
             abcli_log "host: session closed."
 

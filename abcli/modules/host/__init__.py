@@ -8,7 +8,8 @@ _, cookie = file.load_json(
     os.path.join(
         os.getenv("abcli_path_cookie", ""),
         "cookie.json",
-    )
+    ),
+    "civilized",
 )
 
 HOST_NAME = None
