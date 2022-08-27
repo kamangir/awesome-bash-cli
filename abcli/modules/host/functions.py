@@ -106,8 +106,8 @@ def return_to_bash(message, content=[]):
     logger.info(f"host.return_to_bash({message}).")
     file.create(
         os.path.join(
-            os.getenv("abcli_path_abcli", ""),
-            f"abcli_host_return_to_bash_{message}",
+            os.getenv("abcli_path_cookie", ""),
+            f"session_return_{message}",
         ),
         content,
     )
