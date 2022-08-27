@@ -8,7 +8,12 @@ else
     source $abcli_path_bash/bootstrap/dependencies.sh
     abcli_source_dependencies
 
-    abcli_terraform
+    local options=$1
+    local do_terraform=$(abcli_option_int "$options" "terraform" 1)
+
+    if [ "$do_terraform" == "1" ] ; then
+        abcli_terraform
+    fi
 
     abcli_initialize
 
