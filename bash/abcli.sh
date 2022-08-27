@@ -18,7 +18,7 @@ function abcli_main() {
     abcli_select $abcli_object_name
 }
 
-if [ -f "$abcli_path_cookie/abcli_disabled" ] ; then
+if [ -f "$abcli_path_bash/bootstrap/cookie/disabled" ] ; then
     printf "abcli is \033[0;31mdisabled\033[0m.\n"
 else
     abcli_main $@
