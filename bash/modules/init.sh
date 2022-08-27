@@ -18,7 +18,7 @@ function abcli_init() {
     else
         local repo_name=$(echo "$plugin_name" | tr _ -)
 
-        for filename in $abcli_path_git/$repo_name/abcli/*.sh ; do
+        for filename in $abcli_path_git/$repo_name/.abcli/*.sh ; do
             source $filename
         done
     fi

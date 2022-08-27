@@ -19,7 +19,7 @@ function abcli_help() {
     local filename
     for plugin in $(abcli_plugins list_of_external --delim space --log 0 --repo_names 1) ; do
         if [ -d "$abcli_path_git/$plugin" ] ; then
-            for filename in $abcli_path_git/$plugin/abcli/*.sh ; do
+            for filename in $abcli_path_git/$plugin/.abcli/*.sh ; do
                 cat $filename | grep -A 1 "abcli_help_line \""  | grep -v -- "^--$" >> $temp_file
             done
         fi
