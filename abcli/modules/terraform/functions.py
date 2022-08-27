@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def lxde(user):
     return terraform(
         ["/etc/xdg/lxsession/LXDE/autostart"],
-        ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh start_session"],
+        ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh - abcli session start"],
     )
 
 
@@ -64,7 +64,9 @@ def rpi(user, is_headless=False):
     if not is_headless:
         if not terraform(
             ["/etc/xdg/lxsession/LXDE-pi/autostart"],
-            ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh start_session"],
+            [
+                "@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh  - abcli session start"
+            ],
         ):
             success = False
 

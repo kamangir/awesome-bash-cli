@@ -16,6 +16,12 @@ function abcli_main() {
     abcli_initialize
 
     abcli_select $abcli_object_name
+
+    local command="${@:2}"
+    if [ ! -z "$command" ] ; then
+        abcli_log "abcli: running '$command'."
+        eval $command
+    fi
 }
 
 if [ -f "$abcli_path_bash/bootstrap/cookie/disabled" ] ; then

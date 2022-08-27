@@ -89,6 +89,15 @@ function abcli_log_remote() {
     echo "$@" >> $abcli_log_filename
 }
 
+function abcli_log_warning() {
+    local message="$@"
+
+    printf "${YELLOW}$message$NC\n"
+
+    echo "warning: $message" >> $abcli_log_filename
+}
+
+
 function abcli_set_log_verbosity() {
     if [[ -f $abcli_path_git/verbose ]] ; then
         set -x
