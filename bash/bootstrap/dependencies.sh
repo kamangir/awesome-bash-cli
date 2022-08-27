@@ -34,11 +34,7 @@ function abcli_source_dependencies() {
     for repo_name in $(abcli_plugins list_of_external --log 0 --delim space --repo_names 1) ; do
         abcli_log "🔵 $repo_name"
 
-        if [ ! -d "$abcli_path_git/$repo_name" ] ; then
-            abcli_git clone $repo_name
-        fi
-
-        pushd $abcli_path_git/$repo_name/abcli > /dev/null
+        pushd $abcli_path_git/$repo_name/.abcli > /dev/null
         local filename
         for filename in *.sh ; do
             source $filename

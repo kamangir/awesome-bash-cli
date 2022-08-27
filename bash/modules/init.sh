@@ -6,6 +6,13 @@ function abcli_init() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli init [<plugin>] [~terraform]" \
             "init [plugin] [and do not terraform]."
+        abcli_help_line "abcli init dev" \
+            "init and do not terraform."
+        return
+    fi
+
+    if [ "$task" == "dev" ] ; then
+        abcli_init - ~terraform
         return
     fi
 
