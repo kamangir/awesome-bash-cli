@@ -8,6 +8,7 @@ from abcli.plugins.message.messenger import instance as messenger
 from abcli import string
 from abcli.timer import Timer
 from abcli.modules import host
+from . import NAME
 from abcli.logging import crash_report
 from abcli import logging
 import logging
@@ -110,7 +111,7 @@ class Session(object):
         return None
 
     def check_seed(self):
-        seed_filename = get_seed_filename()
+        seed_filename = host.get_seed_filename()
         if not file.exist(seed_filename):
             return None
 
