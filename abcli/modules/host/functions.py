@@ -164,7 +164,7 @@ def signature():
 
 
 def tensor_processing_signature():
-    output = ""
+    output = []
 
     try:
         import tensorflow
