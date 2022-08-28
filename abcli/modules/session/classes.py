@@ -3,11 +3,12 @@ from abcli import VERSION
 from abcli.modules.display import instance as display
 from abcli import file
 from abcli.modules.hardware import instance as hardware
+from abcli.modules.session import return_to_bash
 from abcli.plugins.message.messenger import instance as messenger
 from abcli import string
 from abcli.timer import Timer
-from . import cookie
-from .functions import *
+from ..host import cookie
+from ..host.functions import *
 from abcli.logging import crash_report
 from abcli import logging
 import logging
@@ -16,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class Session(object):
-    def __init__(self):
+    def __init__(self, output=""):
         super(Session, self).__init__()
 
         self.keys = {
@@ -25,6 +26,8 @@ class Session(object):
             "s": "shutdown",
             "u": "update",
         }
+
+        self.output = output
 
         self.messages = []
 
@@ -243,7 +246,5 @@ class Session(object):
             output = step_()
             if output in [False, True]:
                 return output
-
-        self.check_camera()
 
         return True

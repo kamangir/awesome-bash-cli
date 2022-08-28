@@ -96,23 +96,6 @@ def is_ubuntu():
     return os.getenv("abcli_is_ubuntu", "false") == "true"
 
 
-def return_to_bash(message, content=[]):
-    """return to bash with message.
-
-    Args:
-        message (str): exit/reboot/seed/shutdown/update
-        content (list, optional): content of the message. Defaults to [].
-    """
-    logger.info(f"host.return_to_bash({message}).")
-    file.create(
-        os.path.join(
-            os.getenv("abcli_path_cookie", ""),
-            f"session_return_{message}",
-        ),
-        content,
-    )
-
-
 def shell(
     command,
     clean_after=False,
