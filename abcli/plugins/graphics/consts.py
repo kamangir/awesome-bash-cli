@@ -9,8 +9,7 @@ logger = logging.getLogger(__name__)
 screen_width = None
 screen_height = None
 
-# try:
-if True:
+try:
     if host.is_rpi():
         if not host.is_headless():
             # https://stackoverflow.com/a/14124257
@@ -36,8 +35,8 @@ if True:
         geo = screen.get_monitor_geometry(screen.get_primary_monitor())
         screen_width = geo.width
         screen_height = geo.height
-# except:
-#    logger.error(f"{NAME}: Failed.")
+except:
+    logger.error(f"{NAME}: Failed.")
 
 if screen_height is None or screen_width is None:
     logger.error(f"{NAME}: screen size not found.")
