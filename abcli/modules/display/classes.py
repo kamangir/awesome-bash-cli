@@ -5,8 +5,8 @@ import abcli
 from abcli.modules import objects
 from abcli.modules import host
 from abcli import file
-from abcli import host
-from abcli import graphics
+from abcli.modules import host
+from abcli.plugins import graphics
 from . import NAME
 import abcli.logging
 import logging
