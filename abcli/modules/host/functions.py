@@ -152,7 +152,6 @@ def signature():
 
     return (
         [fullname()]
-        + get_tags()
         + [get_name()]
         + tensor_processing_signature()
         + [
