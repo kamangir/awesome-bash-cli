@@ -6,6 +6,7 @@ import random
 import string
 import time
 from abcli.string import NAME
+from abcli.string.consts import unit_of
 
 
 def after(s, sub_string, n=1):
@@ -213,6 +214,18 @@ def pretty_frequency(frequency):
             short=True,
         )
     )
+
+
+def pretty_param(param, value=None):
+    if isinstance(param, str):
+        return unit_of.get(param.split(".")[0], "{}").format(value)
+    elif isinstance(param, dict):
+        return [
+            f"{param_}: {pretty_param(param_, value_)}"
+            for param_, value_ in param.items()
+        ]
+    else:
+        print(f"{NAME}.pretty_param({param.__class__.__name__}), class not found.")
 
 
 def pretty_shape(shape):
