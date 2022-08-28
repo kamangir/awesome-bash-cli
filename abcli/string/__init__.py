@@ -8,5 +8,5 @@ time.tzset()
 
 NAME = "abcli.string"
 
-from .consts import *
+from .constants import *
 from .functions import *
