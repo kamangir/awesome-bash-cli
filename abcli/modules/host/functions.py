@@ -122,7 +122,7 @@ def shell(
     output = []
 
     if return_output:
-        output_filename = file.auxiliary(None, "txt")
+        output_filename = file.auxiliary("shell", "txt")
         command += f" > {output_filename}"
 
     current_path = os.getcwd()

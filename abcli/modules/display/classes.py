@@ -75,7 +75,7 @@ class Display(object):
             return ""
 
         if not filename:
-            filename = file.auxiliary(self, "jpg")
+            filename = file.auxiliary("display", "jpg")
 
         return filename if file.save_image(filename, self.canvas) else ""
 
