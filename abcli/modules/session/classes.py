@@ -50,10 +50,10 @@ class Session(object):
 
     def add_timer(self, name, period):
         if name not in self.timer:
-            period = cookie.get(f"host.session.{name}.period", period)
+            period = cookie.get(f"session.{name}.period", period)
             self.timer[name] = Timer(period, name)
             logger.info(
-                "host.session: timer[{}]:{}".format(
+                "session: timer[{}]:{}".format(
                     name, string.pretty_frequency(1 / period)
                 )
             )
@@ -92,11 +92,11 @@ class Session(object):
 
     def process_message(self, message):
         if message.event == "capture":
-            logger.info("host.session: capture message received.")
+            logger.info("{NAME}: capture message received.")
             self.capture_command = "forced"
 
         if message.event in "reboot,shutdown".split(","):
-            logger.info(f"host.session: {message.event} message received.")
+            logger.info(f"{NAME}: {message.event} message received.")
             return_to_bash(message.event)
             return False
 
@@ -125,7 +125,7 @@ class Session(object):
         if seed_version <= VERSION:
             return None
 
-        logger.info(f"host.session: seed {seed_version} detected.")
+        logger.info(f"{NAME}: seed {seed_version} detected.")
         return_to_bash("seed", [seed_filename])
         return False
 
@@ -133,7 +133,7 @@ class Session(object):
         if hardware.activated(hardware.switch_pin):
             if self.switch_on_time is None:
                 self.switch_on_time = time.time()
-                logger.info("host.session: switch_on_time was set.")
+                logger.info("{NAME}: switch_on_time was set.")
         else:
             self.switch_on_time = None
 
@@ -186,7 +186,12 @@ class Session(object):
                     return
 
         self.params.update(params)
-        logger.info("host.session: {}".format(", ".join(string.pretty_param(params))))
+        logger.info(
+            "{}: {}".format(
+                NAME,
+                ", ".join(string.pretty_param(params)),
+            )
+        )
 
     def signature_(self):
         return (
