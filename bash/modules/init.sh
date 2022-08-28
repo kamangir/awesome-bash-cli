@@ -23,6 +23,7 @@ function abcli_init() {
     if [ "$plugin_name" == "all" ] ; then
         source $abcli_path_abcli/bash/abcli.sh ${@:2}
     else
+        local plugin_name=$(abcli_unpack_keyword $1)
         local repo_name=$(echo "$plugin_name" | tr _ -)
 
         for filename in $abcli_path_git/$repo_name/.abcli/*.sh ; do
