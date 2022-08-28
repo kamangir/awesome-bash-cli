@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
 import os
-import abcli
-from abcli.modules import objects
-from abcli.modules import host
 from abcli import file
+from abcli import fullname
+from abcli.modules import objects
 from abcli.modules import host
 from abcli.plugins import graphics
 from . import NAME
+from abcli.logging import crash_report
 import abcli.logging
 import logging
 
@@ -24,7 +24,7 @@ class Display(object):
 
         self.key_buffer = []
 
-        self.title = abcli.fullname()
+        self.title = fullname()
 
         self.created = False
 
@@ -33,7 +33,7 @@ class Display(object):
             return
         self.created = True
 
-        logger.info(f"{NAME}.create()")
+        logger.info("display.create()")
 
         if self.fullscreen and not host.is_mac():
             # https://stackoverflow.com/a/34337534
@@ -68,9 +68,8 @@ class Display(object):
             filename (str, optional): filename. Defaults to "".
 
         Returns:
-            str: filename where save was saved.
+            bool: success.
         """
-
         if self.canvas is None:
             return ""
 
@@ -80,26 +79,21 @@ class Display(object):
         return filename if file.save_image(filename, self.canvas) else ""
 
     def show(
-        self,
-        image,
-        header=[],
-        sidebar=[],
-        as_file=False,
-        on_screen=False,
-        sign=True,
+        self, image, header=[], sidebar=[], as_file=False, on_screen=False, sign=True
     ):
-        """_summary_
-
-        Args:
-            image (np.ndarray): image.
-            header (list, optional): header. Defaults to [].
-            sidebar (list, optional): sidebar. Defaults to [].
-            as_file (bool, optional): save as file. Defaults to False.
-            on_screen (bool, optional): show on screen. Defaults to False.
-            sign (bool, optional): sign image. Defaults to True.
-
-        Returns:
-            Display(): self.
+        """
+        show
+        :param image: image
+        :param header: header
+        :param sidebar: sidebar
+        :param options:
+            . as_file   : save as file
+                       default : False
+            . on_screen : show on screen
+                       default : False
+            . sign   : sign image.
+                       default : True
+        :return: self
         """
         self.notifications = self.notifications[-5:]
 
@@ -142,12 +136,12 @@ class Display(object):
                     ),
                 )
             except:
-                crash_report(f"{NAME} failed.")
+                crash_report(f"{NAME}.show() failed.")
 
             key = cv2.waitKey(1)
             if key not in [-1, 255]:
                 key = chr(key).lower()
-                logger.info(f"{NAME}.show(): key press detected: '{key}'")
+                logger.info("display.show(): key press detected: '{}'".format(key))
                 self.key_buffer.append(key)
 
         return self
