@@ -6,7 +6,7 @@ import random
 import string
 import time
 from abcli.string import NAME
-from abcli.string.consts import unit_of
+from abcli.string.constants import unit_of
 
 
 def after(s, sub_string, n=1):
