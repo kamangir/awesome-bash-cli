@@ -8,6 +8,7 @@ from abcli import file
 from abcli.modules import host
 from abcli.plugins import graphics
 from . import NAME
+from abcli.logging import crash_report
 import abcli.logging
 import logging
 

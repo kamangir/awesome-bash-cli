@@ -49,7 +49,7 @@ function abcli_session() {
             if [ -z "$plugin_name" ] ; then
                 abcli_log_warning "no plugin is set for session, try 'abcli session set <plugin-name>'."
             else
-                eval ${plugin_name}_session start
+                eval ${plugin_name}_session start ${@:3}
             fi
 
             abcli_log "session closed."
