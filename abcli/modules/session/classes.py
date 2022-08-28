@@ -7,8 +7,8 @@ from abcli.modules.session import return_to_bash
 from abcli.plugins.message.messenger import instance as messenger
 from abcli import string
 from abcli.timer import Timer
-from ..host import cookie
-from ..host.functions import *
+from abcli.modules.host import cookie
+from abcli.modules.host.functions import *
 from abcli.logging import crash_report
 from abcli import logging
 import logging
@@ -182,7 +182,7 @@ class Session(object):
                 try:
                     params["temperature.cpu"] = float(output[0]) / 1000
                 except:
-                    crash_report("looper.read_temperature(cpu) failed")
+                    crash_report(f"{NAME}.read_temperature(cpu) failed")
                     return
 
         self.params.update(params)
