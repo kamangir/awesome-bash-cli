@@ -1,6 +1,7 @@
 import math
 import time
 from abcli.modules.host import cookie
+from . import NAME
 from abcli import logging
 import logging
 
@@ -9,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 class Hardware(object):
     def __init__(self):
-        logger.info(f"{self.__class__.__name__} initialized.")
+        logger.info(f"{NAME}.init().")
 
         self.hat = cookie.get("hardware.hat", "led_switch")
 
@@ -221,7 +222,7 @@ class RPi_or_Jetson(Hardware):
             import RPi.GPIO as GPIO
         else:
             import Jetson.GPIO as GPIO
-        logger.info(f"{self.__class__.__name__}.release()")
+        logger.info(f"{NAME}.release()")
 
         GPIO.cleanup()
 
@@ -241,9 +242,7 @@ class RPi_or_Jetson(Hardware):
         elif what == "input":
             what = GPIO.IN
         else:
-            raise NameError(
-                f"{self.__class__.__name__}.setup({pin}): unknown what: {what}."
-            )
+            raise NameError(f"{NAME}.setup({pin}): unknown what: {what}.")
 
         if pull_up_down is None:
             GPIO.setup(pin, what)
