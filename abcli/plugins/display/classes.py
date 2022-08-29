@@ -33,7 +33,7 @@ class Display(object):
             return
         self.created = True
 
-        logger.info("display.create()")
+        logger.info(f"{NAME}.create()")
 
         if self.fullscreen and not host.is_mac():
             # https://stackoverflow.com/a/34337534
