@@ -141,7 +141,7 @@ class Display(object):
             key = cv2.waitKey(1)
             if key not in [-1, 255]:
                 key = chr(key).lower()
-                logger.info("display.show(): key press detected: '{}'".format(key))
+                logger.info(f"{NAME}.show(): key: '{key}'")
                 self.key_buffer.append(key)
 
         return self
