@@ -26,7 +26,7 @@ function abcli_terraform() {
             return
         fi
 
-        if [[ "$is_rpi" == true ]] ; then
+        if [[ "$abcli_is_rpi" == true ]] ; then
             abcli_log_local_and_cat "/home/pi/.bashrc"
             if [[ "$abcli_is_headless" == false ]] ; then
                 abcli_log_local_and_cat "/etc/xdg/lxsession/LXDE-pi/autostart"
