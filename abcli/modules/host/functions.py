@@ -84,6 +84,10 @@ def is_jetson():
     return os.getenv("abcli_is_jetson", "false") == "true"
 
 
+def is_headless():
+    return os.getenv("abcli_is_headless", "false") == "true"
+
+
 def is_mac():
     return os.getenv("abcli_is_mac", "false") == "true"
 
