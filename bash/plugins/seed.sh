@@ -78,13 +78,13 @@ function abcli_seed() {
     if [ "$do_update" == "0" ] ; then
         seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
 
+        seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
+
         seed="${seed}git_ssh_key=\"$(cat ~/.ssh/$abcli_git_ssh_key_name | $base64)\"$delim"
         seed="${seed}echo \$git_ssh_key | base64 --decode >> git_ssh_key$delim"
         seed="$seed${sudo_prefix}mv git_ssh_key ~/.ssh/$abcli_git_ssh_key_name$delim"
         seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
         seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
-
-        seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
 
         if [ "$target" == "headless_rpi" ] ; then
             seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
