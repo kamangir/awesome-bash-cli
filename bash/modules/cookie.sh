@@ -6,6 +6,8 @@ function abcli_cookie() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli cookie cat" \
             "cat cookie."
+        abcli_help_line "abcli cookie edit" \
+            "edit cookie."
         abcli_help_line "abcli cookie read <object-name>" \
             "read <object-name> from cookie."
         abcli_help_line "abcli cookie write <object-name> <value>" \
@@ -16,6 +18,11 @@ function abcli_cookie() {
 
     if [ "$task" == "cat" ] ; then
         cat $abcli_path_cookie/cookie.json
+        return
+    fi
+
+    if [ "$task" == "edit" ] ; then
+        nano $abcli_path_cookie/cookie.json
         return
     fi
 
