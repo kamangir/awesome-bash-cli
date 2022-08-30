@@ -1,6 +1,5 @@
 {
     "camera.diff": 0.1,
-    "camera.enabled": true,
     "camera.hi_res": true,
     "camera.rotation": 0,
     "camera": "lepton",
