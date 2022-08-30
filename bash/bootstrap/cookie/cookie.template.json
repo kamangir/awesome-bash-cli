@@ -1,0 +1,18 @@
+{
+    "camera.diff": 0.1,
+    "camera.enabled": true,
+    "camera.hi_res": true,
+    "camera.rotation": 0,
+    "camera": "lepton",
+    "display.fullscreen": true,
+    "hardware.hat": "led_switch",
+    "messenger.recipients": "",
+    "session.auto_upload": true,
+    "session.capture.enabled": true,
+    "session.capture.period": 3000,
+    "session.display.period": 4,
+    "session.messenger.period": 60,
+    "session.outbound_queue": "stream",
+    "session.reboot.period": 14400,
+    "session.temperature.period": 300
+}
