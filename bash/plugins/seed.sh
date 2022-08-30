@@ -125,6 +125,8 @@ function abcli_seed() {
     fi
 
     if [ "$do_update" == "0" ] ; then
+        seed="${seed}pip3 install -e .$delim_section"
+
         seed="${seed}source ./bash/abcli.sh$delim_section"
 
         if [ "$target" == "ec2" ] ; then
