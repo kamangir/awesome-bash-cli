@@ -20,11 +20,13 @@ class Messenger(object):
 
         return self._queue[name]
 
-    def request(self, recipients=None):
+    def request(self, recipients=None, count=10, delete=False):
         """request messages.
 
         Args:
             recipients (Any, optional): recipients. Defaults to None.
+            count (int, optional): count to return. Defaults to 10.
+            delete (bool, optional): delete messages. Defaults to False.
 
         Returns:
             bool: success.
@@ -40,7 +42,10 @@ class Messenger(object):
             recipients = recipients.split(",")
 
         for recipient in recipients:
-            success_, messages = self.queue(recipient).request()
+            success_, messages = self.queue(recipient).request(
+                count=count,
+                delete=delete,
+            )
 
             if not success_:
                 success = False

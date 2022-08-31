@@ -52,7 +52,11 @@ class MessageQueue(object):
 
         return True
 
-    def request(self, count=10, delete=False):
+    def request(
+        self,
+        count=10,
+        delete=False,
+    ):
         """request messages
 
         Args:
