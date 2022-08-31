@@ -1,6 +1,10 @@
 import os
 import os.path
 from abcli import file
+from abcli import logging
+import logging
+
+logger = logging.getLogger(__name__)
 
 NAME = "abcli.modules.host"
 
@@ -11,6 +15,8 @@ _, cookie = file.load_json(
     ),
     "civilized",
 )
+
+logger.info(f"{NAME}: cookie: {cookie}")
 
 HOST_NAME = None
 
