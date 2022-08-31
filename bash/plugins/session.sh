@@ -26,7 +26,12 @@ function abcli_session() {
 
     if [ $task == "start" ] ; then
         local options=$2
-        local do_pull=$(abcli_option_int "$options" "pull" 1)
+
+        local do_pull=1
+        if [ "$abcli_is_mac" == true ] ; then
+            local do_pull=0
+        fi
+        local do_pull=$(abcli_option_int "$options" "pull" $do_pull)
 
         abcli_log "session started: $options: ${@:3}"
 
