@@ -3,6 +3,7 @@ from functools import reduce
 import time
 from . import *
 from abcli import file
+from abcli import VERSION
 from abcli import logging
 import logging
 
