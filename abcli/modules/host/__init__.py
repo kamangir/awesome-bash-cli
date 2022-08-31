@@ -16,8 +16,8 @@ _, cookie = file.load_json(
     "civilized",
 )
 
-for item in cookie:
-    logger.info(f"{NAME}: cookie: {item}: {cookie[item]}")
+# for item in cookie:
+#    logger.info(f"{NAME}: cookie: {item}: {cookie[item]}")
 
 HOST_NAME = None
 
