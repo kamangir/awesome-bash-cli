@@ -37,9 +37,9 @@ function abcli_session() {
 
             abcli_log "session initialized."
 
-            rm $abcli_path_cookie/session_return_*
+            rm $abcli_path_cookie/session_reply_*
 
-            if [[ "$abcli_is_rpi" == true ]] || [[ "$abcli_is_ubuntu" == true ]] || [[ "$abcli_is_ec2" == true ]] ; then
+            if [[ "$abcli_is_mac" == false ]] ; then
                 abcli_storage clear
             fi
 
@@ -54,35 +54,35 @@ function abcli_session() {
 
             abcli_log "session closed."
 
-            if [ -f "$abcli_path_cookie/session_return_exit" ] ; then
-                abcli_log "abcli.return_to_bash(exit)"
+            if [ -f "$abcli_path_cookie/session_reply_exit" ] ; then
+                abcli_log "abcli.reply_to_bash(exit)"
                 return
             fi
 
-            if [ -f "$abcli_path_cookie/session_return_reboot" ] ; then
-                abcli_log "abcli.return_to_bash(reboot)"
+            if [ -f "$abcli_path_cookie/session_reply_reboot" ] ; then
+                abcli_log "abcli.reply_to_bash(reboot)"
                 abcli_host reboot
             fi
 
-            if [ -f "$abcli_path_cookie/session_return_seed" ] ; then
-                abcli_log "abcli.return_to_bash(seed)"
+            if [ -f "$abcli_path_cookie/session_reply_seed" ] ; then
+                abcli_log "abcli.reply_to_bash(seed)"
 
                 abcli_git_pull
                 abcli_init
 
-                cat "$abcli_path_cookie/session_return_seed" | while read line 
+                cat "$abcli_path_cookie/session_reply_seed" | while read line 
                 do
                     abcli_log "executing: $line"
                     eval $line
                 done
             fi
 
-            if [ -f "$abcli_path_cookie/session_return_shutdown" ] ; then
+            if [ -f "$abcli_path_cookie/session_reply_shutdown" ] ; then
                 abcli_host shutdown
             fi
 
-            if [ -f "$abcli_path_cookie/session_return_update" ] ; then
-                abcli_log "abcli.return_to_bash(update)"
+            if [ -f "$abcli_path_cookie/session_reply_update" ] ; then
+                abcli_log "abcli.reply_to_bash(update)"
             fi
 
             local wait=5s
