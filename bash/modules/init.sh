@@ -6,13 +6,6 @@ function abcli_init() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli init [<plugin>] [~terraform]" \
             "init [plugin] [and do not terraform]."
-        abcli_help_line "abcli init dev" \
-            "init and do not terraform."
-        return
-    fi
-
-    if [ "$task" == "dev" ] ; then
-        abcli_init - ~terraform
         return
     fi
 
@@ -21,7 +14,12 @@ function abcli_init() {
     local current_path=$(pwd)
 
     if [ "$plugin_name" == "all" ] ; then
-        source $abcli_path_abcli/bash/abcli.sh ${@:2}
+        local options=$2
+        if [ "$abcli_is_mac" == true ] ; then
+            local options=$(abcli_option_default "$options" terraform 0)
+        fi
+
+        source $abcli_path_abcli/bash/abcli.sh "$options" ${@:3}
     else
         local plugin_name=$(abcli_unpack_keyword $1)
         local repo_name=$(echo "$plugin_name" | tr _ -)
