@@ -112,7 +112,7 @@ class MessageQueue(object):
                     else:
                         self.utc_timestamp_log += [message.data["utc_timestamp"]]
 
-                if message.recipient in [host.name] or delete:
+                if message.recipient in [host.get_name()] or delete:
                     msg.delete()
 
                 if include_message:
