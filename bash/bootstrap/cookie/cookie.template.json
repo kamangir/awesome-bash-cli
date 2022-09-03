@@ -3,6 +3,7 @@
     "camera.hi_res": true,
     "camera.rotation": 0,
     "camera": "lepton",
+    "cookie.echo": false,
     "display.fullscreen": true,
     "hardware.hat": "led_switch",
     "messenger.recipients": "stream",
