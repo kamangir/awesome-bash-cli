@@ -14,13 +14,13 @@ function abcli_session() {
     fi
 
     if [ "$task" == "get" ] ; then
-        abcli_cookie read ".get('session','')"
+        abcli_cookie read session
         return
     fi
 
     if [ "$task" == "set" ] ; then
         local plugin_name=$2
-        abcli_cookie write "['session']" "'$plugin_name'"
+        abcli_cookie write session $plugin_name
         return
     fi
 
