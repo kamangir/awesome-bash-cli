@@ -5,7 +5,7 @@
     "camera": "lepton",
     "display.fullscreen": true,
     "hardware.hat": "led_switch",
-    "messenger.recipients": "",
+    "messenger.recipients": "stream",
     "session": "blue_sbc",
     "session.auto_upload": true,
     "session.capture.enabled": true,
