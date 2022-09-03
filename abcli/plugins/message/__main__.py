@@ -14,12 +14,12 @@ parser.add_argument(
     "task",
     type=str,
     default="update",
-    help="listen_to,submit,update",
+    help="listen_as|submit|update",
 )
 parser.add_argument(
     "--count",
     type=int,
-    default=10,
+    default=100,
 )
 parser.add_argument(
     "--data",
@@ -60,7 +60,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 success = False
-if args.task == "listen_to":
+if args.task == "listen_as":
     from .messenger import instance as messenger
 
     messages = []
