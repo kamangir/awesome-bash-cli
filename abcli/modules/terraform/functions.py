@@ -58,7 +58,11 @@ def mac(user):
 def rpi(user, is_headless=False):
     success = terraform(
         ["/home/pi/.bashrc"],
-        ["source /home/pi/git/awesome-bash-cli/bash/abcli.sh"],
+        [
+            "source /home/pi/git/awesome-bash-cli/bash/abcli.sh{}".format(
+                "  - abcli session start" if is_headless else ""
+            )
+        ],
     )
 
     if not is_headless:
