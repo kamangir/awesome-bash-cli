@@ -70,7 +70,6 @@ if args.task == "listen_as":
             message
             for message in messenger.request(
                 args.recipient,
-                count=args.count,
                 delete=args.delete,
             )[1]
             if message.sender in args.sender.split(",") or not args.sender
