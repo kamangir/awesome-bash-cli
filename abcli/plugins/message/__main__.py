@@ -65,16 +65,19 @@ if args.task == "listen_as":
 
     messages = []
 
-    while len(messages) < args.count:
-        messages += [
-            message
-            for message in messenger.request(
-                args.recipient,
-                delete=args.delete,
-            )[1]
-            if message.sender in args.sender.split(",") or not args.sender
-        ]
-        time.sleep(args.sleep)
+    try:
+        while len(messages) < args.count:
+            messages += [
+                message
+                for message in messenger.request(
+                    args.recipient,
+                    delete=args.delete,
+                )[1]
+                if message.sender in args.sender.split(",") or not args.sender
+            ]
+            time.sleep(args.sleep)
+    except KeyboardInterrupt:
+        logger.info(f"{NAME}: Ctrl+C: stopped.")
 
     success = file.save_json(args.filename, messages) if args.filename else True
 elif args.task == "submit":
