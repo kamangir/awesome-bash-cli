@@ -12,6 +12,7 @@
     "session.capture.period": 3000,
     "session.display.period": 4,
     "session.messenger.period": 60,
+    "session.monitor.enabled": true,
     "session.outbound_queue": "stream",
     "session.reboot.period": 14400,
     "session.temperature.period": 300
