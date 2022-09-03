@@ -6,6 +6,7 @@
     "display.fullscreen": true,
     "hardware.hat": "led_switch",
     "messenger.recipients": "",
+    "session": "blue_sbc",
     "session.auto_upload": true,
     "session.capture.enabled": true,
     "session.capture.period": 3000,
