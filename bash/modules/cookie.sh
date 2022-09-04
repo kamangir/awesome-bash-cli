@@ -21,14 +21,14 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "cat" ] ; then
-        local filename="$2"
+        local cookie_name="$2"
 
-        if [ -z "$filename" ] ; then
+        if [ -z "$cookie_name" ] ; then
             local filename=$abcli_path_cookie/cookie.json
-        elif [ "$filename" == "template" ] ; then
+        elif [ "$cookie_name" == "template" ] ; then
             local filename=$abcli_path_cookie/cookie.template.json
         else
-            local filename=$abcli_path_cookie/$filename.json
+            local filename=$abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json
         fi
 
         abcli_log $filename
