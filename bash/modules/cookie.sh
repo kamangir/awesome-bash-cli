@@ -94,7 +94,7 @@ function abcli_cookie() {
             nano $filename
 
             abcli_scp \
-                - \
+                local \
                 - \
                 $filename \
                 $machine_kind \
