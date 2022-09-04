@@ -33,7 +33,7 @@ function abcli_cookie() {
             local machine_kind=$2
             local machine_name=$3
 
-            local filename="$abcli_object_path/_$machine_name-cookie.json"
+            local filename="$abcli_object_path/scp-${machine_kind}-${machine_name}-cookie.json"
 
             abcli_scp \
                 $machine_kind \
