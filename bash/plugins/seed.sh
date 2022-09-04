@@ -120,7 +120,8 @@ function abcli_seed() {
         seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
     fi
 
-    seed="${seed}pip3 install -e .$delim_section"
+    seed="${seed}pip3 install -e .$delim"
+    seed="${seed}sudo pip3 install -e .$delim_section"
 
     seed="${seed}source ./bash/abcli.sh$delim_section"
 
