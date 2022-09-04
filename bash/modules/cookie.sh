@@ -117,7 +117,6 @@ function abcli_cookie() {
         return
     fi
 
-
     if [ "$task" == "write" ] ; then
         python3 -m abcli.modules.cookie write \
             --keyword $2 \
