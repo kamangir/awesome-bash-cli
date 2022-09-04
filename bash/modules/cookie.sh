@@ -6,8 +6,12 @@ function abcli_cookie() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli cookie cat [template]" \
             "cat cookie [template]."
+        abcli_help_line "abcli cp <sample>" \
+            "cp <sample> cookie."
         abcli_help_line "abcli cookie edit" \
             "edit cookie."
+        abcli_help_line "abcli cookie list" \
+            "list sample cookies."
         abcli_help_line "abcli cookie read <keyword> [<default>]" \
             "read <keyword> from cookie."
         abcli_help_line "abcli cookie write <keyword> <value>" \
@@ -31,8 +35,21 @@ function abcli_cookie() {
         return
     fi
 
+    if [ "$task" == "cp" ] ; then
+        local cookie_name=$2
+        cp -v \
+            $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
+            $abcli_path_cookie/cookie.json
+        return
+    fi
+
     if [ "$task" == "edit" ] ; then
         nano $abcli_path_cookie/cookie.json
+        return
+    fi
+
+    if [ "$task" == "list" ] ; then
+        ls -1 $abcli_path_bash/bootstrap/sample-cookie
         return
     fi
 

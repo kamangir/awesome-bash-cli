@@ -1,0 +1,5 @@
+{
+    "messenger.recipients": "stream",
+    "session": "blue_sbc",
+    "session.capture.enabled": true
+}
