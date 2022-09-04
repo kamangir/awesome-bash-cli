@@ -6,8 +6,8 @@ function abcli_cookie() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli cookie cat [<cookie-name>|template]" \
             "cat cookie cookie|<cookie-name>|template]."
-        abcli_help_line "abcli cookie cat [<cookie-name>] [jetson_nano|rpi] [<machine-name>]" \
-            "cat cookie [<cookie-name>] on local|[jetson_nano|rpi <machine-name>]."
+        abcli_help_line "abcli cookie cat [jetson_nano|rpi] [<machine-name>]" \
+            "cat cookie on local|[jetson_nano|rpi <machine-name>]."
         abcli_help_line "abcli cp <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
             "cp <cookie-name> to local|[jetson_nano|rpi <machine-name>]."
         abcli_help_line "abcli cookie edit [jetson_nano|rpi] [<machine-name>]" \
@@ -38,12 +38,25 @@ function abcli_cookie() {
         return
     fi
 
-    if [ "$task" == "cp" ] ; then
+    abcli_help_line "abcli cp <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
+
+
+    if [ "$task" == "copy" ] ; then
         local cookie_name=$2
-        cp -v \
-            $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
-            $abcli_path_cookie/cookie.json
-        return
+
+        if [ "$machine_kind" == "local" ] ; then
+            cp -v \
+                $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
+                $abcli_path_cookie/cookie.json
+        else
+            # https://kb.iu.edu/d/agye
+            abcli_scp \
+                ${@:2} \
+                \~/git/awesome-bash-cli/bash/bootstrap/sample-cookie/$cookie_name.json \
+                \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json
+        fi
+
+        return 
     fi
 
     if [ "$task" == "edit" ] ; then

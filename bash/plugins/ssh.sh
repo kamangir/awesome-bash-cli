@@ -13,51 +13,65 @@ function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli ssh ec2 <1-2-3-4> [vnc|worker|worker,gpu] [region=<region_1>,user=<ec2-user|ubuntu>]" \
-            "ssh to <1-2-3-4> [on <region_1>] [for vnc|worker|worker,gpu] [as user]."
+        abcli_help_line "abcli ssh ec2 <1-2-3-4> [region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
+            "ssh to <1-2-3-4> [on <region_1>] [as user] [and start vnc]."
         abcli_help_line "abcli ssh jetson_nano|rpi <machine-name>" \
             "ssh to jetson nano|rpi <machine-name>."
         return
     fi
 
-    local kind=$1
-    local address="$2"
-    local intent="$3"
+    local args=$(abcli_ssh_args $@)
+    abcli_log "abcli: ssh: $args"
+    ssh $args
+}
 
-    local options=$4
+function abcli_ssh_args() {
+    local machine_kind=$1
+    local machine_name=$2
+    local options=$3
+    local copy_seed=$(abcli_option_int "$options" "seed" 1)
+    local for_vnc=$(abcli_option_int "$options" "vnc" 0)
 
-    if [ -z "$address" ] ; then
-        abcli_log_error "-abcli: ssh: address missing."
-        return
-    fi
-
-    if [ "$kind" == "ec2" ] ; then
-        local ip_address=$(echo "$address" | tr . -)
+    if [ "$machine_kind" == "ec2" ] ; then
+        local address=$(echo "$machine_name" | tr . -)
         local region=$(abcli_option "$options" "region" $(abcli_aws_region))
-        local url="ec2-$ip_address.$region.compute.amazonaws.com"
+        local url="ec2-$address.$region.compute.amazonaws.com"
+        local user=$(abcli_option "$options" user ubuntu)
 
         ssh-keyscan $url >> ~/.ssh/known_hosts
 
-        local user=$(abcli_option "$options" user ubuntu)
-        local url="$user@$url"
+        local address="$user@$url"
 
-        abcli_log "ssh to $url started: $intent"
-
-        abcli_seed output=clipboard,target=ec2,update
+        if [ "$copy_seed" == 1 ] ; then
+            abcli_seed output=clipboard,target=ec2,update
+        fi
 
         local key_name=$(abcli_aws_json_get "['ec2']['key_name']")
         local pem_filename=$abcli_path_bash/bootstrap/config/$key_name.pem
         chmod 400 $pem_filename
-        if [[ "$intent" == "vnc" ]] ; then
-            ssh -i $pem_filename -L 5901:localhost:5901 $url
+        if [ "$for_vnc" == 1 ] ; then
+            echo "-i $pem_filename -L 5901:localhost:5901 $address"
         else
-            ssh -i $pem_filename $url
+            echo "-i $pem_filename $address"
         fi
-    elif [ "$kind" == "jetson_nano" ] ; then
-        ssh abcli@$address.local
-    elif [ "$kind" == "rpi" ] ; then
-        ssh pi@$address.local
-    else
-        abcli_log_error "-abcli: ssh: $kind: kind not found."
+        return
     fi
+
+    if [ "$machine_kind" == "jetson_nano" ] ; then
+        echo abcli@$machine_name.local
+        return
+    fi
+
+    if [ "$machine_kind" == "local" ] ; then
+        echo ""
+        return
+    fi
+
+    if [ "$machine_kind" == "rpi" ] ; then
+        echo pi@$machine_name.local
+        return
+    fi
+
+    echo "unknown"
+    abcli_log_error "-abcli: abcli_ssh_args: $machine_kind: machine kind not found."
 }
