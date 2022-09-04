@@ -17,3 +17,14 @@ function abcli_scp() {
     # https://kb.iu.edu/d/agye
     scp ${@:7} $source_path $destination_path
 }
+
+function abcli_scp_path() {
+    local args=$(abcli_ssh_args $1 $2 ~seed)
+    local resource=$3
+
+    if [ -z "$args" ] ; then
+        echo $resource
+    else
+        echo $args:$resource
+    fi
+}
