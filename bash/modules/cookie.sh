@@ -50,9 +50,6 @@ function abcli_cookie() {
         return
     fi
 
-    abcli_help_line "abcli cp <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
-
-
     if [ "$task" == "copy" ] ; then
         local cookie_name=$2
 
