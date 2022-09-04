@@ -4,12 +4,14 @@ function abcli_cookie() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli cookie cat [name]" \
-            "cat cookie [name]."
-        abcli_help_line "abcli cp <sample>" \
-            "cp <sample> cookie."
-        abcli_help_line "abcli cookie edit" \
-            "edit cookie."
+        abcli_help_line "abcli cookie cat [<cookie-name>|template]" \
+            "cat cookie cookie|<cookie-name>|template]."
+        abcli_help_line "abcli cookie cat [<cookie-name>] [jetson_nano|rpi] [<machine-name>]" \
+            "cat cookie [<cookie-name>] on local|[jetson_nano|rpi <machine-name>]."
+        abcli_help_line "abcli cp <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
+            "cp <cookie-name> to local|[jetson_nano|rpi <machine-name>]."
+        abcli_help_line "abcli cookie edit [jetson_nano|rpi] [<machine-name>]" \
+            "edit cookie on local|[jetson_nano|rpi <machine-name>]."
         abcli_help_line "abcli cookie list" \
             "list sample cookies."
         abcli_help_line "abcli cookie read <keyword> [<default>]" \
@@ -21,7 +23,7 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "cat" ] ; then
-        local cookie_name="$2"
+        local cookie_name=$(abcli_clarify_arg $2)
 
         if [ -z "$cookie_name" ] ; then
             local filename=$abcli_path_cookie/cookie.json

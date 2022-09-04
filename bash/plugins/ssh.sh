@@ -15,10 +15,8 @@ function abcli_ssh() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli ssh ec2 <1-2-3-4> [vnc|worker|worker,gpu] [region=<region_1>,user=<ec2-user|ubuntu>]" \
             "ssh to <1-2-3-4> [on <region_1>] [for vnc|worker|worker,gpu] [as user]."
-        abcli_help_line "abcli ssh jetson_nano <machine-name>" \
-            "ssh tojetson nano <machine-name>."
-        abcli_help_line "abcli ssh rpi <machine-name>" \
-            "ssh to rpi:<machine-name>."
+        abcli_help_line "abcli ssh jetson_nano|rpi <machine-name>" \
+            "ssh to jetson nano|rpi <machine-name>."
         return
     fi
 
