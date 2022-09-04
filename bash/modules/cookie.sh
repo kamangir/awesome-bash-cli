@@ -63,7 +63,7 @@ function abcli_cookie() {
         else
             # https://kb.iu.edu/d/agye
             abcli_scp \
-                - \
+                local \
                 - \
                 $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
                 $machine_kind \
