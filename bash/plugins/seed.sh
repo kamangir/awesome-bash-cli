@@ -106,7 +106,7 @@ function abcli_seed() {
     seed="${seed}cd; mkdir -p git; cd git$delim"
     seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
     seed="${seed}cd awesome-bash-cli${delim}"
-    seed="${seed}git checkout $abcli_git_branch; git pull$delim"
+    seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
 
     pushd $abcli_path_bash/bootstrap/config > /dev/null
     local filename
