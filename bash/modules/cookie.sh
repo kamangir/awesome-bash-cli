@@ -39,7 +39,8 @@ function abcli_cookie() {
                 $machine_kind \
                 $machine_name \
                 \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json \
-                - - \
+                - \
+                - \
                 $filename
         else
             local filename=$abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json
@@ -52,6 +53,8 @@ function abcli_cookie() {
 
     if [ "$task" == "copy" ] ; then
         local cookie_name=$2
+        local machine_kind=$(abcli_clarify_arg $3 local)
+        local machine_name=$4
 
         if [ "$machine_kind" == "local" ] ; then
             cp -v \
@@ -60,8 +63,11 @@ function abcli_cookie() {
         else
             # https://kb.iu.edu/d/agye
             abcli_scp \
-                ${@:2} \
-                \~/git/awesome-bash-cli/bash/bootstrap/sample-cookie/$cookie_name.json \
+                - \
+                - \
+                $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
+                $machine_kind \
+                $machine_name \
                 \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json
         fi
 
@@ -69,7 +75,32 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "edit" ] ; then
-        nano $abcli_path_cookie/cookie.json
+        local machine_kind=$(abcli_clarify_arg $2 local)
+        local machine_name=$3
+
+        if [ "$machine_kind" == "local" ] ; then
+            nano $abcli_path_cookie/cookie.json
+        else
+            local filename="$abcli_object_path/scp-${machine_kind}-${machine_name}-cookie.json"
+
+            abcli_scp \
+                $machine_kind \
+                $machine_name \
+                \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json \
+                - \
+                - \
+                $filename
+
+            nano $filename
+
+            abcli_scp \
+                - \
+                - \
+                $filename \
+                $machine_kind \
+                $machine_name \
+                \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json
+        fi
         return
     fi
 
