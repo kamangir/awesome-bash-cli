@@ -236,7 +236,9 @@ class Storage(object):
             object_name = "{}/{}{}".format(
                 object_prefix,
                 abcli_object_name,
-                string.after(filename, abcli_object_name),
+                string.after(filename, abcli_object_name)
+                if abcli_object_name in filename
+                else filename,
             )
 
         success = True
