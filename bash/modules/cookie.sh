@@ -8,7 +8,7 @@ function abcli_cookie() {
             "cat cookie|<cookie-name>|template."
         abcli_help_line "abcli cookie cat jetson_nano|rpi <machine-name>" \
             "cat cookie from jetson_nano|rpi <machine-name>."
-        abcli_help_line "abcli cp <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
+        abcli_help_line "abcli copy <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
             "cp <cookie-name> [to  jetson_nano|rpi <machine-name>]."
         abcli_help_line "abcli cookie edit [jetson_nano|rpi] [<machine-name>]" \
             "edit cookie on local|[jetson_nano|rpi <machine-name>]."
