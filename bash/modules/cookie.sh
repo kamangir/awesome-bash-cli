@@ -4,8 +4,8 @@ function abcli_cookie() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli cookie cat [template]" \
-            "cat cookie [template]."
+        abcli_help_line "abcli cookie cat [name]" \
+            "cat cookie [name]."
         abcli_help_line "abcli cp <sample>" \
             "cp <sample> cookie."
         abcli_help_line "abcli cookie edit" \
@@ -21,13 +21,14 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "cat" ] ; then
-        local options="$2"
-        local show_template=$(abcli_option_int "$options" "template" 0)
+        local filename="$2"
 
-        if [ "$show_template" == "1" ] ; then
+        if [ -z "$filename" ] ; then
+            local filename=$abcli_path_cookie/cookie.json
+        elif [ "$filename" == "template" ] ; then
             local filename=$abcli_path_cookie/cookie.template.json
         else
-            local filename=$abcli_path_cookie/cookie.json
+            local filename=$abcli_path_cookie/$filename.json
         fi
 
         abcli_log $filename
