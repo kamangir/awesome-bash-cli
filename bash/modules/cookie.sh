@@ -37,7 +37,7 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "read" ] ; then
-        python -m abcli.modules.cookie read \
+        python3 -m abcli.modules.cookie read \
             --keyword $2 \
             --default "$3" \
             ${@:4}
@@ -46,7 +46,7 @@ function abcli_cookie() {
 
 
     if [ "$task" == "write" ] ; then
-        python -m abcli.modules.cookie write \
+        python3 -m abcli.modules.cookie write \
             --keyword $2 \
             --value "$3" \
             ${@:4}

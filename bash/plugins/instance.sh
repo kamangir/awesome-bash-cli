@@ -36,7 +36,7 @@ function abcli_instance() {
             --query "Reservations[*].Instances[*].PublicDnsName" \
             --output text)
 
-        echo $(python -c "print('-'.join('$ec2_address'.split('.')[0].split('-')[1:]))")
+        echo $(python3 -c "print('-'.join('$ec2_address'.split('.')[0].split('-')[1:]))")
         return
     fi
 
