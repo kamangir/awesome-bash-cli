@@ -155,8 +155,11 @@ def signature():
     import platform
 
     return (
-        [fullname()]
-        + [get_name()]
+        [
+            fullname(),
+            os.getenv("abcli_hostname", ""),
+            get_name(),
+        ]
         + tensor_processing_signature()
         + [
             "Python {}".format(platform.python_version()),

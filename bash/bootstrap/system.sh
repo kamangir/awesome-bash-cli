@@ -79,3 +79,5 @@ if [[ "$abcli_is_ec2" == true ]] ; then
 else
     conda activate abcli
 fi
+
+export abcli_hostname=$(hostname)
