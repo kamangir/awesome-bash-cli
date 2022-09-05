@@ -34,11 +34,20 @@ function abcli_source_dependencies() {
     for repo_name in $(abcli_plugins list_of_external --log 0 --delim space --repo_names 1) ; do
         abcli_log "🔵 $repo_name"
 
-        pushd $abcli_path_git/$repo_name/.abcli > /dev/null
-        local filename
-        for filename in *.sh ; do
-            source $filename
+        local module_name
+        for module_name in . install ; do
+
+            if [ ! -d "$abcli_path_git/$repo_name/.abcli/$module_name" ] ; then
+                continue
+            fi
+
+            pushd $abcli_path_git/$repo_name/.abcli/$module_name > /dev/null
+            local filename
+            for filename in *.sh ; do
+                source $filename
+            done
+            popd > /dev/null
+
         done
-        popd > /dev/null
     done
 }

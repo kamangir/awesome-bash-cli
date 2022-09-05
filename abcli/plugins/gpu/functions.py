@@ -1,4 +1,4 @@
-from bolt import logging
+from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
