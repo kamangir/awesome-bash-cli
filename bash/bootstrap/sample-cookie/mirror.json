@@ -1,5 +1,5 @@
 {
     "messenger.recipients": "stream",
     "session": "blue_sbc",
-    "session.capture.enabled": false
+    "session.imager.enabled": false
 }
