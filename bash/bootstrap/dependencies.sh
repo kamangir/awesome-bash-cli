@@ -11,6 +11,7 @@ function abcli_source_dependencies() {
     source $abcli_path_bash/bootstrap/paths.sh
     source $abcli_path_bash/bootstrap/system.sh
     source $abcli_path_bash/bootstrap/logging.sh
+    source $abcli_path_bash/bootstrap/install.sh
 
     local module_name
     for module_name in abcli install modules plugins ; do
