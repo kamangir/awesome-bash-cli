@@ -16,5 +16,6 @@
     "session.monitor.enabled": true,
     "session.outbound_queue": "stream",
     "session.reboot.period": 14400,
+    "session.screen": "display",
     "session.temperature.period": 300
 }
