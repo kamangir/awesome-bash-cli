@@ -4,7 +4,7 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli seed [output=clipboard|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
+        abcli_help_line "abcli seed [filename=<filename>,output=clipboard|file|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
             "generate and output a seed."
         abcli_help_line "abcli seed eject" \
             "eject seed."
@@ -42,6 +42,8 @@ function abcli_seed() {
             abcli_log_error "-abcli: seed: usb key not found."
             return
         fi
+
+        mkdir -p $seed_path/abcli/
     fi
 
     abcli_log "seed: $abcli_fullname -$target-> $output"
@@ -137,10 +139,12 @@ function abcli_seed() {
         elif [ "$abcli_is_ubuntu" == true ] ; then
             echo $seed | xclip -sel clip
         fi
-    elif [ "$output" == "key" ] ; then
-        mkdir -p $seed_path/abcli/
-
-        filename="$seed_path/abcli/$target"
+    elif [ "$output" == "key" ] || [ "$output" == "file" ] ; then
+        if [ "$output" == "key" ] ; then
+            local filename="$seed_path/abcli/$target"
+        else
+            local filename=$(abcli_option "$options" filename $abcli_object_path/seed)
+        fi
 
         echo -en $seed > $filename.sh
         chmod +x $filename.sh
