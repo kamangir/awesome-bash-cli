@@ -146,6 +146,11 @@ class MessageQueue(object):
                         "StringValue": string.as_json(message.data),
                         "DataType": "String",
                     },
+                    # compatibility with bolt 📡
+                    "event": {
+                        "StringValue": "mail",
+                        "DataType": "String",
+                    },
                     "id": {
                         "StringValue": message.id,
                         "DataType": "String",
