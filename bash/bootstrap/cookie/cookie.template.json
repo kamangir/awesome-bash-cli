@@ -11,6 +11,7 @@
     "session.imager": "lepton",
     "session.imager.enabled": true,
     "session.imager.period": 3000,
+    "session.object.tags": "this,that",
     "session.messenger.period": 60,
     "session.monitor.enabled": true,
     "session.outbound_queue": "stream",
