@@ -53,6 +53,7 @@ function abcli_session() {
             local plugin_name=$(abcli_session get)
             if [ -z "$plugin_name" ] ; then
                 abcli_log_warning "no plugin is set for session, try 'abcli session set <plugin-name>'."
+                abcli_sleep 60s
             elif [[ $(type -t ${plugin_name}_session) == "function" ]] ; then
                 eval ${plugin_name}_session start ${@:3}
             else
@@ -92,9 +93,7 @@ function abcli_session() {
                 abcli_log "abcli.reply_to_bash(update)"
             fi
 
-            local wait=5s
-            abcli_log_local "pausing for $wait ... (Ctrl+C to stop)"
-            sleep $wait
+            abcli_sleep 5s
         done
 
         return
