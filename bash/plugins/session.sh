@@ -51,13 +51,15 @@ function abcli_session() {
             abcli_select
 
             local plugin_name=$(abcli_session get)
-            if [ -z "$plugin_name" ] ; then
-                abcli_log_warning "no plugin is set for session, try 'abcli session set <plugin-name>'."
-                abcli_sleep 60s
-            elif [[ $(type -t ${plugin_name}_session) == "function" ]] ; then
+            if [[ $(type -t ${plugin_name}_session) == "function" ]] ; then
                 eval ${plugin_name}_session start ${@:3}
             else
-                abcli_log_error "${plugin_name} not found, session cannot start."
+                if [ -z "$plugin_name" ] ; then
+                    abcli_log_warning "-session: plugin not found."
+                else
+                    abcli_log_error "-session: plugin: $plugin_name: plugin not found."
+                fi
+                abcli_sleep 60s
             fi
 
             abcli_log "session closed."
