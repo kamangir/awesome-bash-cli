@@ -1,5 +1,5 @@
 {
-    "messenger.recipients": "thermal",
+    "messenger.recipients": "stream",
     "session": "blue_sbc",
     "session.imager.enabled": false,
     "session.screen": "scroll_phat_hd",
