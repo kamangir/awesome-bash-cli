@@ -7,7 +7,6 @@
     "messenger.recipients": "stream",
     "session": "blue_sbc",
     "session.auto_upload": true,
-    "session.display.period": 4,
     "session.imager": "lepton",
     "session.imager.enabled": true,
     "session.imager.period": 3000,
@@ -17,5 +16,6 @@
     "session.outbound_queue": "stream",
     "session.reboot.period": 14400,
     "session.screen": "display",
+    "session.screen.period": 4,
     "session.temperature.period": 300
 }
