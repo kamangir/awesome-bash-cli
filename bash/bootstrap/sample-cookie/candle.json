@@ -1,4 +1,5 @@
 {
     "messenger.recipients": "thermal",
+    "session": "blue_sbc",
     "session.screen": "scroll_phat_hd"
 }
