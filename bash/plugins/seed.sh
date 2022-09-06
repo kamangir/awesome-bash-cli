@@ -149,7 +149,7 @@ function abcli_seed() {
         echo -en $seed > $filename.sh
         chmod +x $filename.sh
 
-        echo "{\"version\":$abcli_version}" > $filename.json
+        echo "{\"version\":\"$abcli_version\"}" > $filename.json
 
         abcli_log "seed -> $filename."
     elif [ "$output" == "screen" ] ; then

@@ -9,7 +9,7 @@ function abcli_install_module() {
     else
         abcli_log "installing $module-$version..."
 
-        eval ${module}_install
+        eval abcli_install_$module
 
         touch $abcli_path_git/abcli_install_${module}_${version}_complete
     fi

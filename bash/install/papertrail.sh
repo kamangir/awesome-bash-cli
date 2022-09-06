@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-function papertrail_install() {
+function abcli_install_papertrail() {
     # https://github.com/papertrail/remote_syslog2/releases/tag/v0.20
     if [[ "$abcli_is_mac" == true ]] ; then
         filename="remote_syslog_darwin_amd64"
