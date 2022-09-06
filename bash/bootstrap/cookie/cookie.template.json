@@ -12,10 +12,10 @@
     "session.imager.period": 3000,
     "session.object.tags": "this,that",
     "session.messenger.period": 60,
-    "session.monitor.enabled": true,
+    "session.monitor.enabled": false,
     "session.outbound_queue": "stream",
     "session.reboot.period": 14400,
-    "session.screen": "display",
+    "session.screen": "scroll_phat_hd",
     "session.screen.period": 4,
     "session.temperature.period": 300
 }
