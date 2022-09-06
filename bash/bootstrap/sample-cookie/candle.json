@@ -3,5 +3,5 @@
     "session": "blue_sbc",
     "session.imager.enabled": false,
     "session.screen": "scroll_phat_hd",
-    "session.screen.period": 0.25
+    "session.screen.period": 0.5
 }
