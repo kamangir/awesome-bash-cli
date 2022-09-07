@@ -4,7 +4,7 @@ function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli instance [from_image] [-/instance_type] [-/instance_name] [ssh/vnc]" \
+        abcli_help_line "abcli instance [from_image] [-/instance_type] [-/instance_name] [image=<abcli>|<abcli-gpu>,ssh,vnc]" \
             "create ec2 instance from image."
         abcli_help_line "abcli instance describe instance_name" \
             "describe ec2 instance instance_name."
@@ -41,47 +41,45 @@ function abcli_instance() {
     fi
 
     if [ "$task" == "from_image" ] ; then
-        local instance_type=$2
-        if [ "$instance_type" == "-" ] || [ -z "$instance_type" ] ; then
-            local instance_type=$(abcli_aws_json_get ".get('default_instance_type','')")
-        fi
+        local instance_type=$(abcli_aws_json_get "['ec2']['default_instance_type']")
+        local instance_type=$(abcli_clarify_arg $2 $instance_type)
 
-        local instance_name=$3
-        if [ "$instance_name" == "-" ] ; then
-            local instance_name=""
-        fi
-        if [ -z "$instance_name" ] ; then
-            local instance_name=$USER-$(abcli_string_timestamp)
-        fi
+        local instance_name=$USER-$(abcli_string_timestamp)
+        local instance_name=$(abcli_clarify_arg $3 $instance_name)
 
-        local image_id=$(abcli_aws_json_get ".get('image_id','')")
-        local security_group_ids=$(abcli_aws_json_get ".get('security_group_ids','')")
-        local subnet_id=$(abcli_aws_json_get ".get('subnet_id','')")
+        local options=$4
+        local do_ssh=$(abcli_option_int "$options" "ssh" 0)
+        local do_vnc=$(abcli_option_int "$options" "vnc" 0)
+        local image_name=$(abcli_option "$options" "image" "abcli")
+
+        local image_id=$(abcli_aws_json_get "['ec2']['image_id']['$image_name']")
+        local security_group_ids=$(abcli_aws_json_get "['ec2']['security_group_ids']")
+        local subnet_id=$(abcli_aws_json_get "['ec2']['subnet_id']")
 
         abcli_log "abcli_instance: $task $instance_type -$image_id:$security_group_ids:$subnet_id-> $instance_name"
 
         # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#launch-templates-as
         aws ec2 run-instances \
             --image-id $image_id \
-            --key-name abcli \
+            --key-name bolt \
             --security-group-ids $security_group_ids \
             --subnet-id $subnet_id \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
-            --region $abcli_s3_region \
+            --region $(aws configure get region) \
             --count 1 \
             --instance-type $instance_type > $abcli_path_git/abcli_instance_log.txt
 
         local instance_ip_address=$(abcli_instance describe $instance_name)
-        abcli_log "instance created at $instance_ip_address"
-        if [ "$4" == "ssh" ] ; then
-            echo "instance is starting - waiting $sleep_seconds s ..."
-            sleep $sleep_seconds
-            abcli_ssh ec2 $instance_ip_address
-        fi
-        if [ "$4" == "vnc" ] ; then
-            echo "instance is starting - waiting $sleep_seconds s ..."
-            sleep $sleep_seconds
-            abcli_ssh ec2 $instance_ip_address vnc
+        abcli_log "abcli: instance: created at $instance_ip_address"
+
+        if [ "$do_ssh" == "1" ] || [ "$do_vnc" == "1" ] ; then
+            abcli_sleep $sleep_seconds
+
+            if [ "$do_vnc" == "1" ] ; then
+                abcli_ssh ec2 $instance_ip_address vnc
+            else
+                abcli_ssh ec2 $instance_ip_address
+            fi
         fi
 
         return
@@ -90,10 +88,10 @@ function abcli_instance() {
     if [ "$task" == "from_template" ] ; then
         local template_name=$2
         if [ -z "$template_name" ] || [ "$template_name" == "-" ] ; then
-            local template_name=$(abcli_aws_json_get ".get('default_template','')")
+            local template_name=$(abcli_aws_json_get "['ec2']['default_template']")
         fi
 
-        local template_id=$(abcli_aws_json_get ".get('templates',{}).get('$template_name','')")
+        local template_id=$(abcli_aws_json_get "['ec2']['templates'].get('$template_name','')")
         if [ -z "$template_id" ] ; then
             abcli_log_error "unknown template id for '$template_name'."
             return
@@ -118,7 +116,7 @@ function abcli_instance() {
         aws ec2 run-instances \
             --launch-template LaunchTemplateId=$template_id \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
-            --region $abcli_s3_region \
+            --region $(aws configure get region) \
             --count 1 \
             $extra_args > ${abcli_path_git}/abcli_instance_log.txt
             
