@@ -43,7 +43,7 @@ function abcli_ssh_args() {
         local address="$user@$url"
 
         if [ "$copy_seed" == 1 ] ; then
-            abcli_seed output=clipboard,target=ec2,update
+            abcli_seed ~log,output=clipboard,target=ec2,update
         fi
 
         local key_name=$(abcli_aws_json_get "['ec2']['key_name']")

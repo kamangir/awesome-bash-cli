@@ -4,7 +4,7 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli seed [filename=<filename>,output=clipboard|file|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
+        abcli_help_line "abcli seed [filename=<filename>,~log,output=clipboard|file|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
             "generate and output a seed."
         abcli_help_line "abcli seed eject" \
             "eject seed."
@@ -23,6 +23,7 @@ function abcli_seed() {
     local options=$1
     local target=$(abcli_option "$options" "target" ec2)
     local output=$(abcli_option "$options" "output" screen)
+    local do_log=$(abcli_option_int "$options" "log" 1)
 
     if [ "$target" == "." ] ; then
         for target in ec2 jetson headless_rpi mac rpi ; do
@@ -46,7 +47,9 @@ function abcli_seed() {
         mkdir -p $seed_path/abcli/
     fi
 
-    abcli_log "seed: $abcli_fullname -$target-> $output"
+    if [ "$do_log" == "1" ] ; then
+        abcli_log "seed: $abcli_fullname -$target-> $output"
+    fi
 
     local sudo_prefix="sudo "
     local delim="\n"
