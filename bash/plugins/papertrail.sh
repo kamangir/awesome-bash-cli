@@ -12,9 +12,7 @@ function abcli_trail() {
     fi
 
     if [ "$task" == "stop" ] ; then
-        if [[ "$abcli_rpi_model" != "pizero_w" ]] ; then
-            sudo killall remote_syslog
-        fi
+        sudo killall remote_syslog
 
         export abcli_log_filename=""
         return
@@ -30,14 +28,12 @@ function abcli_trail() {
         fi
         touch "$log_filename"
         
-        if [[ "$abcli_rpi_model" != "pizero_w" ]] ; then
-            sudo $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
-                -p $abcli_papertrail_dest_port \
-                -d $abcli_papertrail_dest_host \
-                --pid-file=/var/run/remote_syslog.pid \
-                --hostname="$abcli_fullname.$(hostname).$abcli_host_name" \
-                "$log_filename"
-        fi
+        sudo $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
+            -p $abcli_papertrail_dest_port \
+            -d $abcli_papertrail_dest_host \
+            --pid-file=/var/run/remote_syslog.pid \
+            --hostname="$abcli_fullname.$(hostname).$abcli_host_name" \
+            "$log_filename"
     fi
 
     export abcli_log_filename=$log_filename
