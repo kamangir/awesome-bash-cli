@@ -72,5 +72,3 @@ function abcli_tag() {
 
     abcli_log_error "-abcli: tag: $task: command not found."
 }
-
-python3 -m abcli.plugins.tags create
