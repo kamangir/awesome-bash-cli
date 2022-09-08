@@ -59,7 +59,7 @@ fi
 
 if [[ "$abcli_is_ec2" == true ]] ; then
     source $abcli_path_home/.bashrc
-    export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1
+    # export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1
 fi
 
 if [[ "$abcli_is_rpi" == true ]] ; then
