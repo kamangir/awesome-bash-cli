@@ -17,4 +17,4 @@ function abcli_install_papertrail() {
     popd > /dev/null
 }
 
-abcli_install_module papertrail 108
+abcli_install_module papertrail 104
