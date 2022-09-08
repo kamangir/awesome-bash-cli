@@ -12,6 +12,7 @@ function abcli_repeat() {
     local count=$1
     local command=${@:2}
 
+    # https://stackoverflow.com/a/3737773/17619982
     for index in $(seq $count); do
         abcli_log "$index/$count: $command"
         $command
