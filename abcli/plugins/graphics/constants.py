@@ -38,9 +38,17 @@ try:
 except:
     logger.error(f"{NAME}: Failed.")
 
+used_default = False
 if screen_height is None or screen_width is None:
-    logger.info(f"{NAME}: screen size = default.")
+    used_default = True
     screen_height = 480
     screen_width = 640
 
-logger.info(f"{NAME}: {screen_height}x{screen_width}")
+logger.info(
+    "{}: shape: {}x{}{}".format(
+        NAME,
+        screen_height,
+        screen_width,
+        " (default)" if used_default else "",
+    )
+)
