@@ -28,7 +28,7 @@ try:
                 int(thing) for thing in output[-1].split() if thing.isnumeric()
             ]
 
-    else:
+    elif not host.is_ec2():
         from gi.repository import Gdk
 
         screen = Gdk.Screen.get_default()
@@ -39,7 +39,7 @@ except:
     logger.error(f"{NAME}: Failed.")
 
 if screen_height is None or screen_width is None:
-    logger.error(f"{NAME}: screen size not found.")
+    logger.info(f"{NAME}: screen size = default.")
     screen_height = 480
     screen_width = 640
 
