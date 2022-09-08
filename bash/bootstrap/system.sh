@@ -59,6 +59,7 @@ fi
 
 if [[ "$abcli_is_ec2" == true ]] ; then
     source $abcli_path_home/.bashrc
+    # https://stackoverflow.com/a/17723894/17619982
     # export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1
 fi
 
