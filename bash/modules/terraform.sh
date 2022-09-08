@@ -140,7 +140,7 @@ function abcli_terraform() {
 
         if [[ "$abcli_is_ec2" == true ]] ; then
             abcli_log "terraforming ec2"
-            sudo cp -v \
+            sudo cp \
                 $abcli_path_abcli/assets/aws/ec2_bash_profile \
                 /home/$USER/.bash_profile
         else
