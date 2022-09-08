@@ -7,7 +7,11 @@ function abcli_main() {
     abcli_source_dependencies
 
     local options=$1
-    local do_terraform=$(abcli_option_int "$options" "terraform" 1)
+    local do_terraform=1
+    if [ "$abcli_is_mac" == true ] ; then
+        local do_terraform=0
+    fi
+    local do_terraform=$(abcli_option_int "$options" terraform $do_terraform)
 
     if [ "$do_terraform" == "1" ] ; then
         abcli_terraform
