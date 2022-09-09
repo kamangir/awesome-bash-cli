@@ -9,6 +9,7 @@ KEYWORDS = {
     "V": "verbose",
     "abcli": "awesome-bash-cli",
     "am": "add_month",
+    "bp": "blue-plugin",
     "bsbc": "blue_sbc",
     "bld": "build",
     "br": "browser",
