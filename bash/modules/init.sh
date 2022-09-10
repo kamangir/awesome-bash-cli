@@ -21,7 +21,7 @@ function abcli_init() {
 
         local repo_name
         for repo_name in $(echo $(abcli_cookie read plugins) | tr , " ") ; do
-            abcli git clone $repo_name if_cloned,install
+            abcli_git clone $repo_name if_cloned,install
         done
 
         source $abcli_path_abcli/bash/abcli.sh "$options" ${@:3}

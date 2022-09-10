@@ -66,7 +66,7 @@ function abcli_git() {
             git clone git@github.com:kamangir/$repo_name.git
         else
             if [ "$if_cloned" == 1 ] ; then
-                local do_install = 0
+                local do_install=0
             fi
                 
             if [ "$do_pull" == 1 ] ; then
