@@ -20,7 +20,7 @@ function abcli_init() {
         fi
 
         local repo_name
-        for repo_name in $(abcli_cookie read plugins) ; do
+        for repo_name in $(echo $(abcli_cookie read plugins) | tr , " ") ; do
             abcli git clone $repo_name install
         done
 
