@@ -4,7 +4,7 @@ function abcli_add() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli add <object_1,object_2> [~meta,~relations,~tags]" \
+        abcli_help_line "abcli add <object_1,object_2> [~meta,~relation,~tags]" \
             "$abcli_object_name += <object_1> + <object_2>"
         return
     fi
@@ -14,8 +14,8 @@ function abcli_add() {
     abcli_log "$abcli_object_name += $count object(s) : [$object_name_list]"
 
     local options="$2"
+    local add_relation=$(abcli_option_int "$options" "relation" $clone_meta)
     local clone_meta=$(abcli_option_int "$options" "meta" 1)
-    local clone_relations=$(abcli_option_int "$options" "relations" $clone_meta)
     local clone_tags=$(abcli_option_int "$options" "tags" $clone_meta)
 
     local abcli_object_name_current=$abcli_object_name
@@ -28,17 +28,19 @@ function abcli_add() {
         abcli_select $object_name ~trail
         abcli_download
 
-        python3 -m abcli.modules.objects \
-            add \
-            --object_path_1 $abcli_object_path_current/ \
-            --object_path_2 $abcli_object_path
+        pushd $abcli_object_path > /dev/null
+        local thing
+        for thing in * ; do
+            cp -Rv $thing $abcli_object_path_current/$abcli_object_name-$thing
+        done
+        popd > /dev/null
+
+        if [ "$add_relation" == 1 ] ; then
+            abcli_relation set $abcli_object_name_current $object_name contains
+        fi
 
         if [ "$clone_tags" == 1 ] ; then
             abcli_tag set $abcli_object_name_current "$(abcli_tag get $object_name),add"
-        fi
-
-        if [ "$clone_relations" == 1 ] ; then
-            abcli_relation set $abcli_object_name_current $object_name contains
         fi
     done
 
