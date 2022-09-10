@@ -10,7 +10,7 @@ function abcli_add() {
     fi
 
     local object_name_list=$1
-    local count=$(abcli_list_len "$object_name_list" ,)
+    local count=$(abcli_list_len "$object_name_list" --delim ,)
     abcli_log "$abcli_object_name += $count object(s) : [$object_name_list]"
 
     local options="$2"
@@ -28,7 +28,7 @@ function abcli_add() {
         abcli_select $object_name ~trail
         abcli_download
 
-        python3 -m abcli.objects \
+        python3 -m abcli.modules.objects \
             add \
             --object_path_1 $abcli_object_path_current/ \
             --object_path_2 $abcli_object_path
