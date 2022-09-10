@@ -1,5 +1,6 @@
 {
     "messenger.recipients": "stream",
+    "plugins": "blue-sbc",
     "session": "blue_sbc",
     "session.imager.enabled": false
 }

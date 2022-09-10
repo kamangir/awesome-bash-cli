@@ -19,6 +19,11 @@ function abcli_init() {
             local options=$(abcli_option_default "$options" terraform 0)
         fi
 
+        local repo_name
+        for repo_name in $(abcli_cookie read plugins) ; do
+            abcli git clone $repo_name install
+        done
+
         source $abcli_path_abcli/bash/abcli.sh "$options" ${@:3}
     else
         local plugin_name=$(abcli_unpack_keyword $1)

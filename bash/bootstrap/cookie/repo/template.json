@@ -6,6 +6,7 @@
     "gpu": 1,
     "hardware.hat": "led_switch",
     "messenger.recipients": "stream",
+    "plugins": "blue-sbc,blue-wiki,blue-worker",
     "session": "blue_sbc",
     "session.auto_upload": true,
     "session.imager": "lepton",

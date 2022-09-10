@@ -1,3 +1,4 @@
 {
+    "plugins": "blue-sbc",
     "session": "blue_sbc"
 }

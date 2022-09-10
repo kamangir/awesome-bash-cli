@@ -4,7 +4,7 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli seed [filename=<filename>,~log,output=clipboard|file|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
+        abcli_help_line "abcli seed [cookie=<cookie-name>,filename=<filename>,~log,output=clipboard|file|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
             "generate and output a seed."
         abcli_help_line "abcli seed eject" \
             "eject seed."
@@ -21,9 +21,15 @@ function abcli_seed() {
     fi
 
     local options=$1
-    local target=$(abcli_option "$options" "target" ec2)
-    local output=$(abcli_option "$options" "output" screen)
-    local do_log=$(abcli_option_int "$options" "log" 1)
+    local do_log=$(abcli_option_int "$options" log 1)
+    local output=$(abcli_option "$options" output screen)
+    local target=$(abcli_option "$options" target ec2)
+
+    local cookie_name=""
+    if [ "$target" == "ec2" ] ; then
+        local cookie_name="worker"
+    fi
+    local cookie_name=$(abcli_option "$options" cookie $cookie_name)
 
     if [ "$target" == "." ] ; then
         for target in ec2 jetson headless_rpi mac rpi ; do
@@ -137,6 +143,11 @@ function abcli_seed() {
         seed="${seed}source ~/.bash_profile$delim_section"
     elif [ "$target" == "rpi" ] ; then
         seed="${seed}source ~/.bashrc$delim_section"
+    fi
+
+    if [ ! -z "$cookie_name" ] ; then
+        seed="${seed}abcli cookie copy $cookie_name$delim"
+        seed="${seed}abcli init$delim_section"
     fi
 
     if [ "$output" == "clipboard" ] ; then
