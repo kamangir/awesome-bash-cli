@@ -14,8 +14,8 @@ function abcli_add() {
     abcli_log "$abcli_object_name += $count object(s) : [$object_name_list]"
 
     local options="$2"
-    local add_relation=$(abcli_option_int "$options" "relation" $clone_meta)
     local clone_meta=$(abcli_option_int "$options" "meta" 1)
+    local add_relation=$(abcli_option_int "$options" "relation" $clone_meta)
     local clone_tags=$(abcli_option_int "$options" "tags" $clone_meta)
 
     local abcli_object_name_current=$abcli_object_name
