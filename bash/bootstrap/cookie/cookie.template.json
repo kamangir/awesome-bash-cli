@@ -3,6 +3,7 @@
     "camera.hi_res": true,
     "camera.rotation": 0,
     "display.fullscreen": true,
+    "gpu": 1,
     "hardware.hat": "led_switch",
     "messenger.recipients": "stream",
     "session": "blue_sbc",

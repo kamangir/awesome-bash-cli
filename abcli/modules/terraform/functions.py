@@ -127,7 +127,12 @@ def signature():
                     include_zone=True,
                 ),
             ]
-            + (lambda x: [x] if x else [])(os.getenv("bolt_wifi_ssid", ""))
+            + (lambda x: [x] if x else [])(
+                os.getenv(
+                    "abcli_wifi_ssid",
+                    "",
+                )
+            )
         ),
     ]
 

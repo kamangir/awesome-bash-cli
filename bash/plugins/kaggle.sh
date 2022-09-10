@@ -21,5 +21,5 @@ function abcli_kaggle() {
         return
     fi
 
-    abcli_log_error "-abcli: notebook: $task: command not found."
+    abcli_log_error "-abcli: kaggle: $task: command not found."
 }
