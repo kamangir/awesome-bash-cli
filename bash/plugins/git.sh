@@ -5,16 +5,16 @@ function abcli_git() {
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli git cd <repo_name>" \
-            "cd $abcli_path_git/repo_name."
-        abcli_help_line "abcli git clone <repo_name> [cd,install,object,pull,source=username/some_repo]" \
-            "clone [and install] [a private fork of username/some_repo as] [$abcli_object_name/]repo_name [and pull if already exists]."
+            "cd $abcli_path_git/<repo_name>."
+        abcli_help_line "abcli git clone <repo_name> [cd,install,object,pull,source=<username/repo_name>]" \
+            "clone [and install] [a private fork of <username/repo_name> as] [$abcli_object_name/]<repo_name> [and pull if already exists]."
 
         abcli_git_pull $@
 
         abcli_help_line "abcli git <repo_name> <command-args>" \
-            "run 'git command args' in $abcli_path_git/repo_name."
-        abcli_help_line "abcli git push <repo_name> [object,delete]" \
-            "push to [and delete] [$abcli_object_name/]repo_name."
+            "run 'git <command-args>' in $abcli_path_git/<repo_name>."
+        abcli_help_line "abcli git push <repo_name> [object,status,delete]" \
+            "[show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
         abcli_help_line "abcli git recreate_ssh" \
             "recreate github ssh key."
         abcli_help_line "abcli git status" \
@@ -88,13 +88,18 @@ function abcli_git() {
 
     if [ "$task" == "push" ] ; then
         local options=$3
-        local in_object=$(abcli_option_int "$options" "object" 0)
-        local do_delete=$(abcli_option_int "$options" "delete" 0)
+        local in_object=$(abcli_option_int "$options" object 0)
+        local do_delete=$(abcli_option_int "$options" delete 0)
+        local show_status=$(abcli_option_int "$options" status 0)
 
         if [ "$in_object" == "1" ] ; then
             pushd $abcli_object_path/$repo_name > /dev/null
         else
             pushd $abcli_path_git/$repo_name > /dev/null
+        fi
+
+        if [ "$show_status" == 1 ] ; then
+            git status
         fi
 
         git add .
