@@ -26,8 +26,7 @@ function abcli_script() {
 
     if [ "$task" == "code" ] ; then
         if [ ! -f $script_name.sh ]; then
-            cp $abcli_path_abcli/assets/script/script.sh ./$script_name.sh
-            echo $script_name.sh copied.
+            cp -v $abcli_path_abcli/assets/script/script.sh ./$script_name.sh
         fi
 
         if [ "$abcli_is_mac" == true ] ; then
@@ -70,8 +69,7 @@ function abcli_script_python() {
 
     if [ "$task" == "code" ] ; then
         if [ ! -f $script_name.py ]; then
-            cp $abcli_path_abcli/assets/script/$script_name.py ./$script_name.py
-            echo $script_name.py copied.
+            cp -v $abcli_path_abcli/assets/script/$script_name.py ./$script_name.py
         fi
 
         if [ "$abcli_is_mac" == true ] ; then

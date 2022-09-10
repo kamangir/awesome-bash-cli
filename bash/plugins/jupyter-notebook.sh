@@ -16,11 +16,7 @@ function abcli_notebook() {
     fi
 
     if [ "$task" == "build" ] || [ "$task" == "open" ] ; then
-        local notebook_name=$2
-        if [ -z "$notebook_name" ] || [ "$notebook_name" == "-" ] ; then
-            local notebook_name="notebook"
-        fi
-
+        local notebook_name=$(abcli_clarify_input $2 notebook)
         export abcli_notebook_input="${@:3}"
     fi
 

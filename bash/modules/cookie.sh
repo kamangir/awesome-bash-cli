@@ -23,7 +23,7 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "cat" ] ; then
-        local cookie_name=$(abcli_clarify_arg $2)
+        local cookie_name=$(abcli_clarify_input $2)
 
         if [ -z "$cookie_name" ] ; then
             local filename=$abcli_path_cookie/cookie.json
@@ -51,7 +51,7 @@ function abcli_cookie() {
 
     if [ "$task" == "copy" ] ; then
         local cookie_name=$2
-        local machine_kind=$(abcli_clarify_arg $3 local)
+        local machine_kind=$(abcli_clarify_input $3 local)
         local machine_name=$4
 
         if [ "$machine_kind" == "local" ] ; then
@@ -73,7 +73,7 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "edit" ] ; then
-        local machine_kind=$(abcli_clarify_arg $2 local)
+        local machine_kind=$(abcli_clarify_input $2 local)
         local machine_name=$3
 
         if [ "$machine_kind" == "local" ] ; then

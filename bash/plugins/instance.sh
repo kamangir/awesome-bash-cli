@@ -42,10 +42,10 @@ function abcli_instance() {
 
     if [ "$task" == "from_image" ] ; then
         local instance_type=$(abcli_aws_json_get "['ec2']['default_instance_type']")
-        local instance_type=$(abcli_clarify_arg $2 $instance_type)
+        local instance_type=$(abcli_clarify_input $2 $instance_type)
 
         local instance_name=$USER-$(abcli_string_timestamp)
-        local instance_name=$(abcli_clarify_arg $3 $instance_name)
+        local instance_name=$(abcli_clarify_input $3 $instance_name)
 
         local options=$4
         local do_ssh=$(abcli_option_int "$options" "ssh" 0)

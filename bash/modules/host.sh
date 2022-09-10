@@ -25,7 +25,7 @@ function abcli_host() {
         python3 -m abcli.modules.host \
             get \
             --keyword "$2" \
-            --name $(abcli_clarify_arg "$3" .) \
+            --name $(abcli_clarify_input "$3" .) \
             ${@:4}
         return
     fi

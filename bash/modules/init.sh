@@ -9,7 +9,7 @@ function abcli_init() {
         return
     fi
 
-    local plugin_name=$(abcli_clarify_arg "$1" "all")
+    local plugin_name=$(abcli_clarify_input "$1" all)
 
     local current_path=$(pwd)
 

@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-function abcli_clarify_arg() {
+function abcli_clarify_input() {
     local default=$2
     local arg_name=${1:-$default}
 

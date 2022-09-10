@@ -26,7 +26,7 @@ function abcli_ssh() {
 }
 
 function abcli_ssh_args() {
-    local machine_kind=$(abcli_clarify_arg $1 local)
+    local machine_kind=$(abcli_clarify_input $1 local)
     local machine_name=$2
     local options=$3
     local copy_seed=$(abcli_option_int "$options" "seed" 1)
