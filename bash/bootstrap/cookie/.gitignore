@@ -1,5 +1,4 @@
 *
 !.gitignore
-!cookie.template.json
 !repo
 !repo/*

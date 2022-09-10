@@ -28,7 +28,7 @@ function abcli_cookie() {
         if [ -z "$cookie_name" ] ; then
             local filename=$abcli_path_cookie/cookie.json
         elif [ "$cookie_name" == "template" ] ; then
-            local filename=$abcli_path_cookie/cookie.template.json
+            local filename=$abcli_path_cookie/repo/template.json
         elif [[ ",rpi,jetson_nano," = *",$cookie_name,"* ]] ; then
             local machine_kind=$2
             local machine_name=$3
@@ -43,7 +43,7 @@ function abcli_cookie() {
                 - \
                 $filename
         else
-            local filename=$abcli_path_bash/bootstrap/cookie/repo/$cookie_name.json
+            local filename=$abcli_path_cookie/repo/$cookie_name.json
         fi
 
         abcli_log $filename
@@ -58,14 +58,14 @@ function abcli_cookie() {
 
         if [ "$machine_kind" == "local" ] ; then
             cp -v \
-                $abcli_path_bash/bootstrap/cookie/repo/$cookie_name.json \
+                $abcli_path_cookie/repo/$cookie_name.json \
                 $abcli_path_cookie/cookie.json
         else
             # https://kb.iu.edu/d/agye
             abcli_scp \
                 local \
                 - \
-                $abcli_path_bash/bootstrap/cookie/repo/$cookie_name.json \
+                $abcli_path_cookie/repo/$cookie_name.json \
                 $machine_kind \
                 $machine_name \
                 \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json
