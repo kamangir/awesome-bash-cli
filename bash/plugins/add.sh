@@ -4,8 +4,8 @@ function abcli_add() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli add <object_name_1,object_name_2> [~meta,~relations,~tags]" \
-            "$abcli_object_name += <object_name_1> + <object_name_2>"
+        abcli_help_line "abcli add <object_1,object_2> [~meta,~relations,~tags]" \
+            "$abcli_object_name += <object_1> + <object_2>"
         return
     fi
 
