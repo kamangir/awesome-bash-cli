@@ -43,7 +43,7 @@ function abcli_cookie() {
                 - \
                 $filename
         else
-            local filename=$abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json
+            local filename=$abcli_path_bash/bootstrap/cookie/rep/$cookie_name.json
         fi
 
         abcli_log $filename
@@ -58,14 +58,14 @@ function abcli_cookie() {
 
         if [ "$machine_kind" == "local" ] ; then
             cp -v \
-                $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
+                $abcli_path_bash/bootstrap/cookie/rep/$cookie_name.json \
                 $abcli_path_cookie/cookie.json
         else
             # https://kb.iu.edu/d/agye
             abcli_scp \
                 local \
                 - \
-                $abcli_path_bash/bootstrap/sample-cookie/$cookie_name.json \
+                $abcli_path_bash/bootstrap/cookie/rep/$cookie_name.json \
                 $machine_kind \
                 $machine_name \
                 \~/git/awesome-bash-cli/bash/bootstrap/cookie/cookie.json
@@ -105,7 +105,7 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "list" ] ; then
-        ls -1 $abcli_path_bash/bootstrap/sample-cookie
+        ls -1 $abcli_path_bash/bootstrap/cookie/rep
         return
     fi
 
