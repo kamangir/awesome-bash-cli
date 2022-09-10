@@ -11,7 +11,7 @@ function abcli_set_prompt() {
 
     # https://misc.flogisoft.com/bash/tip_colors_and_formatting
     if [ "$color_prompt" = yes ]; then
-        PS1='\[\033[00;32m\]$abcli_fullname\[\033[00m\]:${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
+        PS1='\[\033[00;32m\]$abcli_fullname\[\033[00m\]:${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\n > '
     else
         PS1='$abcli_fullname${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
     fi
