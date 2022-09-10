@@ -5,7 +5,8 @@
         "default_template": "abcli",
         "image_id": {
             "abcli": "ami-...",
-            "abcli-gpu": "ami-..."
+            "abcli-gpu": "ami-...",
+            "abcli-Q": "ami-..."
         },
         "key_name": "abcli",
         "security_group_ids": "sg-...",
