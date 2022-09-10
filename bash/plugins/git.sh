@@ -65,7 +65,7 @@ function abcli_git() {
         if [ ! -d "$repo_name" ] ; then
             git clone git@github.com:kamangir/$repo_name.git
         else
-            if [ "$if_cloned" == 1 ] ; then
+            if [ "$do_if_cloned" == 1 ] ; then
                 local do_install=0
             fi
                 
