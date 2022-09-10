@@ -1,4 +1,4 @@
 {
-    "plugins": "blue-sbc,blue-wiki,blue-worker",
+    "plugins": "blue-wiki,blue-worker",
     "session": "blue_worker"
 }
