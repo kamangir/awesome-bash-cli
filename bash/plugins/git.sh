@@ -37,11 +37,11 @@ function abcli_git() {
 
     if [ "$task" == "clone" ] ; then
         local options=$3
-        local do_pull=$(abcli_option_int "$options" "pull" 0)
-        local in_object=$(abcli_option_int "$options" "object" 0)
-        local install=$(abcli_option_int "$options" "install" 0)
-        local source=$(abcli_option "$options" "source" "")
-        local then_cd=$(abcli_option_int "$options" "cd" 0)
+        local do_pull=$(abcli_option_int "$options" pull 0)
+        local in_object=$(abcli_option_int "$options" object 0)
+        local do_install=$(abcli_option_int "$options" install 0)
+        local source=$(abcli_option "$options" source "")
+        local then_cd=$(abcli_option_int "$options" cd 0)
 
         if [ "$in_object" == "0" ] ; then
             pushd $abcli_path_git > /dev/null
@@ -63,15 +63,15 @@ function abcli_git() {
 
         if [ ! -d "$repo_name" ] ; then
             git clone git@github.com:kamangir/$repo_name.git
-
-            if [ "$install" == "1" ] ; then
-                cd $repo_name
-                pip3 install -e .
-                cd ..
-            fi
         elif [ "$do_pull" == "1" ] ; then
             cd $repo_name
             git pull
+            cd ..
+        fi
+
+        if [ "$do_install" == "1" ] ; then
+            cd $repo_name
+            pip3 install -e .
             cd ..
         fi
 
