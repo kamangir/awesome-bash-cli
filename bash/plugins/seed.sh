@@ -53,7 +53,7 @@ function abcli_seed() {
         mkdir -p $seed_path/abcli/
     fi
 
-    if [ "$do_log" == "1" ] ; then
+    if [ "$do_log" == 1 ] ; then
         abcli_log "seed: $abcli_fullname -$target-> $output"
     fi
 

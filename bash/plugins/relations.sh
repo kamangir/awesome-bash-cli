@@ -75,7 +75,7 @@ function abcli_relation() {
             --relation $4 \
             ${@:6}
 
-        if [ "$do_validate" == "1" ] ; then
+        if [ "$do_validate" == 1 ] ; then
             abcli_log "relation: $object_1 -$(abcli_relation get $object_1 $object_2)-> $object_2"
         fi
 

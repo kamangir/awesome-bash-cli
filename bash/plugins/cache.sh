@@ -59,7 +59,7 @@ function abcli_cache() {
             --value "$3" \
             ${@:5}
 
-        if [ "$do_validate" == "1" ] ; then
+        if [ "$do_validate" == 1 ] ; then
             abcli_log "cache[$keyword] <- $(abcli_cache read $keyword)"
         fi
 

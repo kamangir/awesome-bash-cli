@@ -62,7 +62,7 @@ function abcli_tag() {
                 --tags $3 \
                 ${@:5}
 
-            if [ "$do_validate" == "1" ] ; then
+            if [ "$do_validate" == 1 ] ; then
                 abcli_log "$object tags: $(abcli_tag get $object)"
             fi
         done

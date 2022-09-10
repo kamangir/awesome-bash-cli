@@ -22,7 +22,7 @@ function abcli_select() {
 
     cd $abcli_object_path
 
-    if [ "$update_trail" == "1" ] ; then
+    if [ "$update_trail" == 1 ] ; then
         abcli_trail $abcli_object_path/$abcli_object_name
     fi
 

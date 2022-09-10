@@ -6,8 +6,8 @@ function abcli_git() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli git cd <repo_name>" \
             "cd $abcli_path_git/<repo_name>."
-        abcli_help_line "abcli git clone <repo_name> [cd,install,object,pull,source=<username/repo_name>]" \
-            "clone [and install] [a private fork of <username/repo_name> as] [$abcli_object_name/]<repo_name> [and pull if already exists]."
+        abcli_help_line "abcli git clone <repo_name> [cd,if_cloned,install,object,pull,source=<username/repo_name>]" \
+            "clone [and install] [if_cloned] [a private fork of <username/repo_name> as] [$abcli_object_name/]<repo_name> [and pull if already exists]."
 
         abcli_git_pull $@
 
@@ -39,11 +39,12 @@ function abcli_git() {
         local options=$3
         local do_pull=$(abcli_option_int "$options" pull 0)
         local in_object=$(abcli_option_int "$options" object 0)
+        local do_if_cloned=$(abcli_option_int "$options" if_cloned 0)
         local do_install=$(abcli_option_int "$options" install 0)
         local source=$(abcli_option "$options" source "")
         local then_cd=$(abcli_option_int "$options" cd 0)
 
-        if [ "$in_object" == "0" ] ; then
+        if [ "$in_object" == 0 ] ; then
             pushd $abcli_path_git > /dev/null
         fi
 
@@ -63,23 +64,29 @@ function abcli_git() {
 
         if [ ! -d "$repo_name" ] ; then
             git clone git@github.com:kamangir/$repo_name.git
-        elif [ "$do_pull" == "1" ] ; then
-            cd $repo_name
-            git pull
-            cd ..
+        else
+            if [ "$if_cloned" == 1 ] ; then
+                local do_install = 0
+            fi
+                
+            if [ "$do_pull" == 1 ] ; then
+                cd $repo_name
+                git pull
+                cd ..
+            fi
         fi
 
-        if [ "$do_install" == "1" ] ; then
+        if [ "$do_install" == 1 ] ; then
             cd $repo_name
             pip3 install -e .
             cd ..
         fi
 
-        if [ "$in_object" == "0" ] ; then
+        if [ "$in_object" == 0 ] ; then
             popd > /dev/null
         fi
 
-        if [ "$then_cd" == "1" ] ; then
+        if [ "$then_cd" == 1 ] ; then
             cd $abcli_path_git/$repo_name
         fi
 
@@ -92,7 +99,7 @@ function abcli_git() {
         local do_delete=$(abcli_option_int "$options" delete 0)
         local show_status=$(abcli_option_int "$options" status 0)
 
-        if [ "$in_object" == "1" ] ; then
+        if [ "$in_object" == 1 ] ; then
             pushd $abcli_object_path/$repo_name > /dev/null
         else
             pushd $abcli_path_git/$repo_name > /dev/null
@@ -106,7 +113,7 @@ function abcli_git() {
         git commit -a -m "$abcli_fullname-git"
         git push
 
-        if [ "$do_delete" == "1" ] ; then
+        if [ "$do_delete" == 1 ] ; then
             abcli_log "deleting $repo_name"
             cd ..
             rm -rf $repo_name
@@ -184,7 +191,7 @@ function abcli_git_pull() {
     pushd $abcli_path_abcli > /dev/null
     git pull
 
-    if [ "$do_all" == "1" ] ; then
+    if [ "$do_all" == 1 ] ; then
         local repo
         local filename
         for repo in $(abcli_plugins list_of_external --delim space --log 0 --repo_names 1) ; do
@@ -198,7 +205,7 @@ function abcli_git_pull() {
     fi
     popd > /dev/null
 
-    if [ "$do_init" == "0" ] ; then
+    if [ "$do_init" == 0 ] ; then
         return
     fi
 

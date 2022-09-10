@@ -37,7 +37,7 @@ function abcli_add() {
             abcli_tag set $abcli_object_name_current "$(abcli_tag get $object_name),add"
         fi
 
-        if [ "$clone_relations" == "1" ] ; then
+        if [ "$clone_relations" == 1 ] ; then
             abcli_relation set $abcli_object_name_current $object_name contains
         fi
     done

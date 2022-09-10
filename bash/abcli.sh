@@ -13,7 +13,7 @@ function abcli_main() {
     fi
     local do_terraform=$(abcli_option_int "$options" terraform $do_terraform)
 
-    if [ "$do_terraform" == "1" ] ; then
+    if [ "$do_terraform" == 1 ] ; then
         abcli_terraform
     fi
 

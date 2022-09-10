@@ -72,10 +72,10 @@ function abcli_instance() {
         local instance_ip_address=$(abcli_instance describe $instance_name)
         abcli_log "abcli: instance: created at $instance_ip_address"
 
-        if [ "$do_ssh" == "1" ] || [ "$do_vnc" == "1" ] ; then
+        if [ "$do_ssh" == 1 ] || [ "$do_vnc" == 1 ] ; then
             abcli_sleep $sleep_seconds
 
-            if [ "$do_vnc" == "1" ] ; then
+            if [ "$do_vnc" == 1 ] ; then
                 abcli_ssh ec2 $instance_ip_address vnc
             else
                 abcli_ssh ec2 $instance_ip_address
