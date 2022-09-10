@@ -125,11 +125,11 @@ function abcli_seed() {
         seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
     fi
 
-    if [ "$(abcli_list_in "$target" "rpi,headless_rpi")" == "True" ] ; then
-        seed="${seed}pip3 install -e .$delim"
-    fi
+    seed="${seed}pip3 install -e .$delim"
 
-    seed="${seed}sudo pip3 install -e .$delim_section"
+    if [ "$(abcli_list_in "$target" "rpi,headless_rpi")" == "True" ] ; then
+        seed="${seed}sudo pip3 install -e .$delim_section"
+    fi
 
     seed="${seed}source ./bash/abcli.sh$delim_section"
 
