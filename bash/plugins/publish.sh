@@ -21,7 +21,7 @@ function abcli_publish() {
         aws s3 rm s3://kamangir-public/ \
             --recursive \
             --exclude "*" \
-            --include "*-info.jpg"
+            --include "*-info.*"
         return
     fi
 
