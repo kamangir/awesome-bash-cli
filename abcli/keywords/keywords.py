@@ -2,7 +2,7 @@ KEYWORDS = {
     "!": "run",
     "?": "help",
     "--help": "help",
-    "H": "hardware",
+    "H": "hat",
     "I": "install",
     "P": "plugins",
     "T": "terraform",
