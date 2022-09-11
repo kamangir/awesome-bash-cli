@@ -12,21 +12,6 @@ function abcli_publish() {
             "publish object_name/filename [as othername]."
         abcli_help_line "abcli publish <object_name> open" \
             "publish every file in object_name."
-        abcli_help_line "abcli publish cleanup" \
-            "cleanup published files."
-        return
-    fi
-
-    if [ "$task" == "cleanup" ] ; then
-        aws s3 rm s3://kamangir-public/ \
-            --recursive \
-            --exclude "*" \
-            --include "*-info.*" \
-            --include "*-wordcloud.*" \
-            --include "*.tar.gz" \
-            --include "*.json" \
-            --include "*face*" \
-            --include "*background"
         return
     fi
 
