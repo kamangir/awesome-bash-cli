@@ -23,7 +23,8 @@ function abcli_publish() {
             --exclude "*" \
             --include "*-info.*" \
             --include "*-wordcloud.*" \
-            --include "*.tar.gz"
+            --include "*.tar.gz" \
+            --include "*.json"
         return
     fi
 
