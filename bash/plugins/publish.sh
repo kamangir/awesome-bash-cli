@@ -22,6 +22,7 @@ function abcli_publish() {
             --recursive \
             --exclude "*" \
             --include "*-info.*" \
+            --include "*-wordcloud.*" \
             --include "*.tar.gz"
         return
     fi
