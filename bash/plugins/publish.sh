@@ -24,7 +24,9 @@ function abcli_publish() {
             --include "*-info.*" \
             --include "*-wordcloud.*" \
             --include "*.tar.gz" \
-            --include "*.json"
+            --include "*.json" \
+            --include "*face*" \
+            --include "*background"
         return
     fi
 
