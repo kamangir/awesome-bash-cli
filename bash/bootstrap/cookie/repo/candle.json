@@ -1,8 +1,8 @@
 {
+    "hat.type": "none",
     "messenger.recipients": "stream",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
-    "session.imager.enabled": false,
     "session.screen": "scroll_phat_hd",
     "session.screen.period": 0.1
 }

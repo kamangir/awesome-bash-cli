@@ -1,8 +1,8 @@
 {
-    "hat.type": "adafruit_rgb_matrix_hat",
+    "hat.type": "other",
     "messenger.recipients": "stream",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
-    "session.screen": "adafruit_rgb_matrix",
+    "session.screen": "unicorn_16x16",
     "session.screen.period": 0.1
 }
