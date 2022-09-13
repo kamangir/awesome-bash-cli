@@ -131,6 +131,10 @@ function abcli_seed() {
         seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
     fi
 
+    if [ "$target" == "rpi" ] ; then
+        python3 -m pip install --upgrade pip
+    fi
+
     seed="${seed}pip3 install -e .$delim"
 
     if [ "$(abcli_list_in "$target" "rpi,headless_rpi")" == "True" ] ; then
