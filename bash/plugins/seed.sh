@@ -115,8 +115,9 @@ function abcli_seed() {
     if [ "$target" == "headless_rpi" ] ; then
         # https://serverfault.com/a/1093530
         # https://packages.ubuntu.com/bionic/all/ca-certificates/download
-        seed="${seed}wget --no-check-certificate http://security.ubuntu.com/ubuntu/pool/main/c/ca-certificates/ca-certificates_20210119~18.04.2_all.deb$delim"
-        seed="$seed${sudo_prefix}sudo dpkg -i ca-certificates_20210119~18.04.2_all.deb$delim_section"
+        certificate_name="ca-certificates_20211016~18.04.1_all"
+        seed="${seed}wget --no-check-certificate http://security.ubuntu.com/ubuntu/pool/main/c/ca-certificates/$certificate_name.deb$delim"
+        seed="$seed${sudo_prefix}sudo dpkg -i $certificate_name.deb$delim_section"
 
         seed="$seed${sudo_prefix}apt-get update --allow-releaseinfo-change$delim"
         seed="$seed${sudo_prefix}apt-get install -y ca-certificates libgnutls30$delim"
