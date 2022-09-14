@@ -25,6 +25,15 @@ function abcli_seed() {
     local output=$(abcli_option "$options" output screen)
     local target=$(abcli_option "$options" target ec2)
 
+    if [ $(abcli_list_in "$target" ".|ec2|jetson|headless_rpi|mac|rpi" --delim "|") != True ] ; then
+        abcli_log_error "-abcli: seed: $target: target not found."
+        return
+    fi
+    if [ $(abcli_list_in "$output" "clipboard|file|key|screen" --delim "|") != True ] ; then
+        abcli_log_error "-abcli: seed: $output: output not found."
+        return
+    fi
+
     local cookie_name=""
     if [ "$target" == "ec2" ] ; then
         local cookie_name="worker"
