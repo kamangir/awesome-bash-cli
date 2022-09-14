@@ -1,7 +1,6 @@
 import argparse
 from abcli import file
 from . import *
-from abcli.plugins import tags
 from abcli import logging
 import logging
 
@@ -43,7 +42,7 @@ parser.add_argument(
 parser.add_argument(
     "--keyword",
     type=str,
-    help="name,tags",
+    help="name|tags",
 )
 args = parser.parse_args()
 
@@ -56,6 +55,8 @@ if args.task == "get":
         print(get_name())
         success = True
     elif args.keyword == "tags":
+        from abcli.plugins import tags
+
         output = tags.get(args.name if args.name not in ",.".split(",") else get_name())
         success = True
     else:
