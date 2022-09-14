@@ -2,7 +2,6 @@ import os
 from abcli import fullname
 from abcli import file
 from abcli import string
-from abcli.plugins import tags
 from . import HOST_NAME, HOST_TAGS, NAME
 from abcli.logging import crash_report
 from abcli import logging
@@ -67,6 +66,8 @@ def get_seed_filename():
 
 
 def get_tags(cache=True):
+    from abcli.plugins import tags
+
     global HOST_TAGS
 
     if cache and HOST_TAGS is not None:
