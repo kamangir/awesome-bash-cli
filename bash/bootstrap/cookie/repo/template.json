@@ -19,5 +19,6 @@
     "session.reboot.period": 14400,
     "session.screen": "scroll_phat_hd",
     "session.screen.period": 4,
-    "session.temperature.period": 300
+    "session.temperature.period": 300,
+    "youtube.api_key": "..."
 }

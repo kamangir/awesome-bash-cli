@@ -10,7 +10,7 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="clone,create,get,search,set",
+    help="clone|create|get|search|set",
 )
 parser.add_argument(
     "--after",
