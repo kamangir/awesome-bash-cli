@@ -146,10 +146,11 @@ function abcli_seed() {
     elif [ "$target" == "headless_rpi" ] ; then
         seed="${seed}sudo apt-get --yes --force-yes install python3-pip$delim"
     fi
-
     seed="${seed}pip3 install -e .$delim"
-    if [ "$(abcli_list_in "$target" "rpi,headless_rpi")" == "True" ] ; then
+    if [ "$target" == "rpi" ] ; then
         seed="${seed}sudo python3 -m pip install --upgrade pip$delim"
+    fi
+    if [ "$(abcli_list_in "$target" "rpi,headless_rpi")" == "True" ] ; then
         seed="${seed}sudo pip3 install -e .$delim"
     fi
     seed="$seed$delim_section"
