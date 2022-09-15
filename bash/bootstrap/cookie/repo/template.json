@@ -1,5 +1,4 @@
 {
-    "camera.diff": 0.1,
     "camera.hi_res": true,
     "camera.rotation": 0,
     "display.fullscreen": true,
@@ -10,6 +9,7 @@
     "session": "blue_sbc",
     "session.auto_upload": true,
     "session.imager": "lepton",
+    "session.imager.diff": 0.1,
     "session.imager.enabled": true,
     "session.imager.period": 3000,
     "session.object.tags": "this,that",

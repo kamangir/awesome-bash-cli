@@ -77,7 +77,7 @@ fi
 
 if [[ "$abcli_is_ec2" == true ]] ; then
     conda activate amazonei_tensorflow2_p36
-else
+elif [[ "$abcli_is_mac" == true ]] ; then
     conda activate abcli
 fi
 
