@@ -22,7 +22,7 @@ parser.add_argument(
     "--part",
     type=str,
     default="contentDetails",
-    help="contentDetails/status",
+    help="contentDetails|status",
 )
 parser.add_argument(
     "--video_id",
@@ -34,7 +34,7 @@ parser.add_argument(
     "--what",
     type=str,
     default="keyword",
-    help="channelId/keyword",
+    help="channelId|keyword",
 )
 args = parser.parse_args()
 
