@@ -4,22 +4,22 @@ function abcli_youtube() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "youtube browse video_id" \
-            "browse youtube/?v=video_id"
-        abcli_help_line "youtube cat video_id" \
-            "cat info re youtube/?v=video_id"
-        abcli_help_line "youtube download video_id" \
-            "download youtube/?v=video_id"
-        abcli_help_line "youtube duration video_id" \
-            "print duration of youtube/?v=video_id"
-        abcli_help_line "youtube is_CC video_id_1,video_id_2" \
-            "True/False,True/False"
-        abcli_help_line "youtube search keyword" \
-            "search in youtube for keyword"
-        abcli_help_line "youtube install" \
-            "install youtube"
-        abcli_help_line "youtube validate" \
-            "validate youtube"
+        abcli_help_line "abcli youtube browse <video_id>" \
+            "browse youtube/?v=<video_id>."
+        abcli_help_line "abcli youtube cat <video_id>" \
+            "cat info re youtube/?v=<video_id>."
+        abcli_help_line "abcli youtube download <video_id>" \
+            "download youtube/?v=<video_id>."
+        abcli_help_line "abcli youtube duration <video_id>" \
+            "print duration of youtube/?v=<video_id>."
+        abcli_help_line "abcli youtube is_CC <video_id_1,video_id_2>" \
+            "<True|False,True|False>."
+        abcli_help_line "abcli youtube search <keyword>" \
+            "search in youtube for <keyword>."
+        abcli_help_line "abcli youtube install" \
+            "install youtube."
+        abcli_help_line "abcli youtube validate" \
+            "validate youtube."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.youtube --help
