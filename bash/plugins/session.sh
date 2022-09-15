@@ -33,7 +33,7 @@ function abcli_session() {
         fi
         local do_pull=$(abcli_option_int "$options" "pull" $do_pull)
 
-        abcli_log "session started: $options: ${@:3}"
+        abcli_log "session started: $options ${@:3}"
 
         while true; do
             if [ "$do_pull" == 1 ] ; then
