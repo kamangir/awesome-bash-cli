@@ -184,7 +184,6 @@ function abcli_seed() {
         elif [ "$abcli_is_ubuntu" == true ] ; then
             echo $seed | xclip -sel clip
         fi
-        abcli_log "now you can paste the $target seed 🌱."
     elif [ "$output" == "key" ] || [ "$output" == "file" ] ; then
         if [ "$output" == "key" ] ; then
             local filename="$seed_path/abcli/$target"
