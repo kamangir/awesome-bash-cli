@@ -44,7 +44,7 @@ function abcli_host() {
         else
             python3 -m abcli.plugins.message \
                 submit \
-                --event reboot \
+                --subject reboot \
                 --recipient $recipient
         fi
 
@@ -65,7 +65,7 @@ function abcli_host() {
         else
             python3 -m abcli.plugins.message \
                 submit \
-                --event shutdown \
+                --subject shutdown \
                 --recipient $recipient
         fi
         return
