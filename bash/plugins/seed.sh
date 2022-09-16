@@ -4,10 +4,10 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli seed [cookie=<cookie-name>,filename=<filename>,~log,output=clipboard|file|key|screen,target=.|ec2|jetson|headless_rpi|mac|rpi]" \
-            "generate and output a seed."
+        abcli_help_line "abcli seed [.|ec2|jetson|headless_rpi|mac|rpi] [clipboard|filename=<filename>|key|screen] [cookie=<cookie-name>,~log]" \
+            "generate and output a seed 🌱."
         abcli_help_line "abcli seed eject" \
-            "eject seed."
+            "eject seed 🌱."
         return
     fi
 
@@ -20,18 +20,27 @@ function abcli_seed() {
         return
     fi
 
-    local options=$1
-    local do_log=$(abcli_option_int "$options" log 1)
-    local output=$(abcli_option "$options" output screen)
-    local target=$(abcli_option "$options" target ec2)
-
-    if [ $(abcli_list_in "$target" ".|ec2|jetson|headless_rpi|mac|rpi" --delim "|") != True ] ; then
+    local target=${1:-ec2}
+    if [ $(abcli_list_in "$target" "all|ec2|jetson|headless_rpi|mac|rpi" --delim "|") != True ] ; then
         abcli_log_error "-abcli: seed: $target: target not found."
         return
     fi
-    if [ $(abcli_list_in "$output" "clipboard|file|key|screen" --delim "|") != True ] ; then
-        abcli_log_error "-abcli: seed: $output: output not found."
-        return
+
+    local options=$2
+
+    local output="clipboard"
+    local filename=""
+    local do_log=$(abcli_option_int "$options" log 1)
+    local to_key=$(abcli_option_int "$options" key 0)
+    if [ "$to_key" == 1 ] ; then
+        local output="key"
+    else
+        local to_screen=$(abcli_option_int "$options" screen 0)
+        if [ "$to_screen" == 1 ] ; then
+            local output="screen"
+        else
+            local filename=$(abcli_option "$options" filename)
+        fi
     fi
 
     local cookie_name=""
@@ -40,9 +49,10 @@ function abcli_seed() {
     fi
     local cookie_name=$(abcli_option "$options" cookie $cookie_name)
 
-    if [ "$target" == "." ] ; then
-        for target in ec2 jetson headless_rpi mac rpi ; do
-            abcli_seed $(abcli_option_update "$options" target $target) ${@:2}
+    if [ "$target" == "all" ] ; then
+        local target_
+        for target_ in ec2 jetson headless_rpi mac rpi ; do
+            abcli_seed $target_ ${@:2}
         done
         return
     fi
@@ -63,7 +73,7 @@ function abcli_seed() {
     fi
 
     if [ "$do_log" == 1 ] ; then
-        abcli_log "seed: $abcli_fullname -$target-> $output"
+        abcli_log "seed: $abcli_fullname -$target-> $output 🌱"
     fi
 
     local sudo_prefix="sudo "
@@ -81,7 +91,7 @@ function abcli_seed() {
         local base64="base64 -w 0"
     fi
 
-    seed="${seed}echo \"$abcli_fullname seed\"$delim_section"
+    seed="${seed}echo \"$abcli_fullname seed 🌱 for $target\"$delim_section"
 
     seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
     seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
@@ -174,6 +184,7 @@ function abcli_seed() {
         elif [ "$abcli_is_ubuntu" == true ] ; then
             echo $seed | xclip -sel clip
         fi
+        abcli_log "now you can paste the $target seed 🌱."
     elif [ "$output" == "key" ] || [ "$output" == "file" ] ; then
         if [ "$output" == "key" ] ; then
             local filename="$seed_path/abcli/$target"
@@ -186,7 +197,7 @@ function abcli_seed() {
 
         echo "{\"version\":\"$abcli_version\"}" > $filename.json
 
-        abcli_log "seed -> $filename."
+        abcli_log "seed 🌱 -> $filename."
     elif [ "$output" == "screen" ] ; then
         printf "$GREEN$seed$NC\n"
     else
