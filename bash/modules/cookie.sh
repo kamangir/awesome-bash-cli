@@ -27,7 +27,7 @@ function abcli_cookie() {
 
         if [ -z "$cookie_name" ] ; then
             local filename=$abcli_path_cookie/cookie.json
-        elif [ "$(abcli_list_in $cookie_name rpi,jetson_nano)" == True ]] ; then
+        elif [ "$(abcli_list_in $cookie_name rpi,jetson_nano)" == True ] ; then
             local machine_kind=$2
             local machine_name=$3
 
