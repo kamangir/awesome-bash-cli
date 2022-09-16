@@ -42,7 +42,7 @@ function abcli_host() {
                 sudo reboot
             fi
         else
-            python3 -m abcli.message \
+            python3 -m abcli.plugins.message \
                 submit \
                 --event reboot \
                 --recipient $recipient
@@ -63,7 +63,7 @@ function abcli_host() {
                 sudo shutdown -h now
             fi
         else
-            python3 -m abcli.message \
+            python3 -m abcli.plugins.message \
                 submit \
                 --event shutdown \
                 --recipient $recipient
