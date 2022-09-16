@@ -91,7 +91,7 @@ function abcli_seed() {
         local base64="base64 -w 0"
     fi
 
-    seed="${seed}echo \"$abcli_fullname seed 🌱 for $target\"$delim_section"
+    seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
 
     seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
     seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
