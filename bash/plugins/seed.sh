@@ -27,10 +27,8 @@ function abcli_seed() {
     fi
 
     local options=$2
-
     local output="clipboard"
     local filename=""
-    local do_log=$(abcli_option_int "$options" log 1)
     local to_key=$(abcli_option_int "$options" key 0)
     if [ "$to_key" == 1 ] ; then
         local output="key"
@@ -43,6 +41,8 @@ function abcli_seed() {
         fi
     fi
 
+    local options=$3
+    local do_log=$(abcli_option_int "$options" log 1)
     local cookie_name=""
     if [ "$target" == "ec2" ] ; then
         local cookie_name="worker"
