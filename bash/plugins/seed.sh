@@ -20,7 +20,7 @@ function abcli_seed() {
         return
     fi
 
-    local target=${1:-ec2}
+    local target=$(abcli_clarify_input $1 ec2)
     if [ $(abcli_list_in "$target" "all|ec2|jetson|headless_rpi|mac|rpi" --delim "|") != True ] ; then
         abcli_log_error "-abcli: seed: $target: target not found."
         return
@@ -183,6 +183,7 @@ function abcli_seed() {
         elif [ "$abcli_is_ubuntu" == true ] ; then
             echo $seed | xclip -sel clip
         fi
+        abcli_log "📋 paste the seed 🌱 in the $target terminal."
     elif [ "$output" == "key" ] || [ "$output" == "file" ] ; then
         if [ "$output" == "key" ] ; then
             local filename="$seed_path/abcli/$target"
