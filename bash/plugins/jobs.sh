@@ -2,40 +2,44 @@
 
 function abcli_job() {
     local task=$(abcli_unpack_keyword $1 help)
-    local operation=$3
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli job completed <job-name> <operation>" \
-            "register that <job-name> is completed for <operation>."
-        abcli_help_line "abcli job count <tag_1,tag_2> <operation>" \
+        abcli_help_line "abcli job <job-name> completed <operation>" \
+            "register that <operation> is completed for <job-name>."
+        abcli_help_line "abcli job count <operation> <tag_1,tag_2>" \
             "count number of jobs for <operation> given <tag_1,tag_2>."
-        abcli_help_line "abcli job find <tag_1,tag_2> <operation>" \
-            "find a job for <operation> given <tag_1,tag_2>."
-        abcli_help_line "abcli job started <job-name> <operation>" \
-            "register that <job-name> started <operation>."
+        abcli_help_line "abcli job find  <operation> <tag_1,tag_2>" \
+            "find a job           for <operation> given <tag_1,tag_2>."
+        abcli_help_line "abcli job <job-name> started   <operation>" \
+            "register that <operation> started for      <job-name>."
         return
     fi
 
-    if [ "$task" == "completed" ] ; then
-        local job_name=$2
-        abcli_tag set $job_name completed_$operation,~started_$operation
-        return
-    fi
-    
+    local operation=$(abcli_clarify_input $2 processing)
+    local tags=$3
+
     if [ "$task" == "count" ] ; then
-        local tags="$2,~started_$operation,~completed_$operation"
+        local tags="$tags,~started_$operation,~completed_$operation"
         abcli_tag search $tags --show_count 1
         return
     fi
 
     if [ "$task" == "find" ] ; then
-        local tags="$2,~started_$operation,~completed_$operation"
+        local tags="$tags,~started_$operation,~completed_$operation"
         abcli_tag search $tags --count 1 --raw 1
         return
     fi
 
+    local job_name=$1
+    local task=$(abcli_unpack_keyword $2 void)
+    local operation=$(abcli_clarify_input $3 processing)
+
+    if [ "$task" == "completed" ] ; then
+        abcli_tag set $job_name completed_$operation,~started_$operation
+        return
+    fi
+    
     if [ "$task" == "started" ] ; then
-        local job_name=$2
         abcli_tag set $job_name started_$operation
         return
     fi
