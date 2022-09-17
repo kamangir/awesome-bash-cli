@@ -29,6 +29,7 @@ KEYWORDS = {
     "ic": "image_classifier",
     "id": "identify",
     "ing": "ingest",
+    "Kw": "Kanata_web",
     "le": "list_of_external",
     "ls": "list",
     "mcsai": "mayo_clinic_strip_ai",

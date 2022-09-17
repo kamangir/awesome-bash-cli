@@ -6,7 +6,7 @@ function abcli_git() {
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli git cd <repo_name>" \
             "cd $abcli_path_git/<repo_name>."
-        abcli_help_line "abcli git clone <repo_name> [cd,if_cloned,install,object,pull,source=<username/repo_name>]" \
+        abcli_help_line "abcli git clone <repo_name> [cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
             "clone [and install] [if_cloned] [a private fork of <username/repo_name> as] [$abcli_object_name/]<repo_name> [and pull if already exists]."
 
         abcli_git_pull $@
@@ -40,7 +40,9 @@ function abcli_git() {
         local do_pull=$(abcli_option_int "$options" pull 0)
         local in_object=$(abcli_option_int "$options" object 0)
         local do_if_cloned=$(abcli_option_int "$options" if_cloned 0)
+        local do_init=$(abcli_option_int "$options" init 0)
         local do_install=$(abcli_option_int "$options" install 0)
+        local from_template=$(abcli_option_int "$options" from_template 1)
         local source=$(abcli_option "$options" source "")
         local then_cd=$(abcli_option_int "$options" cd 0)
 
@@ -73,6 +75,28 @@ function abcli_git() {
                 cd $repo_name
                 git pull
                 cd ..
+            fi
+        fi
+
+        if [ "$do_init" == 1 ] ; then
+            if [ "$from_template" == 1 ] ; then
+                abcli_log "abcli: git: init: $repo_name"
+
+                local module_name=$(echo $repo_name | tr - _)
+
+                cd $abcli_path_git/$repo_name
+                git mv \
+                    .abcli/blue_plugin.sh \
+                    .abcli/$module_name.sh
+                git mv \
+                    .abcli/install/blue_plugin.sh \
+                    .abcli/install/$module_name.sh
+                git mv \
+                    blue_plugin \
+                    $module_name
+            else
+                abcli_log "abcli: git: init: $repo_name (not from template)"
+                abcli_log "wip"
             fi
         fi
 
