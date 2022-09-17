@@ -212,7 +212,10 @@ def write(keyword, value):
     if not table.connect():
         return False
 
-    success = table.inset(["keyword", "value"], [keyword, value])
+    success = table.insert(
+        ["keyword", "value"],
+        [keyword, value],
+    )
 
     if success:
         success = table.disconnect()
