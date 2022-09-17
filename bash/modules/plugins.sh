@@ -4,8 +4,10 @@ function abcli_plugins() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli plugins install [<plugin>]" \
-            "install plugin/all plugins."
+        abcli_help_line "abcli plugins install [<plugin-name>]" \
+            "install <plugin-name>|all plugins."
+        abcli_help_line "abcli plugins is_present <plugin-name>" \
+            "is <plugin-name> present?"
         abcli_help_line "abcli plugins list_of_external" \
             "show list of expernal plugins."
 
@@ -32,6 +34,16 @@ function abcli_plugins() {
 
         return
     fi
+
+    if [ $task == "is_present" ] ; then
+        local plugin_name=$2
+
+        local list_of_plugins=$(abcli_plugins list_of_external --delim , --log 0)
+
+        abcli_list_in $plugin_name $list_of_plugins
+        return
+    fi
+
 
     if [ $task == "list_of_external" ] ; then
         python3 -m abcli.plugins \
