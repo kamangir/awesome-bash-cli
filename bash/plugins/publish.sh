@@ -15,7 +15,7 @@ function abcli_publish() {
         return
     fi
 
-    local object_name=$(abcli_clarify_object "$1" $abcli_object_name)
+    local object_name=$(abcli_clarify_object $1 .)
 
     local filename=$2
 

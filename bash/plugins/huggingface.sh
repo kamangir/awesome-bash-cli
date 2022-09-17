@@ -37,7 +37,7 @@ function abcli_huggingface() {
         if [ "$model_source" == "saved" ] ; then
             echo $abcli_path_git/$repo_name/saved_model/$(abcli_clarify_input "$model_name" $repo_name)
         else
-            echo $abcli_object_root/$(abcli_clarify_object "$model_name" $abcli_object_name)
+            echo $abcli_object_root/$(abcli_clarify_object $model_name .)
         fi
 
         return
@@ -52,7 +52,7 @@ function abcli_huggingface() {
     if [ $task == "save" ] ; then
         local repo_name=$(abcli_unpack_keyword "$2")
         local model_name=$(abcli_clarify_input "$3" "$repo_name")
-        local object_name=$(abcli_clarify_object "$4" $abcli_object_name)
+        local object_name=$(abcli_clarify_object $4 .)
 
         local options=$5
         local do_force=$(abcli_option_int "$options" "force" 0)

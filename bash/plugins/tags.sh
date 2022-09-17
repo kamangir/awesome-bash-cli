@@ -6,7 +6,7 @@ function tag() {
 
 function abcli_tag() {
     local task=$(abcli_unpack_keyword $1 help)
-    local object=$(abcli_clarify_object "$2" $abcli_object_name)
+    local object=$(abcli_clarify_object $2 .)
 
     if [ "$task" == "help" ] ; then
         abcli_help_line "abcli tag clone <object_1> <object_2>" \
@@ -28,7 +28,7 @@ function abcli_tag() {
         python3 -m abcli.plugins.tags \
             clone \
             --object $object \
-            --object_2 $(abcli_clarify_object "$3" $abcli_object_name) \
+            --object_2 $(abcli_clarify_object $3 .) \
             ${@:4}
         return
     fi
