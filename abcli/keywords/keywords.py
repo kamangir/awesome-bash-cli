@@ -23,6 +23,7 @@ KEYWORDS = {
     "ds": "dataset",
     "em": "earthdaily_mosaic",
     "eval": "evaluate",
+    "ff": "face_finder",
     "fm": "fashion_mnist",
     "gmp": "get_model_path",
     "hf": "huggingface",
