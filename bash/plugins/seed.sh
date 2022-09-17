@@ -183,7 +183,9 @@ function abcli_seed() {
         elif [ "$abcli_is_ubuntu" == true ] ; then
             echo $seed | xclip -sel clip
         fi
-        abcli_log "📋 paste the seed 🌱 in the $target terminal."
+        if [ "$do_log" == 1 ] ; then
+            abcli_log "📋 paste the seed 🌱 in the $target terminal."
+        fi
     elif [ "$output" == "key" ] || [ "$output" == "file" ] ; then
         if [ "$output" == "key" ] ; then
             local filename="$seed_path/abcli/$target"
@@ -196,10 +198,14 @@ function abcli_seed() {
 
         echo "{\"version\":\"$abcli_version\"}" > $filename.json
 
-        abcli_log "seed 🌱 -> $filename."
+        if [ "$do_log" == 1 ] ; then
+            abcli_log "seed 🌱 -> $filename."
+        fi
     elif [ "$output" == "screen" ] ; then
         printf "$GREEN$seed$NC\n"
     else
-        abcli_log_error "-abcli: seed: $output: output not found."
+        if [ "$do_log" == 1 ] ; then
+            abcli_log_error "-abcli: seed: $output: output not found."
+        fi
     fi
 }
