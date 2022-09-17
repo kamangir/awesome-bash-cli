@@ -48,7 +48,7 @@ function abcli_publish() {
         aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz s3://$(abcli_aws_s3_public_bucket)/
 
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
-        abcli_log "published $object_name as $url"
+        abcli_log "🔗 $url"
 
         abcli_select $abcli_object_name_current
     elif [ "$filename" == "open" ] ; then
@@ -69,7 +69,7 @@ function abcli_publish() {
         aws s3 sync s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name s3://$(abcli_aws_s3_public_bucket)/$abcli_object_name
 
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
-        abcli_log "published $object_name as $url"
+        abcli_log "🔗 $url"
 
         abcli_select $abcli_object_name_current
     else
@@ -83,7 +83,7 @@ function abcli_publish() {
             aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/$filename s3://$(abcli_aws_s3_public_bucket)/${object_name}-${public_filename}
 
             local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/${object_name}-${public_filename}"
-            abcli_log "published $object_name/$filename as $url"
+            abcli_log "🔗 $url"
         else
             local list_of_files=(`ls *$filename`)
             local list_of_files=${list_of_files[*]}
