@@ -1,6 +1,5 @@
 {
     "hat.type": "other",
-    "messenger.recipients": "stream",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
     "session.screen": "unicorn_16x16",
