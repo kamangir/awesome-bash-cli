@@ -66,7 +66,7 @@ function abcli_relation() {
 
     if [ "$task" == "set" ] ; then
         local options=$5
-        local do_validate=$(abcli_option_int "$options" "validate" 0)
+        local do_validate=$(abcli_option_int "$options" validate 0)
 
         python3 -m abcli.plugins.relations \
             set \

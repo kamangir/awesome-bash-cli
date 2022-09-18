@@ -52,7 +52,7 @@ function abcli_tag() {
 
     if [ "$task" == "set" ] ; then
         local options=$4
-        local do_validate=$(abcli_option_int "$options" "validate" 0)
+        local do_validate=$(abcli_option_int "$options" validate 0)
 
         local object
         for object in $(echo "$object" | tr , " ") ; do

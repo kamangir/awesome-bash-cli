@@ -32,7 +32,7 @@ function abcli_huggingface() {
         local model_name=$3
 
         local options=$4
-        local model_source=$(abcli_option "$options" "model" saved)
+        local model_source=$(abcli_option "$options" model saved)
 
         if [ "$model_source" == "saved" ] ; then
             echo $abcli_path_git/$repo_name/saved_model/$(abcli_clarify_input "$model_name" $repo_name)
@@ -55,7 +55,7 @@ function abcli_huggingface() {
         local object_name=$(abcli_clarify_object $4 .)
 
         local options=$5
-        local do_force=$(abcli_option_int "$options" "force" 0)
+        local do_force=$(abcli_option_int "$options" force 0)
 
         if [ -d "$abcli_path_git/$repo_name/saved_model/$model_name" ] && [ "$do_force" == 0 ] ; then
             abcli_log_error "-abcli: huggingface: save: $model_name: already exists."

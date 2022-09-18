@@ -35,7 +35,7 @@ function abcli_notebook() {
     # https://docs.aws.amazon.com/dlami/latest/devguide/setup-jupyter.html
     if [ "$task" == "connect" ] ; then
         local options=$3
-        local do_setup=$(abcli_option_int "$options" "setup" 0)
+        local do_setup=$(abcli_option_int "$options" setup 0)
 
         if [ "$do_setup" == 1 ] ; then
             local ip_address=$(echo "$2" | tr . -)
@@ -55,7 +55,7 @@ function abcli_notebook() {
 
     if [ "$task" == "host" ] ; then
         local options=$2
-        local do_setup=$(abcli_option_int "$options" "setup" 0)
+        local do_setup=$(abcli_option_int "$options" setup 0)
 
         if [ "$do_setup" == 1 ] ; then
             jupyter notebook password

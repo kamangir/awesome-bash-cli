@@ -209,8 +209,8 @@ function abcli_git_pull() {
     local abcli_fullname_before=$abcli_fullname
 
     local options=$1
-    local do_all=$(abcli_option_int "$options" "all" 1)
-    local do_init=$(abcli_option_int "$options" "init" 0)
+    local do_all=$(abcli_option_int "$options" all 1)
+    local do_init=$(abcli_option_int "$options" init 0)
 
     pushd $abcli_path_abcli > /dev/null
     git pull

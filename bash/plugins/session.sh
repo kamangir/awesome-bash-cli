@@ -31,7 +31,7 @@ function abcli_session() {
         if [ "$abcli_is_mac" == true ] ; then
             local do_pull=0
         fi
-        local do_pull=$(abcli_option_int "$options" "pull" $do_pull)
+        local do_pull=$(abcli_option_int "$options" pull $do_pull)
 
         abcli_log "session started: $options ${@:3}"
 

@@ -51,7 +51,7 @@ function abcli_cache() {
 
     if [ "$task" == "write" ] ; then
         local options=$4
-        local do_validate=$(abcli_option_int "$options" "validate" 0)
+        local do_validate=$(abcli_option_int $options "validate" 0)
 
         python3 -m abcli.plugins.cache \
             write \

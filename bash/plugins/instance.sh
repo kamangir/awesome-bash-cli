@@ -48,9 +48,9 @@ function abcli_instance() {
         local instance_name=$(abcli_clarify_input $3 $instance_name)
 
         local options=$4
-        local do_ssh=$(abcli_option_int "$options" "ssh" 0)
-        local do_vnc=$(abcli_option_int "$options" "vnc" 0)
-        local image_name=$(abcli_option "$options" "image" "abcli")
+        local do_ssh=$(abcli_option_int "$options" ssh 0)
+        local do_vnc=$(abcli_option_int "$options" vnc 0)
+        local image_name=$(abcli_option "$options" image abcli)
 
         local image_id=$(abcli_aws_json_get "['ec2']['image_id']['$image_name']")
         local security_group_ids=$(abcli_aws_json_get "['ec2']['security_group_ids']")
