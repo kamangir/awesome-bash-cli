@@ -18,7 +18,6 @@ function abcli_cookie() {
             "read <keyword> from cookie."
         abcli_show_usage "abcli cookie write <keyword> <value>" \
             "write <keyword> = <value> in cookie."
-
         return
     fi
 
