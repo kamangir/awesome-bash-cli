@@ -4,13 +4,13 @@ function abcli_terraform() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli terraform" \
+        abcli_show_usage "abcli terraform" \
             "terraform this machine."
-        abcli_help_line "abcli terraform cat" \
+        abcli_show_usage "abcli terraform cat" \
             "cat terraform files."
-        abcli_help_line "abcli terraform disable" \
+        abcli_show_usage "abcli terraform disable" \
             "disable terraform."
-        abcli_help_line "abcli terraform enable" \
+        abcli_show_usage "abcli terraform enable" \
             "enable terraform."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then

@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
     
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli conda create_env" \
+        abcli_show_usage "abcli conda create_env" \
             "create conda environmnt."
         return
     fi
@@ -24,6 +24,7 @@ function abcli_conda() {
         conda install -y -c conda-forge scikit-learn
         conda install -y -c conda-forge opencv
         conda install -y -c conda-forge dill
+        conda install -c -c conda-forge tqdm
 
         pip3 install boto3
         pip3 install pymysql==0.10.1

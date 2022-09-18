@@ -4,13 +4,13 @@ function abcli_download() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli download" \
+        abcli_show_usage "abcli download" \
             "download $abcli_object_name."
-        abcli_help_line "abcli download <filename>" \
+        abcli_show_usage "abcli download <filename>" \
             "download $abcli_object_name/filename."
-        abcli_help_line "abcli download object <object_name>" \
+        abcli_show_usage "abcli download object <object_name>" \
             "download object_name."
-        abcli_help_line "abcli download object <object_name> <filename>" \
+        abcli_show_usage "abcli download object <object_name> <filename>" \
             "download object_name/filename."
         return
     fi

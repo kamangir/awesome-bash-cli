@@ -4,13 +4,13 @@ function abcli_huggingface() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli huggingface clone <repo_name>" \
+        abcli_show_usage "abcli huggingface clone <repo_name>" \
             "clone huggingface/repo_name."
-        abcli_help_line "abcli huggingface install" \
+        abcli_show_usage "abcli huggingface install" \
             "install huggingface."
-        abcli_help_line "abcli huggingface get_model_path <repo_name> [<model_name>] [model=object/*saved]" \
+        abcli_show_usage "abcli huggingface get_model_path <repo_name> [<model_name>] [model=object/*saved]" \
             "return model_path for saved/object model repo_name/model_name."
-        abcli_help_line "abcli huggingface save <repo_name> <model_name> <object_name> [force]" \
+        abcli_show_usage "abcli huggingface save <repo_name> <model_name> <object_name> [force]" \
             "[force] save object_name as huggingface/repo_name/model_name."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then

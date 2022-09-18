@@ -4,15 +4,15 @@ function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli instance [from_image] [-/instance_type] [-/instance_name] [image=<abcli>|<abcli-gpu>,ssh,vnc]" \
+        abcli_show_usage "abcli instance [from_image] [-/instance_type] [-/instance_name] [image=<abcli>|<abcli-gpu>,ssh,vnc]" \
             "create ec2 instance from image."
-        abcli_help_line "abcli instance describe instance_name" \
+        abcli_show_usage "abcli instance describe instance_name" \
             "describe ec2 instance instance_name."
-        abcli_help_line "abcli instance from_template [-/template_name] [-/instance_type] [-/instance_name] [ssh/vnc]" \
+        abcli_show_usage "abcli instance from_template [-/template_name] [-/instance_type] [-/instance_name] [ssh/vnc]" \
             "create ec2 instance from template."
-        abcli_help_line "abcli instance list" \
+        abcli_show_usage "abcli instance list" \
             "list ec2 instances."
-        abcli_help_line "instance terminate instance_id" \
+        abcli_show_usage "instance terminate instance_id" \
             "terminate ec2 instance."
 
         printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"

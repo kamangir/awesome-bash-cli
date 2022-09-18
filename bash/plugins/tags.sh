@@ -9,13 +9,13 @@ function abcli_tag() {
     local object=$(abcli_clarify_object $2 .)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli tag clone <object_1> <object_2>" \
+        abcli_show_usage "abcli tag clone <object_1> <object_2>" \
             "clone object_1 tags -> object_2."
-        abcli_help_line "abcli tag get <object_name>" \
+        abcli_show_usage "abcli tag get <object_name>" \
             "get object_name tags."
-        abcli_help_line "abcli tag search <tag>" \
+        abcli_show_usage "abcli tag search <tag>" \
             "search for all objects that are tagged tag."
-        abcli_help_line "abcli tag set <object_1,object_2> <tag_1,~tag_2> [validate]" \
+        abcli_show_usage "abcli tag set <object_1,object_2> <tag_1,~tag_2> [validate]" \
             "add tag_1 and remove tag_2 from object_1 and object_2 [and validate]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then

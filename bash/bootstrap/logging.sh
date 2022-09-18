@@ -8,7 +8,20 @@ export NC='\033[0m'
 export RED='\033[0;31m'
 export YELLOW='\033[0;33m'
 
-function abcli_help_line() {
+function abcli_show_usage() {
+    local what=$1
+
+    if [ "$what" == "prefix" ] ; then
+        local prefix=$2
+
+        local function_name
+        # https://stackoverflow.com/a/2627461/17619982
+        for function_name in $(compgen -A function $prefix) ; do
+            $function_name ${@:3}
+        done
+        return
+    fi
+
     printf "${LIGHTBLUE}$1${NC}\n"
     if [ ! -z "$2" ] ; then
         printf "${CYAN} . $2${NC}\n"
@@ -19,9 +32,9 @@ function abcli_log() {
     local task=$(abcli_unpack_keyword "$1")
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli log <message>" \
+        abcli_show_usage "abcli log <message>" \
             "log message."
-        abcli_help_line "abcli log verbose [on/off]" \
+        abcli_show_usage "abcli log verbose [on/off]" \
             "verbose logging on/off."
         return
     fi

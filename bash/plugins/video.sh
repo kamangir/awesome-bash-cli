@@ -4,7 +4,7 @@ function abcli_create_video() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "create_video [<.jpg>] [<filename>] [fps=<10>,~rm_frames,scale=<1>]" \
+        abcli_show_usage "create_video [<.jpg>] [<filename>] [fps=<10>,~rm_frames,scale=<1>]" \
             "$abcli_object_name/<.jpg> [-> <filename>.mp4]."
         return
     fi

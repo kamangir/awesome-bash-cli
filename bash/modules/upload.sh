@@ -4,7 +4,7 @@ function abcli_upload() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli upload [-open,solid]" \
+        abcli_show_usage "abcli upload [-open,solid]" \
             "upload $abcli_object_name [not as open] [and not as solid]."
         return
     fi

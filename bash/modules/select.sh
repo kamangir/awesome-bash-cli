@@ -4,7 +4,7 @@ function abcli_select() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli select [<object_name>] [~trail]" \
+        abcli_show_usage "abcli select [<object_name>] [~trail]" \
             "select [object_name] [no trail]."
         return
     fi

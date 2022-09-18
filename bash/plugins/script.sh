@@ -4,14 +4,14 @@ function abcli_script() {
     local task=$(abcli_unpack_keyword $1 code)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli script [code] [<script-name>]" \
+        abcli_show_usage "abcli script [code] [<script-name>]" \
             "code $abcli_object_name/<script-name>.sh."
         
         abcli_script_python $@
 
-        abcli_help_line "abcli script source [<script-name>]" \
+        abcli_show_usage "abcli script source [<script-name>]" \
             "source $abcli_object_name/<script-name>.sh"
-        abcli_help_line "abcli script submit [<tags>]" \
+        abcli_show_usage "abcli script submit [<tags>]" \
             "submit $abcli_object_name/script.sh to worker [w/ <tags>]"
         return
     fi
@@ -56,9 +56,9 @@ function abcli_script_python() {
     local task=$(abcli_unpack_keyword $1 code)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli script python [code] [cli|script]" \
+        abcli_show_usage "abcli script python [code] [cli|script]" \
             "code $abcli_object_name/[cli|script].py"
-        abcli_help_line "abcli script python run [<script-name>]" \
+        abcli_show_usage "abcli script python run [<script-name>]" \
             "run $abcli_object_name/<script-name>.py."
         return
     fi

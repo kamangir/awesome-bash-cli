@@ -4,7 +4,7 @@ function abcli_clone() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli clone <object_name> [~cache,~meta,~relations,~tags,~trail] [<postfix>]" \
+        abcli_show_usage "abcli clone <object_name> [~cache,~meta,~relations,~tags,~trail] [<postfix>]" \
             "clone $abcli_object_name[/postfix] -> object_name[/postfix]"
         return
     fi

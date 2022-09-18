@@ -4,7 +4,7 @@ function abcli_scp() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli scp ec2|jetson_nano|local|rpi <source-machine> <source> ec2|jetson_nano|local|rpi <destination-machine> <destination> <args>" \
+        abcli_show_usage "abcli scp ec2|jetson_nano|local|rpi <source-machine> <source> ec2|jetson_nano|local|rpi <destination-machine> <destination> <args>" \
             "scp <source> in <source-machine> to <destination> in <destination-machine>."
         return
     fi

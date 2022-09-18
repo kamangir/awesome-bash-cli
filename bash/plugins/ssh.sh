@@ -13,9 +13,9 @@ function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli ssh ec2 <1-2-3-4> [region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
+        abcli_show_usage "abcli ssh ec2 <1-2-3-4> [region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
             "ssh to <1-2-3-4> [on <region_1>] [as user] [and start vnc]."
-        abcli_help_line "abcli ssh jetson_nano|rpi <machine-name>" \
+        abcli_show_usage "abcli ssh jetson_nano|rpi <machine-name>" \
             "ssh to jetson nano|rpi <machine-name>."
         return
     fi

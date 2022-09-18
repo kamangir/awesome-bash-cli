@@ -4,15 +4,15 @@ function abcli_storage() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli storage clear" \
+        abcli_show_usage "abcli storage clear" \
             "clear storage."
-        abcli_help_line "abcli storage download_file <object_name> [filename]" \
+        abcli_show_usage "abcli storage download_file <object_name> [filename]" \
             "download filename -> object_name."
-        abcli_help_line "abcli storage exists <object_name>" \
+        abcli_show_usage "abcli storage exists <object_name>" \
             "True/False."
-        abcli_help_line "abcli storage list <prefix> [<args>]" \
+        abcli_show_usage "abcli storage list <prefix> [<args>]" \
             "list prefix in storage."
-        abcli_help_line "abcli storage status" \
+        abcli_show_usage "abcli storage status" \
             "show storage status."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then

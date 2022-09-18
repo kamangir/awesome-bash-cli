@@ -4,13 +4,13 @@ function abcli_notebook() {
     local task=$(abcli_unpack_keyword "$1" open)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli notebook build [<notebook>]" \
+        abcli_show_usage "abcli notebook build [<notebook>]" \
             "build $abcli_object_name/notebook.ipynb."
-        abcli_help_line "abcli notebook connect 1-2-3-4 [setup]" \
+        abcli_show_usage "abcli notebook connect 1-2-3-4 [setup]" \
             "[setup and] connect to jupyter notebook on ec2:1-2-3-4."
-        abcli_help_line "abcli notebook host [setup]" \
+        abcli_show_usage "abcli notebook host [setup]" \
             "[setup and] host jupyter notebook on ec2."
-        abcli_help_line "abcli notebook [open] [<notebook>] [<args>]" \
+        abcli_show_usage "abcli notebook [open] [<notebook>] [<args>]" \
             "open $abcli_object_name/notebook.ipynb [and pass args]."
         return
     fi

@@ -4,11 +4,11 @@ function abcli_session() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli session get" \
+        abcli_show_usage "abcli session get" \
             "get session plugin name."
-        abcli_help_line "abcli session set <plugin-name>" \
+        abcli_show_usage "abcli session set <plugin-name>" \
             "set <plugin_name> as the session."
-        abcli_help_line "abcli session start [~pull] [<args>]" \
+        abcli_show_usage "abcli session start [~pull] [<args>]" \
             "[do't pull repos and] start the session [w/ <args>]."
         return
     fi

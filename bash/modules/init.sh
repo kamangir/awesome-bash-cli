@@ -4,7 +4,7 @@ function abcli_init() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli init [<plugin>] [~terraform]" \
+        abcli_show_usage "abcli init [<plugin>] [~terraform]" \
             "init [plugin] [and do not terraform]."
         return
     fi

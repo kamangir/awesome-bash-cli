@@ -4,20 +4,20 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli git cd <repo_name>" \
+        abcli_show_usage "abcli git cd <repo_name>" \
             "cd $abcli_path_git/<repo_name>."
-        abcli_help_line "abcli git clone <repo_name> [cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
+        abcli_show_usage "abcli git clone <repo_name> [cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
             "clone [and install] [if_cloned] [a private fork of <username/repo_name> as] [$abcli_object_name/]<repo_name> [and pull if already exists]."
 
         abcli_git_pull $@
 
-        abcli_help_line "abcli git <repo_name> <command-args>" \
+        abcli_show_usage "abcli git <repo_name> <command-args>" \
             "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_help_line "abcli git push <repo_name> [object,status,delete]" \
+        abcli_show_usage "abcli git push <repo_name> [object,status,delete]" \
             "[show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
-        abcli_help_line "abcli git recreate_ssh" \
+        abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
-        abcli_help_line "abcli git status" \
+        abcli_show_usage "abcli git status" \
             "git status."
         return
     fi
@@ -201,7 +201,7 @@ function abcli_git_pull() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli git pull [~all,init]" \
+        abcli_show_usage "abcli git pull [~all,init]" \
             "pull [not all repos] [and init if version change]."
         return
     fi

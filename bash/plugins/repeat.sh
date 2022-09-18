@@ -4,7 +4,7 @@ function abcli_repeat() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_help_line "abcli repeat <count> <command-line>" \
+        abcli_show_usage "abcli repeat <count> <command-line>" \
             "repeat <command-line> <count> times."
         return
     fi
