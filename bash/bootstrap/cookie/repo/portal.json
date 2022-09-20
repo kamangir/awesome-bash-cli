@@ -1,0 +1,6 @@
+{
+    "plugins": "blue-sbc,RAW-Vancouver-PORTAL-2022",
+    "session": "blue_sbc",
+    "camera.rotation": 180,
+    "session.object.tags": "rv22"
+}
