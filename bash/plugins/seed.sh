@@ -120,7 +120,7 @@ function abcli_seed() {
 
     seed="${seed}"'ssh -T git@github.com'"$delim_section"
 
-    if [ "$target" == "headless_rpi" ] ; then
+    if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
         # https://serverfault.com/a/1093530
         # https://packages.ubuntu.com/bionic/all/ca-certificates/download
         certificate_name="ca-certificates_20211016~18.04.1_all"
