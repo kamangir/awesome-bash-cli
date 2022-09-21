@@ -114,10 +114,8 @@ function abcli_seed() {
     seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
     seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
 
-    if [ "$target" == "headless_rpi" ] ; then
+    if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ] ; then
         seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
-    else
-        seed="${seed}ssh-keyscan github.com >> ~/.ssh/known_hosts$delim_section"
     fi
 
     seed="${seed}"'ssh -T git@github.com'"$delim_section"
