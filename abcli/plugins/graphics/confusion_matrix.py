@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 from abcli import file
 from abcli import string
@@ -11,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def render_confusion_matrix(cm, class_names, filename, footer=[], header=[], size=8):
+    import matplotlib.pyplot as plt
     import seaborn as sns
 
     class_names_short = string.shorten(class_names)

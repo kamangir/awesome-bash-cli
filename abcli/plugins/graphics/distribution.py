@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 from abcli import file
 from abcli import string
@@ -12,6 +11,8 @@ logger = logging.getLogger(__name__)
 def render_distribution(
     distribution, class_names, filename, footer=[], header=[], size=8, title=""
 ):
+    import matplotlib.pyplot as plt
+
     class_names_short = string.shorten(class_names)
 
     logger.info(
