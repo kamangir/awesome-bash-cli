@@ -1,7 +1,7 @@
 import argparse
 from . import *
 
-list_of_tasks = "pack,unpack"
+list_of_tasks = "pack|unpack"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -22,7 +22,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-success = args.task in list_of_tasks.split(",")
+success = args.task in list_of_tasks.split("|")
 if args.task == "pack":
     print(
         (lambda output: args.default if output in ",-".split(",") else output)(

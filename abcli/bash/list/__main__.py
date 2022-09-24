@@ -2,7 +2,7 @@ import argparse
 from . import *
 
 
-list_of_tasks = "in,intersect,len,nonempty,resize,sort"
+list_of_tasks = "in|intersect|len|nonempty|resize|sort"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -38,7 +38,7 @@ parser.add_argument(
 parser.add_argument(
     "--unique",
     type=int,
-    help="0/1",
+    help="0|1",
     default=0,
 )
 args = parser.parse_args()
@@ -51,7 +51,7 @@ list_of_items = (
     else None
 )
 
-success = args.task in list_of_tasks.split(",")
+success = args.task in list_of_tasks.split("|")
 if args.task == "in":
     print("True" if args.item in list_of_items else "False")
 elif args.task == "intersect":

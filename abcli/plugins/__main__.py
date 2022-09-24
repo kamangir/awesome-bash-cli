@@ -22,13 +22,13 @@ parser.add_argument(
     "--log",
     default=1,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 parser.add_argument(
     "--repo_names",
     default=0,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 args = parser.parse_args()
 

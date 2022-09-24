@@ -37,7 +37,7 @@ parser.add_argument(
     "--host",
     default=-1,
     type=int,
-    help="0/1/-1",
+    help="0|1|-1",
 )
 parser.add_argument(
     "--item_name",
@@ -48,7 +48,7 @@ parser.add_argument(
     "--log",
     default=1,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 parser.add_argument(
     "--object",
@@ -64,7 +64,7 @@ parser.add_argument(
     "--shuffle",
     default=0,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 parser.add_argument(
     "--tag",

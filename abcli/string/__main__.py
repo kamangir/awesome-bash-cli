@@ -1,7 +1,7 @@
 import argparse
 from . import *
 
-list_of_tasks = "after,before,pretty_date,random"
+list_of_tasks = "after|before|pretty_date|random"
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -13,7 +13,7 @@ parser.add_argument(
 parser.add_argument(
     "--include_time",
     type=int,
-    help="0/1",
+    help="0|1",
     default=1,
 )
 parser.add_argument(
@@ -32,12 +32,12 @@ parser.add_argument(
 parser.add_argument(
     "--unique",
     type=int,
-    help="0/1",
+    help="0|1",
     default=0,
 )
 args = parser.parse_args()
 
-success = args.task in list_of_tasks.split(",")
+success = args.task in list_of_tasks.split("|")
 if args.task == "after":
     print(after(args.string, args.substring))
 elif args.task == "before":

@@ -10,7 +10,7 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="clone,create,get,list,search,set",
+    help="clone|create|get|list|search|set",
 )
 parser.add_argument(
     "--count",
@@ -35,7 +35,7 @@ parser.add_argument(
     "--log",
     default=1,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 parser.add_argument(
     "--object_1",
