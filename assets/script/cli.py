@@ -25,19 +25,17 @@ if __name__ == "__main__":
         "--int_arg",
         type=int,
         default=-1,
-        help="",
     )
     parser.add_argument(
         "--bool_arg",
         default=0,
         type=int,
-        help="0/1",
+        help="0|1",
     )
     parser.add_argument(
         "--str_arg",
         type=str,
         default="",
-        help="",
     )
     args = parser.parse_args()
 

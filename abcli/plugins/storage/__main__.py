@@ -6,7 +6,7 @@ parser.add_argument(
     "task",
     type=str,
     default="",
-    help="create_bucket,download_file,exists,list_of_objects,upload_file",
+    help="create_bucket|download_file|exists|list_of_objects|upload_file",
 )
 parser.add_argument(
     "--filename",
@@ -27,7 +27,6 @@ parser.add_argument(
     "--delim",
     type=str,
     default=", ",
-    help="",
 )
 parser.add_argument(
     "--item_name",
@@ -38,31 +37,28 @@ parser.add_argument(
     "--log",
     default=1,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 parser.add_argument(
     "--object_name",
     type=str,
     default="",
-    help="",
 )
 parser.add_argument(
     "--postfix",
     type=str,
     default="",
-    help="",
 )
 parser.add_argument(
     "--prefix",
     type=str,
     default="",
-    help="",
 )
 parser.add_argument(
     "--recursive",
     type=int,
     default=1,
-    help="0/1",
+    help="0|1",
 )
 
 args = parser.parse_args()
