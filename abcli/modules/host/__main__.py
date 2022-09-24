@@ -11,7 +11,7 @@ parser.add_argument(
     "task",
     type=str,
     default="get",
-    help="get,sign",
+    help="get|add_signature",
 )
 parser.add_argument(
     "--delim",
@@ -32,7 +32,7 @@ parser.add_argument(
     "--log",
     default=1,
     type=int,
-    help="0/1",
+    help="0|1",
 )
 parser.add_argument(
     "--name",
@@ -62,7 +62,7 @@ if args.task == "get":
     else:
         logger.error(f"-{NAME}: get: {args.keyword}: unknown keyword.")
         print("unknown")
-elif args.task == "sign":
+elif args.task == "add_signature":
     success, image = file.load_image(args.filename)
     if success:
         from abcli.plugins.graphics import add_signature
@@ -78,7 +78,7 @@ elif args.task == "sign":
         )
 
     if success:
-        logger.info("host.sign({})".format(args.filename))
+        logger.info("{NAME}.add_signature({})".format(args.filename))
 else:
     logger.error(f"-{NAME}: {args.task}: command not found.")
 
