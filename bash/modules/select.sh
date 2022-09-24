@@ -6,6 +6,14 @@ function abcli_select() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli select [<object_name>] [~trail]" \
             "select [object_name] [no trail]."
+        abcli_show_usage "abcli git select git_issue <kamangir/bolt#abc>" \
+            "select git issue <kamangir/bolt#abc>."
+        return
+    fi
+
+    if [ "$task" == "git_issue" ] ; then
+        export abcli_git_issue=$2
+        abcli_log "#️⃣ git-issue: $abcli_git_issue"
         return
     fi
 
@@ -26,5 +34,5 @@ function abcli_select() {
         abcli_trail $abcli_object_path/$abcli_object_name
     fi
 
-    abcli_log "$abcli_object_name selected."
+    abcli_log "#️⃣ object: $abcli_object_name"
 }

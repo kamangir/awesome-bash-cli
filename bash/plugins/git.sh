@@ -13,7 +13,7 @@ function abcli_git() {
 
         abcli_show_usage "abcli git <repo_name> <command-args>" \
             "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git push <repo_name> [object,status,delete]" \
+        abcli_show_usage "abcli git push <repo_name> [object,status,delete] [<message>]" \
             "[show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
@@ -133,8 +133,13 @@ function abcli_git() {
             git status
         fi
 
+        local message="${@:4}"
+        if [ ! -z "$abcli_git_issue" ] ; then
+            local message="$message - $abcli_git_issue"
+        fi
+
         git add .
-        git commit -a -m "$abcli_fullname-git"
+        git commit -a -m "$message"
         git push
 
         if [ "$do_delete" == 1 ] ; then
