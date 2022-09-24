@@ -13,8 +13,8 @@ function abcli_git() {
 
         abcli_show_usage "abcli git <repo_name> <command-args>" \
             "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git push <repo_name> [object,status,delete] [<message>]" \
-            "[show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
+        abcli_show_usage "abcli git push <repo_name> [delete,object,~status] [<message>]" \
+            "[do not show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
         abcli_show_usage "abcli git status" \
@@ -121,7 +121,7 @@ function abcli_git() {
         local options=$3
         local in_object=$(abcli_option_int "$options" object 0)
         local do_delete=$(abcli_option_int "$options" delete 0)
-        local show_status=$(abcli_option_int "$options" status 0)
+        local show_status=$(abcli_option_int "$options" status 1)
 
         if [ "$in_object" == 1 ] ; then
             pushd $abcli_object_path/$repo_name > /dev/null
