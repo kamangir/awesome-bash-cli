@@ -15,6 +15,7 @@ KEYWORDS = {
     "bsbc": "blue_sbc",
     "bld": "build",
     "br": "browser",
+    "bs": "blue-stability",
     "bw": "blue-wiki",
     "bwiki": "blue-wiki",
     "ce": "create_env",
