@@ -8,6 +8,64 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+def add_label(
+    image,
+    x,
+    y,
+    label,
+    background=0,
+    font_color=3 * (127,),
+    font_face=cv2.FONT_HERSHEY_SIMPLEX,
+    font_scale=0.5,
+    line_type=cv2.LINE_AA,
+    thickness=1,
+):
+    """add label to image.
+
+    Args:
+        image (np.ndarray): image.
+        x (int): x.
+        y (int): y,
+        label (str): label
+        background (int, optional): background color. Defaults to 0.
+        font_color (tuple, optional): font color. Defaults to 3*(127,).
+        font_face (int, optional): font face. Defaults to cv2.FONT_HERSHEY_SIMPLEX.
+        font_scale (float, optional): font scale. Defaults to 0.5.
+        line_type (int, optional): line type. Defaults to cv2.LINE_AA.
+        thickness (int, optional): _description_. Defaults to 1.
+
+    Returns:
+        np.ndarray: image.
+    """
+
+    text_size = cv2.getTextSize(
+        text=label,
+        fontFace=font_face,
+        fontScale=font_scale,
+        thickness=thickness,
+    )
+    text_height = text_size[0][1] + text_size[1] + 2
+    text_width = text_size[0][0]
+
+    try:
+        image[y - text_height : y, x : x + text_width] = background
+    except:
+        pass
+
+    cv2.putText(
+        image,
+        text=label,
+        org=[x - 1, y - text_size[1]],
+        fontFace=font_face,
+        fontScale=font_scale,
+        lineType=line_type,
+        color=font_color,
+        thickness=thickness,
+    )
+
+    return image
+
+
 def render_text(
     text,
     box=False,
