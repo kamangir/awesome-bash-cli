@@ -40,7 +40,10 @@ function abcli_add() {
         fi
 
         if [ "$clone_tags" == 1 ] ; then
-            abcli_tag set $abcli_object_name_current "$(abcli_tag get $object_name),add"
+            local tags=$(abcli_tag get $object_name --delim , --log 0)
+            abcli_tag set \
+                $abcli_object_name_current \
+                $tags,add
         fi
     done
 
