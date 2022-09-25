@@ -4,6 +4,7 @@ KEYWORDS = {
     "--help": "help",
     "H": "hat",
     "I": "install",
+    "K": "Kanata",
     "P": "plugins",
     "T": "terraform",
     "V": "verbose",
