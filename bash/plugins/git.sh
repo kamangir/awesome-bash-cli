@@ -79,12 +79,37 @@ function abcli_git() {
         fi
 
         if [ "$do_init" == 1 ] ; then
-            if [ "$from_template" == 1 ] ; then
-                abcli_log "abcli: git: init: $repo_name"
+            abcli_log "abcli: git: init: $repo_name"
 
-                local module_name=$(echo $repo_name | tr - _)
+            local module_name=$(echo $repo_name | tr - _)
 
-                cd $abcli_path_git/$repo_name
+            if [ "$from_template" == 0 ] ; then
+                cp -Rv \
+                    $abcli_path_git/blue-plugin/.abcli \
+                    $abcli_path_git/$repo_name
+                cp -Rv \
+                    $abcli_path_git/blue-plugin/blue_plugin \
+                    $abcli_path_git/$repo_name
+                cp -v \
+                    $abcli_path_git/blue-plugin/* \
+                    $abcli_path_git/$repo_name
+                cp -v \
+                    $abcli_path_git/blue-plugin/.gitignore \
+                    $abcli_path_git/$repo_name
+
+                pushd $abcli_path_git/$repo_name > /dev/null
+                mv -v \
+                    .abcli/blue_plugin.sh \
+                    .abcli/$module_name.sh
+                mv -v \
+                    .abcli/install/blue_plugin.sh \
+                    .abcli/install/$module_name.sh
+                mv -v \
+                    blue_plugin \
+                    $module_name
+                popd > /dev/null
+            else
+                pushd $abcli_path_git/$repo_name > /dev/null
                 git mv \
                     .abcli/blue_plugin.sh \
                     .abcli/$module_name.sh
@@ -94,9 +119,7 @@ function abcli_git() {
                 git mv \
                     blue_plugin \
                     $module_name
-            else
-                abcli_log "abcli: git: init: $repo_name (not from template)"
-                abcli_log "wip"
+                popd > /dev/null
             fi
         fi
 
