@@ -5,14 +5,14 @@ function abcli_script() {
 
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli script [code] [<script-name>]" \
-            "code $abcli_object_name/<script-name>.sh."
+            "code                             [<script-name>.sh]."
         
         abcli_script_python $@
 
         abcli_show_usage "abcli script source [<script-name>]" \
-            "source $abcli_object_name/<script-name>.sh"
-        abcli_show_usage "abcli script submit [<tags>]" \
-            "submit $abcli_object_name/script.sh to worker [w/ <tags>]"
+            "source                           [<script-name>.sh]"
+        abcli_show_usage "abcli script submit [<object-name>]            [<tags>]" \
+            "submit                            <object-name> as a job [w/ <tags>]"
         return
     fi
 
@@ -20,11 +20,13 @@ function abcli_script() {
         abcli_script_$task ${@:2}
     fi
 
-    abcli_tag set $abcli_object_name script,bash
-
-    local script_name=$(abcli_clarify_input $2 script)
-
     if [ "$task" == "code" ] ; then
+        abcli_tag set \
+            $abcli_object_name \
+            script,bash
+
+        local script_name=$(abcli_clarify_input $2 script)
+
         if [ ! -f $script_name.sh ]; then
             cp -v $abcli_path_abcli/assets/script/script.sh ./$script_name.sh
         fi
@@ -39,13 +41,17 @@ function abcli_script() {
     fi
 
     if [ "$task" == "source" ] ; then
+        local script_name=$(abcli_clarify_input $2 script)
+
         chmod +x $script_name.sh
         source $script_name.sh
         return
     fi
 
     if [ "$task" == "submit" ] ; then
-        abcli_tag set $abcli_object_name work,~completed,$2
+        abcli_tag set \
+            "$2" \
+            job,~completed,$3
         return
     fi
 
@@ -57,13 +63,15 @@ function abcli_script_python() {
 
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli script python [code] [cli|script]" \
-            "code $abcli_object_name/[cli|script].py"
-        abcli_show_usage "abcli script python run [<script-name>]" \
-            "run $abcli_object_name/<script-name>.py."
+            "code                                    [cli|script].py"
+        abcli_show_usage "abcli script python run [<script-name>]   [<args>]" \
+            "run                                   <script-name>.py [w/ <args>]."
         return
     fi
 
-    abcli_tag set $abcli_object_name script,python
+    abcli_tag set \
+        $abcli_object_name \
+        script,python
 
     local script_name=$(abcli_clarify_input $2 script)
 
@@ -82,7 +90,7 @@ function abcli_script_python() {
     fi
 
     if [ "$task" == "run" ] ; then
-        python3 $script_name.py ${@:4}
+        python3 $script_name.py ${@:3}
         return
     fi
 
