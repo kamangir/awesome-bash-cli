@@ -95,6 +95,11 @@ function abcli_session() {
                 abcli_log "abcli.reply_to_bash(update)"
             fi
 
+            if [ -f "$abcli_path_bash/bootstrap/cookie/disabled" ] ; then
+                printf "abcli is \033[0;31mdisabled\033[0m.\n"
+                return
+            fi
+
             abcli_sleep 5s
         done
 
