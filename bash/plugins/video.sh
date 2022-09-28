@@ -37,7 +37,7 @@ function abcli_create_video() {
         if [ -z "$size" ] ; then
             local size=$(python3 -c "import abcli.file as file; shape=file.load_image('$filename')[1].shape; print('{}x{}'.format(2*int(shape[1]/2/$scale),2*int(shape[0]/2/$scale)))")
         fi
-        cp -v $filename $abcli_object_path/temp_video/$index.$extension
+        cp -v "$filename" $abcli_object_path/temp_video/$index.$extension
         (( index++ ))
     done
 
