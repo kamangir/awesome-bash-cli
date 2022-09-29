@@ -12,4 +12,6 @@ function abcli_initialize() {
     abcli_set_prompt
 
     abcli_update_terminal_title
+
+    abcli_log "🔆 username=$USER, hostname=$(hostname), EUID=$EUID"
 }
