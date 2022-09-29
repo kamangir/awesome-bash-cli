@@ -3,7 +3,12 @@
 function abcli_add_ssh_keys() {
     if [ -z "$abcli_ssh_keys_added" ] || [ "$1" == "force" ] ; then
         eval "$(ssh-agent -s)"
+
         ssh-add -k $abcli_path_home/.ssh/$abcli_git_ssh_key_name
+
+        if [ -f "$abcli_path_home/.ssh/abcli" ] ; then
+            ssh-add -k $abcli_path_home/.ssh/abcli
+        fi
 
         export abcli_ssh_keys_added="true"
     fi
@@ -13,6 +18,8 @@ function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
+        abcli_show_usage "abcli ssh copy_id <filename> jetson_nano|rpi <machine-name>" \
+            "ssh copy-id ~/.ssh/<filename> to <machine-name>."
         abcli_show_usage "abcli ssh ec2 <1-2-3-4> [region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
             "ssh to <1-2-3-4> [on <region_1>] [as user] [and start vnc]."
         abcli_show_usage "abcli ssh jetson_nano|rpi <machine-name>" \
@@ -22,9 +29,19 @@ function abcli_ssh() {
         return
     fi
 
+    # https://www.raspberrypi.com/tutorials/cluster-raspberry-pi-tutorial/
+    if [ "$task" == "copy_id" ] ; then
+        local filename=$(abcli_clarify_input $2 abcli)
+        local args=$(abcli_ssh_args ${@:3})
+
+        ssh-copy-id -i $abcli_path_home/.ssh/$filename.pub $args
+        return
+    fi
+
+    # https://www.raspberrypi.com/tutorials/cluster-raspberry-pi-tutorial/
     if [ "$task" == "keygen" ] ; then
         local filename=$(abcli_clarify_input $2 abcli)
-        ssh-keygen -t rsa -b 4096 -f ~/.ssh/$filename
+        ssh-keygen -t rsa -b 4096 -f $abcli_path_home/.ssh/$filename
         return
     fi
 
