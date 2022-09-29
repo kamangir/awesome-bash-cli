@@ -17,6 +17,14 @@ function abcli_ssh() {
             "ssh to <1-2-3-4> [on <region_1>] [as user] [and start vnc]."
         abcli_show_usage "abcli ssh jetson_nano|rpi <machine-name>" \
             "ssh to jetson nano|rpi <machine-name>."
+        abcli_show_usage "abcli ssh keygen [<filename>]" \
+            "keygen -t rsa -b 4096 -f ~/.ssh/<filename>"
+        return
+    fi
+
+    if [ "$task" == "keygen" ] ; then
+        local filename=$(abcli_clarify_input $2 abcli)
+        ssh-keygen -t rsa -b 4096 -f ~/.ssh/$filename
         return
     fi
 

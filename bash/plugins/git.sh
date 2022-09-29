@@ -17,6 +17,8 @@ function abcli_git() {
             "[do not show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
+        abcli_show_usage "abcli git select_issue <kamangir/bolt#abc>" \
+            "select git issue <kamangir/bolt#abc>."
         abcli_show_usage "abcli git status" \
             "git status."
         return
@@ -180,6 +182,11 @@ function abcli_git() {
         # https://www.cyberciti.biz/faq/sudo-append-data-text-to-file-on-linux-unix-macos/
         ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts
         sudo ssh -T git@github.com
+        return
+    fi
+
+    if [ "$task" == "select_issue" ] ; then
+        abcli_select git_issue ${@:2}
         return
     fi
 

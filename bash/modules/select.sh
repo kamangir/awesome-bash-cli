@@ -6,7 +6,7 @@ function abcli_select() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli select [<object_name>] [~trail]" \
             "select [object_name] [no trail]."
-        abcli_show_usage "abcli git select git_issue <kamangir/bolt#abc>" \
+        abcli_show_usage "abcli select git_issue <kamangir/bolt#abc>" \
             "select git issue <kamangir/bolt#abc>."
         return
     fi
