@@ -40,7 +40,7 @@ function abcli_session() {
                 abcli_git_pull init
             fi
 
-            abcli_log "session initialized: username=$USER, hostname=$(hostname), EUID=$EUID, python=$(which python)"
+            abcli_log "session initialized: username=$USER, hostname=$(hostname), EUID=$EUID, python3=$(which python3)"
 
             rm $abcli_path_cookie/session_reply_*
 
