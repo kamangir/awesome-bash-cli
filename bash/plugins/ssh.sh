@@ -18,6 +18,8 @@ function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
+        abcli_show_usage "abcli ssh add <filename>" \
+            "ssh-add -k ~/.ssh/<filename>."
         abcli_show_usage "abcli ssh copy_id <filename> jetson_nano|rpi <machine-name>" \
             "ssh copy-id ~/.ssh/<filename> to <machine-name>."
         abcli_show_usage "abcli ssh ec2 <1-2-3-4> [region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
