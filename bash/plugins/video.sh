@@ -4,7 +4,8 @@ function abcli_create_video() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "create_video [<.jpg>] [<filename>] [fps=<10>,~rm_frames,scale=<1>]" \
+        # https://esahubble.org/press/video_formats/
+        abcli_show_usage "abcli create_video [<.jpg>] [<filename>] [fps=<10>,~rm_frames,resize_to=<720x576>,scale=<1>]" \
             "$abcli_object_name/<.jpg> [-> <filename>.mp4]."
         return
     fi
@@ -20,6 +21,7 @@ function abcli_create_video() {
     local options="$3"
     local fps=$(abcli_option "$options" fps 10)
     local rm_frames=$(abcli_option_int "$options" rm_frames 1)
+    local resize_to=$(abcli_option "$options" resize_to)
     local scale=$(abcli_option "$options" scale 1)
 
     local extension=$(basename -- "$suffix")
@@ -34,10 +36,21 @@ function abcli_create_video() {
     local index=0
     local size=""
     for filename in *$suffix ; do
-        if [ -z "$size" ] ; then
-            local size=$(python3 -c "import abcli.file as file; shape=file.load_image('$filename')[1].shape; print('{}x{}'.format(2*int(shape[1]/2/$scale),2*int(shape[0]/2/$scale)))")
+        local temp_filename=$abcli_object_path/temp_video/$index.$extension
+
+        cp -v "$filename" $temp_filename
+
+        if [ ! -z "$resize_to" ] ; then
+            python3 -m abcli.plugins.video \
+                resize \
+                --filename $temp_filename \
+                --size $resize_to  
         fi
-        cp -v "$filename" $abcli_object_path/temp_video/$index.$extension
+
+        if [ -z "$size" ] ; then
+            local size=$(python3 -m abcli.plugins.video size_of --filename $temp_filename --scale $scale)
+        fi
+
         (( index++ ))
     done
 
