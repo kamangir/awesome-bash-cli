@@ -19,9 +19,21 @@ parser.add_argument(
     default=", ",
 )
 parser.add_argument(
+    "--header",
+    type=str,
+    default="",
+    help="this|that",
+)
+parser.add_argument(
     "--filename",
     type=str,
     default="",
+)
+parser.add_argument(
+    "--footer",
+    type=str,
+    default="",
+    help="this|that",
 )
 parser.add_argument(
     "--item_name",
@@ -72,8 +84,8 @@ elif args.task == "add_signature":
             args.filename,
             add_signature(
                 image,
-                [" | ".join(header())],
-                [" | ".join(signature())],
+                [" | ".join(header() + args.header.split("|"))],
+                [" | ".join(signature() + args.footer.split("|"))],
             ),
         )
 
