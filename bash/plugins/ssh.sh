@@ -31,6 +31,13 @@ function abcli_ssh() {
         return
     fi
 
+    if [ "$task" == "copy_id" ] ; then
+        local filename=$(abcli_clarify_input $2 abcli)
+
+        ssh-add -k $abcli_path_home/.ssh/$filename
+        return
+    fi
+
     # https://www.raspberrypi.com/tutorials/cluster-raspberry-pi-tutorial/
     if [ "$task" == "copy_id" ] ; then
         local filename=$(abcli_clarify_input $2 abcli)
