@@ -64,9 +64,8 @@ function abcli_create_video() {
         -vcodec h264 \
         $video_filename
 
-    cp -v $abcli_object_path/temp_video/0.$extension $abcli_object_path/screenshot.$extension
-
-    if [ "$rm_frames" == "1" ] ; then
+    if [ "$rm_frames" == 1 ] ; then
+        cp -v $abcli_object_path/temp_video/0.$extension $abcli_object_path/screenshot.$extension
         rm $abcli_object_path/*$suffix
     fi
 
