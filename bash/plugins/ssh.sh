@@ -31,7 +31,7 @@ function abcli_ssh() {
         return
     fi
 
-    if [ "$task" == "copy_id" ] ; then
+    if [ "$task" == "add" ] ; then
         local filename=$(abcli_clarify_input $2 abcli)
 
         ssh-add -k $abcli_path_home/.ssh/$filename
