@@ -91,7 +91,7 @@ elif args.task == "add_signature":
 
     if success:
         logger.info(
-            f"{NAME}.add_signature({args.filename},{args.args.header},{args.footer})"
+            f"{NAME}.add_signature({args.filename},{args.header},{args.footer})"
         )
 else:
     logger.error(f"-{NAME}: {args.task}: command not found.")
