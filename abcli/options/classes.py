@@ -1,4 +1,5 @@
 import copy
+from . import NAME
 
 
 class Options(dict):
@@ -40,6 +41,9 @@ class Options(dict):
 
             if isinstance(args[0], str):
                 for input in args[0].split(","):
+                    if input in "-+" or not input:
+                        continue
+
                     if input.startswith("+"):
                         self[input[1:]] = True
                     elif (
@@ -53,8 +57,7 @@ class Options(dict):
                         option_value = "=".join(input.split("=")[1:])
                         self[option_name] = option_value
                     else:
-                        if input:
-                            self[input] = True
+                        self[input] = True
             else:
                 raise NameError(f"-{NAME}: cannot read {args[0].__class__.__name__}.")
         else:
