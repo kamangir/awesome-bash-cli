@@ -52,7 +52,6 @@ KEYWORDS = {
     "up": "upload",
     "upd": "update",
     "val": "validate",
-    "video": "create_video",
     "yolo": "yolov5",
     "yt": "youtube",
 }
