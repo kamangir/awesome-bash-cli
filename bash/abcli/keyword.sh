@@ -17,9 +17,16 @@ function abcli_pack_keyword() {
 }
 
 function abcli_unpack_keyword() {
+    local keyword=$1
+
+    if [[ "$keyword" == "-"* ]] ; then
+        echo $keyword
+        return
+    fi
+
     python3 -m abcli.keywords \
         unpack \
-        --keyword "$1" \
+        --keyword "$keyword" \
         --default "$2" \
         ${@:3}
 }
