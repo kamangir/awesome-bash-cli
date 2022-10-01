@@ -84,8 +84,8 @@ elif args.task == "add_signature":
             args.filename,
             add_signature(
                 image,
-                [" | ".join(header() + args.header.split("|"))],
-                [" | ".join(signature() + args.footer.split("|"))],
+                [" | ".join(header() + ([args.header] if args.header else []))],
+                [" | ".join(signature() + ([args.footer] if args.footer else []))],
             ),
         )
 
