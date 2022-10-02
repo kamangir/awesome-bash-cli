@@ -4,7 +4,7 @@ function abcli_select() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli select [<object_name>] [~trail]" \
+        abcli_show_usage "abcli select [<object_name>] [open,~trail]" \
             "select [object_name] [no trail]."
         abcli_show_usage "abcli select git_issue <kamangir/bolt#abc>" \
             "select git issue <kamangir/bolt#abc>."
@@ -21,6 +21,7 @@ function abcli_select() {
 
     local options=$2
     local update_trail=$(abcli_option_int "$options" trail 1)
+    local do_open=$(abcli_option_int "$options" open 0)
 
     export abcli_object_name_prev=$abcli_object_name
     export abcli_object_name=$object_name
@@ -34,5 +35,9 @@ function abcli_select() {
         abcli_trail $abcli_object_path/$abcli_object_name
     fi
 
-    abcli_log "#️⃣ object: $abcli_object_name"
+    abcli_log "#️⃣  object: $abcli_object_name"
+
+    if [ "$do_open" == 1 ] ; then
+        open $abcli_object_path
+    fi
 }
