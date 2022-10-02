@@ -134,7 +134,7 @@ class Options(dict):
             [
                 f"+{keyword}"
                 if value == True
-                else f"-{keyword}"
+                else f"~{keyword}"
                 if value == False
                 else f"{keyword}={value}"
                 for keyword, value in self.items()
