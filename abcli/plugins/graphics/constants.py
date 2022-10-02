@@ -43,12 +43,3 @@ if screen_height is None or screen_width is None:
     used_default = True
     screen_height = 480
     screen_width = 640
-
-logger.info(
-    "{}: shape: {}x{}{}".format(
-        NAME,
-        screen_height,
-        screen_width,
-        " (default)" if used_default else "",
-    )
-)
