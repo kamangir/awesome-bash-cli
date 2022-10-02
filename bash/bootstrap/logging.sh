@@ -8,6 +8,8 @@ export NC='\033[0m'
 export RED='\033[0;31m'
 export YELLOW='\033[0;33m'
 
+export ABCUL=" \\\\\n\t"
+
 function abcli_show_usage() {
     local what=$1
 
