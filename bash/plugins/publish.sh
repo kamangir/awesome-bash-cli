@@ -50,7 +50,7 @@ function abcli_publish() {
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
         abcli_log "🔗 $url"
 
-        abcli_select $abcli_object_name_current
+        abcli_select $abcli_object_name_current ~trail
     elif [ "$filename" == "open" ] ; then
         abcli_log "publishing files in $object_name..."
 
@@ -71,7 +71,7 @@ function abcli_publish() {
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
         abcli_log "🔗 $url"
 
-        abcli_select $abcli_object_name_current
+        abcli_select $abcli_object_name_current ~trail
     else
         local filename_name=${filename%%.*}
         if [ ! -z "$filename_name" ] ; then
