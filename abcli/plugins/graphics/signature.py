@@ -89,7 +89,7 @@ def add_signature(image, header, footer=[]):
     Returns:
         bool: success
     """
-    if not image.shape:
+    if image is None or not image.shape:
         return image
 
     return np.concatenate(
