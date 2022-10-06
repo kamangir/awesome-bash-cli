@@ -14,6 +14,11 @@ parser.add_argument(
     help="get|add_signature",
 )
 parser.add_argument(
+    "--application",
+    type=str,
+    default="",
+)
+parser.add_argument(
     "--delim",
     type=str,
     default=", ",
@@ -84,7 +89,13 @@ elif args.task == "add_signature":
             args.filename,
             add_signature(
                 image,
-                ([args.header] if args.header else []) + [" | ".join(header())],
+                ([args.header] if args.header else [])
+                + [
+                    " | ".join(
+                        (lambda thing: [thing] if thing else [])(args.application)
+                        + header()
+                    )
+                ],
                 ([args.footer] if args.footer else []) + [" | ".join(signature())],
             ),
         )
