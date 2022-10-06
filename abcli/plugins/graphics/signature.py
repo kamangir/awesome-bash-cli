@@ -92,10 +92,14 @@ def add_signature(image, header, footer=[]):
     if image is None or not image.shape:
         return image
 
+    adjust_length = (
+        lambda line: line if len(line) >= 40 else line + (40 - len(line)) * " "
+    )
+
     return np.concatenate(
         [
             render_text(
-                text=line,
+                text=adjust_length(line),
                 image_width=image.shape[1],
                 color_depth=image.shape[2],
             )
@@ -104,7 +108,7 @@ def add_signature(image, header, footer=[]):
         + [image]
         + [
             render_text(
-                text=line,
+                text=adjust_length(line),
                 image_width=image.shape[1],
                 color_depth=image.shape[2],
             )
