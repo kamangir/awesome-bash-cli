@@ -60,7 +60,7 @@ function abcli_tag() {
             export ABCLI_TAG_DISABLE=false
             return
         elif [ "$ABCLI_TAG_DISABLE" == true ] ; then
-            abcli_log "ignored 'abcli tag set ${@:2}'."
+            abcli_log_warning "ignored 'abcli tag set ${@:2}'."
             return
         fi
 
