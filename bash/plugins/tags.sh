@@ -13,12 +13,12 @@ function abcli_tag() {
             "clone object_1 tags -> object_2."
         abcli_show_usage "abcli tag get <object_name>" \
             "get object_name tags."
-        abcli_show_usage "abcli tag disable|enable" \
-            "disable|enable 'abcli tag set'."
         abcli_show_usage "abcli tag search <tag>" \
             "search for all objects that are tagged tag."
         abcli_show_usage "abcli tag set <object_1,object_2> <tag_1,~tag_2> [validate]" \
             "add tag_1 and remove tag_2 from object_1 and object_2 [and validate]."
+        abcli_show_usage "abcli tag set disable|enable" \
+            "disable|enable 'abcli tag set'."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.tags --help
@@ -32,16 +32,6 @@ function abcli_tag() {
             --object $object \
             --object_2 $(abcli_clarify_object $3 .) \
             ${@:4}
-        return
-    fi
-
-    if [ "$task" == "disable" ] ; then
-        export ABCLI_TAG_DISABLE=true
-        return
-    fi
-
-    if [ "$task" == "enable" ] ; then
-        export ABCLI_TAG_DISABLE=false
         return
     fi
 
@@ -63,7 +53,13 @@ function abcli_tag() {
     fi
 
     if [ "$task" == "set" ] ; then
-        if [ "$ABCLI_TAG_DISABLE" == true ] ; then
+        if [ "$object" == "disable" ] ; then
+            export ABCLI_TAG_DISABLE=true
+            return
+        elif [ "$object" == "enable" ] ; then
+            export ABCLI_TAG_DISABLE=false
+            return
+        elif [ "$ABCLI_TAG_DISABLE" == true ] ; then
             abcli_log "ignored 'abcli tag set ${@:2}'."
             return
         fi
