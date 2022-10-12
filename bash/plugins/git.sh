@@ -19,6 +19,8 @@ function abcli_git() {
             "recreate github ssh key."
         abcli_show_usage "abcli git select_issue <kamangir/bolt#abc>" \
             "select git issue <kamangir/bolt#abc>."
+        abcli_show_usage "abcli git sync_fork <repo-name> <branch-name>" \
+            "sync <repo-name> <branch-name> w/ upstream."
         abcli_show_usage "abcli git status" \
             "git status."
         return
@@ -201,6 +203,18 @@ function abcli_git() {
             cd ..
         done
         popd > /dev/null
+        return
+    fi
+
+    if [ "$task" == "sync_fork" ] ; then
+        local repo_name=$2
+        local branch_name=$3
+
+        # https://stackoverflow.com/a/7244456/17619982
+        cd $abcli_path_git/$repo_name
+        git fetch upstream
+        git checkout $branch_name
+        git rebase upstream/$branch_name
         return
     fi
 
