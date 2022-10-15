@@ -4,11 +4,11 @@ function abcli_message() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli message listen_as <recipient>  [--sender <sender_1,sender_2>] [<args>]" \
+        abcli_show_usage "abcli message listen_as$ABCUL<recipient>$ABCUL[--sender <sender_1,sender_2>]$ABCUL[<args>]" \
             "listen as <recipient> to [<100>] messages [from <sender_1,sender_2>]."
-        abcli_show_usage "abcli message submit [--data <data>] [--filename <filename>] [--recipient <host_1,host_2>] [--subject <subject>]" \
+        abcli_show_usage "abcli message submit$ABCUL[--data <data>]$ABCUL[--filename <filename>]$ABCUL[--recipient <host_1,host_2>]$ABCUL[--subject <subject>]" \
             "submit message [w/ subject] [+data] [+filename] [to host_1, host_2]."
-        abcli_show_usage "abcli message update [--recipient host_1,host_2]" \
+        abcli_show_usage "abcli message update$ABCUL[--recipient host_1,host_2]" \
             "send update message [to host_1, host_2]."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
