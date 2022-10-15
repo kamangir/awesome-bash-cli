@@ -8,6 +8,8 @@ function abcli_message() {
             "listen as <recipient> to [<100>] messages [from <sender_1,sender_2>]."
         abcli_show_usage "abcli message submit$ABCUL[--data <data>]$ABCUL[--filename <filename>]$ABCUL[--recipient <host_1,host_2>]$ABCUL[--subject <subject>]" \
             "submit message [w/ subject] [+data] [+filename] [to host_1, host_2]."
+        abcli_show_usage "abcli message submit object$ABCUL[<object-name>]$ABCUL[<recipient>]" \
+            "submit all the images in <object-name> to <recipient>."
         abcli_show_usage "abcli message update$ABCUL[--recipient host_1,host_2]" \
             "send update message [to host_1, host_2]."
 
@@ -31,6 +33,25 @@ function abcli_message() {
     fi
 
     if [ $task == "submit" ] ; then
+        local subtask="$2"
+
+        if [ $subtask == "object" ] ; then
+            local object_name=$(abcli_clarify_object $2 .)
+            local recipient=$(abcli_clarify_input $3 stream)
+
+            abcli_log "abcli: stream: $object_name -> $recipient"
+
+            abcli_download object $object_name
+
+            python3 -m abcli.message \
+                submit_object \
+                --object_name "$object_name" \
+                --recipient "$recipient" \
+                ${@:4}
+
+            return
+        fi
+
         python3 -m abcli.plugins.message \
             submit \
             ${@:2}

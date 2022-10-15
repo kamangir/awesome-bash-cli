@@ -14,7 +14,7 @@ parser.add_argument(
     "task",
     type=str,
     default="update",
-    help="listen_as|submit|update",
+    help="listen_as|submit|submit_object|update",
 )
 parser.add_argument(
     "--count",
@@ -93,6 +93,11 @@ elif args.task == "submit":
             for recipient in args.recipient.split(",")
         ],
         True,
+    )
+elif args.task == "submit_object":
+    success = submit_object(
+        args.object_name,
+        args.recipient,
     )
 elif args.task == "update":
     success = reduce(
