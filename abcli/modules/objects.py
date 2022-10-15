@@ -23,6 +23,7 @@ def list_of_files(object_name, cloud=False, **kwargs):
             os.path.join(
                 os.getenv("abcli_object_root", ""),
                 object_name,
+                "*",
             ),
             **kwargs,
         )
