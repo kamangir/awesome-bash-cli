@@ -88,8 +88,6 @@ function abcli_publish() {
     if [ ! -z "$filename_name" ] ; then
         abcli_log "publishing $object_name/$filename as $othername"
 
-        abcli_upload open
-
         local public_filename=$(echo $othername | tr / -)
         aws s3 cp \
             s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/$filename \
