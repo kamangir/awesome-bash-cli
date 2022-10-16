@@ -6,6 +6,8 @@ function abcli_upload() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli upload$ABCUL[~open,solid]" \
             "upload $abcli_object_name."
+        abcli_show_usage "abcli upload$ABCUL[filename=<filename>]" \
+            "upload $abcli_object_name/<filename>."
         return
     fi
 
@@ -21,8 +23,19 @@ function abcli_upload() {
     rm -rf $abcli_object_path/auxiliary
 
     local options=$1
+    local filename=$(abcli_option "$options" filename)
     local do_open=$(abcli_option_int "$options" open 1)
     local do_solid=$(abcli_option_int "$options" solid 0)
+
+    if [ ! -z "$filename" ] ; then
+        abcli_log "$abcli_object_name/$filename upload started - $(abcli_file_size $filename)"
+
+        aws s3 cp \
+            $abcli_object_path/$filename \
+            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name/
+
+        return
+    fi
 
     if [ "$do_open" == 1 ]; then
         abcli_log "$abcli_object_name open upload started."
