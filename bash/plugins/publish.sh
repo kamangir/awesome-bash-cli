@@ -45,13 +45,19 @@ function abcli_publish() {
 
         abcli_upload solid
 
-        aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz s3://$(abcli_aws_s3_public_bucket)/
+        aws s3 cp \
+            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz \
+            s3://$(abcli_aws_s3_public_bucket)/
 
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
         abcli_log "🔗 $url"
 
         abcli_select $abcli_object_name_current ~trail
-    elif [ "$filename" == "open" ] ; then
+
+        return
+    fi
+
+    if [ "$filename" == "open" ] ; then
         abcli_log "publishing files in $object_name..."
 
         local abcli_object_name_current=$abcli_object_name
@@ -66,35 +72,40 @@ function abcli_publish() {
 
         abcli_upload open
 
-        aws s3 sync s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name s3://$(abcli_aws_s3_public_bucket)/$abcli_object_name
+        aws s3 sync \
+            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name \
+            s3://$(abcli_aws_s3_public_bucket)/$abcli_object_name
 
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
         abcli_log "🔗 $url"
 
         abcli_select $abcli_object_name_current ~trail
-    else
-        local filename_name=${filename%%.*}
-        if [ ! -z "$filename_name" ] ; then
-            abcli_log "publishing $object_name/$filename as $othername"
 
-            abcli_upload open
-
-            local public_filename=$(echo $othername | tr / -)
-            aws s3 cp s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/$filename s3://$(abcli_aws_s3_public_bucket)/${object_name}-${public_filename}
-
-            local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/${object_name}-${public_filename}"
-            abcli_log "🔗 $url"
-        else
-            local list_of_files=(`ls *$filename`)
-            local list_of_files=${list_of_files[*]}
-            local list_of_files=$(python3 -c "print(' '.join([thing for thing in '$list_of_files'.split(' ') if thing.endswith('$filename')]))")
-            abcli_log "$(abcli_list_len $list_of_files space) file(s) found: $list_of_files"
-
-            for filename_ in $list_of_files ; do
-                abcli_publish $object_name $filename_ ${@:3}
-            done
-
-            return
-        fi
+        return
     fi
+
+    local filename_name=${filename%%.*}
+    if [ ! -z "$filename_name" ] ; then
+        abcli_log "publishing $object_name/$filename as $othername"
+
+        abcli_upload open
+
+        local public_filename=$(echo $othername | tr / -)
+        aws s3 cp \
+            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/$filename \
+            s3://$(abcli_aws_s3_public_bucket)/$object_name-$public_filename
+
+        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$object_name-$public_filename"
+        abcli_log "🔗 $url"
+
+        return
+    fi
+
+    local filename_
+    for filename_ in *$filename ; do
+        abcli_publish \
+            $object_name \
+            $filename_ \
+            ${@:3}
+    done
 }
