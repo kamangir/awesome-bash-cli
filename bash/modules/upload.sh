@@ -27,7 +27,9 @@ function abcli_upload() {
     if [ "$do_open" == 1 ]; then
         abcli_log "$abcli_object_name open upload started."
 
-        aws s3 sync $abcli_object_path/ s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name/
+        aws s3 sync \
+            $abcli_object_path/ \
+            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name/
 
         abcli_tag set $abcli_object_name open
     fi
@@ -35,11 +37,15 @@ function abcli_upload() {
     if [ "$do_solid" == 1 ]; then
         pushd $abcli_object_root > /dev/null
 
-        tar -czvf $abcli_object_name.tar.gz ./$abcli_object_name
+        tar -czvf \
+            $abcli_object_name.tar.gz \
+            ./$abcli_object_name
 
         abcli_log "$abcli_object_name solid upload started - $(abcli_file_size $abcli_object_path.tar.gz)"
 
-        aws s3 cp $abcli_object_name.tar.gz s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/
+        aws s3 cp \
+            $abcli_object_name.tar.gz \
+            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/
 
         abcli_tag set $abcli_object_name solid
 
