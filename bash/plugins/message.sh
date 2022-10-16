@@ -36,8 +36,8 @@ function abcli_message() {
         local subtask="$2"
 
         if [ $subtask == "object" ] ; then
-            local object_name=$(abcli_clarify_object $2 .)
-            local recipient=$(abcli_clarify_input $3 stream)
+            local object_name=$(abcli_clarify_object $3 .)
+            local recipient=$(abcli_clarify_input $4 stream)
 
             abcli_log "abcli: stream: $object_name -> $recipient"
 
@@ -47,7 +47,7 @@ function abcli_message() {
                 submit_object \
                 --object_name "$object_name" \
                 --recipient "$recipient" \
-                ${@:4}
+                ${@:5}
 
             return
         fi
