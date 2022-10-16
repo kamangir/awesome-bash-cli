@@ -43,7 +43,7 @@ function abcli_message() {
 
             abcli_download object $object_name
 
-            python3 -m abcli.message \
+            python3 -m abcli.plugins.message \
                 submit_object \
                 --object_name "$object_name" \
                 --recipient "$recipient" \
