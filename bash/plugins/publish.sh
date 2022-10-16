@@ -5,7 +5,7 @@ function abcli_publish() {
 
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli publish$ABCUL<object_name>$ABCUL[random_url]" \
-            "publish <object_name> [and randmoize public url]."
+            "publish <object_name> [and randmoize url]."
         abcli_show_usage "abcli publish$ABCUL<object_name>$ABCUL.mp4" \
             "publish every .mp4 in <object_name>."
         abcli_show_usage "abcli publish$ABCUL<object_name>$ABCUL<filename>$ABCUL[<othername>]" \
