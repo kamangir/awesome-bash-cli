@@ -42,6 +42,11 @@ parser.add_argument(
     default="",
 )
 parser.add_argument(
+    "--object_name",
+    type=str,
+    default="",
+)
+parser.add_argument(
     "--recipient",
     type=str,
     default="public",
