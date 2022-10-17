@@ -52,6 +52,7 @@ KEYWORDS = {
     "up": "upload",
     "upd": "update",
     "val": "validate",
+    "vanwatch": "watching-vancouver",
     "yolo": "yolov5",
     "yt": "youtube",
 }
