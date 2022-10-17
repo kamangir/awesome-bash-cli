@@ -93,7 +93,7 @@ function abcli_instance() {
 
         local template_id=$(abcli_aws_json_get "['ec2']['templates'].get('$template_name','')")
         if [ -z "$template_id" ] ; then
-            abcli_log_error "unknown template id for '$template_name'."
+            abcli_log_error "-abcli: instance: $template_name: template not found."
             return
         fi
 

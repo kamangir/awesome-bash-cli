@@ -8,6 +8,6 @@ function abcli_browse_url() {
     elif [ "$abcli_is_rpi" == true ] ; then
         DISPLAY=:0 chromium-browser -kiosk --no-sandbox "$1"
     else
-        abcli_log_error "-browse_url: failed: $1."
+        abcli_log_error "-abcli: browse_url: $1: failed."
     fi 
 }
