@@ -315,6 +315,35 @@ def load(filename, civilized=False, default={}):
         return False, data
 
 
+# https://stackoverflow.com/a/47792385/17619982
+def load_geojson(filename, civilized=False):
+    """load geojson from filename.
+
+    Args:
+        filename (str): filename.
+        civilized (bool, optional): if failed, do not print error message. Defaults to False.
+
+    Returns:
+        bool: success.
+        data: Any.
+    """
+    success = False
+    data = {}
+
+    try:
+        import geojson
+
+        with open(filename, "r") as fh:
+            data = geojson.load(fh)
+
+        success = True
+    except:
+        if not civilized:
+            crash_report(f"-{NAME}: load_geojson({filename}): failed.")
+
+    return success, data
+
+
 def load_image(filename, civilized=False):
     """load image from filename
 
