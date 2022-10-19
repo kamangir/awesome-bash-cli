@@ -7,11 +7,11 @@ function abcli_download() {
         abcli_show_usage "abcli download" \
             "download $abcli_object_name."
         abcli_show_usage "abcli download <filename>" \
-            "download $abcli_object_name/filename."
+            "download $abcli_object_name/<filename>."
         abcli_show_usage "abcli download object <object_name>" \
-            "download object_name."
+            "download <object_name>."
         abcli_show_usage "abcli download object <object_name> <filename>" \
-            "download object_name/filename."
+            "download <object_name>/<filename>."
         return
     fi
 
