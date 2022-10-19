@@ -43,7 +43,7 @@ function abcli_publish() {
         # https://askubuntu.com/a/466225
         find . -type f  ! -name "*.*"  -delete
 
-        abcli_upload solid
+        abcli_upload ~open,solid
 
         aws s3 cp \
             s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$abcli_object_name.tar.gz \
