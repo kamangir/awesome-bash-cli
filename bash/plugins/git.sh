@@ -4,23 +4,23 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli git cd <repo_name>" \
+        abcli_show_usage "abcli git cd$ABCUL<repo_name>" \
             "cd $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git clone <repo_name> [cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
-            "clone [and install] [if_cloned] [a private fork of <username/repo_name> as] [$abcli_object_name/]<repo_name> [and pull if already exists]."
+        abcli_show_usage "abcli git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
+            "clone <repo_name>."
 
         abcli_git_pull $@
 
-        abcli_show_usage "abcli git <repo_name> <command-args>" \
+        abcli_show_usage "abcli git <repo_name>$ABCUL<command-args>" \
             "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git push <repo_name> [delete,object,~status] [<message>]" \
-            "[do not show status of and] push to [and delete] [$abcli_object_name/]<repo_name>."
+        abcli_show_usage "abcli git push$ABCUL<repo_name>$ABCUL[delete,object,~status]$ABCUL[<message>]" \
+            "push to <repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
-        abcli_show_usage "abcli git select_issue <kamangir/bolt#abc>" \
-            "select git issue <kamangir/bolt#abc>."
-        abcli_show_usage "abcli git sync_fork <repo-name> <branch-name>" \
-            "sync <repo-name> <branch-name> w/ upstream."
+        abcli_show_usage "abcli git select_issue$ABCUL<kamangir/bolt#abc>" \
+            "select git issue."
+        abcli_show_usage "abcli git sync_fork$ABCUL<repo-name>$ABCUL<branch-name>" \
+            "sync fork w/ upstream."
         abcli_show_usage "abcli git status" \
             "git status."
         return
