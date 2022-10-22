@@ -13,7 +13,7 @@ function abcli_git() {
 
         abcli_show_usage "abcli git <repo_name>$ABCUL<command-args>" \
             "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git push$ABCUL<repo_name>$ABCUL[delete,object,~status]$ABCUL[<message>]" \
+        abcli_show_usage "abcli git push$ABCUL<repo_name>$ABCUL[accept_no_issue,delete,object,~status]$ABCUL[<message>]" \
             "push to <repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
@@ -146,6 +146,7 @@ function abcli_git() {
 
     if [ "$task" == "push" ] ; then
         local options=$3
+        local accept_no_issue=$(abcli_option_int "$options" accept_no_issue 0)
         local in_object=$(abcli_option_int "$options" object 0)
         local do_delete=$(abcli_option_int "$options" delete 0)
         local show_status=$(abcli_option_int "$options" status 1)
@@ -160,12 +161,16 @@ function abcli_git() {
             git status
         fi
 
-        if [ -z "$abcli_bolt_git_issue" ] ; then
-            abcli_log_error "-abcli: git: issue not found."
-            return
-        fi
+        local message="${@:4}"
 
-        local message="${@:4} - kamangir/bolt#$abcli_bolt_git_issue"
+        if [ -z "$abcli_bolt_git_issue" ] ; then
+            if [ "$accept_no_issue" == 0 ] ; then
+                abcli_log_error "-abcli: git: issue not found."
+                return
+            fi
+        else
+            local message="$message - kamangir/bolt#$abcli_bolt_git_issue"
+        fi
 
         git add .
         git commit -a -m "$message"
