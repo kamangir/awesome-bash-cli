@@ -160,10 +160,12 @@ function abcli_git() {
             git status
         fi
 
-        local message="${@:4}"
-        if [ ! -z "$abcli_git_issue" ] ; then
-            local message="$message - $abcli_git_issue"
+        if [ -z "$abcli_bolt_git_issue" ] ; then
+            abcli_log_error "-abcli: git: issue not found."
+            return
         fi
+
+        local message="${@:4} - kamangir/bolt#$abcli_git_issue"
 
         git add .
         git commit -a -m "$message"
