@@ -16,8 +16,9 @@ function abcli_script() {
         return
     fi
 
-    if [[ $(type -t abcli_script_$task) == "function" ]] ; then
-        abcli_script_$task ${@:2}
+    local function_name=abcli_script_$task
+    if [[ $(type -t $function_name) == "function" ]] ; then
+        $function_name ${@:2}
     fi
 
     if [ "$task" == "code" ] ; then

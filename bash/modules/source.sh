@@ -11,7 +11,7 @@ function abcli_source_path() {
     local filename
     for filename in *.sh ; do
         if [ "$do_log" == 1 ] ; then
-            abcli_log "abcli: source: $filename"
+            abcli_log "🔹 ${filename%.*}"
         fi
 
         source $filename

@@ -51,8 +51,9 @@ function abcli_session() {
             abcli_select
 
             local plugin_name=$(abcli_session get)
-            if [[ $(type -t ${plugin_name}_session) == "function" ]] ; then
-                eval ${plugin_name}_session start ${@:3}
+            local function_name=${plugin_name}_session
+            if [[ $(type -t $function_name) == "function" ]] ; then
+                $function_name start ${@:3}
             else
                 if [ -z "$plugin_name" ] ; then
                     abcli_log_warning "-session: plugin not found."

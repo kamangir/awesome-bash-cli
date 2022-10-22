@@ -7,8 +7,9 @@ function abc() {
 function abcli() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [[ $(type -t abcli_$task) == "function" ]] ; then
-        abcli_$task ${@:2}
+    local function_name=abcli_$task
+    if [[ $(type -t $function_name) == "function" ]] ; then
+        $function_name ${@:2}
     else
         abcli_log_error "-abcli: $task: command not found."
     fi
