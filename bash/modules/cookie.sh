@@ -4,19 +4,19 @@ function abcli_cookie() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli cookie cat [<cookie-name>|template]" \
+        abcli_show_usage "abcli cookie cat$ABCUL[<cookie-name>|template]" \
             "cat cookie|<cookie-name>|template."
-        abcli_show_usage "abcli cookie cat jetson_nano|rpi <machine-name>" \
+        abcli_show_usage "abcli cookie cat${ABCUL}jetson_nano|rpi <machine-name>" \
             "cat cookie from jetson_nano|rpi <machine-name>."
-        abcli_show_usage "abcli cookie copy <cookie-name> [jetson_nano|rpi] [<machine-name>]" \
-            "cp <cookie-name> [to  jetson_nano|rpi <machine-name>]."
-        abcli_show_usage "abcli cookie edit [jetson_nano|rpi] [<machine-name>]" \
+        abcli_show_usage "abcli cookie copy$ABCUL<cookie-name>$ABCUL[jetson_nano|rpi] [<machine-name>]" \
+            "cp <cookie-name> [to jetson_nano|rpi <machine-name>]."
+        abcli_show_usage "abcli cookie edit$ABCUL[jetson_nano|rpi] [<machine-name>]" \
             "edit cookie on local|[jetson_nano|rpi <machine-name>]."
         abcli_show_usage "abcli cookie list" \
-            "list sample cookies."
-        abcli_show_usage "abcli cookie read <keyword> [<default>]" \
+            "list cookie repo."
+        abcli_show_usage "abcli cookie read$ABCUL<keyword> [<default>]" \
             "read <keyword> from cookie."
-        abcli_show_usage "abcli cookie write <keyword> <value>" \
+        abcli_show_usage "abcli cookie write$ABCUL<keyword> <value>" \
             "write <keyword> = <value> in cookie."
         return
     fi
