@@ -165,7 +165,7 @@ function abcli_git() {
             return
         fi
 
-        local message="${@:4} - kamangir/bolt#$abcli_git_issue"
+        local message="${@:4} - kamangir/bolt#$abcli_bolt_git_issue"
 
         git add .
         git commit -a -m "$message"
