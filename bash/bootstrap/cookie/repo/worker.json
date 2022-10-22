@@ -1,4 +1,4 @@
 {
-    "plugins": "blue-stability,blue-wiki,blue-worker,Kanata",
+    "plugins": "blue-stability,blue-wiki,blue-worker,Kanata,Vancouver-Watching",
     "session": "blue_worker"
 }
