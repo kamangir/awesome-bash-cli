@@ -31,6 +31,7 @@ KEYWORDS = {
     "ic": "image_classifier",
     "id": "identify",
     "ing": "ingest",
+    "iranwatch": "iran-watching",
     "Kw": "Kanata_web",
     "le": "list_of_external",
     "ls": "list",
