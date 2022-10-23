@@ -30,6 +30,16 @@ def list_of_files(object_name, cloud=False, **kwargs):
     )
 
 
+def path_of(filename):
+    return os.join(
+        os.path.get(
+            "abcli_object_name",
+            "",
+        ),
+        filename,
+    )
+
+
 def signature(info=None):
     return [
         "{}{}".format(
