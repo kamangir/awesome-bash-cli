@@ -344,6 +344,33 @@ def load_geojson(filename, civilized=False):
     return success, data
 
 
+def load_geodataframe(filename, civilized=False):
+    """load filename.geojson as a GeoDataFrame.
+
+    Args:
+        filename (str): filename.
+        civilized (bool, optional): if failed, do not print error message. Defaults to False.
+
+    Returns:
+        bool: success.
+        data: GeoDataFrame.
+    """
+    success = False
+    gdf = None
+
+    try:
+        import geopandas
+
+        gdf = geopandas.read_file(filename)
+
+        success = True
+    except:
+        if not civilized:
+            crash_report(f"-{NAME}: load_geodataframe({filename}): failed.")
+
+    return success, gdf
+
+
 def load_image(filename, civilized=False):
     """load image from filename
 
@@ -580,6 +607,28 @@ def save_csv(filename, data):
             success = False
 
     return success
+
+
+def save_geojson(filename, gdf):
+    """save GeoDataFrame to filename as geojson.
+
+    Args:
+        filename (str): filename.
+        gdf (GeoDataFrame): GeoDataFrame.
+
+    Returns:
+        bool: success.
+    """
+    if not prepare_for_saving(filename):
+        return False
+
+    try:
+        gdf.to_file(filename, driver="GeoJSON")
+
+        return True
+    except:
+        crash_report(f"-{NAME}: save_geojson({filename}): failed.")
+        return False
 
 
 def save_image(filename, image):
