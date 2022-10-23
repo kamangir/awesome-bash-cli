@@ -9,14 +9,14 @@ function abcli_cache() {
     local keyword=$2
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli cache clone <object_1> <object_2>" \
-            "clone cache from object_1 to object_2."
-        abcli_show_usage "abcli cache read <keyword>" \
-            "read cache[keyword]."
-        abcli_show_usage "abcli cache search <keyword>" \
-            "search in cache for keyword."
-        abcli_show_usage "abcli cache write <keyword> <value> [validate]" \
-            "write cache[keyword]=value [and validate]."
+        abcli_show_usage "abcli cache clone$ABCUL<object-1> <object-2>" \
+            "clone cache from <object-1> to <object-2>."
+        abcli_show_usage "abcli cache read$ABCUL<keyword>" \
+            "read cache[<keyword>]."
+        abcli_show_usage "abcli cache search$ABCUL<keyword>" \
+            "search in cache for <keyword>."
+        abcli_show_usage "abcli cache write$ABCUL<keyword> <value>$ABCUL[validate]" \
+            "write cache[<keyword>]=value."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
             python3 -m abcli.plugins.cache --help
