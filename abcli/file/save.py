@@ -1,8 +1,6 @@
 import json
 from abcli.file import NAME
 from abcli.file.classes import JsonEncoder
-from abcli.file.functions import path, set_extension
-from abcli.file.load import load_text
 from abcli import string
 from abcli.logging import crash_report
 from abcli import logging
@@ -21,6 +19,7 @@ def prepare_for_saving(filename):
         bool: success.
     """
     from abcli.path import create as path_create
+    from abcli.file.functions import path
 
     return path_create(path(filename))
 
@@ -179,6 +178,8 @@ def save_tensor(filename, tensor, log=True):
     Returns:
         bool: success.
     """
+    from abcli.file.functions import set_extension
+
     success = save(set_extension(filename, "pyndarray"), tensor)
 
     if success and log:
@@ -206,6 +207,7 @@ def save_text(
     Returns:
         bool: success.
     """
+    from abcli.file.load import load_text
 
     if remove_empty_lines:
         text = [
