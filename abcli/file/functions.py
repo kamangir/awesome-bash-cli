@@ -3,8 +3,6 @@ from functools import reduce
 import os
 import shutil
 from abcli.file import NAME
-from abcli.file.save import prepare_for_saving, save_text
-from abcli.file.classes import JsonEncoder
 from abcli import string
 from abcli.logging import crash_report
 from abcli import logging
@@ -73,6 +71,8 @@ def auxiliary(nickname, extension, add_timestamp=True):
     Returns:
         str: auxiliary filename.
     """
+    from abcli.file.save import prepare_for_saving
+
     filename = os.path.join(
         os.getenv("abcli_object_path", ""),
         "auxiliary",
@@ -109,6 +109,8 @@ def copy(source, destination, log=True):
     Returns:
         bool: success
     """
+    from abcli.file.save import prepare_for_saving
+
     if not prepare_for_saving(destination):
         return False
 
@@ -135,6 +137,8 @@ def create(filename, content=[]):
     Returns:
         bool: success
     """
+    from abcli.file.save import save_text
+
     return save_text(filename, content)
 
 
@@ -295,6 +299,8 @@ def move(source, destination):
     Returns:
         bool: success.
     """
+    from abcli.file.save import prepare_for_saving
+
     if not prepare_for_saving(destination):
         return False
 
