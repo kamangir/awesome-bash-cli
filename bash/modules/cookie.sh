@@ -102,7 +102,9 @@ function abcli_cookie() {
     fi
 
     if [ "$task" == "list" ] ; then
-        ls -1 $abcli_path_bash/bootstrap/cookie/repo
+        local path=$abcli_path_bash/bootstrap/cookie/repo
+        abcli_log $path
+        ls -1 $path
         return
     fi
 
