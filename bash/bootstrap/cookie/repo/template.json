@@ -11,7 +11,7 @@
     "session.imager": "lepton",
     "session.imager.diff": 0.1,
     "session.imager.enabled": true,
-    "session.imager.period": 3000,
+    "session.imager.period": 300,
     "session.object.tags": "this,that",
     "session.messenger.period": 60,
     "session.monitor.enabled": false,
