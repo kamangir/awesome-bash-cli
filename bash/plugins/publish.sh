@@ -27,7 +27,7 @@ function abcli_publish() {
     if [ -z "$filename" ] || [ "$filename" == "random_url" ] ; then
         abcli_log "publishing $object_name"
 
-        local abcli_object_name_current=$abcli_object_name
+        local current_object=$abcli_object_name
 
         if [ "$filename" == "random_url" ] ; then
             local public_object_name=$(abcli_string_random --length 64)
@@ -52,7 +52,7 @@ function abcli_publish() {
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
         abcli_log "🔗 $url"
 
-        abcli_select $abcli_object_name_current ~trail
+        abcli_select $current_object ~trail
 
         return
     fi
@@ -60,7 +60,7 @@ function abcli_publish() {
     if [ "$filename" == "open" ] ; then
         abcli_log "publishing files in $object_name..."
 
-        local abcli_object_name_current=$abcli_object_name
+        local current_object=$abcli_object_name
 
         abcli_select $object_name ~trail
         abcli_clone $object_name-published ~meta
@@ -79,7 +79,7 @@ function abcli_publish() {
         local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name"
         abcli_log "🔗 $url"
 
-        abcli_select $abcli_object_name_current ~trail
+        abcli_select $current_object ~trail
 
         return
     fi

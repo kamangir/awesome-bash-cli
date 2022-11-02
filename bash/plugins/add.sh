@@ -18,12 +18,12 @@ function abcli_add() {
     local add_relation=$(abcli_option_int "$options" relation $clone_meta)
     local clone_tags=$(abcli_option_int "$options" tags $clone_meta)
 
-    local abcli_object_name_current=$abcli_object_name
+    local current_object=$abcli_object_name
     local abcli_object_path_current=$abcli_object_path
 
     local object_name
     for object_name in $(echo "$object_name_list" | tr , " ") ; do
-        abcli_log "$abcli_object_name_current += $object_name"
+        abcli_log "$current_object += $object_name"
 
         abcli_select $object_name ~trail
         abcli_download
@@ -36,16 +36,16 @@ function abcli_add() {
         popd > /dev/null
 
         if [ "$add_relation" == 1 ] ; then
-            abcli_relation set $abcli_object_name_current $object_name contains
+            abcli_relation set $current_object $object_name contains
         fi
 
         if [ "$clone_tags" == 1 ] ; then
             local tags=$(abcli_tag get $object_name --delim , --log 0)
             abcli_tag set \
-                $abcli_object_name_current \
+                $current_object \
                 $tags,add
         fi
     done
 
-    abcli_select $abcli_object_name_current ~trail
+    abcli_select $current_object ~trail
 }

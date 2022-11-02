@@ -18,13 +18,13 @@ function abcli_download() {
     if [ "$task" == "object" ] ; then
         local object_name=$2
 
-        local abcli_object_name_current=$abcli_object_name
+        local current_object=$abcli_object_name
 
         abcli_select $object_name ~trail
 
         abcli_download ${@:3}
 
-        abcli_select $abcli_object_name_current ~trail
+        abcli_select $current_object ~trail
 
         return
     fi
