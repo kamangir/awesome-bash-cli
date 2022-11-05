@@ -7,7 +7,7 @@ function abcli_set_prompt() {
 
     local icon=""    
     if [ "$abcli_is_mac" == true ] ; then
-        local icon="🧮 "
+        local icon="💻 "
     elif [ "$abcli_is_ec2" == true ] ; then
         local icon="🌩️ "
     elif [ "$abcli_is_jetson" == true ] || [ "$abcli_is_rpi" == true ] ; then
