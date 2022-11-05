@@ -4,10 +4,40 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli seed [.|ec2|jetson|headless_rpi|mac|rpi] [clipboard|filename=<filename>|key|screen] [cookie=<cookie-name>,~log]" \
+        abcli_show_usage "abcli seed$ABCUL[.|ec2|jetson|headless_rpi|mac|rpi]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
             "generate and output a seed 🌱."
+        abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>]" \
+            "seed 🌱 += <filename>."
         abcli_show_usage "abcli seed eject" \
             "eject seed 🌱."
+        return
+    fi
+
+    if [ "$task" == "add_file" ] ; then
+        local filename=$2
+
+        local options=$3
+        local output=$(abcli_option "$options" output "clipboard")
+
+        local sudo_prefix="sudo "
+        local delim="\n"
+        if [ "$output" == "clipboard" ] ; then
+            local delim="; "
+        fi
+
+        local base64="base64"
+        if [ "$abcli_is_ubuntu" == true ] ; then
+            # https://superuser.com/a/1225139
+            local base64="base64 -w 0"
+        fi
+
+        local var_name=_abcli_seed_$(echo $filename | tr / _ | tr . _)
+
+        local seed="$var_name=\"$(cat $HOME/$filename | $base64)\"$delim"
+        local seed="${seed}echo \$$var_name | base64 --decode > $var_name$delim"
+        local seed="$seed${sudo_prefix}mv $var_name \$HOME/$filename$delim"
+
+        echo $seed
         return
     fi
 
@@ -79,38 +109,27 @@ function abcli_seed() {
     local sudo_prefix="sudo "
     local delim="\n"
     local delim_section="\n\n"
-    local base64="base64"
     seed="#! /bin/bash$delim"
     if [ "$output" == "clipboard" ] ; then
         local delim="; "
         local delim_section="; "
         seed=""
     fi
-    if [ "$abcli_is_ubuntu" == true ] ; then
-        # https://superuser.com/a/1225139
-        local base64="base64 -w 0"
-    fi
 
     seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
 
+    seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)"
+    seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
+
     seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
     seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
-
-    seed="${seed}aws_config=\"$(cat ~/.aws/config | $base64)\"$delim"
-    seed="${seed}echo \$aws_config | base64 --decode > aws_config$delim"
-    seed="$seed${sudo_prefix}mv aws_config ~/.aws/config$delim_section"
-
-    seed="${seed}aws_credentials=\"$(cat ~/.aws/credentials | $base64)\"$delim"
-    seed="${seed}echo \$aws_credentials | base64 --decode > aws_credentials$delim"
-    seed="$seed${sudo_prefix}mv aws_credentials ~/.aws/credentials$delim_section"
+    seed="$seed$(abcli_seed add_file .aws/config output=$output)"
+    seed="$seed$(abcli_seed add_file .aws/credentials output=$output)"
+    seed="$seed$delim_section"
 
     seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
-
     seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
-
-    seed="${seed}git_ssh_key=\"$(cat ~/.ssh/$abcli_git_ssh_key_name | $base64)\"$delim"
-    seed="${seed}echo \$git_ssh_key | base64 --decode >> git_ssh_key$delim"
-    seed="$seed${sudo_prefix}mv git_ssh_key ~/.ssh/$abcli_git_ssh_key_name$delim"
+    seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output)"
     seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
     seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
 
@@ -140,8 +159,7 @@ function abcli_seed() {
     pushd $abcli_path_bash/bootstrap/config > /dev/null
     local filename
     for filename in *.sh *.json *.pem ; do
-        seed="${seed}content=\"$(cat $filename | $base64)\"$delim"
-        seed="${seed}echo \$content | base64 --decode > ~/git/awesome-bash-cli/bash/bootstrap/config/$filename$delim_section"
+        seed="$seed$(abcli_seed add_file git/awesome-bash-cli/bash/bootstrap/config/$filename output=$output)$delim_section"
     done
     popd > /dev/null
 

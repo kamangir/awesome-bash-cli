@@ -35,7 +35,7 @@ function abcli_select() {
         abcli_trail $abcli_object_path/$abcli_object_name
     fi
 
-    abcli_log "#️⃣  object: $abcli_object_name"
+    abcli_log "📂 $abcli_object_name"
 
     if [ "$do_open" == 1 ] ; then
         open $abcli_object_path
