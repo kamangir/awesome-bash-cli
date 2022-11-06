@@ -6,10 +6,10 @@ function abcli_instance() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli instance$ABCUL[from_image]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[image=<abcli>|<abcli-gpu>,ssh,vnc]" \
             "create ec2 instance from image."
-        abcli_show_usage "abcli instance describe$ABCUL<instance-name>" \
-            "describe ec2 <instance-name>."
         abcli_show_usage "abcli instance from_template$ABCUL[template-name]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[ssh|vnc]" \
             "create ec2 instance from <template-name>."
+        abcli_show_usage "abcli instance get_ip$ABCUL<instance-name>" \
+            "get <instance-name> ip address."
         abcli_show_usage "abcli instance list" \
             "list ec2 instances."
         abcli_show_usage "abcliinstance terminate$ABCUL<instance-id>" \
@@ -27,7 +27,7 @@ function abcli_instance() {
 
     local extra_args=""
 
-    if [ "$task" == "describe" ] ; then
+    if [ "$task" == "get_ip" ] ; then
         local instance_name=$2
 
         local ec2_address=$(aws ec2 \
@@ -69,7 +69,7 @@ function abcli_instance() {
             --count 1 \
             --instance-type $instance_type > $abcli_path_git/abcli_instance_log.txt
 
-        local instance_ip_address=$(abcli_instance describe $instance_name)
+        local instance_ip_address=$(abcli_instance get_ip $instance_name)
         abcli_log "abcli: instance: created at $instance_ip_address"
 
         if [ "$do_ssh" == 1 ] || [ "$do_vnc" == 1 ] ; then
@@ -120,7 +120,7 @@ function abcli_instance() {
             --count 1 \
             $extra_args > ${abcli_path_git}/abcli_instance_log.txt
             
-        local instance_ip_address=$(abcli_instance describe $instance_name)
+        local instance_ip_address=$(abcli_instance get_ip $instance_name)
         abcli_log "instance created at $instance_ip_address"
         if [ "$5" == "ssh" ] ; then
             echo "instance is starting - waiting $sleep_seconds s ..."
