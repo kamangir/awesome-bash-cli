@@ -4,8 +4,8 @@ function abcli_clone() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli clone <object_name> [~cache,~meta,~relations,~tags,~trail] [<postfix>]" \
-            "clone $abcli_object_name[/postfix] -> object_name[/postfix]"
+        abcli_show_usage "abcli clone$ABCUL<object_name>$ABCUL[~cache,~meta,~relations,~tags,~trail]$ABCUL[<suffix>]" \
+            "clone $abcli_object_name[/suffix] -> object_name[/suffix]"
         return
     fi
 
@@ -22,12 +22,12 @@ function abcli_clone() {
 
     abcli_select $@
 
-    local postfix="$3"
-    if [ ! -z "$postfix" ] ; then
-        mkdir -p ./$postfix
+    local suffix="$3"
+    if [ ! -z "$suffix" ] ; then
+        mkdir -p ./$suffix
     fi
 
-    rsync -arv "$object_path/$postfix" "./$postfix"
+    rsync -arv "$object_path/$suffix" "./$suffix"
 
     if [ "$clone_cache" == 1 ] ; then
         abcli_cache clone $object_name $abcli_object_name
