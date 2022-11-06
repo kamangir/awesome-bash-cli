@@ -18,16 +18,16 @@ function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli ssh add <filename>" \
-            "ssh-add -k ~/.ssh/<filename>."
-        abcli_show_usage "abcli ssh copy_id <filename> jetson_nano|rpi <machine-name>" \
-            "ssh copy-id ~/.ssh/<filename> to <machine-name>."
-        abcli_show_usage "abcli ssh ec2 <1-2-3-4> [region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
-            "ssh to <1-2-3-4> [on <region_1>] [as user] [and start vnc]."
-        abcli_show_usage "abcli ssh jetson_nano|rpi <machine-name>" \
+        abcli_show_usage "abcli ssh add$ABCUL<filename>" \
+            "ssh add <filename>."
+        abcli_show_usage "abcli ssh copy_id$ABCUL<filename>${ABCUL}jetson_nano|rpi <machine-name>" \
+            "ssh copy-id <filename> to <machine-name>."
+        abcli_show_usage "abcli ssh${ABCUL}ec2 <ip-address>$ABCUL[region=<region_1>,user=<ec2-user|ubuntu>,vnc]" \
+            "ssh to <ip-address>."
+        abcli_show_usage "abcli ssh${ABCUL}jetson_nano|rpi <machine-name>" \
             "ssh to jetson nano|rpi <machine-name>."
-        abcli_show_usage "abcli ssh keygen [<filename>]" \
-            "keygen -t rsa -b 4096 -f ~/.ssh/<filename>"
+        abcli_show_usage "abcli ssh keygen$ABCUL[<filename>]" \
+            "keygen <filename>"
         return
     fi
 
