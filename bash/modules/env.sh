@@ -11,7 +11,7 @@ function abcli_env() {
         return
     fi
 
-    if [ "$task" == memory] ; then
+    if [ "$task" == memory ] ; then
         grep MemTotal /proc/meminfo
         return
     fi
