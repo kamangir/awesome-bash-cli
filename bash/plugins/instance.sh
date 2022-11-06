@@ -4,7 +4,7 @@ function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli instance$ABCUL[from_image]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[image=<abcli>|<abcli-gpu>,ssh,vnc]" \
+        abcli_show_usage "abcli instance$ABCUL[from_image]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[image=<abcli>|<abcli-gpu>]" \
             "create ec2 instance from image."
         abcli_show_usage "abcli instance from_template$ABCUL[template-name]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[ssh|vnc]" \
             "create ec2 instance from <template-name>."
@@ -48,8 +48,6 @@ function abcli_instance() {
         local instance_name=$(abcli_clarify_input $3 $instance_name)
 
         local options=$4
-        local do_ssh=$(abcli_option_int "$options" ssh 0)
-        local do_vnc=$(abcli_option_int "$options" vnc 0)
         local image_name=$(abcli_option "$options" image abcli)
 
         local image_id=$(abcli_aws_json_get "['ec2']['image_id']['$image_name']")
@@ -71,16 +69,6 @@ function abcli_instance() {
 
         local instance_ip_address=$(abcli_instance get_ip $instance_name)
         abcli_log "abcli: instance: created at $instance_ip_address"
-
-        if [ "$do_ssh" == 1 ] || [ "$do_vnc" == 1 ] ; then
-            abcli_sleep $sleep_seconds
-
-            if [ "$do_vnc" == 1 ] ; then
-                abcli_ssh ec2 $instance_ip_address vnc
-            else
-                abcli_ssh ec2 $instance_ip_address
-            fi
-        fi
 
         return
     fi
