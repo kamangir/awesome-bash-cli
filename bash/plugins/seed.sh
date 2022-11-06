@@ -31,7 +31,7 @@ function abcli_seed() {
             local base64="base64 -w 0"
         fi
 
-        local var_name=_abcli_seed_$(echo $filename | tr / _ | tr . _)
+        local var_name=_abcli_seed_$(echo $filename | tr / _ | tr . _ | tr - _)
 
         local seed="$var_name=\"$(cat $HOME/$filename | $base64)\"$delim"
         local seed="${seed}echo \$$var_name | base64 --decode > $var_name$delim"
