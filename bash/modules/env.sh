@@ -6,6 +6,13 @@ function abcli_env() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli env [keyword]" \
             "show environment variables [relevant to keyword]."
+        abcli_show_usage "abcli env memory" \
+            "show memory status."
+        return
+    fi
+
+    if [ "$task" == memory] ; then
+        grep MemTotal /proc/meminfo
         return
     fi
 
