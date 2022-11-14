@@ -125,8 +125,7 @@ function abcli_seed() {
     seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
     seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
     seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
-    seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim"
-    seed="$seed$delim_section"
+    seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim_section"
 
     seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
     seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
