@@ -118,6 +118,7 @@ function abcli_seed() {
 
     seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
 
+    seed="${seed}mkdir -p \$HOME/.kaggle$delim"
     seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
     seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
 
