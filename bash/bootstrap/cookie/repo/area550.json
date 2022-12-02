@@ -2,7 +2,7 @@
     "camera.hi_res": false,
     "camera.height": 120,
     "camera.width": 160,
-    "hat.type": "other",
+    "hat.kind": "other",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
     "session.imager.period": 3,

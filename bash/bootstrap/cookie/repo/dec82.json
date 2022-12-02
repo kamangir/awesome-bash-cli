@@ -1,5 +1,5 @@
 {
-    "hat.type": "grove",
+    "hat.kind": "grove",
     "plugins": "blue-sbc,dec82",
     "session": "blue_sbc"
 }
