@@ -2,7 +2,6 @@
     "hat.kind": "grove",
     "plugins": "blue-sbc,dec82",
     "session": "dec82",
-    "session.imager.diff": -1,
-    "session.imager.period": -1,
-    "session.screen.period": 1
+    "session.imager.period": 10,
+    "session.screen.period": 0.75
 }
