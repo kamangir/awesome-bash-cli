@@ -3,5 +3,5 @@
     "plugins": "blue-sbc,dec82",
     "session": "dec82",
     "session.imager.period": -1,
-    "session.screen.period": 1,
+    "session.screen.period": 1
 }
