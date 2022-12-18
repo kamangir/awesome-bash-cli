@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-function abcli_get_wifi_ssid() {
+function abcli_wifi_get_ssid() {
     if [ "$abcli_is_jetson" == true ] || [ "$abcli_is_rpi" == true ] ; then
         # https://code.luasoftware.com/tutorials/jetson-nano/jetson-nano-connect-to-wifi-via-command-line/
         # https://howchoo.com/pi/find-raspberry-pi-network-name-ssid
@@ -15,4 +15,4 @@ function abcli_get_wifi_ssid() {
     fi
 }
 
-export abcli_wifi_ssid=$(abcli_get_wifi_ssid)
+export abcli_wifi_ssid=$(abcli_wifi_get_ssid)
