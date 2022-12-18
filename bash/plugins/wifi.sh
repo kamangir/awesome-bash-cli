@@ -8,12 +8,21 @@ function abcli_wifi() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "abcli wifi get_ssid" \
             "get wifi ssid."
+        abcli_show_usage "abcli wifi copy_to_sd_card" \
+            "copy wifi info to sd_card."
         return
     fi
 
     local function_name="abcli_wifi_$task"
     if [[ $(type -t $function_name) == "function" ]] ; then
         $function_name ${@:2}
+        return
+    fi
+
+    if [ "$task" == "copy_to_sd_card" ] ; then
+        cp -v \
+            $abcli_path_bash/bootstrap/cookie/wpa_supplicant.conf \
+            /Volumes/boot/
         return
     fi
 
