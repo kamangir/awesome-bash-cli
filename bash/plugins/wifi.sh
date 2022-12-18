@@ -1,5 +1,25 @@
 #! /usr/bin/env bash
 
+#! /usr/bin/env bash
+
+function abcli_wifi() {
+    local task=$(abcli_unpack_keyword $1 help)
+
+    if [ "$task" == "help" ] ; then
+        abcli_show_usage "abcli wifi get_ssid" \
+            "get wifi ssid."
+        return
+    fi
+
+    local function_name="abcli_wifi_$task"
+    if [[ $(type -t $function_name) == "function" ]] ; then
+        $function_name ${@:2}
+        return
+    fi
+
+    abcli_log_error "-abcli: wifi: $task: command not found."
+}
+
 function abcli_wifi_get_ssid() {
     if [ "$abcli_is_jetson" == true ] || [ "$abcli_is_rpi" == true ] ; then
         # https://code.luasoftware.com/tutorials/jetson-nano/jetson-nano-connect-to-wifi-via-command-line/
