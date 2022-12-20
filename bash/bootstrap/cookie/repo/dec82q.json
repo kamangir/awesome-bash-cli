@@ -1,0 +1,7 @@
+{
+    "hat.kind": "sparkfun-top-phat",
+    "plugins": "blue-sbc,dec82",
+    "session": "dec82",
+    "session.imager.period": 60,
+    "session.screen.period": 0.75
+}
