@@ -1,5 +1,5 @@
 {
-    "hat.kind": "grove",
+    "hardware.kind": "grove",
     "plugins": "blue-sbc,dec82",
     "session": "dec82",
     "session.imager.period": 60,

@@ -1,5 +1,5 @@
 {
-    "hat.kind": "scroll_phat_hd",
+    "hardware.kind": "scroll_phat_hd",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
     "session.screen.period": 0.1

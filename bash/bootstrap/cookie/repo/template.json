@@ -3,7 +3,7 @@
     "camera.rotation": 0,
     "display.fullscreen": true,
     "gpu": 1,
-    "hat.kind": "led_switch",
+    "hardware.kind": "led_switch",
     "messenger.recipients": "stream",
     "plugins": "blue-sbc,blue-wiki,blue-worker",
     "session": "blue_sbc",

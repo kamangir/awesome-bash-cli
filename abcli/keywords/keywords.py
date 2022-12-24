@@ -2,7 +2,7 @@ KEYWORDS = {
     "!": "run",
     "?": "help",
     "--help": "help",
-    "H": "hat",
+    "H": "hardware",
     "I": "install",
     "K": "Kanata",
     "P": "plugins",
