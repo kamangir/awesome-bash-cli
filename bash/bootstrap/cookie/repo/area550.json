@@ -2,10 +2,9 @@
     "camera.hi_res": false,
     "camera.height": 120,
     "camera.width": 160,
-    "hat.kind": "other",
+    "hardware.kind": "unicorn_16x16",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
     "session.imager.period": 3,
-    "session.screen": "unicorn_16x16",
     "session.screen.period": 0.1
 }

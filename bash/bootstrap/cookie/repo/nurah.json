@@ -1,7 +1,6 @@
 {
-    "hat.kind": "adafruit_rgb_matrix_hat",
+    "hardware.kind": "adafruit_rgb_matrix",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
-    "session.screen": "adafruit_rgb_matrix",
     "session.screen.period": 0.1
 }
