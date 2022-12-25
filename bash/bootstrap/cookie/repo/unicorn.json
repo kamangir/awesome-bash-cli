@@ -1,4 +1,5 @@
 {
+    "camera.hi_res": false,
     "hardware.kind": "unicorn_16x16",
     "plugins": "blue-sbc",
     "session": "blue_sbc",

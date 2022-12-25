@@ -1,4 +1,5 @@
 {
+    "camera.hi_res": false,
     "hardware.kind": "adafruit_rgb_matrix",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
