@@ -1,4 +1,5 @@
 {
+    "camera.hi_res": false,
     "hardware.kind": "scroll_phat_hd",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
