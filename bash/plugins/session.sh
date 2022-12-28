@@ -42,10 +42,11 @@ function abcli_session() {
 
             abcli_log "session initialized: username=$USER, hostname=$(hostname), EUID=$EUID, python3=$(which python3)"
 
-            rm $abcli_path_cookie/session_reply_*
-
             if [[ "$abcli_is_mac" == false ]] ; then
+                sudo rm $abcli_path_cookie/session_reply_*
                 abcli_storage clear
+            else
+                rm $abcli_path_cookie/session_reply_*
             fi
 
             abcli_select
