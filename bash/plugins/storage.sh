@@ -23,7 +23,7 @@ function abcli_storage() {
 
     if [[ "$task" == "clear" ]]; then
         cd
-        rm -rf $abcli_path_storage/*
+        sudo rm -rf $abcli_path_storage/*
         abcli_select $abcli_object_name
         return
     fi
