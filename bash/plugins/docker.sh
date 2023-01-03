@@ -18,8 +18,8 @@ function abcli_docker() {
         pushd $abcli_path_abcli > /dev/null
 
         mkdir -p temp
-        cp ~/.ssh/kamangir_git temp/
-        cp $abcli_path_abcli/assets/kaggle/kaggle.json temp/
+        cp -v ~/.ssh/kamangir_git temp/
+        cp -v ~/.kaggle/kaggle.json temp/
 
         docker build \
             --build-arg branch_name=$abcli_git_branch \
@@ -28,7 +28,7 @@ function abcli_docker() {
             -t kamangir/abcli \
             .
 
-        rm -rf temp
+        rm -rfv temp
 
         if [ "$do_run" == "1" ] ; then
             abcli_docker run
