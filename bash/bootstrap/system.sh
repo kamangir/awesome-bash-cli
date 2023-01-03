@@ -12,6 +12,7 @@ export abcli_is_ubuntu=false
 export abcli_is_vnc=false
 
 # https://github.com/ultralytics/yolov5/blob/master/utils/general.py#L90
+# https://stackoverflow.com/a/25518538/17619982
 if [ -f "/.dockerenv" ] ; then
     export abcli_is_docker=true
 fi

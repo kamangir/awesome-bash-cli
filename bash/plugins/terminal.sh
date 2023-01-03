@@ -6,12 +6,14 @@ function abcli_set_prompt() {
     color_prompt=yes
 
     local icon=""    
-    if [ "$abcli_is_mac" == true ] ; then
-        local icon="💻 "
+    if [ "$abcli_is_docker" == true ] ; then
+        local icon="🌠 "
     elif [ "$abcli_is_ec2" == true ] ; then
         local icon="🌩️ "
     elif [ "$abcli_is_jetson" == true ] || [ "$abcli_is_rpi" == true ] ; then
         local icon="⚡ "
+    elif [ "$abcli_is_mac" == true ] ; then
+        local icon="💻 "
     fi
 
     parse_git_branch() {
