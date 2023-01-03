@@ -26,9 +26,9 @@ RUN pip install --upgrade pip
 
 ADD . /root/git/awesome-bash-cli/
 
-# RUN source /root/git/awesome-bash-cli/bash/abcli.sh
+RUN cd /root/git/awesome-bash-cli; pip3 install -e .
 
-# RUN cd /root/git/awesome-bash-cli; pip3 install -e .
+# RUN source /root/git/awesome-bash-cli/bash/abcli.sh
 
 # https://www.cyberciti.biz/faq/how-to-change-shell-to-bash/
 # https://github.com/ish-app/ish/issues/393#issuecomment-1075880743
