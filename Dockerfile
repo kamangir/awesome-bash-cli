@@ -8,16 +8,17 @@ ARG user
 
 # mkdir's
 RUN mkdir -p /root/.ssh; \
-    mkdir -p /root/git
+    mkdir -p /root/git; \
+    mkdir -p /root/.kaggle
 
 # apk add's
-# RUN apk update
-# RUN apk upgrade
-# RUN apk add openssh-client
-# RUN apk add git
-# RUN apk add --no-cache bash
+RUN apk update
+RUN apk upgrade
+RUN apk add openssh-client
+RUN apk add git
+RUN apk add --no-cache bash
 # https://github.com/ish-app/ish/issues/393#issuecomment-1075880743
-# RUN apk add shadow
+RUN apk add shadow
 
 # https://stackoverflow.com/a/39777387/17619982
 # SHELL ["/bin/bash", "-c"] 
@@ -38,7 +39,7 @@ RUN mkdir -p /root/.ssh; \
 #    git checkout $branch_name; \
 #    git pull
 
-COPY temp/kaggle.json /root/git/awesome-bash-cli/assets/kaggle/kaggle.json
+COPY temp/kaggle.json /root/.kaggle/kaggle.json
 
 # RUN source /root/git/awesome-bash-cli/bash/abcli.sh
 
