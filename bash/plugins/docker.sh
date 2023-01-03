@@ -18,13 +18,9 @@ function abcli_docker() {
         pushd $abcli_path_abcli > /dev/null
 
         mkdir -p temp
-        cp -v ~/.ssh/kamangir_git temp/
         cp -v ~/.kaggle/kaggle.json temp/
 
         docker build \
-            --build-arg branch_name=$abcli_git_branch \
-            --build-arg home=$abcli_path_home \
-            --build-arg user=$USER \
             -t kamangir/abcli \
             .
 
@@ -42,7 +38,7 @@ function abcli_docker() {
     if [ "$task" == "run" ] ; then
         pushd $abcli_path_abcli > /dev/null
         # https://gist.github.com/mitchwongho/11266726
-        docker run -it kamangir/abcli
+        docker run -it kamangir/abcli /bin/bash
         popd > /dev/null
 
         return

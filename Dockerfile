@@ -1,15 +1,11 @@
 # our base image
 FROM alpine
 
-# ARGs
-ARG branch_name
-ARG home
-ARG user
-
 # mkdir's
-RUN mkdir -p /root/.ssh; \
-    mkdir -p /root/git; \
+RUN mkdir -p /root/git/awesome-bash-cli; \
     mkdir -p /root/.kaggle
+
+COPY temp/kaggle.json /root/.kaggle/kaggle.json
 
 # apk add's
 RUN apk update
@@ -28,18 +24,7 @@ RUN apk --update add python3
 RUN apk add py3-pip
 RUN pip install --upgrade pip
 
-# add ssh key and clone repo
-# COPY temp/kamangir_git /root/.ssh/
-# RUN chmod 600 /root/.ssh/kamangir_git; \
-#    eval $(ssh-agent -s); ssh-add -k ~/.ssh/kamangir_git; \
-#    ssh-keyscan github.com >> ~/.ssh/known_hosts; \
-#    cd /root/git; \
-#    git clone git@github.com:kamangir/awesome-bash-cli.git; \
-#    cd awesome-bash-cli; \
-#    git checkout $branch_name; \
-#    git pull
-
-COPY temp/kaggle.json /root/.kaggle/kaggle.json
+ADD . /root/git/awesome-bash-cli/
 
 # RUN source /root/git/awesome-bash-cli/bash/abcli.sh
 
