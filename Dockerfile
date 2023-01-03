@@ -34,3 +34,5 @@ RUN printf "MyPassword\nMyPassword" | passwd
 RUN echo "MyPassword" | chsh -s /bin/bash
 
 # RUN source /root/git/awesome-bash-cli/bash/abcli.sh
+
+# ENTRYPOINT "/root/git/awesome-bash-cli/bash/abcli.sh"
