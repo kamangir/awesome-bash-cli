@@ -1,13 +1,13 @@
-# our base image
 FROM alpine
 
-# mkdir's
-RUN mkdir -p /root/git/awesome-bash-cli; \
+ARG abcli_git_ssh_key_name
+
+RUN mkdir -p /root/.ssh; \
+    mkdir -p /root/git/awesome-bash-cli; \
     mkdir -p /root/.kaggle
 
 COPY temp/kaggle.json /root/.kaggle/kaggle.json
 
-# apk add's
 RUN apk update
 RUN apk upgrade
 RUN apk add openssh-client
@@ -18,6 +18,9 @@ RUN apk add shadow
 
 # https://stackoverflow.com/a/39777387/17619982
 SHELL ["/bin/bash", "-c"] 
+
+COPY temp/$abcli_git_ssh_key_name /root/.ssh/
+RUN chmod 600 /root/.ssh/$abcli_git_ssh_key_name
 
 # https://gist.github.com/rvarago/9ba1549057bfd7e09a956d770b9939f4
 RUN apk --update add python3
