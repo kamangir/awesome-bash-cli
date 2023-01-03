@@ -44,7 +44,9 @@ function abcli_docker() {
         # https://gist.github.com/mitchwongho/11266726
         docker run -it kamangir/abcli
         popd > /dev/null
+
+        return
     fi
 
-    abcli_error "unknown task: docker '$task'."
+    abcli_log_error "unknown task: docker '$task'."
 }
