@@ -2,6 +2,7 @@
 
 export abcli_is_64bit=false
 export abcli_is_amazon_linux=false
+export abcli_is_docker=false
 export abcli_is_ec2=false
 export abcli_is_jetson=false
 export abcli_is_headless=false
@@ -9,6 +10,11 @@ export abcli_is_mac=false
 export abcli_is_rpi=false
 export abcli_is_ubuntu=false
 export abcli_is_vnc=false
+
+# https://github.com/ultralytics/yolov5/blob/master/utils/general.py#L90
+if [ -f "/.dockerenv" ] ; then
+    local abcli_is_docker=true
+fi
 
 if [ "$(uname -m)" == "x86_64" ] ; then
     export abcli_is_64bit=true
