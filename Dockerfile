@@ -28,4 +28,9 @@ ADD . /root/git/awesome-bash-cli/
 
 RUN cd /root/git/awesome-bash-cli; pip3 install -e .
 
+# https://www.cyberciti.biz/faq/how-to-change-shell-to-bash/
+# https://github.com/ish-app/ish/issues/393#issuecomment-1075880743
+RUN printf "MyPassword\nMyPassword" | passwd
+RUN echo "MyPassword" | chsh -s /bin/bash
+
 # RUN source /root/git/awesome-bash-cli/bash/abcli.sh
