@@ -13,10 +13,7 @@ export abcli_is_vnc=false
 
 # https://github.com/ultralytics/yolov5/blob/master/utils/general.py#L90
 if [ -f "/.dockerenv" ] ; then
-    echo "dockerenv found!"
-    local abcli_is_docker=true
-else
-    echo "dockerenv not found!"
+    export abcli_is_docker=true
 fi
 
 if [ "$(uname -m)" == "x86_64" ] ; then
