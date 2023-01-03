@@ -25,6 +25,8 @@ function abcli_init() {
         done
 
         source $abcli_path_abcli/bash/abcli.sh "$options" ${@:3}
+    elif [ "$plugin_name" == "clear" ] ; then
+        abcli_init - clear
     else
         local plugin_name=$(abcli_unpack_keyword $1)
         local repo_name=$(echo "$plugin_name" | tr _ -)

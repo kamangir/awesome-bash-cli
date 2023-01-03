@@ -28,7 +28,7 @@ function abcli_docker() {
             -t kamangir/abcli \
             .
 
-        rm -rfv temp
+        rm -rf temp
 
         if [ "$do_run" == "1" ] ; then
             abcli_docker run
