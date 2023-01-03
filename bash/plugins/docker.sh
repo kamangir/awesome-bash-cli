@@ -19,6 +19,7 @@ function abcli_docker() {
 
         mkdir -p temp
         cp -v ~/.kaggle/kaggle.json temp/
+        cp -v ~/.ssh/$abcli_git_ssh_key_name temp/
 
         docker build \
             --build-arg abcli_git_ssh_key_name=$abcli_git_ssh_key_name \
