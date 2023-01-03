@@ -29,22 +29,3 @@ ADD . /root/git/awesome-bash-cli/
 RUN cd /root/git/awesome-bash-cli; pip3 install -e .
 
 # RUN source /root/git/awesome-bash-cli/bash/abcli.sh
-
-# https://www.cyberciti.biz/faq/how-to-change-shell-to-bash/
-# https://github.com/ish-app/ish/issues/393#issuecomment-1075880743
-#RUN printf "MyPassword\nMyPassword" | passwd
-#RUN echo "MyPassword" | chsh -s /bin/bash
-
-# install Python modules needed by the Python app
-#COPY requirements.txt /usr/src/app/
-#RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
-
-# copy files required for the app to run
-#COPY app.py /usr/src/app/
-#COPY templates/index.html /usr/src/app/templates/
-
-# tell the port number the container should expose
-#EXPOSE 5000
-
-# run the application
-#CMD ["python", "/usr/src/app/app.py"]
