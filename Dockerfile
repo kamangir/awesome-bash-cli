@@ -21,12 +21,12 @@ RUN apk add --no-cache bash
 RUN apk add shadow
 
 # https://stackoverflow.com/a/39777387/17619982
-# SHELL ["/bin/bash", "-c"] 
+SHELL ["/bin/bash", "-c"] 
 
 # https://gist.github.com/rvarago/9ba1549057bfd7e09a956d770b9939f4
-# RUN apk --update add python3
-# RUN apk add py3-pip
-# RUN pip install --upgrade pip
+RUN apk --update add python3
+RUN apk add py3-pip
+RUN pip install --upgrade pip
 
 # add ssh key and clone repo
 # COPY temp/kamangir_git /root/.ssh/
