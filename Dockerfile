@@ -1,5 +1,5 @@
 # our base image
-FROM python:3.10-slim-bullseye
+FROM alpine
 
 # ARGs
 ARG branch_name
