@@ -16,6 +16,9 @@ RUN apk add --no-cache bash
 # https://github.com/ish-app/ish/issues/393#issuecomment-1075880743
 RUN apk add shadow
 
+# https://stackoverflow.com/a/45143116/17619982
+RUN apk add sudo
+
 # https://stackoverflow.com/a/39777387/17619982
 SHELL ["/bin/bash", "-c"] 
 
