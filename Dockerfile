@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.16
 
 ARG abcli_git_ssh_key_name
 
@@ -7,6 +7,10 @@ RUN mkdir -p /root/.ssh; \
     mkdir -p /root/.kaggle
 
 COPY temp/kaggle.json /root/.kaggle/kaggle.json
+
+# https://gist.github.com/rvarago/9ba1549057bfd7e09a956d770b9939f4
+# https://gist.github.com/orenitamar/f29fb15db3b0d13178c1c4dd611adce2?permalink_comment_id=4236748#gistcomment-4236748
+RUN apk --no-cache --update-cache add python3 py3-pip py3-arrow  py3-pandas # and py3-anything package need to be compiled
 
 RUN apk update
 RUN apk upgrade
@@ -24,11 +28,6 @@ SHELL ["/bin/bash", "-c"]
 
 COPY temp/$abcli_git_ssh_key_name /root/.ssh/
 RUN chmod 600 /root/.ssh/$abcli_git_ssh_key_name
-
-# https://gist.github.com/rvarago/9ba1549057bfd7e09a956d770b9939f4
-RUN apk --update add python3
-RUN apk add py3-pip
-RUN pip install --upgrade pip
 
 ADD . /root/git/awesome-bash-cli/
 
