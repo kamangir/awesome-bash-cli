@@ -23,6 +23,9 @@ def get_name(cache=True):
 def get_name_():
     default = string.random_(5)
 
+    if is_docker():
+        return os.getenv("abcli_container_id", default)
+
     if is_ec2():
         return os.getenv("abcli_ec2_instance_id", default)
 
@@ -75,6 +78,10 @@ def get_tags(cache=True):
 
     HOST_TAGS = tags.get(get_name(cache=cache))
     return HOST_TAGS
+
+
+def is_docker():
+    return os.getenv("abcli_is_docker", "false") == "true"
 
 
 def is_ec2():

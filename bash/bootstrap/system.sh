@@ -15,6 +15,9 @@ export abcli_is_vnc=false
 # https://stackoverflow.com/a/25518538/17619982
 if [ -f "/.dockerenv" ] ; then
     export abcli_is_docker=true
+
+    # https://stackoverflow.com/a/38983893/17619982
+    export abcli_container_id=$(cat /etc/hostname)
 fi
 
 if [ "$(uname -m)" == "x86_64" ] ; then
