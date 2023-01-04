@@ -10,7 +10,8 @@ COPY temp/kaggle.json /root/.kaggle/kaggle.json
 
 # https://gist.github.com/rvarago/9ba1549057bfd7e09a956d770b9939f4
 # https://gist.github.com/orenitamar/f29fb15db3b0d13178c1c4dd611adce2?permalink_comment_id=4236748#gistcomment-4236748
-RUN apk --no-cache --update-cache add python3 py3-pip py3-arrow  py3-pandas # and py3-anything package need to be compiled
+# https://pkgs.alpinelinux.org/package/edge/community/x86/py3-opencv
+RUN apk --no-cache --update-cache add python3 py3-pip py3-arrow  py3-pandas py3-opencv # and py3-anything package need to be compiled
 
 RUN apk update
 RUN apk upgrade
