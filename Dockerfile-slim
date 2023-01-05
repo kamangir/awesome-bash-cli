@@ -5,4 +5,8 @@ ARG HOME
 RUN pip install numpy
 RUN pip install panda
 
+ADD . /root/git/awesome-bash-cli/
+
+RUN cd /root/git/awesome-bash-cli; pip3 install -e .
+
 CMD ["/bin/bash"]
