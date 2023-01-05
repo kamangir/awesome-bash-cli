@@ -9,4 +9,4 @@ ADD . /root/git/awesome-bash-cli/
 
 RUN cd /root/git/awesome-bash-cli; pip3 install -e .
 
-CMD ["/bin/bash"]
+CMD ["bash", "-ic", "source /root/git/awesome-bash-cli/bash/abcli.sh; /bin/bash"]
