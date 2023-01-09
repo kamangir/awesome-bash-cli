@@ -32,6 +32,9 @@ function abcli_conda() {
         # https://stackoverflow.com/a/65993776/17619982
         conda install -y numpy==1.19.5
 
+        # https://geopandas.org/en/stable/getting_started/install.html
+        conda install -y geopandas
+
         pushd $abcli_path_git/awesome-bash-cli > /dev/null
         pip3 install -e .
         popd > /dev/null
