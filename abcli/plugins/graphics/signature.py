@@ -93,7 +93,7 @@ def add_signature(image, header, footer=[]):
         return image
 
     adjust_length = (
-        lambda line: line if len(line) >= 40 else line + (40 - len(line)) * " "
+        lambda line: line if len(line) >= 80 else line + (80 - len(line)) * " "
     )
 
     return np.concatenate(
