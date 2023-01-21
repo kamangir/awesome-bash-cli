@@ -20,5 +20,6 @@
     "session.screen.period": 4,
     "session.temperature.period": 300,
     "youtube.api_key": "...",
-    "stability_key": "..."
+    "stability_key": "...",
+    "openai_key": "..."
 }
