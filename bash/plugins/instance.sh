@@ -12,7 +12,7 @@ function abcli_instance() {
             "get <instance-name> ip address."
         abcli_show_usage "abcli instance list" \
             "list ec2 instances."
-        abcli_show_usage "abcliinstance terminate$ABCUL<instance-id>" \
+        abcli_show_usage "abcli instance terminate$ABCUL<instance-id>" \
             "terminate ec2 instance."
 
         printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
