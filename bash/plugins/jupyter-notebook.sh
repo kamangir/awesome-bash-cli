@@ -11,7 +11,7 @@ function abcli_notebook() {
         abcli_show_usage "abcli notebook host [setup]" \
             "[setup and] host jupyter notebook on ec2."
         abcli_show_usage "abcli notebook [open] [<notebook>] [<args>]" \
-            "open $abcli_object_name/notebook.ipynb [and pass args]."
+            "open ./notebook.ipynb [and pass args]."
         return
     fi
 
@@ -75,8 +75,9 @@ function abcli_notebook() {
 
     if [ "$task" == "open" ] ; then
         if [ ! -f $notebook_name.ipynb ]; then
-            cp $abcli_path_abcli/assets/notebook.ipynb ./$notebook_name.ipynb
-            abcli_log "$notebook_name.ipynb copied."
+            cp -v \
+                $abcli_path_abcli/assets/notebook.ipynb \
+                ./$notebook_name.ipynb
         fi
 
         jupyter notebook
