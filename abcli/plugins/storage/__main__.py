@@ -93,13 +93,13 @@ elif args.task == "upload_file":
         bucket_name=args.bucket_name,
     )
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    print(f"-{NAME}: {args.task}: command not found.")
 
 if success and output is not None:
     if args.log:
-        logger.info(f"{len(output):,} {args.item_name}(s): {delim.join(output)}")
+        print(f"{len(output):,} {args.item_name}(s): {delim.join(output)}")
     else:
         print(delim.join(output))
 
 if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+    print(f"-{NAME}: {args.task}: failed.")
