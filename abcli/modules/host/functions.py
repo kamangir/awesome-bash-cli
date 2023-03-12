@@ -88,12 +88,28 @@ def is_ec2():
     return os.getenv("abcli_is_ec2", "false") == "true"
 
 
+def is_headless():
+    return os.getenv("abcli_is_headless", "false") == "true"
+
+
 def is_jetson():
     return os.getenv("abcli_is_jetson", "false") == "true"
 
 
-def is_headless():
-    return os.getenv("abcli_is_headless", "false") == "true"
+# https://github.com/ultralytics/yolov5/blob/master/utils/general.py#LL79C18-L79C18
+def is_jupyter():
+    """
+    Check if the current script is running inside a Jupyter Notebook.
+    Verified on Colab, Jupyterlab, Kaggle, Paperspace.
+    Returns:
+        bool: True if running inside a Jupyter Notebook, False otherwise.
+    """
+    try:
+        from IPython import get_ipython
+
+        return get_ipython() is not None
+    except:
+        return False
 
 
 def is_mac():
