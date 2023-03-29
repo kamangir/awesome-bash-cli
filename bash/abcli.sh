@@ -19,7 +19,11 @@ function abcli_main() {
 
     abcli_initialize
 
-    abcli_select $abcli_object_name
+    if [ "$abcli_is_jupyternotebook" == true ] ; then
+        abcli_log "📃  welcome to Jupyter Notebook + $abcli_fullname!"
+    else
+        abcli_select $abcli_object_name
+    fi
 
     local command="${@:2}"
     if [ ! -z "$command" ] ; then
