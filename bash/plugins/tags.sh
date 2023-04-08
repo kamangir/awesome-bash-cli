@@ -76,7 +76,7 @@ function abcli_tag() {
                 ${@:5}
 
             if [ "$do_validate" == 1 ] ; then
-                abcli_log "$object: $(abcli_tag get $object)"
+                abcli_log "$object: $(abcli_tag get $object --log 0)"
             fi
         done
 
