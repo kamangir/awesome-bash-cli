@@ -1,0 +1,11 @@
+{
+    "messenger.recipients": "DALL-E",
+    "plugins": "blue-sbc",
+    "session": "blue_sbc",
+    "session.imager.enabled": false,
+    "session.object.tags": "may26",
+    "session.messenger.period": 60,
+    "session.monitor.enabled": false,
+    "session.outbound_queue": "",
+    "session.screen.period": 2
+}
