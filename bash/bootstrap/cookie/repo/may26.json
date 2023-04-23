@@ -1,4 +1,5 @@
 {
+    "blue_sbc.application": "blue_sbc.applications.may26",
     "messenger.recipients": "DALL-E",
     "plugins": "blue-sbc",
     "session": "blue_sbc",
