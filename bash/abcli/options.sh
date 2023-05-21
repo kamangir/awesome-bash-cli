@@ -6,7 +6,24 @@ function abcli_option() {
         --options "$1" \
         --keyword "$2" \
         --default "$3" \
-        ${@:4}
+        "${@:4}"
+}
+
+function abcli_option_checklist() {
+    python3 -m abcli.options \
+        checklist \
+        --options "$1" \
+        --choices "$2" \
+        "${@:3}"
+}
+
+function abcli_option_choice() {
+    python3 -m abcli.options \
+        choice \
+        --options "$1" \
+        --choices "$2" \
+        --default "$3" \
+        "${@:4}"
 }
 
 function abcli_option_default() {
@@ -15,7 +32,7 @@ function abcli_option_default() {
         --options "$1" \
         --keyword "$2" \
         --default "$3" \
-        ${@:4}
+        "${@:4}"
 }
 
 function abcli_option_get_unpacked() {
@@ -25,7 +42,7 @@ function abcli_option_get_unpacked() {
         --keyword "$2" \
         --default "$3" \
         --is_int 1 \
-        ${@:4}
+        "${@:4}"
 }
 
 function abcli_option_int() {
@@ -35,7 +52,7 @@ function abcli_option_int() {
         --keyword "$2" \
         --default "$3" \
         --is_int 1 \
-        ${@:4}
+        "${@:4}"
 }
 
 function abcli_option_update() {
@@ -44,5 +61,5 @@ function abcli_option_update() {
         --options "$1" \
         --keyword "$2" \
         --default "$3" \
-        ${@:4}
+        "${@:4}"
 }
