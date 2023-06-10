@@ -275,15 +275,15 @@ function abcli_git_get_branch() {
 
     popd > /dev/null
 
+    local branch_name=${branch_name##refs/heads/}
+
     echo $branch_name
 }
 
 function abcli_get_git_branch() {
-    local branch_name=$(abcli_git_get_branch awesome-bash-cli)
-
     abcli_get_version
 
-    export abcli_git_branch=${branch_name##refs/heads/}
+    export abcli_git_branch=$(abcli_git_get_branch awesome-bash-cli)
 
     export abcli_fullname=abcli-$abcli_version.$abcli_git_branch
 }
