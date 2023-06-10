@@ -195,10 +195,8 @@ function abcli_git() {
         git commit -a -m "$message"
 
         if [ "$first_push" == 1 ] ; then
-            echo "abcli_get_git_branch $repo_name $options"
-            local branch_name=$(abcli_get_git_branch $repo_name $options)
-            echo branch_name=$branch_name
-            echo git push --set-upstream origin $branch_name
+            local branch_name=$(abcli_git_get_branch $repo_name $options)
+            git push --set-upstream origin $branch_name
         else
             git push
         fi
