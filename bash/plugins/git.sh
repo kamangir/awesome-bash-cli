@@ -15,8 +15,8 @@ function abcli_git() {
 
         abcli_show_usage "abcli git <repo_name>$ABCUL<command-args>" \
             "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git push$ABCUL<repo_name>$ABCUL[accept_no_issue,delete,object,~status]$ABCUL[<message>]" \
-            "push to <repo_name>."
+        abcli_show_usage "abcli git push$ABCUL<repo_name>$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
+            "[first] push to <repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
         abcli_show_usage "abcli git select_issue$ABCUL<kamangir/bolt#abc>" \
@@ -168,6 +168,7 @@ function abcli_git() {
         local in_object=$(abcli_option_int "$options" object 0)
         local do_delete=$(abcli_option_int "$options" delete 0)
         local show_status=$(abcli_option_int "$options" status 1)
+        local first_push=$(abcli_option_int "$options" first 0)
 
         if [ "$in_object" == 1 ] ; then
             pushd $abcli_object_path/$repo_name > /dev/null
@@ -192,7 +193,13 @@ function abcli_git() {
 
         git add .
         git commit -a -m "$message"
-        git push
+
+        if [ "$first_push" == 1 ] ; then
+            local branch_name=$(abcli_get_git_branch $repo_name $options)
+            git push --set-upstream origin $branch_name
+        else
+            git push
+        fi
 
         if [ "$do_delete" == 1 ] ; then
             abcli_log "deleting $repo_name"
@@ -250,16 +257,34 @@ function abcli_git() {
     popd > /dev/null
 }
 
-function abcli_get_git_branch() {
+function abcli_git_get_branch() {
+    local repo_name=$1
+
+    local options=$2
+    local in_object=$(abcli_option_int "$options" object 0)
+
+    if [ "$in_object" == 1 ] ; then
+        pushd $abcli_object_path/$repo_name > /dev/null
+    else
+        pushd $abcli_path_git/$repo_name > /dev/null
+    fi
+
     # https://stackoverflow.com/a/1593487
-    pushd $abcli_path_abcli > /dev/null
-    branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
-    branch_name="master"     # detached HEAD
+    local branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
+    local branch_name="master"     # detached HEAD
+
     popd > /dev/null
+
+    echo $branch_name
+}
+
+function abcli_get_git_branch() {
+    local branch_name=$(abcli_git_get_branch awesome-bash-cli)
 
     abcli_get_version
 
     export abcli_git_branch=${branch_name##refs/heads/}
+
     export abcli_fullname=abcli-$abcli_version.$abcli_git_branch
 }
 
