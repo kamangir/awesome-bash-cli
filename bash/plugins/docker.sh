@@ -6,7 +6,7 @@ function abcli_docker() {
     if [ "$task" == "help" ] ; then
         abcli_show_usage "docker build [run,slim,~start_with_abcli]" \
             "build [and run] docker image."
-        abcli_show_usage "docker run [~abcli,slim]" \
+        abcli_show_usage "docker run [slim,~start_with_abcli]" \
             "run docker image."
         return
     fi
