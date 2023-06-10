@@ -196,7 +196,7 @@ function abcli_git() {
 
         if [ "$first_push" == 1 ] ; then
             local branch_name=$(abcli_get_git_branch $repo_name $options)
-            git push --set-upstream origin $branch_name
+            echo git push --set-upstream origin $branch_name
         else
             git push
         fi
