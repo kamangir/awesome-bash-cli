@@ -4,10 +4,10 @@ function abcli_docker() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli docker build [run,slim,~start_with_abcli]" \
+        abcli_show_usage "abcli docker build$ABCUL[run,slim,~start_with_abcli]" \
             "build [and run] abcli image."
-        abcli_show_usage "abcli docker run [slim,~start_with_abcli]" \
-            "run abcli  image."
+        abcli_show_usage "abcli docker run$ABCUL[slim,~start_with_abcli]" \
+            "run abcli image."
         return
     fi
 
