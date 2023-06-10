@@ -4,7 +4,7 @@ function abcli_docker() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "docker build [~abcli,run,slim]" \
+        abcli_show_usage "docker build [run,slim,~start_with_abcli]" \
             "build [and run] docker image."
         abcli_show_usage "docker run [~abcli,slim]" \
             "run docker image."
@@ -13,7 +13,6 @@ function abcli_docker() {
 
     local options=$2
     local slim=$(abcli_option_int "$options" slim 0)
-    local start_with_abcli=$(abcli_option_int "$options" abcli 1)
 
     local filename="Dockerfile"
     local tag="kamangir/abcli"
@@ -50,7 +49,9 @@ function abcli_docker() {
     fi
 
     if [ "$task" == "run" ] ; then
-        abcli_log "docker: running $filename: $tag"
+        local start_with_abcli=$(abcli_option_int "$options" start_with_abcli 1)
+
+        abcli_log "docker: running $filename: $tag: $options"
 
         pushd $abcli_path_abcli > /dev/null
         if [ "$start_with_abcli" == 1 ] ; then
