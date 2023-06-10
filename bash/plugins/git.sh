@@ -8,6 +8,8 @@ function abcli_git() {
             "cd $abcli_path_git/<repo_name>."
         abcli_show_usage "abcli git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
             "clone <repo_name>."
+        abcli_show_usage "abcli git create_branch$ABCUL<repo_name>$ABCUL<branch-name>" \
+            "create branch <branch-name> in <repo_name>."
 
         abcli_git_pull $@
 
@@ -140,6 +142,22 @@ function abcli_git() {
         if [ "$then_cd" == 1 ] ; then
             cd $abcli_path_git/$repo_name
         fi
+
+        return
+    fi
+
+    if [ "$task" == "create_branch" ] ; then
+        local branch_name=$3
+        if [ -z "$branch_name" ] ; then
+            abcli_log_error "-abcli: git: $task: branch not found."
+            return 1
+        fi
+
+        pushd $abcli_path_git/$repo_name > /dev/null
+        git pull
+        git checkout -b $branch_name
+        git push origin $branch_name
+        popd > /dev/null
 
         return
     fi
