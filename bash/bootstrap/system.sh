@@ -26,7 +26,7 @@ if [ -f "/.dockerenv" ] ; then
     export abcli_container_id=$(cat /etc/hostname)
 
     alias sudo=
-    alias dmidecode=
+    alias dmidecode=true
 fi
 
 if [ "$(uname -m)" == "x86_64" ] ; then
@@ -53,13 +53,15 @@ if [[ "$OSTYPE" == "linux-gnu" ]] ; then
     export abcli_is_ubuntu=true
 
     if [[ "$abcli_is_64bit" == false ]] ; then
-        export abcli_is_jetson=true
-        # https://forums.developer.nvidia.com/t/read-serial-number-of-jetson-nano/72955
-        export abcli_jetson_nano_serial_number=$(sudo cat /proc/device-tree/serial-number)
+        if [[ "$abcli_is_docker" == false ]] ; then
+            export abcli_is_jetson=true
+            # https://forums.developer.nvidia.com/t/read-serial-number-of-jetson-nano/72955
+            export abcli_jetson_nano_serial_number=$(sudo cat /proc/device-tree/serial-number)
 
-        # https://github.com/numpy/numpy/issues/18131#issuecomment-755438271
-        # https://github.com/numpy/numpy/issues/18131#issuecomment-756140369
-        export OPENBLAS_CORETYPE=ARMV8
+            # https://github.com/numpy/numpy/issues/18131#issuecomment-755438271
+            # https://github.com/numpy/numpy/issues/18131#issuecomment-756140369
+            export OPENBLAS_CORETYPE=ARMV8
+        fi
     elif [[ "$(sudo dmidecode -s bios-version)" == *"amazon" ]] || [[ "$(sudo dmidecode -s bios-vendor)" == "Amazon"* ]] ; then
         export abcli_is_ec2=true
 
