@@ -4,9 +4,9 @@ function abcli_docker() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli docker build$ABCUL[run,~start_with_abcli]" \
+        abcli_show_usage "abcli docker build$ABCUL[run]" \
             "build [and run] abcli image."
-        abcli_show_usage "abcli docker run$ABCUL[~start_with_abcli]" \
+        abcli_show_usage "abcli docker run$ABCUL[]" \
             "run abcli image."
         return
     fi
@@ -44,19 +44,11 @@ function abcli_docker() {
     fi
 
     if [ "$task" == "run" ] ; then
-        local start_with_abcli=$(abcli_option_int "$options" start_with_abcli 1)
-
         abcli_log "docker: running $filename: $tag: $options"
 
         pushd $abcli_path_abcli > /dev/null
-        if [ "$start_with_abcli" == 1 ] ; then
-            docker run -it \
-                --entrypoint "/bin/bash -c 'source /root/git/awesome-bash-cli/bash/abcli.sh && /bin/bash'" \
-                $tag
-        else
-            # https://gist.github.com/mitchwongho/11266726
-            docker run -it $tag /bin/bash
-        fi
+        # https://gist.github.com/mitchwongho/11266726
+        docker run -it $tag /bin/bash
         popd > /dev/null
 
         return
