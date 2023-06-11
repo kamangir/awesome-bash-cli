@@ -1,9 +1,11 @@
 #! /usr/bin/env bash
 
 function abcli_initialize() {
-    git config --global user.email "arash@kamangir.net"
-    git config --global user.name "kamangir"
-    git config --global credential.helper store
+    if [[ "$abcli_is_docker" == false ]] ; then
+        git config --global user.email "arash@kamangir.net"
+        git config --global user.name "kamangir"
+        git config --global credential.helper store
+    fi
 
     [[ "$abcli_is_docker" == false ]] && abcli_add_ssh_keys
 
