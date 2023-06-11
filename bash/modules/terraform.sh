@@ -143,11 +143,11 @@ function abcli_terraform() {
             sudo cp \
                 $abcli_path_abcli/assets/aws/ec2_bash_profile \
                 /home/$USER/.bash_profile
-        else
+        elif [[ "$abcli_is_docker" == false ]] ; then
             sudo python3 -m abcli.modules.terraform \
                 terraform \
                 --target ubuntu \
-                --user $USER
+                --user "$USER"
         fi
         return
     fi
