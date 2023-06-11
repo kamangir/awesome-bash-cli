@@ -24,6 +24,9 @@ if [ -f "/.dockerenv" ] ; then
 
     # https://stackoverflow.com/a/38983893/17619982
     export abcli_container_id=$(cat /etc/hostname)
+
+    alias sudo=
+    alias dmidecode=
 fi
 
 if [ "$(uname -m)" == "x86_64" ] ; then
