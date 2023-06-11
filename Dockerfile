@@ -1,9 +1,12 @@
-FROM python:3.8-slim
+FROM ubuntu:latest
 
-ARG HOME
+RUN apt-get update && apt-get install -y python3-pip
 
 RUN pip install numpy
 RUN pip install panda
+
+# https://askubuntu.com/a/1013396/1590785
+ARG DEBIAN_FRONTEND=noninteractive
 
 # https://stackoverflow.com/a/66473309/17619982
 RUN apt-get update && apt-get install -y python3-opencv
