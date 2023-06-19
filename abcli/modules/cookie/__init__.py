@@ -3,7 +3,17 @@ from abcli import file
 
 NAME = "abcli.modules.cookie"
 
-cookie_filename = os.path.join(os.getenv("abcli_path_cookie", ""), "cookie.json")
+cookie_filename = os.path.join(
+    os.getenv(
+        "abcli_path_cookie",
+        os.path.join(
+            os.getenv("HOME", ""),
+            "git/awesome-bash-cli/bash/bootstrap/cookie",
+        ),
+    ),
+    "cookie.json",
+)
+
 
 _, cookie = file.load_json(cookie_filename, "civilized")
 
