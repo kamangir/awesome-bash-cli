@@ -34,6 +34,12 @@ function abcli_git() {
         return
     fi
 
+    local repo_name=$(abcli_unpack_repo_name $1)
+    if [ -d "$abcli_path_git/$repo_name" ] ; then
+        cd $abcli_path_git/$repo_name
+        return
+    fi
+
     local repo_name=$(abcli_unpack_repo_name $2)
 
     if [ "$task" == "cd" ] ; then
