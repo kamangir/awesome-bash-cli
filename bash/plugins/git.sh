@@ -4,6 +4,8 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ] ; then
+        abcli_show_usage "abcli git <repo_name>" \
+            "cd $abcli_path_git/<repo_name>."
         abcli_show_usage "abcli git cd$ABCUL<repo_name>" \
             "cd $abcli_path_git/<repo_name>."
         abcli_show_usage "abcli git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
