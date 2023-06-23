@@ -3,6 +3,9 @@
 export abcli_path_bash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 function abcli_main() {
+    export abcli_is_in_notebook=false
+    [[ "$1" == "in_notebook" ]] && export abcli_is_in_notebook=true
+
     source $abcli_path_bash/bootstrap/dependencies.sh
     abcli_source_dependencies
 
