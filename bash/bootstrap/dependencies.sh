@@ -21,7 +21,7 @@ function abcli_source_dependencies() {
             local plugins=(`ls *.sh`)
             local plugins=${plugins[*]}
             local plugins=$(python3 -c "print('$plugins'.replace('.sh',''))")
-            abcli_log_list "$plugins" space "plugin(s)" "loading "
+            [[ "$abcli_is_in_notebook" == false ]] && abcli_log_list "$plugins" space "plugin(s)" "loading "
         fi
 
         local filename
@@ -30,6 +30,8 @@ function abcli_source_dependencies() {
         done
         popd > /dev/null
     done
+
+    [[ "$abcli_is_in_notebook" == true ]] && return
 
     local repo_name
     for repo_name in $(abcli_plugins list_of_external --log 0 --delim space --repo_names 1) ; do

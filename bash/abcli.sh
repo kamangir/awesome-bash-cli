@@ -22,9 +22,7 @@ function abcli_main() {
 
     abcli_initialize
 
-    if [ "$abcli_is_jupyternotebook" == true ] ; then
-        abcli_log "📃  welcome to Jupyter Notebook + $abcli_fullname!"
-    else
+    if [ "$abcli_is_in_notebook" == false ] ; then
         abcli_select $abcli_object_name
     fi
 

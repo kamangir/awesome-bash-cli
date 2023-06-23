@@ -7,9 +7,11 @@ function abcli_initialize() {
         git config --global credential.helper store
     fi
 
-    [[ "$abcli_is_docker" == false ]] && abcli_add_ssh_keys
+    [[ "$abcli_is_docker" == false ]] && [[ "$abcli_is_in_notebook" == false ]] && abcli_add_ssh_keys
 
     export abcli_host_name=$(python3 -m abcli.modules.host get --keyword name)
+
+    [[ "$abcli_is_in_notebook" == true ]] && return
 
     abcli_set_prompt
 

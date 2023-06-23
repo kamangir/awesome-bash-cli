@@ -11,6 +11,8 @@ function abcli_trail() {
         return
     fi
 
+    [[ "$abcli_is_in_notebook" == true ]] && return
+
     if [ "$task" == "stop" ] ; then
         sudo killall remote_syslog
 

@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
 function abcli_install_module() {
+    [[ "$abcli_is_in_notebook" == true ]] && return
+
     local module=$1
     local version=${2-101}
 
