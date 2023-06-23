@@ -396,6 +396,14 @@ def shorten(thing, shorten_length=16):
     )
 
 
+def timestamp():
+    return pretty_date(
+        as_filename=True,
+        include_time=True,
+        unique=True,
+    )
+
+
 def utc_timestamp(
     date=None,
     format="%Y-%m-%d-%H-%M-%S",
