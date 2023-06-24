@@ -78,7 +78,7 @@ function abcli_notebook() {
     if [[ ",open,touch," == *",$task,"* ]] ; then
         if [ ! -f $notebook_name.ipynb ]; then
             cp -v \
-                $abcli_path_abcli/assets/notebook.ipynb \
+                $abcli_path_abcli/notebook.ipynb \
                 ./$notebook_name.ipynb
         fi
 
