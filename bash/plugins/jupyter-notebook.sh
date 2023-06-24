@@ -80,7 +80,7 @@ function abcli_notebook() {
             touch ./$notebook_name.ipynb
         else
             cp -v \
-                $abcli_path_abcli/notebook.ipynb \
+                $abcli_path_abcli/abcli.ipynb \
                 ./$notebook_name.ipynb
         fi
 
