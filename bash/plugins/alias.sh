@@ -6,6 +6,8 @@ alias @git="abcli git"
 
 alias @init="abcli init"
 
+alias @notebook="abcli notebook"
+
 alias @seed="abcli seed"
 
 alias @select="albcli select"

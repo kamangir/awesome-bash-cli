@@ -12,10 +12,12 @@ function abcli_notebook() {
             "[setup and] host jupyter notebook on ec2."
         abcli_show_usage "abcli notebook [open] [<notebook>] [<args>]" \
             "open ./notebook.ipynb [and pass args]."
+        abcli_show_usage "abcli notebook touch [<notebook>]" \
+            "touch ./<notebook>.ipynb."
         return
     fi
 
-    if [ "$task" == "build" ] || [ "$task" == "open" ] ; then
+    if [[ ",build,open,touch," == *",$task,"* ]] ; then
         local notebook_name=$(abcli_clarify_input $2 notebook)
         export abcli_notebook_input="${@:3}"
     fi
@@ -73,17 +75,17 @@ function abcli_notebook() {
         return
     fi
 
-    if [ "$task" == "open" ] ; then
+    if [[ ",open,touch," == *",$task,"* ]] ; then
         if [ ! -f $notebook_name.ipynb ]; then
             cp -v \
                 $abcli_path_abcli/assets/notebook.ipynb \
                 ./$notebook_name.ipynb
         fi
 
-        jupyter notebook
+        [[ "$task" == "open" ]] && jupyter notebook
 
         return
     fi
 
-    abcli_log_error "-abcli: jupyter-notebook: $task: command not found."
+    abcli_log_error "-abcli: notebook: $task: command not found."
 }
