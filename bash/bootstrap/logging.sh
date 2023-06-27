@@ -24,6 +24,12 @@ function abcli_show_usage() {
         return
     fi
 
+    if [[ ! -z "$abcli_show_usage_destination" ]] ; then
+        echo "- - $1" >> $abcli_show_usage_destination
+        echo "  - $2" >> $abcli_show_usage_destination
+        return
+    fi
+
     printf "${LIGHTBLUE}$1${NC}\n"
     if [ ! -z "$2" ] ; then
         printf "${CYAN} . $2${NC}\n"
