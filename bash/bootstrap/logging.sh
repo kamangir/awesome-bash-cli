@@ -25,8 +25,7 @@ function abcli_show_usage() {
     fi
 
     if [[ ! -z "$abcli_show_usage_destination" ]] ; then
-        echo "- - $1" >> $abcli_show_usage_destination
-        echo "  - $2" >> $abcli_show_usage_destination
+        echo "to $2 run $1." >> $abcli_show_usage_destination
         return
     fi
 
