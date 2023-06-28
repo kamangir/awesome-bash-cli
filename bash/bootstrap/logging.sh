@@ -77,24 +77,22 @@ function abcli_log_error() {
 }
 
 function abcli_log_file() {
-    local title=${1:-help}
+    local filename=${1:-help}
 
-    if [ "$title" == "help" ] ; then
-        abcli_show_usage "abcli log_file <title> <filename>" \
-            "log <filename> under <title>."
+    if [ "$filename" == "help" ] ; then
+        abcli_show_usage "abcli log_file <filename>" \
+            "log <filename>."
         return
     fi
-
-    local filename=$2
 
     if [ ! -f "$filename" ] ; then
         abcli_log_error "-abcli: log: file: $filename: file not found."
         return 1
     fi
 
-    printf "🗒️ $YELLOW --- $title: $filename$NC ---\n$BLUE"
+    printf "🗒️  $YELLOW$filename$NC\n$BLUE"
     cat $filename
-    printf "$NC\n🗒️ $YELLOW --- /$title ---$NC\n"
+    printf "$NC\n🗒️  $YELLOW/$filename$NC\n"
 }
 
 function abcli_log_list() {
