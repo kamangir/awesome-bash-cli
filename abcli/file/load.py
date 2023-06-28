@@ -155,13 +155,19 @@ def load_json(filename, civilized=False, default={}):
     return success, data
 
 
-def load_text(filename, civilized=False, count=-1):
+def load_text(
+    filename,
+    civilized=False,
+    count=-1,
+    log=False,
+):
     """load text from filename.
 
     Args:
         filename (str): filename
         civilized (bool, optional): if failed, do not print error message. Defaults to False.
         count (int, optional): number of lins to read. Defaults to -1 (all).
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -180,8 +186,12 @@ def load_text(filename, civilized=False, count=-1):
             with open(filename) as fp:
                 text = [next(fp) for _ in range(count)]
     except:
+        success = False
         if not civilized:
             crash_report(f"-{NAME}: load_text({filename}): failed.")
+
+    if success and log:
+        logger.info("loaded {} line(s) from {}.".format(len(text), filename))
 
     return success, text
 
