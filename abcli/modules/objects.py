@@ -40,6 +40,15 @@ def path_of(filename):
     )
 
 
+def select(object_name: str):
+    os.environ["abcli_object_name"] = object_name
+    os.environ["abcli_object_path"] = os.path.join(
+        os.getenv("HOME"),
+        "storage/abcli",
+        object_name,
+    )
+
+
 def signature(info=None):
     return [
         "{}{}".format(
