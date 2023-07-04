@@ -36,11 +36,11 @@ function abcli_download() {
         if [ -z "$exists" ] ; then
             abcli_log "$object_name open download started."
 
-            aws s3 sync "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name" .
+            aws s3 sync "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name" "$object_path"
         else
             abcli_log "$object_name solid download started."
 
-            pushd .. > /dev/null
+            pushd $abcli_object_root > /dev/null
 
             aws s3 cp "s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name.tar.gz" .
 
