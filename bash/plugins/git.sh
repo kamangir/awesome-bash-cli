@@ -42,6 +42,7 @@ function abcli_git() {
         return
     fi
 
+    local repo_name_org=$2
     local repo_name=$(abcli_unpack_repo_name $2)
 
     if [ "$task" == "cd" ] ; then
@@ -64,6 +65,11 @@ function abcli_git() {
             pushd $abcli_path_git > /dev/null
         fi
 
+        local repo_address=$repo_name_org
+        [[ "$repo_address" != http* ]] && [[ "$repo_address" != git@* ]] && local repo_address=git@github.com:kamangir/$repo_name.git
+
+        abcli_log "cloning $repo_address -> $(pwd)"
+
         # https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository
         # https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274
         if [ ! -z "$source" ] ; then
@@ -72,14 +78,14 @@ function abcli_git() {
             mv $source_repo_name.git $repo_name
 
             cd $repo_name
-            git push --mirror git@github.com:kamangir/$repo_name.git
+            git push --mirror $repo_address
             cd ..
 
             rm -rf $repo_name
         fi
 
         if [ ! -d "$repo_name" ] ; then
-            git clone git@github.com:kamangir/$repo_name.git
+            git clone $repo_address
         else
             if [ "$do_if_cloned" == 1 ] ; then
                 local do_install=0
