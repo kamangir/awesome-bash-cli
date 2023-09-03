@@ -10,4 +10,4 @@ alias @notebook="abcli notebook"
 
 alias @seed="abcli seed"
 
-alias @select="albcli select"
+alias @select="abcli select"
