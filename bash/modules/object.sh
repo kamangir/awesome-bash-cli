@@ -3,15 +3,19 @@
 function abcli_clarify_object() {
     local object_name=$1
     local default=$2
+    local plugin_name=${3:-abcli}
+
+    local object_var=${plugin_name}_object_name
+    local object_var_prev=${plugin_name}_object_name_prev
 
     if [ -z "$object_name" ] || [ "$object_name" == "-" ] ; then
         local object_name=$default
     fi
     if [ "$object_name" == "." ] ; then
-        local object_name=$abcli_object_name
+        local object_name=${!object_var}
     fi
     if [ "$object_name" == ".." ] ; then
-        local object_name=$abcli_object_name_prev
+        local object_name=${!object_var_prev}
     fi
     if [ "$(abcli_keyword_is $object_name validate)" == true ] ; then
         local object_name="validate"
