@@ -33,16 +33,16 @@ function abcli_select() {
     mkdir -p $path
 
     if [ "$plugin_name" == abcli ] ; then
-        cd $abcli_object_path
+        cd $path
 
         if [ "$update_trail" == 1 ] ; then
-            abcli_trail $abcli_object_path/$abcli_object_name
+            abcli_trail $path/$object_name
         fi
     fi
 
-    abcli_log "📂 $plugin_name: $abcli_object_name"
+    abcli_log "📂 $plugin_name: $object_name"
 
     if [ "$do_open" == 1 ] ; then
-        open $abcli_object_path
+        open $path
     fi
 }
