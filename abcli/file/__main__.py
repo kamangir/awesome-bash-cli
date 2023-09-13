@@ -16,10 +16,25 @@ parser.add_argument(
     "--filename",
     type=str,
 )
+parser.add_argument(
+    "--this",
+    type=str,
+)
+parser.add_argument(
+    "--that",
+    type=str,
+)
 args = parser.parse_args()
 
 success = False
-if args.task == "size":
+if args.task == "replace":
+    logger.info(f"{NAME}.{args.task}: {args.this} -> {args.that} in {args.filename}")
+    success, content = load_text(args.filename)
+    if success:
+        content = [line.replace(args.this, args.that) for line in content]
+
+        success = save_text(args.filename, content)
+elif args.task == "size":
     print(string.pretty_bytes(size(args.filename)))
     success = True
 else:
