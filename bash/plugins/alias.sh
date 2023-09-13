@@ -2,6 +2,8 @@
 
 alias @=abcli
 
+alias @download=abcli_download
+
 alias @git=abcli_git
 
 alias @init=abcli_init
@@ -14,3 +16,7 @@ alias @script=abcli_script
 alias @seed=abcli_seed
 
 alias @select=abcli_select
+
+alias @tag=abcli_tag
+
+alias @upload=abcli_upload
