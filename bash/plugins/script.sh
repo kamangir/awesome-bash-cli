@@ -4,15 +4,15 @@ function abcli_script() {
     local task=$(abcli_unpack_keyword $1 code)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli script [code] [<script-name>]" \
-            "code                             [<script-name>.sh]."
+        abcli_show_usage "abcli script$ABCUL[code]$ABCUL[<script-name>]" \
+            "code <script-name>.sh."
         
         abcli_script_python $@
 
-        abcli_show_usage "abcli script source [<script-name>]" \
-            "source                           [<script-name>.sh]"
-        abcli_show_usage "abcli script submit [<object-name>]            [<tags>]" \
-            "submit                            <object-name> as a job [w/ <tags>]"
+        abcli_show_usage "abcli script source$ABCUL[<script-name>]" \
+            "source <script-name>.sh"
+        abcli_show_usage "abcli script submit$ABCUL[<object-name>]$ABCUL[<tags>]" \
+            "submit <object-name> as a job"
         return
     fi
 
@@ -63,10 +63,10 @@ function abcli_script_python() {
     local task=$(abcli_unpack_keyword $1 code)
 
     if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli script python [code] [cli|script]" \
-            "code                                    [cli|script].py"
-        abcli_show_usage "abcli script python run [<script-name>]   [<args>]" \
-            "run                                   <script-name>.py [w/ <args>]."
+        abcli_show_usage "abcli script python$ABCUL[code]$ABCUL[cli|script]" \
+            "code [cli|script].py"
+        abcli_show_usage "abcli script python${ABCUL}run$ABCUL[<script-name>]$ABCUL[<args>]" \
+            "run <script-name>.py."
         return
     fi
 

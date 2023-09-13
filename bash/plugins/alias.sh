@@ -1,13 +1,15 @@
 #! /usr/bin/env bash
 
-alias @="abcli"
+alias @=abcli
 
-alias @git="abcli git"
+alias @git=abcli_git
 
-alias @init="abcli init"
+alias @init=abcli_init
 
-alias @notebook="abcli notebook"
+alias @notebook=abcli_notebook
 
-alias @seed="abcli seed"
+alias @script=abcli_script
 
-alias @select="abcli select"
+alias @seed=abcli_seed
+
+alias @select=abcli_select
