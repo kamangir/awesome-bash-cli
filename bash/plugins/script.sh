@@ -4,6 +4,9 @@ function abcli_script() {
     local task=$(abcli_unpack_keyword $1 code)
 
     if [ "$task" == "help" ] ; then
+        abcli_show_usage "abcli list" \
+            "list scripts."
+
         abcli_show_usage "abcli script$ABCUL[code]$ABCUL[<script-name>]" \
             "code <script-name>.sh."
         
@@ -38,6 +41,13 @@ function abcli_script() {
             nano $script_name.sh
         fi
 
+        return
+    fi
+
+    if [[ ",ls,list," == *",$task,"* ]] ; then
+        abcli_tag search \
+            script \
+            --item_name script
         return
     fi
 
