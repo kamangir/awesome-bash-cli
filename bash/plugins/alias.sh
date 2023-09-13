@@ -12,6 +12,7 @@ alias @notebook=abcli_notebook
 
 alias @ls="abcli_script list"
 alias @script=abcli_script
+alias @source="abcli_script source"
 
 alias @seed=abcli_seed
 
