@@ -4,6 +4,8 @@ alias @=abcli
 
 alias @download=abcli_download
 
+alias @docker=abcli_docker
+
 alias @env=abcli_env
 
 alias @git=abcli_git
