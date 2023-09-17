@@ -14,8 +14,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y python3-opencv
 RUN pip install opencv-python
 
-ADD . /root/git/awesome-bash-cli/
+VOLUME ["/root/git/awesome-bash-cli/"]
 
-RUN cd /root/git/awesome-bash-cli; pip3 install -e .
+RUN cd /root/git/awesome-bash-cli
+pip3 install -e .
 
 CMD ["bash", "-ic", "source /root/git/awesome-bash-cli/bash/abcli.sh; /bin/bash"]
