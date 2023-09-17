@@ -12,6 +12,8 @@ alias @git=abcli_git
 
 alias @init=abcli_init
 
+alias @log=abcli_log
+
 alias @notebook=abcli_notebook
 
 alias @ls="abcli_script list"
