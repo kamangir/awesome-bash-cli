@@ -39,7 +39,9 @@ function abcli_docker() {
             return 1
         fi
 
-        abcli_eval - "$command_line"
+        abcli_eval \
+            path=$abcli_path_abcli \
+            "$command_line"
 
         return
     fi
