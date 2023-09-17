@@ -8,6 +8,8 @@ alias @docker=abcli_docker
 
 alias @env=abcli_env
 
+alias @eval=abcli_eval
+
 alias @git=abcli_git
 
 alias @init=abcli_init
