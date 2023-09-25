@@ -14,6 +14,9 @@ function abcli_docker() {
 
         abcli_show_usage "abcli docker run" \
             "run abcli image."
+
+        abcli_show_usage "abcli docker seed" \
+            "seed docker 🌱."
         return
     fi
 
@@ -90,6 +93,11 @@ function abcli_docker() {
         docker run -it $tag /bin/bash
         popd >/dev/null
 
+        return
+    fi
+
+    if [ "$task" == "seed" ]; then
+        abcli_seed docker "${@:2}"
         return
     fi
 
