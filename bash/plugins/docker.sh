@@ -7,6 +7,9 @@ function abcli_docker() {
         abcli_show_usage "abcli docker build$ABCUL[run]" \
             "build [and run] abcli image."
 
+        abcli_show_usage "abcli docker clear$ABCUL[-]" \
+            "clear docker."
+
         abcli_docker compose help
 
         abcli_show_usage "abcli docker run" \
@@ -70,6 +73,12 @@ function abcli_docker() {
 
         popd >/dev/null
 
+        return
+    fi
+
+    if [ "$task" == "clear" ]; then
+        abcli_eval "docker image prune"
+        abcli_eval "docker system prune"
         return
     fi
 
