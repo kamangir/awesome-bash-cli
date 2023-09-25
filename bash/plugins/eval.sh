@@ -12,6 +12,8 @@ function abcli_eval() {
     local dryrun=$(abcli_option_int "$options" dryrun 0)
     local path=$(abcli_option "$options" path ./)
 
+    local command_line="${@:2}"
+
     abcli_log "⚙️  $command_line"
     [[ "$dryrun" == 1 ]] && return
 

@@ -4,13 +4,16 @@ function abcli_docker() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli docker build$ABCUL[run]" \
+        abcli_show_usage "abcli docker build$ABCUL[~push,run]" \
             "build [and run] abcli image."
 
         abcli_show_usage "abcli docker clear$ABCUL[-]" \
             "clear docker."
 
         abcli_docker compose help
+
+        abcli_show_usage "abcli docker push" \
+            "push abcli image."
 
         abcli_show_usage "abcli docker run" \
             "run abcli image."
@@ -28,8 +31,11 @@ function abcli_docker() {
     if [ "$task" == compose ]; then
         local sub_task=$2
 
+        local options=$3
+        local do_push=$(abcli_option_int "$options" push 1)
+
         if [[ "$sub_task" == help ]]; then
-            abcli_show_usage "abcli docker compose build$ABCUL[run]" \
+            abcli_show_usage "abcli docker compose build$ABCUL[~push,run]" \
                 "build [and run] abcli image using docker-compose."
             abcli_show_usage "abcli docker compose run" \
                 "run abcli image using docker-compose."
@@ -49,10 +55,15 @@ function abcli_docker() {
             path=$abcli_path_abcli \
             "$command_line"
 
+        [[ "$do_push" == "1" ]] &&
+            abcli_eval - \
+                "docker push $tag:latest"
+
         return
     fi
 
     if [ "$task" == "build" ]; then
+        local do_push=$(abcli_option_int "$options" push 1)
         local do_run=$(abcli_option_int "$options" run 0)
 
         pushd $abcli_path_abcli >/dev/null
@@ -70,9 +81,12 @@ function abcli_docker() {
 
         rm -rf temp
 
-        if [ "$do_run" == "1" ]; then
+        [[ "$do_push" == "1" ]] &&
+            abcli_eval - \
+                "docker push $tag:latest"
+
+        [[ "$do_run" == "1" ]] &&
             abcli_docker run $options
-        fi
 
         popd >/dev/null
 
@@ -80,8 +94,16 @@ function abcli_docker() {
     fi
 
     if [ "$task" == "clear" ]; then
-        abcli_eval "docker image prune"
-        abcli_eval "docker system prune"
+        abcli_eval - \
+            "docker image prune"
+        abcli_eval - \
+            "docker system prune"
+        return
+    fi
+
+    if [ "$task" == "push" ]; then
+        abcli_eval - \
+            "docker push $tag:latest"
         return
     fi
 
