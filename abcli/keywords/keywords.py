@@ -36,6 +36,7 @@ KEYWORDS = {
     "le": "list_of_external",
     "ls": "list",
     "mcsai": "mayo_clinic_strip_ai",
+    "nbs": "notebooks-and-scripts",
     "obj": "object",
     "op": "open",
     "pk": "pack_keyword",
