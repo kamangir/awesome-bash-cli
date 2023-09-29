@@ -13,25 +13,25 @@ export ABCUL=" \\\\\n\t"
 function abcli_show_usage() {
     local what=$1
 
-    if [ "$what" == "prefix" ] ; then
+    if [ "$what" == "prefix" ]; then
         local prefix=$2
 
         local function_name
         # https://stackoverflow.com/a/2627461/17619982
-        for function_name in $(compgen -A function $prefix) ; do
+        for function_name in $(compgen -A function $prefix); do
             $function_name ${@:3}
         done
         return
     fi
 
-    if [[ ! -z "$abcli_show_usage_destination" ]] ; then
-        echo "- - $1" >> $abcli_show_usage_destination
-        echo "  - $2" >> $abcli_show_usage_destination
+    if [[ ! -z "$abcli_show_usage_destination" ]]; then
+        echo "- - $1" >>$abcli_show_usage_destination
+        echo "  - $2" >>$abcli_show_usage_destination
         return
     fi
 
     printf "${LIGHTBLUE}$1${NC}\n"
-    if [ ! -z "$2" ] ; then
+    if [ ! -z "$2" ]; then
         printf "${CYAN} . $2${NC}\n"
     fi
 }
@@ -39,7 +39,7 @@ function abcli_show_usage() {
 function abcli_log() {
     local task=$(abcli_unpack_keyword "$1")
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli log <message>" \
             "log message."
         abcli_show_usage "abcli log verbose [on/off]" \
@@ -47,13 +47,13 @@ function abcli_log() {
         return
     fi
 
-    if [ "$task" == "verbose" ] ; then
+    if [ "$task" == "verbose" ]; then
         local what=${2-on}
 
-        if [ "$what" == "on" ] ; then
+        if [ "$what" == "on" ]; then
             touch $abcli_path_git/verbose
             abcli_set_log_verbosity
-        elif [ "$what" == "off" ] ; then
+        elif [ "$what" == "off" ]; then
             rm $abcli_path_git/verbose
             abcli_set_log_verbosity
         else
@@ -63,9 +63,9 @@ function abcli_log() {
         return
     fi
 
-    abcli_log_local $@
+    abcli_log_local "$@"
 
-    abcli_log_remote $@
+    abcli_log_remote "$@"
 }
 
 function abcli_log_error() {
@@ -73,19 +73,19 @@ function abcli_log_error() {
 
     printf "${RED}$message$NC\n"
 
-    echo "error: $message" >> $abcli_log_filename
+    echo "error: $message" >>$abcli_log_filename
 }
 
 function abcli_log_file() {
     local filename=${1:-help}
 
-    if [ "$filename" == "help" ] ; then
+    if [ "$filename" == "help" ]; then
         abcli_show_usage "abcli log_file <filename>" \
             "log <filename>."
         return
     fi
 
-    if [ ! -f "$filename" ] ; then
+    if [ ! -f "$filename" ]; then
         abcli_log_error "-abcli: log: file: $filename: file not found."
         return 1
     fi
@@ -108,7 +108,7 @@ function abcli_log_list() {
     local message="$prefix$GREEN$count$NC $postfix: $GREEN$items$NC"
 
     local after="$5"
-    if [ ! -z "$after" ] ; then
+    if [ ! -z "$after" ]; then
         local message="$message - $after"
     fi
 
@@ -126,7 +126,7 @@ function abcli_log_local_and_cat() {
 }
 
 function abcli_log_remote() {
-    echo "$@" >> $abcli_log_filename
+    echo "$@" >>$abcli_log_filename
 }
 
 function abcli_log_warning() {
@@ -134,12 +134,11 @@ function abcli_log_warning() {
 
     printf "${YELLOW}$message$NC\n"
 
-    echo "warning: $message" >> $abcli_log_filename
+    echo "warning: $message" >>$abcli_log_filename
 }
 
-
 function abcli_set_log_verbosity() {
-    if [[ -f $abcli_path_git/verbose ]] ; then
+    if [[ -f $abcli_path_git/verbose ]]; then
         set -x
     else
         set +x
@@ -148,6 +147,6 @@ function abcli_set_log_verbosity() {
 
 abcli_set_log_verbosity
 
-if [ -z "$abcli_log_filename" ] ; then
+if [ -z "$abcli_log_filename" ]; then
     export abcli_log_filename="abcli.log"
 fi
