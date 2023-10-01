@@ -18,9 +18,12 @@ function abcli_eval() {
     [[ "$do_log" == 1 ]] && abcli_log "⚙️  $command_line"
     [[ "$do_dryrun" == 1 ]] && return
 
-    [[ "$do_log" == 1 ]] && [[ "$path" != "./" ]] && abcli_log "📂 $path"
+    if [[ "$path" != "./" ]]; then
+        [[ "$do_log" == 1 ]] && abcli_log "📂 $path"
+        pushd $path >/dev/null
+    fi
 
-    pushd $path >/dev/null
     eval "$command_line"
-    popd >/dev/null
+
+    [[ "$path" != "./" ]] && popd >/dev/null
 }
