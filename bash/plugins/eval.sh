@@ -9,15 +9,17 @@ function abcli_eval() {
         return
     fi
 
-    local dryrun=$(abcli_option_int "$options" dryrun 0)
+    local do_dryrun=$(abcli_option_int "$options" dryrun 0)
+    local do_log=$(abcli_option_int "$options" log 1)
     local path=$(abcli_option "$options" path ./)
 
     local command_line="${@:2}"
 
-    abcli_log "⚙️  $command_line"
-    [[ "$dryrun" == 1 ]] && return
+    [[ "$do_log" == 1 ]] && abcli_log "⚙️  $command_line"
+    [[ "$do_dryrun" == 1 ]] && return
 
-    abcli_log "🔗 $path"
+    [[ "$do_log" == 1 ]] && [[ "$path" != "./" ]] && abcli_log "📂 $path"
+
     pushd $path >/dev/null
     eval "$command_line"
     popd >/dev/null

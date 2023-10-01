@@ -19,7 +19,7 @@ function abcli_show_usage() {
         local function_name
         # https://stackoverflow.com/a/2627461/17619982
         for function_name in $(compgen -A function $prefix); do
-            $function_name ${@:3}
+            $function_name "${@:3}"
         done
         return
     fi
