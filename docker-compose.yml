@@ -1,6 +1,0 @@
-version: '1'
-services:
-  abcli:
-    image: kamangir/abcli:latest
-    volumes:
-      - .:/root/git/awesome-bash-cli/
