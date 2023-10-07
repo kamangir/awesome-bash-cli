@@ -6,6 +6,8 @@ function abcli_seed() {
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli seed$ABCUL[.|docker|ec2|jetson|headless_rpi|mac|rpi]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
             "generate and output a seed 🌱."
+        abcli_show_usage "abcli seed <target>$ABCUL<args>" \
+            "seed 🌱 <target>."
         abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>]" \
             "seed 🌱 += <filename>."
         abcli_show_usage "abcli seed eject" \
@@ -52,8 +54,15 @@ function abcli_seed() {
 
     local target=$(abcli_clarify_input $1 ec2)
     if [ $(abcli_list_in "$target" "all|docker|ec2|jetson|headless_rpi|mac|rpi" --delim "|") != True ]; then
+
+        local function_name=${target}_seed
+        if [[ $(type -t $function_name) == "function" ]]; then
+            $function_name "${@:2}"
+            return
+        fi
+
         abcli_log_error "-abcli: seed: $target: target not found."
-        return
+        return 1
     fi
 
     local options=$2
