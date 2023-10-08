@@ -1,6 +1,10 @@
 import os
-from abcli import file, string
+from abcli import file, path, string
 from abcli.plugins.storage import instance as storage
+from abcli import logging
+import logging
+
+logger = logging.getLogger(__name__)
 
 abcli_object_root = os.getenv(
     "abcli_object_root",
@@ -71,3 +75,15 @@ def signature(info=None):
         string.pretty_date(include_time=False),
         string.pretty_date(include_date=False, include_zone=True),
     ]
+
+
+def unique_object(prefix=""):
+    object_name = string.pretty_date(unique=True)
+    if prefix:
+        object_name = f"{prefix}-{object_name}"
+
+    path.create(object_path(object_name))
+
+    logger.info(f"📂 {object_name}")
+
+    return unique_object
