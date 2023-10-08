@@ -4,8 +4,11 @@ function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli instance$ABCUL[from_image]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[image=<abcli>|<abcli-gpu>]" \
-            "create ec2 instance from image."
+        export abcli_instance_templates=$(python3 -c "from abcli.plugins import aws; print(','.join(aws.get_from_json('ec2',{}).get('templates',{}).keys()))")
+        export abcli_instance_images=$(python3 -c "from abcli.plugins import aws; print(','.join(aws.get_from_json('ec2',{}).get('image_id',{}).keys()))")
+
+        abcli_show_usage "abcli instance$ABCUL[from_image]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[image=<image-name>]" \
+            "create ec2 instance from <image-name>."
         abcli_show_usage "abcli instance from_template$ABCUL[template-name]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[ssh|vnc]" \
             "create ec2 instance from <template-name>."
         abcli_show_usage "abcli instance get_ip$ABCUL<instance-name>" \
@@ -17,8 +20,8 @@ function abcli_instance() {
 
         printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
 
-        local templates=$(python3 -c "from abcli.plugins import aws; print(','.join(aws.get_from_json('ec2',{}).get('templates',{}).keys()))")
-        abcli_log_list $templates , "ec2 template(s)"
+        abcli_log_list $abcli_instance_templates , "template(s)"
+        abcli_log_list $abcli_instance_images , "image(s)"
 
         return
     fi
