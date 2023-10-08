@@ -78,7 +78,10 @@ def signature(info=None):
 
 
 def unique_object(prefix=""):
-    object_name = string.pretty_date(unique=True)
+    object_name = string.pretty_date(
+        as_filename=True,
+        unique=True,
+    )
     if prefix:
         object_name = f"{prefix}-{object_name}"
 
@@ -86,4 +89,4 @@ def unique_object(prefix=""):
 
     logger.info(f"📂 {object_name}")
 
-    return unique_object
+    return object_name
