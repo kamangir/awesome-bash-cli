@@ -3,7 +3,7 @@
 function abcli_instance() {
     local task=$(abcli_unpack_keyword $1 from_image)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli instance$ABCUL[from_image]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[image=<abcli>|<abcli-gpu>]" \
             "create ec2 instance from image."
         abcli_show_usage "abcli instance from_template$ABCUL[template-name]$ABCUL[instance-type]$ABCUL[instance-name]$ABCUL[ssh|vnc]" \
@@ -27,7 +27,7 @@ function abcli_instance() {
 
     local extra_args=""
 
-    if [ "$task" == "get_ip" ] ; then
+    if [ "$task" == "get_ip" ]; then
         local instance_name=$2
 
         local ec2_address=$(aws ec2 \
@@ -40,7 +40,7 @@ function abcli_instance() {
         return
     fi
 
-    if [ "$task" == "from_image" ] ; then
+    if [ "$task" == "from_image" ]; then
         local instance_type=$(abcli_aws_json_get "['ec2']['default_instance_type']")
         local instance_type=$(abcli_clarify_input $2 $instance_type)
 
@@ -65,7 +65,7 @@ function abcli_instance() {
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
             --region $(aws configure get region) \
             --count 1 \
-            --instance-type $instance_type > $abcli_path_git/abcli_instance_log.txt
+            --instance-type $instance_type >$abcli_path_git/abcli_instance_log.txt
 
         local instance_ip_address=$(abcli_instance get_ip $instance_name)
         abcli_log "abcli: instance: created at $instance_ip_address"
@@ -73,28 +73,28 @@ function abcli_instance() {
         return
     fi
 
-    if [ "$task" == "from_template" ] ; then
+    if [ "$task" == "from_template" ]; then
         local template_name=$2
-        if [ -z "$template_name" ] || [ "$template_name" == "-" ] ; then
+        if [ -z "$template_name" ] || [ "$template_name" == "-" ]; then
             local template_name=$(abcli_aws_json_get "['ec2']['default_template']")
         fi
 
         local template_id=$(abcli_aws_json_get "['ec2']['templates'].get('$template_name','')")
-        if [ -z "$template_id" ] ; then
+        if [ -z "$template_id" ]; then
             abcli_log_error "-abcli: instance: $template_name: template not found."
             return
         fi
 
         local instance_type=$3
-        if [ "$instance_type" == "-" ] ; then
+        if [ "$instance_type" == "-" ]; then
             local instance_type=""
         fi
-        if [ ! -z "$instance_type" ] ; then
+        if [ ! -z "$instance_type" ]; then
             local extra_args="--instance-type $instance_type"
         fi
 
         local instance_name=$4
-        if [ "$instance_name" == "-" ] || [ -z "$instance_name" ] ; then
+        if [ "$instance_name" == "-" ] || [ -z "$instance_name" ]; then
             local instance_name=$USER-$(abcli_string_timestamp)
         fi
 
@@ -106,16 +106,16 @@ function abcli_instance() {
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
             --region $(aws configure get region) \
             --count 1 \
-            $extra_args > ${abcli_path_git}/abcli_instance_log.txt
-            
+            $extra_args >${abcli_path_git}/abcli_instance_log.txt
+
         local instance_ip_address=$(abcli_instance get_ip $instance_name)
         abcli_log "instance created at $instance_ip_address"
-        if [ "$5" == "ssh" ] ; then
+        if [ "$5" == "ssh" ]; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
             abcli_ssh ec2 $instance_ip_address
         fi
-        if [ "$5" == "vnc" ] ; then
+        if [ "$5" == "vnc" ]; then
             echo "instance is starting - waiting $sleep_seconds s ..."
             sleep $sleep_seconds
             abcli_ssh ec2 $instance_ip_address vnc
@@ -124,19 +124,19 @@ function abcli_instance() {
         return
     fi
 
-    if [ "$task" == "list" ] ; then
+    if [ "$task" == "list" ]; then
         aws ec2 describe-instances \
             --query "Reservations[*].Instances[*].{Instance:InstanceId,PublicDens:PublicDnsName,Name:Tags[?Key=='Name']|[0].Value}" \
             --output text
         return
     fi
 
-    if [ "$task" == "terminate" ] ; then
+    if [ "$task" == "terminate" ]; then
         local host_name=$2
-        if [ "$host_name" == "." ] ; then
+        if [ "$host_name" == "." ]; then
             local host_name=""
         fi
-        if [ -z "$host_name" ] ; then
+        if [ -z "$host_name" ]; then
             local host_name=$abcli_host_name
         fi
 
