@@ -44,7 +44,7 @@ function abcli_instance() {
     fi
 
     if [ "$task" == "from_image" ]; then
-        local instance_type=$(abcli_aws_json_get "['ec2']['default_instance_type']")
+        local instance_type=$(abcli_aws_json_get ".get('ec2',{}).get('default_instance_type','')")
         local instance_type=$(abcli_clarify_input $2 $instance_type)
 
         local instance_name=$USER-$(abcli_string_timestamp)
@@ -53,22 +53,35 @@ function abcli_instance() {
         local options=$4
         local image_name=$(abcli_option "$options" image abcli)
 
-        local image_id=$(abcli_aws_json_get "['ec2']['image_id']['$image_name']")
-        local security_group_ids=$(abcli_aws_json_get "['ec2']['security_group_ids']")
-        local subnet_id=$(abcli_aws_json_get "['ec2']['subnet_id']")
+        local image_id=$(abcli_aws_json_get ".get('ec2',{}).get('image_id',{}).get('$image_name','')")
+        local security_group_ids=$(abcli_aws_json_get ".get('ec2',{}).get('security_group_ids','')")
+        local subnet_id=$(abcli_aws_json_get ".get('ec2',{}).get('subnet_id','')")
+
+        if [[ -z "$image_id" ]]; then
+            abcli_log_error "-abcli: instance: $task: image_id not found."
+            return 1
+        fi
+        if [[ -z "$security_group_ids" ]]; then
+            abcli_log_error "-abcli: instance: $task: security_group_ids not found."
+            return 1
+        fi
+        if [[ -z "$subnet_id" ]]; then
+            abcli_log_error "-abcli: instance: $task: subnet_id not found."
+            return 1
+        fi
 
         abcli_log "abcli_instance: $task $instance_type -$image_id:$security_group_ids:$subnet_id-> $instance_name"
 
         # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#launch-templates-as
         aws ec2 run-instances \
-            --image-id $image_id \
+            --image-id "$image_id" \
             --key-name bolt \
             --security-group-ids $security_group_ids \
-            --subnet-id $subnet_id \
+            --subnet-id "$subnet_id" \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
             --region $(aws configure get region) \
             --count 1 \
-            --instance-type $instance_type >$abcli_path_git/abcli_instance_log.txt
+            --instance-type "$instance_type" >$abcli_path_git/abcli_instance_log.txt
 
         local instance_ip_address=$(abcli_instance get_ip $instance_name)
         abcli_log "abcli: instance: created at $instance_ip_address"
