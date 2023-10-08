@@ -14,6 +14,8 @@ alias @git=abcli_git
 
 alias @init=abcli_init
 
+alias @instance=abcli_instance
+
 alias @log=abcli_log
 
 alias @seed=abcli_seed
