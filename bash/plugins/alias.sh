@@ -4,6 +4,8 @@ alias @=abcli
 
 alias @download=abcli_download
 
+alias @conda=abcli_conda
+
 alias @env=abcli_env
 
 alias @eval=abcli_eval
