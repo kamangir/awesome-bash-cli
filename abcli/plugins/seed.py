@@ -25,6 +25,5 @@ def log(
 
     if not lines:
         logger.error(f"-{NAME}: seed: log({target}): target not found.")
-
-    for line in lines:
-        logger.info(line)
+    else:
+        logger.info("; ".join(lines))
