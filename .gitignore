@@ -5,3 +5,5 @@ __pycache__
 *.log
 , .json
 temp
+build
+dist
