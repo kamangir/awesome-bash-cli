@@ -7,17 +7,21 @@ function abcli_clarify_object() {
 
     local object_var=${plugin_name}_object_name
     local object_var_prev=${plugin_name}_object_name_prev
+    local object_var_prev2=${plugin_name}_object_name_prev2
 
-    if [ -z "$object_name" ] || [ "$object_name" == "-" ] ; then
+    if [ -z "$object_name" ] || [ "$object_name" == "-" ]; then
         local object_name=$default
     fi
-    if [ "$object_name" == "." ] ; then
+    if [ "$object_name" == "." ]; then
         local object_name=${!object_var}
     fi
-    if [ "$object_name" == ".." ] ; then
+    if [ "$object_name" == ".." ]; then
         local object_name=${!object_var_prev}
     fi
-    if [ "$(abcli_keyword_is $object_name validate)" == true ] ; then
+    if [ "$object_name" == "..." ]; then
+        local object_name=${!object_var_prev2}
+    fi
+    if [ "$(abcli_keyword_is $object_name validate)" == true ]; then
         local object_name="validate"
     fi
 
@@ -27,13 +31,13 @@ function abcli_clarify_object() {
 function abcli_object() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli object open" \
             "open $abcli_object_name."
         return
     fi
 
-    if [ "$task" == "open" ] ; then
+    if [ "$task" == "open" ]; then
         abcli_download
 
         rm -v ../$abcli_object_name.tar.gz
