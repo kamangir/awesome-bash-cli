@@ -26,4 +26,6 @@ alias @select=abcli_select
 
 alias @tag=abcli_tag
 
+alias @timestamp=abcli_string_timestamp
+
 alias @upload=abcli_upload
