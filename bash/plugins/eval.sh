@@ -16,15 +16,14 @@ function abcli_eval() {
 
     local command_line="${@:2}"
 
-    [[ "$do_log" == 1 ]] && abcli_log "⚙️  $command_line"
-    [[ "$do_dryrun" == 1 ]] && return
-
-    if [[ "$path" != "./" ]]; then
-        [[ "$do_log" == 1 ]] && abcli_log "📂 $path"
-        pushd $path >/dev/null
+    if [[ "$do_log" == 1 ]]; then
+        abcli_log "⚙️  $command_line"
+        [[ "$path" != "./" ]] && abcli_log " 📂 $path"
     fi
 
-    eval "$command_line"
+    [[ "$do_dryrun" == 1 ]] && return
 
+    [[ "$path" != "./" ]] && pushd $path >/dev/null
+    eval "$command_line"
     [[ "$path" != "./" ]] && popd >/dev/null
 }
