@@ -94,12 +94,17 @@ def load_geodataframe(filename, civilized=False):
     return success, gdf
 
 
-def load_image(filename, civilized=False):
+def load_image(
+    filename,
+    civilized=False,
+    log=False,
+):
     """load image from filename
 
     Args:
         filename (str): filename.
         civilized (bool, optional): if failed, do not print error message. Defaults to False.
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -107,6 +112,7 @@ def load_image(filename, civilized=False):
     """
     import cv2
     import numpy as np
+    from abcli import string
 
     success = True
     image = np.empty((0,))
@@ -124,6 +130,14 @@ def load_image(filename, civilized=False):
         if not civilized:
             crash_report(f"-{NAME}: load_image({filename}): failed.")
         success = False
+
+    if success and log:
+        logger.info(
+            "loaded {} from {}".format(
+                string.pretty_shape_of_matrix(image),
+                filename,
+            )
+        )
 
     return success, image
 
