@@ -14,6 +14,8 @@ function abcli_eval() {
     local do_log=$(abcli_option_int "$options" log 1)
     local path=$(abcli_option "$options" path ./)
 
+    [[ "$path" != "./" ]] && mkdir -pv $path
+
     local command_line="${@:2}"
 
     if [[ "$do_log" == 1 ]]; then
