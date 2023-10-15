@@ -17,6 +17,7 @@ function abcli_pytest() {
     [[ $(abcli_option_int "$options" list 0) == 1 ]] &&
         local args="--collect-only"
 
+    # https://stackoverflow.com/a/40720333/17619982
     abcli_eval "path=$abcli_path_git/$plugin_name,$options" \
-        pytest "$args"
+        python -m pytest "$args"
 }
