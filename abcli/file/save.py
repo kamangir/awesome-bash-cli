@@ -167,7 +167,11 @@ def save_json(filename, data):
         return False
 
 
-def save_tensor(filename, tensor, log=True):
+def save_tensor(
+    filename,
+    tensor,
+    log=True,
+):
     """save tensor to filename.
 
     Args:
@@ -239,12 +243,17 @@ def save_text(
     return True
 
 
-def save_yaml(filename, data):
+def save_yaml(
+    filename,
+    data,
+    log=True,
+):
     """save data to filename as yaml(.
 
     Args:
         filename (str): filename.
         data (Any): data.
+        log (bool, optional): log. Defaults to True.
 
     Returns:
         bool: success.
@@ -257,8 +266,11 @@ def save_yaml(filename, data):
 
         with open(filename, "w") as f:
             yaml.dump(data, f)
-
-        return True
     except:
         crash_report(f"-{NAME}: save_yaml({filename}): failed.")
         return False
+
+    if log:
+        logger.info(f"{NAME}.save_yaml({filename}): {', '.join(data.keys())}.")
+
+    return True

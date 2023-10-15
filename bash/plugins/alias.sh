@@ -20,6 +20,8 @@ alias @instance=abcli_instance
 
 alias @log=abcli_log
 
+alias @pytest=abcli_pytest
+
 alias @seed=abcli_seed
 
 alias @select=abcli_select
