@@ -26,6 +26,8 @@ alias @seed=abcli_seed
 
 alias @select=abcli_select
 
+alias @sleep=abcli_sleep
+
 alias @storage=abcli_storage
 
 alias @tag=abcli_tag
@@ -33,3 +35,5 @@ alias @tag=abcli_tag
 alias @timestamp=abcli_string_timestamp
 
 alias @upload=abcli_upload
+
+alias @watch=abcli_watch
