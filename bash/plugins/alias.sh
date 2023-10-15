@@ -26,6 +26,8 @@ alias @seed=abcli_seed
 
 alias @select=abcli_select
 
+alias @storage=abcli_storage
+
 alias @tag=abcli_tag
 
 alias @timestamp=abcli_string_timestamp
