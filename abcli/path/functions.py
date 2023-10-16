@@ -90,11 +90,12 @@ def copy(source, destination):
         return False
 
 
-def create(path):
+def create(path, log=False):
     """create path.
 
     Args:
         path (path): path.
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -104,10 +105,14 @@ def create(path):
 
     try:
         os.makedirs(path)
-        return True
     except:
         crash_report(f"-{NAME}: create({path}): failed.")
         return False
+
+    if log:
+        logger.info(f"{NAME}.create({path})")
+
+    return True
 
 
 def current():

@@ -200,7 +200,7 @@ def download(
         return False
 
     if log:
-        logger.info(f"downloaded {url} -> {filename}")
+        logger.info(f"{NAME}: {url} -> {filename}")
 
     return True
 
