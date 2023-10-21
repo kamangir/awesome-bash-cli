@@ -98,12 +98,17 @@ def save_geojson(filename, gdf):
         return False
 
 
-def save_image(filename, image):
+def save_image(
+    filename,
+    image,
+    log=False,
+):
     """save image to filename.
 
     Args:
         filename (str): filename.
         image (np.ndarray): image.
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -125,13 +130,16 @@ def save_image(filename, image):
             data = np.flip(data, axis=2)
 
         cv2.imwrite(filename, data)
-
-        return True
     except:
         crash_report(
             f"-{NAME}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
         )
         return False
+
+    if log:
+        logger.info(f"-{NAME}: {string.pretty_shape_of_matrix(image)} -> {filename}")
+
+    return True
 
 
 def save_json(filename, data):
