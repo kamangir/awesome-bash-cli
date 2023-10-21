@@ -22,5 +22,8 @@ function abcli_pytest() {
 
     # https://stackoverflow.com/a/40720333/17619982
     abcli_eval "path=$abcli_path_git/$plugin_name,$options" \
-        python -m pytest "$args"
+        python3 -m pytest "$args"
 }
+
+# https://stackoverflow.com/a/40724361/10917551
+# --disable-pytest-warnings"
