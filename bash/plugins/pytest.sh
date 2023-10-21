@@ -7,7 +7,7 @@ function abcli_pytest() {
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         local options="dryrun,list,~log,plugin=<plugin-name>,warning"
-        abcli_show_usage "$plugin_name pytest$ABCUL[$options]$ABCUL[args]" \
+        abcli_show_usage "$plugin_name pytest$ABCUL[$options]$ABCUL[filename.py|filename.py::test]" \
             "pytest $plugin_name."
         return
     fi
@@ -15,7 +15,7 @@ function abcli_pytest() {
     local args="${@:2}"
 
     [[ $(abcli_option_int "$options" list 0) == 1 ]] &&
-        local args="--collect-only"
+        local args="$args --collect-only"
 
     [[ $(abcli_option_int "$options" warning 0) == 0 ]] &&
         local args="$args --disable-warnings"
