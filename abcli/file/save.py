@@ -137,7 +137,13 @@ def save_image(
         return False
 
     if log:
-        logger.info(f"-{NAME}: {string.pretty_shape_of_matrix(image)} -> {filename}")
+        logger.info(
+            "{}.save_image({}) -> {}".format(
+                NAME,
+                string.pretty_shape_of_matrix(image),
+                filename,
+            )
+        )
 
     return True
 
