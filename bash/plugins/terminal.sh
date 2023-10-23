@@ -34,10 +34,12 @@ function abcli_set_prompt() {
 }
 
 function abcli_update_terminal_title() {
-    title="$abcli_fullname@$(hostname)"
-    if [ $# -gt 0 ]; then
-        title="$title | $@"
-    fi
+    local title=$abcli_fullname
+    [[ "$abcli_is_sagemaker" == false ]] &&
+        local title="$title@$(hostname)"
+
+    [ $# -gt 0 ] &&
+        local title="$title | $@"
 
     echo -n -e "\033]0;$title\007"
 }
