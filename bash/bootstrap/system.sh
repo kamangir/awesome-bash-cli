@@ -103,4 +103,8 @@ if [ "$abcli_is_in_notebook" == false ]; then
     fi
 fi
 
-export abcli_hostname=$(hostname)
+if [[ "$abcli_is_sagemaker" == true ]]; then
+    export abcli_hostname=sagemaker
+else
+    export abcli_hostname=$(hostname)
+fi
