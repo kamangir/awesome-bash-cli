@@ -3,7 +3,7 @@
 function abcli_terraform() {
     local task=$(abcli_unpack_keyword $1)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli terraform" \
             "terraform this machine."
         abcli_show_usage "abcli terraform cat" \
@@ -13,34 +13,34 @@ function abcli_terraform() {
         abcli_show_usage "abcli terraform enable" \
             "enable terraform."
 
-        if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
+        if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
             python3 -m abcli.modules.terraform --help
         fi
         return
     fi
 
-    if [ "$task" == "cat" ] ; then
+    if [ "$task" == "cat" ]; then
 
-        if [[ "$abcli_is_mac" == true ]] ; then
+        if [[ "$abcli_is_mac" == true ]]; then
             abcli_log_local_and_cat ~/.bash_profile
             return
         fi
 
-        if [[ "$abcli_is_rpi" == true ]] ; then
+        if [[ "$abcli_is_rpi" == true ]]; then
             abcli_log_local_and_cat "/home/pi/.bashrc"
-            if [[ "$abcli_is_headless" == false ]] ; then
+            if [[ "$abcli_is_headless" == false ]]; then
                 abcli_log_local_and_cat "/etc/xdg/lxsession/LXDE-pi/autostart"
             fi
             return
         fi
 
-        if [[ "$abcli_is_ubuntu" == true ]] ; then
-            if [[ "$abcli_is_ec2" == true ]] ; then
+        if [[ "$abcli_is_ubuntu" == true ]]; then
+            if [[ "$abcli_is_ec2" == true ]]; then
                 abcli_log_local_and_cat "/home/$USER/.bash_profile"
             else
                 abcli_log_local_and_cat "/home/$USER/.bashrc"
 
-                if [[ "$abcli_is_jetson" == true ]] ; then
+                if [[ "$abcli_is_jetson" == true ]]; then
                     abcli_log_local_and_cat "/home/$USER/.config/autostart/abcli.desktop"
                 fi
             fi
@@ -50,17 +50,17 @@ function abcli_terraform() {
         return
     fi
 
-    if [ "$task" == "disable" ] ; then
+    if [ "$task" == "disable" ]; then
         touch $abcli_path_cookie/disabled
         return
     fi
 
-    if [ "$task" == "enable" ] ; then
+    if [ "$task" == "enable" ]; then
         rm $abcli_path_cookie/disabled
         return
     fi
 
-    if [[ "$abcli_is_headless" == false ]] && [[ "$abcli_is_mac" == false ]] ; then
+    if [[ "$abcli_is_headless" == false ]] && [[ "$abcli_is_mac" == false ]] && [[ "$abcli_is_docker" == false ]]; then
         rm ${abcli_path_abcli}/assets/images/background*
         local background_image=$abcli_path_abcli/assets/images/background-$(abcli_string_timestamp).jpg
 
@@ -68,7 +68,7 @@ function abcli_terraform() {
             --filename $background_image
     fi
 
-    if [[ "$abcli_is_mac" == true ]] ; then
+    if [[ "$abcli_is_mac" == true ]]; then
         abcli_log "terraforming mac"
 
         # https://davidwalsh.name/desktop-wallpaper-command-line
@@ -81,10 +81,10 @@ function abcli_terraform() {
         return
     fi
 
-    if [[ "$abcli_is_rpi" == true ]] ; then
+    if [[ "$abcli_is_rpi" == true ]]; then
         abcli_log "terraforming rpi"
 
-        if [[ "$abcli_is_headless" == false ]] ; then
+        if [[ "$abcli_is_headless" == false ]]; then
             # https://www.raspberrypi.org/forums/viewtopic.php?t=174165#p1113064
             pcmanfm \
                 --set-wallpaper $background_image \
@@ -99,10 +99,10 @@ function abcli_terraform() {
         return
     fi
 
-    if [[ "$abcli_is_ubuntu" == true ]] ; then
+    if [[ "$abcli_is_ubuntu" == true ]] && [[ "$abcli_is_docker" == false ]]; then
         abcli_log "terraforming ubuntu"
 
-        if [[ "$abcli_is_jetson" == true ]] ; then
+        if [[ "$abcli_is_jetson" == true ]]; then
             local desktop_environment=$(abcli_jetson_get_desktop_environment)
             abcli_log "terraforming jetson:$desktop_environment"
 
@@ -110,7 +110,7 @@ function abcli_terraform() {
             sudo mkdir -p /home/$USER/.config/autostart/
             sudo cp $abcli_path_abcli/assets/jetson/abcli.desktop /home/$USER/.config/autostart/
 
-            if [[ "$desktop_environment" == "GNOME" ]] ; then
+            if [[ "$desktop_environment" == "GNOME" ]]; then
                 # https://askubuntu.com/a/69500
                 gsettings set \
                     org.gnome.desktop.background \
@@ -129,7 +129,7 @@ function abcli_terraform() {
                 gsettings set \
                     org.gnome.desktop.background \
                     color-shading-type "solid"
-            elif [[ "$desktop_environment" == "LXDE" ]] ; then
+            elif [[ "$desktop_environment" == "LXDE" ]]; then
                 pcmanfm \
                     --set-wallpaper $background_image \
                     --wallpaper-mode center
@@ -138,12 +138,12 @@ function abcli_terraform() {
             fi
         fi
 
-        if [[ "$abcli_is_ec2" == true ]] ; then
+        if [[ "$abcli_is_ec2" == true ]]; then
             abcli_log "terraforming ec2"
             sudo cp \
                 $abcli_path_abcli/assets/aws/ec2_bash_profile \
                 /home/$USER/.bash_profile
-        elif [[ "$abcli_is_docker" == false ]] ; then
+        else
             sudo python3 -m abcli.modules.terraform \
                 terraform \
                 --target ubuntu \
