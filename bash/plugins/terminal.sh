@@ -5,19 +5,23 @@ function abcli_set_prompt() {
     force_color_prompt=yes
     color_prompt=yes
 
-    local icon=""    
-    if [ "$abcli_is_docker" == true ] ; then
-        local icon="🌠 "
-    elif [ "$abcli_is_ec2" == true ] ; then
+    local icon=""
+    if [ "$abcli_is_docker" == true ]; then
+        if [ "$abcli_is_sagemaker" == true ]; then
+            local icon="⚗️ "
+        else
+            local icon="🌠 "
+        fi
+    elif [ "$abcli_is_ec2" == true ]; then
         local icon="🌩️ "
-    elif [ "$abcli_is_jetson" == true ] || [ "$abcli_is_rpi" == true ] ; then
+    elif [ "$abcli_is_jetson" == true ] || [ "$abcli_is_rpi" == true ]; then
         local icon="⚡ "
-    elif [ "$abcli_is_mac" == true ] ; then
+    elif [ "$abcli_is_mac" == true ]; then
         local icon="💻 "
     fi
 
     parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+        git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
     }
 
     # https://misc.flogisoft.com/bash/tip_colors_and_formatting
