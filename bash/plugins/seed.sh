@@ -3,8 +3,10 @@
 function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
+    local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi"
+
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli seed$ABCUL[.|docker|ec2|jetson|headless_rpi|mac|rpi]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
+        abcli_show_usage "abcli seed$ABCUL[$list_of_seed_targets]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
             "generate and output a seed 🌱."
         abcli_show_usage "abcli seed <target>$ABCUL<args>" \
             "seed 🌱 <target>."
@@ -53,16 +55,16 @@ function abcli_seed() {
     fi
 
     local target=$(abcli_clarify_input $1 ec2)
-    if [ $(abcli_list_in "$target" "all|docker|ec2|jetson|headless_rpi|mac|rpi" --delim "|") != True ]; then
 
+    local seed=""
+    if [[ "|$list_of_seed_targets|" != *"|$target|"* ]]; then
         local function_name=${target}_seed
         if [[ $(type -t $function_name) == "function" ]]; then
-            $function_name "${@:2}"
-            return
+            seed=$($function_name "${@:2}")
+        else
+            abcli_log_error "-abcli: seed: $target: target not found."
+            return 1
         fi
-
-        abcli_log_error "-abcli: seed: $target: target not found."
-        return 1
     fi
 
     local options=$2
@@ -83,18 +85,8 @@ function abcli_seed() {
     local options=$3
     local do_log=$(abcli_option_int "$options" log 1)
     local cookie_name=""
-    if [ "$target" == "ec2" ]; then
-        local cookie_name="worker"
-    fi
+    [[ "$target" == "ec2" ]] && local cookie_name="worker"
     local cookie_name=$(abcli_option "$options" cookie $cookie_name)
-
-    if [ "$target" == "all" ]; then
-        local target_
-        for target_ in ec2 jetson headless_rpi mac rpi; do
-            abcli_seed $target_ ${@:2}
-        done
-        return
-    fi
 
     if [ "$output" == "key" ]; then
         if [[ "$abcli_is_jetson" == true ]]; then
@@ -105,104 +97,105 @@ function abcli_seed() {
 
         if [ ! -d "$seed_path" ]; then
             abcli_log_error "-abcli: seed: usb key not found."
-            return
+            return 1
         fi
 
         mkdir -p $seed_path/abcli/
     fi
 
-    if [ "$do_log" == 1 ]; then
+    [[ "$do_log" == 1 ]] &&
         abcli_log "seed: $abcli_fullname -$target-> $output 🌱"
-    fi
 
-    local sudo_prefix="sudo "
-    local delim="\n"
-    local delim_section="\n\n"
-    seed="#! /bin/bash$delim"
-    if [ "$output" == "clipboard" ]; then
-        local delim="; "
-        local delim_section="; "
-        seed=""
-    fi
-
-    seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
-
-    if [ "$target" == docker ]; then
-        seed="${seed}source /root/git/awesome-bash-cli/bash/abcli.sh$delim"
-    else
-        seed="${seed}mkdir -p \$HOME/.kaggle$delim"
-        seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
-        seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
-
-        seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
-        seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
-        seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
-        seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim_section"
-
-        seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
-        seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
-        seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output)$delim"
-        seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
-        seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
-
-        if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
-            seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
+    if [ -z "$seed" ]; then
+        local sudo_prefix="sudo "
+        local delim="\n"
+        local delim_section="\n\n"
+        local seed="#! /bin/bash$delim"
+        if [ "$output" == "clipboard" ]; then
+            local delim="; "
+            local delim_section="; "
+            seed=""
         fi
 
-        seed="${seed}"'ssh -T git@github.com'"$delim_section"
+        seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
 
-        if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
-            # https://serverfault.com/a/1093530
-            # https://packages.ubuntu.com/bionic/all/ca-certificates/download
-            certificate_name="ca-certificates_20211016ubuntu0.18.04.1_all"
-            seed="${seed}wget --no-check-certificate http://security.ubuntu.com/ubuntu/pool/main/c/ca-certificates/$certificate_name.deb$delim"
-            seed="$seed${sudo_prefix}sudo dpkg -i $certificate_name.deb$delim_section"
-
-            seed="$seed${sudo_prefix}apt-get update --allow-releaseinfo-change$delim"
-            seed="$seed${sudo_prefix}apt-get install -y ca-certificates libgnutls30$delim"
-            seed="$seed${sudo_prefix}apt-get --yes --force-yes install git$delim_section"
-        fi
-
-        seed="${seed}cd; mkdir -p git; cd git$delim"
-        seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
-        seed="${seed}cd awesome-bash-cli${delim}"
-        seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
-
-        pushd $abcli_path_bash/bootstrap/config >/dev/null
-        local filename
-        for filename in *.sh *.json *.pem; do
-            seed="$seed$(abcli_seed add_file git/awesome-bash-cli/bash/bootstrap/config/$filename output=$output)$delim_section"
-        done
-        popd >/dev/null
-
-        if [ "$target" == "headless_rpi" ]; then
-            seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
-        fi
-
-        if [ "$target" == "rpi" ]; then
-            seed="${seed}python3 -m pip install --upgrade pip$delim"
-            seed="${seed}pip3 install -e .$delim"
-            seed="${seed}sudo python3 -m pip install --upgrade pip$delim"
-            seed="${seed}sudo pip3 install -e .$delim_section"
-        elif [ "$target" == "headless_rpi" ]; then
-            seed="${seed}sudo apt-get --yes --force-yes install python3-pip$delim"
-            seed="${seed}pip3 install -e .$delim"
-            seed="${seed}sudo pip3 install -e .$delim_section"
+        if [ "$target" == docker ]; then
+            seed="${seed}source /root/git/awesome-bash-cli/bash/abcli.sh$delim"
         else
-            seed="${seed}pip3 install -e .$delim_section"
-        fi
+            seed="${seed}mkdir -p \$HOME/.kaggle$delim"
+            seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
+            seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
 
-        seed="${seed}source ./bash/abcli.sh$delim_section"
+            seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
+            seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
+            seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
+            seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim_section"
 
-        if [ "$target" == "ec2" ]; then
-            seed="${seed}source ~/.bash_profile$delim_section"
-        elif [ "$target" == "rpi" ]; then
-            seed="${seed}source ~/.bashrc$delim_section"
-        fi
+            seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
+            seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
+            seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output)$delim"
+            seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
+            seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
 
-        if [ ! -z "$cookie_name" ]; then
-            seed="${seed}abcli cookie copy $cookie_name$delim"
-            seed="${seed}abcli init$delim_section"
+            if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
+                seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
+            fi
+
+            seed="${seed}"'ssh -T git@github.com'"$delim_section"
+
+            if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
+                # https://serverfault.com/a/1093530
+                # https://packages.ubuntu.com/bionic/all/ca-certificates/download
+                certificate_name="ca-certificates_20211016ubuntu0.18.04.1_all"
+                seed="${seed}wget --no-check-certificate http://security.ubuntu.com/ubuntu/pool/main/c/ca-certificates/$certificate_name.deb$delim"
+                seed="$seed${sudo_prefix}sudo dpkg -i $certificate_name.deb$delim_section"
+
+                seed="$seed${sudo_prefix}apt-get update --allow-releaseinfo-change$delim"
+                seed="$seed${sudo_prefix}apt-get install -y ca-certificates libgnutls30$delim"
+                seed="$seed${sudo_prefix}apt-get --yes --force-yes install git$delim_section"
+            fi
+
+            seed="${seed}cd; mkdir -p git; cd git$delim"
+            seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
+            seed="${seed}cd awesome-bash-cli${delim}"
+            seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
+
+            pushd $abcli_path_bash/bootstrap/config >/dev/null
+            local filename
+            for filename in *.sh *.json *.pem; do
+                seed="$seed$(abcli_seed add_file git/awesome-bash-cli/bash/bootstrap/config/$filename output=$output)$delim_section"
+            done
+            popd >/dev/null
+
+            if [ "$target" == "headless_rpi" ]; then
+                seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
+            fi
+
+            if [ "$target" == "rpi" ]; then
+                seed="${seed}python3 -m pip install --upgrade pip$delim"
+                seed="${seed}pip3 install -e .$delim"
+                seed="${seed}sudo python3 -m pip install --upgrade pip$delim"
+                seed="${seed}sudo pip3 install -e .$delim_section"
+            elif [ "$target" == "headless_rpi" ]; then
+                seed="${seed}sudo apt-get --yes --force-yes install python3-pip$delim"
+                seed="${seed}pip3 install -e .$delim"
+                seed="${seed}sudo pip3 install -e .$delim_section"
+            else
+                seed="${seed}pip3 install -e .$delim_section"
+            fi
+
+            seed="${seed}source ./bash/abcli.sh$delim_section"
+
+            if [ "$target" == "ec2" ]; then
+                seed="${seed}source ~/.bash_profile$delim_section"
+            elif [ "$target" == "rpi" ]; then
+                seed="${seed}source ~/.bashrc$delim_section"
+            fi
+
+            if [ ! -z "$cookie_name" ]; then
+                seed="${seed}abcli cookie copy $cookie_name$delim"
+                seed="${seed}abcli init$delim_section"
+            fi
         fi
     fi
 
