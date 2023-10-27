@@ -37,9 +37,9 @@ function abcli_conda() {
         conda create -y -n $environment_name python=3.9
         conda activate $environment_name
 
-        abcli_eval \
-            dryrun=$do_dryrun,path=$abcli_path_git/awesome-bash-cli \
-            pip3 install -e .
+        pushd $abcli_path_git/awesome-bash-cli >/dev/null
+        pip3 install -e .
+        popd >/dev/null
 
         local list_of_modules="matplotlib jupyter pandas scikit-learn opencv-python \
             dill tqdm boto3 pymysql==0.10.1 numpy geopandas"
