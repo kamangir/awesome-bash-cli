@@ -3,7 +3,7 @@
 function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
-    local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi"
+    local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker2"
 
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli seed$ABCUL[$list_of_seed_targets]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
@@ -122,28 +122,36 @@ function abcli_seed() {
         if [ "$target" == docker ]; then
             seed="${seed}source /root/git/awesome-bash-cli/bash/abcli.sh$delim"
         else
-            seed="${seed}mkdir -p \$HOME/.kaggle$delim"
-            seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
-            seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
+            if [ -f "$HOME/.kaggle" ]; then
+                seed="${seed}mkdir -p \$HOME/.kaggle$delim"
+                seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
+                seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
+            else
+                abcli_log_warning "-abcli: seed: kaggle.json not found."
+            fi
 
-            seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
-            seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
-            seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
-            seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim_section"
+            if [[ "$target" != sagemaker* ]]; then
+                seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
+                seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
+                seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
+                seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim_section"
 
-            seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
-            seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
-            seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output)$delim"
-            seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
-            seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
+                seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
+                seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
+                seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output)$delim"
+                seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
+                seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
+            fi
 
-            if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
+            if [[ "$target" == *"rpi" ]]; then
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
             fi
 
-            seed="${seed}"'ssh -T git@github.com'"$delim_section"
+            if [[ "$target" != sagemaker* ]]; then
+                seed="${seed}"'ssh -T git@github.com'"$delim_section"
+            fi
 
-            if [ "$target" == "headless_rpi" ] || [ "$target" == "rpi" ]; then
+            if [[ "$target" == *"rpi" ]]; then
                 # https://serverfault.com/a/1093530
                 # https://packages.ubuntu.com/bionic/all/ca-certificates/download
                 certificate_name="ca-certificates_20211016ubuntu0.18.04.1_all"
@@ -155,17 +163,21 @@ function abcli_seed() {
                 seed="$seed${sudo_prefix}apt-get --yes --force-yes install git$delim_section"
             fi
 
-            seed="${seed}cd; mkdir -p git; cd git$delim"
-            seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
-            seed="${seed}cd awesome-bash-cli${delim}"
-            seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
+            if [[ "$target" != sagemaker2 ]]; then
+                seed="${seed}cd; mkdir -p git; cd git$delim"
+                seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
+                seed="${seed}cd awesome-bash-cli${delim}"
+                seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
+            fi
 
-            pushd $abcli_path_bash/bootstrap/config >/dev/null
-            local filename
-            for filename in *.sh *.json *.pem; do
-                seed="$seed$(abcli_seed add_file git/awesome-bash-cli/bash/bootstrap/config/$filename output=$output)$delim_section"
-            done
-            popd >/dev/null
+            if [[ "$target" != sagemaker* ]]; then
+                pushd $abcli_path_bash/bootstrap/config >/dev/null
+                local filename
+                for filename in *.sh *.json *.pem; do
+                    seed="$seed$(abcli_seed add_file git/awesome-bash-cli/bash/bootstrap/config/$filename output=$output)$delim_section"
+                done
+                popd >/dev/null
+            fi
 
             if [ "$target" == "headless_rpi" ]; then
                 seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
@@ -180,7 +192,7 @@ function abcli_seed() {
                 seed="${seed}sudo apt-get --yes --force-yes install python3-pip$delim"
                 seed="${seed}pip3 install -e .$delim"
                 seed="${seed}sudo pip3 install -e .$delim_section"
-            else
+            elif [[ "$target" != sagemaker* ]]; then
                 seed="${seed}pip3 install -e .$delim_section"
             fi
 
