@@ -190,7 +190,7 @@ function abcli_seed() {
                 seed="${seed}sudo apt-get --yes --force-yes install python3-pip$delim"
                 seed="${seed}pip3 install -e .$delim"
                 seed="${seed}sudo pip3 install -e .$delim_section"
-            elif [[ "$target" != sagemaker ]]; then
+            else
                 seed="${seed}pip3 install -e .$delim_section"
             fi
 
@@ -207,6 +207,10 @@ function abcli_seed() {
                 seed="${seed}abcli init$delim_section"
             fi
         fi
+    fi
+
+    if [ "$target" == sagemaker ]; then
+        abcli_log_warning "run \"bash\" before pasting the seed."
     fi
 
     if [ "$output" == "clipboard" ]; then
