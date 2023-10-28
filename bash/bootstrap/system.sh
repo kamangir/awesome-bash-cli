@@ -43,10 +43,9 @@ fi
 
 if [[ "$abcli_path_home" == "/home/sagemaker-user" ]]; then
     export abcli_is_sagemaker=true
-fi
-if [[ -z "$(command -v hostname)" ]]; then
-    export abcli_is_sagemaker=true
     export abcli_is_sagemaker_system=true
+elif [[ "$(hostname)" == sagemaker* ]]; then
+    export abcli_is_sagemaker=true
 fi
 
 if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
