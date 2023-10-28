@@ -168,16 +168,16 @@ function abcli_seed() {
             seed="${seed}cd awesome-bash-cli${delim}"
             seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
 
-            if [[ "$target" != sagemaker ]]; then
-                pushd $abcli_path_bash/bootstrap/config >/dev/null
-                local filename
-                for filename in *.sh *.json *.pem; do
-                    seed="$seed$(abcli_seed \
-                        add_file git/awesome-bash-cli/bash/bootstrap/config/$filename \
-                        output=$output)$delim_section"
-                done
-                popd >/dev/null
-            fi
+            pushd $abcli_path_bash/bootstrap/config >/dev/null
+            local filename
+            for filename in *.sh *.json *.pem; do
+                [[ "$target" == sagemaker ]] && [[ "$filename" != "aws.json" ]] && continue
+
+                seed="$seed$(abcli_seed \
+                    add_file git/awesome-bash-cli/bash/bootstrap/config/$filename \
+                    output=$output)$delim_section"
+            done
+            popd >/dev/null
 
             if [ "$target" == "headless_rpi" ]; then
                 seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
