@@ -14,7 +14,12 @@ function abcli_trail() {
     [[ "$abcli_is_in_notebook" == true ]] && return
 
     if [ "$task" == "stop" ]; then
-        sudo killall remote_syslog
+        if [ "$abcli_is_sagemaker" == true ]; then
+            # https://unstop.com/blog/kill-process-linux
+            pkill remote_syslog
+        else
+            sudo killall remote_syslog
+        fi
 
         export abcli_log_filename=""
         return
