@@ -217,7 +217,7 @@ function abcli_seed() {
         fi
     fi
 
-    if [ "$target" == sagemaker ]; then
+    if [[ "$target" == sagemaker* ]]; then
         abcli_log_warning "run \"bash\" before pasting the seed."
     fi
 
