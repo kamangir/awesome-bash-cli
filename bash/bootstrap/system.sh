@@ -9,6 +9,7 @@ export abcli_is_headless=false
 export abcli_is_mac=false
 export abcli_is_rpi=false
 export abcli_is_sagemaker=false
+export abcli_is_sagemaker_system=false
 export abcli_is_ubuntu=false
 export abcli_is_vnc=false
 
@@ -42,6 +43,10 @@ fi
 
 if [[ "$abcli_path_home" == "/home/sagemaker-user" ]]; then
     export abcli_is_sagemaker=true
+fi
+if [[ -z "$(command -v hostname)" ]]; then
+    export abcli_is_sagemaker=true
+    export abcli_is_sagemaker_system=true
 fi
 
 if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
@@ -103,10 +108,8 @@ if [ "$abcli_is_in_notebook" == false ]; then
     fi
 fi
 
-export abcli_hostname=$(hostname)
-
-export abcli_is_sagemaker_system=false
-if [[ "$abcli_is_sagemaker" == true ]] && [[ -z "$(command -v hostname)" ]]; then
-    export abcli_is_sagemaker_system=true
+if [[ "$abcli_is_sagemaker_system" == true ]]; then
     export abcli_hostname=sagemaker_system
+else
+    export abcli_hostname=$(hostname)
 fi
