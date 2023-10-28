@@ -204,6 +204,11 @@ function abcli_seed() {
 
             seed="${seed}source ./bash/abcli.sh$delim_section"
 
+            if [[ "$target" == sagemaker ]]; then
+                seed="${seed}conda init$delim"
+                seed="${seed}conda activate base$delim_section"
+            fi
+
             if [ "$target" == "ec2" ]; then
                 seed="${seed}source ~/.bash_profile$delim_section"
             elif [ "$target" == "rpi" ]; then
