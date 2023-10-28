@@ -8,7 +8,11 @@ function abcli_set_prompt() {
     local icon=""
     if [ "$abcli_is_docker" == true ]; then
         if [ "$abcli_is_sagemaker" == true ]; then
-            local icon="⚗️ "
+            if [ "$abcli_is_sagemaker_system" == true ]; then
+                local icon="⚗️ "
+            else
+                local icon="🧪 "
+            fi
         else
             local icon="🌠 "
         fi

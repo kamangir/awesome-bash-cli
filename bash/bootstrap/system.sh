@@ -103,8 +103,10 @@ if [ "$abcli_is_in_notebook" == false ]; then
     fi
 fi
 
-if [[ "$abcli_is_sagemaker" == true ]]; then
-    export abcli_hostname=sagemaker
-else
-    export abcli_hostname=$(hostname)
+export abcli_hostname=$(hostname)
+
+export abcli_is_sagemaker_system=false
+if [[ "$abcli_is_sagemaker" == true ]] && [[ "$(hostname)" == *"command not found"* ]]; then
+    export abcli_is_sagemaker_system=true
+    export abcli_hostname=sagemaker_system
 fi
