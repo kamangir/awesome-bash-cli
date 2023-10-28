@@ -1,5 +1,5 @@
 #!/bin/bash
 
-bash -i
-
-source ~/git/awesome-bash-cli/bash/abcli.sh
+cd ~/git/awesome-bash/cli
+pip3 install -e .
+source ./bash/abcli.sh
