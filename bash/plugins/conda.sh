@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[dryrun,~pip,tensorflow,torch]$ABCUL[<environment-name>]" \
+        abcli_show_usage "abcli conda create_env$ABCUL[dryrun,~pip,install_environment,tensorflow,torch]$ABCUL[<environment-name>]" \
             "create conda environmnt."
         abcli_show_usage "abcli conda list" \
             "show list of conda environments."
@@ -26,6 +26,7 @@ function abcli_conda() {
         local options=$2
         local do_dryrun=$(abcli_option_int "$options" dryrun 0)
         local do_pip=$(abcli_option_int "$options" pip 1)
+        local install_environment=$(abcli_option_int "$options" install_environment 0)
         local install_tensorflow=$(abcli_option_int "$options" tensorflow 0)
         local install_torch=$(abcli_option_int "$options" torch 0)
 
@@ -40,6 +41,11 @@ function abcli_conda() {
         pushd $abcli_path_git/awesome-bash-cli >/dev/null
         pip3 install -e .
         popd >/dev/null
+
+        [[ "$install_environment" == 1 ]] &&
+            abcli_eval \
+                dryrun=$do_dryrun,path=$abcli_path_git/$environment_name \
+                pip3 install -e .
 
         local list_of_modules="matplotlib jupyter pandas scikit-learn opencv-python \
             dill tqdm boto3 pymysql==0.10.1 numpy geopandas"
