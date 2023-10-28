@@ -172,7 +172,9 @@ function abcli_seed() {
                 pushd $abcli_path_bash/bootstrap/config >/dev/null
                 local filename
                 for filename in *.sh *.json *.pem; do
-                    seed="$seed$(abcli_seed add_file git/awesome-bash-cli/bash/bootstrap/config/$filename output=$output)$delim_section"
+                    seed="$seed$(abcli_seed \
+                        add_file git/awesome-bash-cli/bash/bootstrap/config/$filename \
+                        output=$output)$delim_section"
                 done
                 popd >/dev/null
             fi
