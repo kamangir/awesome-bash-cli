@@ -23,6 +23,8 @@ alias @log=abcli_log
 
 alias @pytest=abcli_pytest
 
+alias @publish=abcli_publish
+
 alias @seed=abcli_seed
 
 alias @select=abcli_select
