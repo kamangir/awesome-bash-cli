@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[dryrun,~pip,install_environment,tensorflow,torch]$ABCUL[<environment-name>]" \
+        abcli_show_usage "abcli conda create_env$ABCUL[clone=<base>,dryrun,~pip,install_environment,tensorflow,torch]$ABCUL[<environment-name>]" \
             "create conda environmnt."
         abcli_show_usage "abcli conda list" \
             "show list of conda environments."
@@ -24,6 +24,7 @@ function abcli_conda() {
 
     if [ "$task" == "create_env" ]; then
         local options=$2
+        local clone_from=$(abcli_option "$options" clone)
         local do_dryrun=$(abcli_option_int "$options" dryrun 0)
         local do_pip=$(abcli_option_int "$options" pip 1)
         local install_environment=$(abcli_option_int "$options" install_environment 0)
@@ -35,7 +36,14 @@ function abcli_conda() {
         conda activate base
         conda remove -y --name $environment_name --all
 
-        conda create -y -n $environment_name python=3.9
+        if [[ -z "$clone_from" ]]; then
+            echo "creating $environment_name"
+            conda create -y -name $environment_name python=3.9
+        else
+            echo "$clone_from -> $environment_name"
+            conda create -y --name $environment_name --clone $clone_from
+        fi
+
         conda activate $environment_name
 
         pushd $abcli_path_git/awesome-bash-cli >/dev/null
