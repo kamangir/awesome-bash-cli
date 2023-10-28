@@ -24,6 +24,8 @@ function abcli_set_prompt() {
         local icon="💻 "
     fi
 
+    export abcli_icon="$icon"
+
     parse_git_branch() {
         git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
     }
@@ -38,7 +40,7 @@ function abcli_set_prompt() {
 }
 
 function abcli_update_terminal_title() {
-    local title=$abcli_fullname
+    local title="$abcli_icon $abcli_fullname"
     [[ "$abcli_is_sagemaker" == false ]] &&
         local title="$title@$(hostname)"
 
