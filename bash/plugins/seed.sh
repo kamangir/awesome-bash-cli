@@ -3,7 +3,7 @@
 function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
-    local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker2"
+    local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker"
 
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli seed$ABCUL[$list_of_seed_targets]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
@@ -130,7 +130,7 @@ function abcli_seed() {
                 abcli_log_warning "-abcli: seed: kaggle.json not found."
             fi
 
-            if [[ "$target" != sagemaker* ]]; then
+            if [[ "$target" != sagemaker ]]; then
                 seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
                 seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
                 seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
@@ -147,7 +147,7 @@ function abcli_seed() {
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
             fi
 
-            if [[ "$target" != sagemaker* ]]; then
+            if [[ "$target" != sagemaker ]]; then
                 seed="${seed}"'ssh -T git@github.com'"$delim_section"
             fi
 
@@ -163,14 +163,12 @@ function abcli_seed() {
                 seed="$seed${sudo_prefix}apt-get --yes --force-yes install git$delim_section"
             fi
 
-            if [[ "$target" != sagemaker2 ]]; then
-                seed="${seed}cd; mkdir -p git; cd git$delim"
-                seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
-                seed="${seed}cd awesome-bash-cli${delim}"
-                seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
-            fi
+            seed="${seed}cd; mkdir -p git; cd git$delim"
+            seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
+            seed="${seed}cd awesome-bash-cli${delim}"
+            seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
 
-            if [[ "$target" != sagemaker* ]]; then
+            if [[ "$target" != sagemaker ]]; then
                 pushd $abcli_path_bash/bootstrap/config >/dev/null
                 local filename
                 for filename in *.sh *.json *.pem; do
@@ -192,7 +190,7 @@ function abcli_seed() {
                 seed="${seed}sudo apt-get --yes --force-yes install python3-pip$delim"
                 seed="${seed}pip3 install -e .$delim"
                 seed="${seed}sudo pip3 install -e .$delim_section"
-            elif [[ "$target" != sagemaker* ]]; then
+            elif [[ "$target" != sagemaker ]]; then
                 seed="${seed}pip3 install -e .$delim_section"
             fi
 
