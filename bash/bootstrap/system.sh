@@ -106,7 +106,7 @@ fi
 export abcli_hostname=$(hostname)
 
 export abcli_is_sagemaker_system=false
-if [[ "$abcli_is_sagemaker" == true ]] && [[ "$(hostname)" == *"command not found"* ]]; then
+if [[ "$abcli_is_sagemaker" == true ]] && [[ -z "$(command -v hostname)" ]]; then
     export abcli_is_sagemaker_system=true
     export abcli_hostname=sagemaker_system
 fi
