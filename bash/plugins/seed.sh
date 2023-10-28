@@ -6,10 +6,8 @@ function abcli_seed() {
     local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli seed$ABCUL[$list_of_seed_targets]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
+        abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
             "generate and output a seed 🌱."
-        abcli_show_usage "abcli seed <target>$ABCUL<args>" \
-            "seed 🌱 <target>."
         abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>]" \
             "seed 🌱 += <filename>."
         abcli_show_usage "abcli seed eject" \
