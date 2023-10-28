@@ -44,7 +44,7 @@ fi
 if [[ "$abcli_path_home" == "/home/sagemaker-user" ]]; then
     export abcli_is_sagemaker=true
     export abcli_is_sagemaker_system=true
-elif [[ "$(hostname)" == sagemaker* ]]; then
+elif [[ "$(hostname)" == sagemaker* ]] || [[ "$(hostname)" == pytorch* ]]; then
     export abcli_is_sagemaker=true
 fi
 
