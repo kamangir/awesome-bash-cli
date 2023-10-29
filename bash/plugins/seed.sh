@@ -66,7 +66,9 @@ function abcli_seed() {
     fi
 
     local options=$2
-    local output="clipboard"
+    local output=clipboard
+    [[ "$abcli_is_sagemaker" == true ]] &&
+        local output=screen
     local filename=""
     local to_key=$(abcli_option_int "$options" key 0)
     if [ "$to_key" == 1 ]; then
