@@ -176,7 +176,9 @@ function abcli_seed() {
             local filename
             for filename in *.sh *.json *.pem; do
                 [[ "$target" == sagemaker-system ]] &&
-                    [[ "$filename" != "aws.json" ]] && continue
+                    [[ "$filename" != "aws.json" ]] &&
+                    [[ "$filename" != "papertrail.sh" ]] &&
+                    continue
                 [[ "$target" == sagemaker ]] && continue
 
                 seed="$seed$(abcli_seed \
