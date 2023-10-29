@@ -68,7 +68,7 @@ function abcli_git() {
         local repo_address=$repo_name_org
         [[ "$repo_address" != http* ]] && [[ "$repo_address" != git@* ]] &&
             local repo_address=git@github.com:kamangir/$repo_name.git
-        [[ "$abcli_is_sagemaker" ]] &&
+        [[ "$abcli_is_sagemaker" == true ]] &&
             local repo_address=https://github.com/kamangir/$repo_name
 
         abcli_log "cloning $repo_address -> $(pwd)"
