@@ -125,6 +125,25 @@ function abcli_log_local_and_cat() {
     cat "$1"
 }
 
+function abcli_log_ls() {
+    local options=$1
+    local path=$(abcli_option "$options" path ./)
+    local extension=$(abcli_option "$options" extension sh)
+
+    if [[ "$path" != ./ ]]; then
+        abcli_log " 📂 $path"
+        pushd $path >/dev/null
+    fi
+
+    local filename
+    for filename in $(ls *.$extension); do
+        abcli_log "📜 ${filename%.*}"
+    done
+
+    [[ "$path" != ./ ]] &&
+        popd >/dev/null
+}
+
 function abcli_log_remote() {
     echo "$@" >>$abcli_log_filename
 }
