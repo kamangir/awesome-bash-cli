@@ -25,6 +25,8 @@ function abcli_clarify_object() {
         local object_name="validate"
     fi
 
+    mkdir -p $abcli_object_root/$object_name
+
     echo $object_name
 }
 
