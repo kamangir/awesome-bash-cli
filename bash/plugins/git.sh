@@ -38,7 +38,15 @@ function abcli_git() {
 
     local repo_name=$(abcli_unpack_repo_name $1)
     if [ -d "$abcli_path_git/$repo_name" ]; then
-        cd $abcli_path_git/$repo_name
+        if [[ -z "${@:2}" ]]; then
+            cd $abcli_path_git/$repo_name
+            return
+        fi
+
+        pushd $abcli_path_git/$repo_name >/dev/null
+        git "${@:2}"
+        popd >/dev/null
+
         return
     fi
 
@@ -237,11 +245,17 @@ function abcli_git() {
     fi
 
     if [ "$task" == "select_issue" ]; then
-        abcli_select git_issue ${@:2}
+        abcli_select git_issue "${@:2}"
         return
     fi
 
     if [ "$task" == "status" ]; then
+        if [[ ! -z "$2" ]]; then
+            abcli_eval path=$abcli_path_git/$(abcli_unpack_repo_name $2),~log \
+                git status
+            return
+        fi
+
         pushd $abcli_path_git >/dev/null
         local repo_name
         for repo_name in $(ls -d */); do
@@ -267,11 +281,7 @@ function abcli_git() {
         return
     fi
 
-    local repo_name=$(abcli_unpack_repo_name $1)
-
-    pushd $abcli_path_git/$repo_name >/dev/null
-    git ${@:2}
-    popd >/dev/null
+    git "$@"
 }
 
 function abcli_git_get_branch() {
