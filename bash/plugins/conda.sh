@@ -40,7 +40,7 @@ function abcli_conda() {
 
         if [[ -z "$clone_from" ]]; then
             echo "conda: creating $environment_name"
-            conda create -y -name $environment_name python=3.9
+            conda create -y --name $environment_name python=3.9
         else
             echo "conda: cloning $clone_from -> $environment_name"
             conda create -y --name $environment_name --clone $clone_from
