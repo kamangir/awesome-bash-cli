@@ -27,7 +27,7 @@ function abcli_conda() {
         local clone_from=$(abcli_option "$options" clone auto)
         local environment_name=$(abcli_option "$options" name abcli)
 
-        if [ "$clone_from" == auto]; then
+        if [ "$clone_from" == auto ]; then
             if [[ "$abcli_is_sagemaker" == true ]]; then
                 local clone_from=base
             else
