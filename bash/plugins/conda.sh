@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[clone=<base>,dryrun,~pip,install_environment,tensorflow,torch]$ABCUL[<environment-name>]" \
+        abcli_show_usage "abcli conda create_env$ABCUL[clone=<base>,name=<environment-name>]" \
             "create conda environmnt."
         abcli_show_usage "abcli conda list" \
             "show list of conda environments."
@@ -25,22 +25,16 @@ function abcli_conda() {
     if [ "$task" == "create_env" ]; then
         local options=$2
         local clone_from=$(abcli_option "$options" clone)
-        local do_dryrun=$(abcli_option_int "$options" dryrun 0)
-        local do_pip=$(abcli_option_int "$options" pip 1)
-        local install_environment=$(abcli_option_int "$options" install_environment 0)
-        local install_tensorflow=$(abcli_option_int "$options" tensorflow 0)
-        local install_torch=$(abcli_option_int "$options" torch 0)
-
-        local environment_name=$(abcli_clarify_input $3 abcli)
+        local environment_name=$(abcli_option "$options" name abcli)
 
         conda activate base
         conda remove -y --name $environment_name --all
 
         if [[ -z "$clone_from" ]]; then
-            echo "creating $environment_name"
+            echo "conda: creating $environment_name"
             conda create -y -name $environment_name python=3.9
         else
-            echo "$clone_from -> $environment_name"
+            echo "conda: cloning $clone_from -> $environment_name"
             conda create -y --name $environment_name --clone $clone_from
         fi
 
@@ -50,25 +44,9 @@ function abcli_conda() {
         pip3 install -e .
         popd >/dev/null
 
-        [[ "$install_environment" == 1 ]] &&
-            abcli_eval \
-                dryrun=$do_dryrun,path=$abcli_path_git/$environment_name \
-                pip3 install -e .
-
-        local list_of_modules="matplotlib jupyter pandas scikit-learn opencv-python \
-            dill tqdm boto3 pymysql==0.10.1 numpy geopandas"
-        [[ "$install_tensorflow" == 1 ]] &&
-            local list_of_modules="$list_of_modules tensorflow keras"
-        [[ "$install_torch" == 1 ]] &&
-            local list_of_modules="$list_of_modules torch"
-
-        if [ "$do_pip" == 1 ]; then
-            local module
-            for module in $list_of_modules; do
-                abcli_eval dryrun=$do_dryrun \
-                    pip3 install $module
-            done
-        fi
+        abcli_eval \
+            path=$abcli_path_git/$environment_name \
+            pip3 install -e .
 
         return
     fi
