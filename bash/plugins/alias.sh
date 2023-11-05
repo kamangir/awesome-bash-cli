@@ -7,6 +7,8 @@ alias @download=abcli_download
 alias @cache=abcli_cache
 alias @ref="abcli_cache read"
 
+alias @cookie=abcli_cookie
+
 alias @conda=abcli_conda
 
 alias @env=abcli_env
