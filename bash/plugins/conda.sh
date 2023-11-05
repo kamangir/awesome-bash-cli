@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[clone=<base>,name=<environment-name>]" \
+        abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>]" \
             "create conda environmnt."
         abcli_show_usage "abcli conda list" \
             "show list of conda environments."
@@ -24,8 +24,16 @@ function abcli_conda() {
 
     if [ "$task" == "create_env" ]; then
         local options=$2
-        local clone_from=$(abcli_option "$options" clone)
+        local clone_from=$(abcli_option "$options" clone auto)
         local environment_name=$(abcli_option "$options" name abcli)
+
+        if [ "$clone_from" == auto]; then
+            if [[ "$abcli_is_sagemaker" == true ]]; then
+                local clone_from=base
+            else
+                local clone_from=""
+            fi
+        fi
 
         conda activate base
         conda remove -y --name $environment_name --all
