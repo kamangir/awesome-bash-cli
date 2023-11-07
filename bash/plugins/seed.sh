@@ -164,6 +164,7 @@ function abcli_seed() {
             fi
 
             if [[ "$target" == sagemaker ]]; then
+                seed="${seed}pip install --upgrade pip$delim_section"
                 seed="${seed}cd git/awesome-bash-cli${delim}"
             else
                 seed="${seed}cd; mkdir -p git; cd git$delim"
