@@ -4,9 +4,11 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
+    local list_of_plugins="vanwatch|roofAI"
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[clipboard|filename=<filename>|key|screen]$ABCUL[cookie=<cookie-name>,~log]" \
+        local options="clipboard|filename=<filename>|key|screen,cookie=<cookie-name>,$list_of_plugins,~log"
+        abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]" \
             "generate and output a seed 🌱."
         abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>]" \
             "seed 🌱 += <filename>."
@@ -66,6 +68,8 @@ function abcli_seed() {
     fi
 
     local options=$2
+    local do_log=$(abcli_option_int "$options" log 1)
+
     local output=clipboard
     [[ "$abcli_is_sagemaker" == true ]] &&
         local output=screen
@@ -82,8 +86,6 @@ function abcli_seed() {
         fi
     fi
 
-    local options=$3
-    local do_log=$(abcli_option_int "$options" log 1)
     local cookie_name=""
     [[ "$target" == "ec2" ]] && local cookie_name="worker"
     local cookie_name=$(abcli_option "$options" cookie $cookie_name)
@@ -216,6 +218,13 @@ function abcli_seed() {
             if [ ! -z "$cookie_name" ]; then
                 seed="${seed}abcli cookie copy $cookie_name$delim"
                 seed="${seed}abcli init$delim_section"
+            fi
+
+            if [[ "$target" == sagemaker ]]; then
+                local plugin_name=$(abcli_option_choice "$options" $(echo $list_of_plugins | tr \| ,))
+
+                [[ ! -z "$plugin_name" ]] &&
+                    seed="${seed}$plugin_name conda create_env validate$delim"
             fi
         fi
     fi

@@ -1,12 +1,12 @@
 #! /usr/bin/env bash
 
 function abcli_add_ssh_keys() {
-    if [ -z "$abcli_ssh_keys_added" ] || [ "$1" == "force" ] ; then
+    if [ -z "$abcli_ssh_keys_added" ] || [ "$1" == "force" ]; then
         eval "$(ssh-agent -s)"
 
         ssh-add -k $abcli_path_home/.ssh/$abcli_git_ssh_key_name
 
-        if [ -f "$abcli_path_home/.ssh/abcli" ] ; then
+        if [ -f "$abcli_path_home/.ssh/abcli" ]; then
             ssh-add -k $abcli_path_home/.ssh/abcli
         fi
 
@@ -17,7 +17,7 @@ function abcli_add_ssh_keys() {
 function abcli_ssh() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli ssh add$ABCUL<filename>" \
             "ssh add <filename>."
         abcli_show_usage "abcli ssh copy_id$ABCUL<filename>${ABCUL}jetson_nano|rpi <machine-name>" \
@@ -31,7 +31,7 @@ function abcli_ssh() {
         return
     fi
 
-    if [ "$task" == "add" ] ; then
+    if [ "$task" == "add" ]; then
         local filename=$(abcli_clarify_input $2 abcli)
 
         ssh-add -k $abcli_path_home/.ssh/$filename
@@ -39,7 +39,7 @@ function abcli_ssh() {
     fi
 
     # https://www.raspberrypi.com/tutorials/cluster-raspberry-pi-tutorial/
-    if [ "$task" == "copy_id" ] ; then
+    if [ "$task" == "copy_id" ]; then
         local filename=$(abcli_clarify_input $2 abcli)
         local args=$(abcli_ssh_args ${@:3})
 
@@ -48,7 +48,7 @@ function abcli_ssh() {
     fi
 
     # https://www.raspberrypi.com/tutorials/cluster-raspberry-pi-tutorial/
-    if [ "$task" == "keygen" ] ; then
+    if [ "$task" == "keygen" ]; then
         local filename=$(abcli_clarify_input $2 abcli)
         ssh-keygen -t rsa -b 4096 -f $abcli_path_home/.ssh/$filename
         return
@@ -66,24 +66,24 @@ function abcli_ssh_args() {
     local copy_seed=$(abcli_option_int "$options" seed 1)
     local for_vnc=$(abcli_option_int "$options" vnc 0)
 
-    if [ "$machine_kind" == "ec2" ] ; then
+    if [ "$machine_kind" == "ec2" ]; then
         local address=$(echo "$machine_name" | tr . -)
         local region=$(abcli_option "$options" region $(abcli_aws_region))
         local url="ec2-$address.$region.compute.amazonaws.com"
         local user=$(abcli_option "$options" user ubuntu)
 
-        ssh-keyscan $url >> ~/.ssh/known_hosts
+        ssh-keyscan $url >>~/.ssh/known_hosts
 
         local address="$user@$url"
 
-        if [ "$copy_seed" == 1 ] ; then
-            abcli_seed ec2 clipboard cookie=worker,~log
+        if [ "$copy_seed" == 1 ]; then
+            abcli_seed ec2 clipboard,cookie=worker,~log
         fi
 
         local key_name=$(abcli_aws_json_get "['ec2']['key_name']")
         local pem_filename=$abcli_path_bash/bootstrap/config/$key_name.pem
         chmod 400 $pem_filename
-        if [ "$for_vnc" == 1 ] ; then
+        if [ "$for_vnc" == 1 ]; then
             echo "-i $pem_filename -L 5901:localhost:5901 $address"
         else
             echo "-i $pem_filename $address"
@@ -91,17 +91,17 @@ function abcli_ssh_args() {
         return
     fi
 
-    if [ "$machine_kind" == "jetson_nano" ] ; then
+    if [ "$machine_kind" == "jetson_nano" ]; then
         echo abcli@$machine_name.local
         return
     fi
 
-    if [ "$machine_kind" == "local" ] ; then
+    if [ "$machine_kind" == "local" ]; then
         echo ""
         return
     fi
 
-    if [ "$machine_kind" == "rpi" ] ; then
+    if [ "$machine_kind" == "rpi" ]; then
         echo pi@$machine_name.local
         return
     fi
