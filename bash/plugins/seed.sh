@@ -4,10 +4,9 @@ function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
     local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
-    local list_of_plugins="vanwatch|roofAI"
 
     if [ "$task" == "help" ]; then
-        local options="clipboard|filename=<filename>|key|screen,cookie=<cookie-name>,$list_of_plugins,~log"
+        local options="clipboard|filename=<filename>|key|screen,cookie=<cookie-name>,plugin=<plugin-name>,~log"
         abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]" \
             "generate and output a seed 🌱."
         abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>]" \
@@ -221,7 +220,7 @@ function abcli_seed() {
             fi
 
             if [[ "$target" == sagemaker ]]; then
-                local plugin_name=$(abcli_option_choice "$options" $(echo $list_of_plugins | tr \| ,))
+                local plugin_name=$(abcli_option "$options" plugin)
 
                 [[ ! -z "$plugin_name" ]] &&
                     seed="${seed}$plugin_name conda create_env validate$delim"
