@@ -148,12 +148,17 @@ def save_image(
     return True
 
 
-def save_json(filename, data):
+def save_json(
+    filename,
+    data,
+    log=False,
+):
     """save data to filename as json.
 
     Args:
         filename (str): filename.
         data (Any): data.
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -174,11 +179,14 @@ def save_json(filename, data):
                 indent=4,
                 ensure_ascii=False,
             )
-
-        return True
     except:
         crash_report(f"-{NAME}: save_json({filename}): failed.")
         return False
+
+    if log:
+        logger.info("{}.save_json -> {}".format(NAME, filename))
+
+    return True
 
 
 def save_tensor(
