@@ -66,10 +66,10 @@ def select(object_name: str):
     os.environ["abcli_object_path"] = object_path(object_name)
 
 
-def signature(info=None):
+def signature(info=None, object_name="."):
     return [
         "{}{}".format(
-            os.getenv("abcli_object_name", ""),
+            os.getenv("abcli_object_name", "") if object_name == "." else object_name,
             "" if info is None else f"/{str(info)}",
         ),
         string.pretty_date(include_time=False),
