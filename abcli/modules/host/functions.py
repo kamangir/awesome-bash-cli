@@ -217,4 +217,11 @@ def tensor_processing_signature():
     except:
         pass
 
+    try:
+        import torch
+
+        output += [f"torch-{torch.__version__}"]
+    except:
+        pass
+
     return output
