@@ -15,7 +15,7 @@ def generate_animated_gif(
     frame_duration: int = 150,
 ):
     if not list_of_images:
-        return
+        return True
 
     logger.info(
         "{}.generate_animated_gif({} frames) -> {} @ {:.2f}ms".format(
@@ -26,14 +26,22 @@ def generate_animated_gif(
         )
     )
 
-    frames = []
-    for filename in tqdm(list_of_images):
-        frames.append(Image.open(filename))
+    try:
+        frames = []
+        for filename in tqdm(list_of_images):
+            frames.append(Image.open(filename))
 
-    frames[0].save(
-        output_filename,
-        save_all=True,
-        append_images=frames[1:],
-        duration=frame_duration,
-        loop=0,  # 0 means infinite loop
-    )
+        frames[0].save(
+            output_filename,
+            save_all=True,
+            append_images=frames[1:],
+            duration=frame_duration,
+            loop=0,  # 0 means infinite loop
+        )
+    except Exception:
+        from abcli.logging import crash_report
+
+        crash_report("generate_animated_gif")
+        return False
+
+    return True
