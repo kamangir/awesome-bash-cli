@@ -20,8 +20,11 @@ function abcli_pytest() {
     [[ $(abcli_option_int "$options" warning 0) == 0 ]] &&
         local args="$args --disable-warnings"
 
+    local repo_name=$(abcli_unpack_repo_name $plugin_name)
+    abcli_log "abcli: pytest: plugin=$plugin_name, repo=$repo_name"
+
     # https://stackoverflow.com/a/40720333/17619982
-    abcli_eval "path=$abcli_path_git/$plugin_name,$options" \
+    abcli_eval "path=$abcli_path_git/$repo_name,$options" \
         python3 -m pytest "$args"
 }
 
