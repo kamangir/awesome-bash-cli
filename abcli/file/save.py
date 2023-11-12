@@ -76,12 +76,17 @@ def save_csv(filename, data):
     return success
 
 
-def save_geojson(filename, gdf):
+def save_geojson(
+    filename,
+    gdf,
+    log=False,
+):
     """save GeoDataFrame to filename as geojson.
 
     Args:
         filename (str): filename.
         gdf (GeoDataFrame): geo data frame.
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -91,11 +96,14 @@ def save_geojson(filename, gdf):
 
     try:
         gdf.to_file(filename, driver="GeoJSON")
-
-        return True
     except:
         crash_report(f"-{NAME}: save_geojson({filename}): failed.")
         return False
+
+    if log:
+        logger.info("{}.save_geojson({}) -> {}".format(NAME, len(gdf), filename))
+
+    return True
 
 
 def save_image(
