@@ -5,7 +5,7 @@ function abcli_conda() {
 
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>]" \
-            "create conda environmnt."
+            "create conda environment."
         abcli_show_usage "abcli conda list" \
             "show list of conda environments."
         abcli_show_usage "abcli conda remove|rm$ABCUL[<environment-name>]" \
