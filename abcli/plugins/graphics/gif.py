@@ -12,7 +12,7 @@ NAME = "abcli.plugins.gif"
 def generate_animated_gif(
     list_of_images: List[str],
     output_filename: str,
-    frame_duration: float = 0.25,
+    frame_duration: int = 150,
 ):
     if not list_of_images:
         return
