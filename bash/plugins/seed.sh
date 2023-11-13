@@ -123,12 +123,14 @@ function abcli_seed() {
         if [ "$target" == docker ]; then
             seed="${seed}source /root/git/awesome-bash-cli/bash/abcli.sh$delim"
         else
-            if [ -d "$HOME/.kaggle" ]; then
-                seed="${seed}mkdir -p \$HOME/.kaggle$delim"
-                seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
-                seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
-            else
-                abcli_log_warning "-abcli: seed: kaggle.json not found."
+            if [[ "$target" != sagemaker ]]; then
+                if [ -d "$HOME/.kaggle" ]; then
+                    seed="${seed}mkdir -p \$HOME/.kaggle$delim"
+                    seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
+                    seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
+                else
+                    abcli_log_warning "-abcli: seed: kaggle.json not found."
+                fi
             fi
 
             if [[ "$target" != sagemaker* ]]; then
