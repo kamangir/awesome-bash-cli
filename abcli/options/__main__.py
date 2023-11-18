@@ -2,7 +2,7 @@ import argparse
 from . import *
 from abcli import keywords
 
-list_of_tasks = "checklist|choice|default|get|get_unpacked|update"
+list_of_tasks = "choice|default|get|get_unpacked|update"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -47,21 +47,7 @@ args = parser.parse_args()
 delim = " " if args.delim == "space" else args.delim
 
 success = args.task in list_of_tasks.split("|")
-if args.task == "checklist":
-    options = Options(args.options)
-
-    default = options.get("all", 0)
-
-    print(
-        delim.join(
-            [
-                choice
-                for choice in args.choices.split(",")
-                if options.get(choice, default)
-            ]
-        )
-    )
-elif args.task == "choice":
+if args.task == "choice":
     options = Options(args.options)
 
     found = False

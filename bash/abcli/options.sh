@@ -9,14 +9,6 @@ function abcli_option() {
         "${@:4}"
 }
 
-function abcli_option_checklist() {
-    python3 -m abcli.options \
-        checklist \
-        --options "$1" \
-        --choices "$2" \
-        "${@:3}"
-}
-
 function abcli_option_choice() {
     python3 -m abcli.options \
         choice \
