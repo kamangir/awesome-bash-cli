@@ -2,7 +2,7 @@ import argparse
 from . import *
 from abcli import keywords
 
-list_of_tasks = "choice|default|get|update"
+list_of_tasks = "choice|default|get"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -67,10 +67,6 @@ elif args.task == "get":
             Options(args.options).default(args.keyword, args.default)[args.keyword]
         )
     )
-elif args.task == "update":
-    options = Options(args.options)
-    options[args.keyword] = args.default
-    print(options.to_str())
 else:
     print(f"-{NAME}: {args.task}: command not found")
 

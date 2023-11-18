@@ -36,12 +36,3 @@ function abcli_option_int() {
         --is_int 1 \
         "${@:4}"
 }
-
-function abcli_option_update() {
-    python3 -m abcli.options \
-        update \
-        --options "$1" \
-        --keyword "$2" \
-        --default "$3" \
-        "${@:4}"
-}
