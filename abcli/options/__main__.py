@@ -2,7 +2,7 @@ import argparse
 from . import *
 from abcli import keywords
 
-list_of_tasks = "choice|default|get|get_unpacked|update"
+list_of_tasks = "choice|default|get|update"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -67,16 +67,6 @@ elif args.task == "get":
             Options(args.options).default(args.keyword, args.default)[args.keyword]
         )
     )
-elif args.task == "get_unpacked":
-    keyword_unpacked = keywords.pack(args.keyword)
-
-    options = Options(args.options)
-
-    output = options.default(
-        keyword_unpacked, options.default(args.keyword, args.default)[args.keyword]
-    )[keyword_unpacked]
-
-    print(int(output) if args.is_int == 1 else output)
 elif args.task == "update":
     options = Options(args.options)
     options[args.keyword] = args.default
