@@ -16,7 +16,7 @@ function abcli_init() {
 
     if [ "$plugin_name" == "all" ]; then
         if [ "$abcli_is_mac" == true ]; then
-            local options=$(abcli_option_default "$options" terraform 0)
+            local options=~terraform,$options
         fi
 
         local repo_name

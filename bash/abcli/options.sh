@@ -18,15 +18,6 @@ function abcli_option_choice() {
         "${@:4}"
 }
 
-function abcli_option_default() {
-    python3 -m abcli.options \
-        default \
-        --options "$1" \
-        --keyword "$2" \
-        --default "$3" \
-        "${@:4}"
-}
-
 function abcli_option_int() {
     python3 -m abcli.options \
         get \

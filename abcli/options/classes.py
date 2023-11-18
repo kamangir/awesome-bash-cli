@@ -64,34 +64,6 @@ class Options(dict):
             for index in range(0, len(args), 2):
                 self[args[index]] = args[index + 1]
 
-    def default(self, keyword, default):
-        """create a copy of self and set default for keyword.
-
-        Args:
-            keyword (str): keyword.
-            default (str): default.
-
-        Returns:
-            Options: options.
-        """
-        output = copy.deepcopy(self)
-        output[keyword] = output.get(keyword, default)
-        return output
-
-    def delete(self, keyword):
-        """create a copy of self and delete keyword.
-
-        Args:
-            keyword (str): keyword.
-
-        Returns:
-            Options: options.
-        """
-        output = copy.deepcopy(self)
-        if keyword in output:
-            del output[keyword]
-        return output
-
     def get(self, keyword, default):
         """return self.get(keyword, default).
 
