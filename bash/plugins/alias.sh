@@ -6,6 +6,8 @@ alias @download=abcli_download
 
 alias @cache=abcli_cache
 alias @ref="abcli_cache read"
+alias @tag=abcli_tag
+alias @relation=abcli_relation
 
 alias @cookie=abcli_cookie
 
@@ -34,8 +36,6 @@ alias @select=abcli_select
 alias @sleep=abcli_sleep
 
 alias @storage=abcli_storage
-
-alias @tag=abcli_tag
 
 alias @timestamp=abcli_string_timestamp
 
