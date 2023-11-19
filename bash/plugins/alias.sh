@@ -30,6 +30,8 @@ alias @option::bool=abcli_option_int
 alias @option::choice=abcli_option_choice
 alias @option::subset=abcli_option_subset
 
+alias @plugins=abcli_plugins
+
 alias @pytest=abcli_pytest
 
 alias @publish=abcli_publish
