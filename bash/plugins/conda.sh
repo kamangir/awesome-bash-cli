@@ -4,12 +4,14 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>]" \
+        abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>,~recreate]" \
             "create conda environment."
+        abcli_show_usage "abcli conda exists$ABCUL[<environment-name>]" \
+            "does conda environment exist? true|false."
         abcli_show_usage "abcli conda list" \
             "show list of conda environments."
         abcli_show_usage "abcli conda remove|rm$ABCUL[<environment-name>]" \
-            "remove environment."
+            "remove conda environment."
         return
     fi
 
@@ -25,7 +27,13 @@ function abcli_conda() {
     if [ "$task" == "create_env" ]; then
         local options=$2
         local clone_from=$(abcli_option "$options" clone auto)
+        local do_recreate=$(abcli_option_int "$options" recreate 1)
         local environment_name=$(abcli_option "$options" name abcli)
+
+        if [[ "$do_recreate" == 0 ]] && [[ $(abcli_conda exists $environment_name) == 1 ]]; then
+            abcli_eval - conda activate $environment_name
+            return
+        fi
 
         if [ "$clone_from" == auto ]; then
             if [[ "$abcli_is_sagemaker" == true ]]; then
@@ -55,6 +63,18 @@ function abcli_conda() {
         abcli_eval \
             path=$abcli_path_git/$environment_name \
             pip3 install -e .
+
+        return
+    fi
+
+    if [ "$task" == "exists" ]; then
+        local environment_name=$(abcli_clarify_input $2 abcli)
+
+        if conda info --envs | grep -q "^$environment_name "; then
+            echo 1
+        else
+            echo 0
+        fi
 
         return
     fi
