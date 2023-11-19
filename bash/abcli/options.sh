@@ -27,3 +27,11 @@ function abcli_option_int() {
         --is_int 1 \
         "${@:4}"
 }
+
+function abcli_option_subset() {
+    python3 -m abcli.options \
+        subset \
+        --subset "$1" \
+        --options "$2" \
+        "${@:3}"
+}
