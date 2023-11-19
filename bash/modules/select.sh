@@ -4,7 +4,7 @@ function abcli_select() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli select [<object_name>] [open,plugin=<plugin>,~trail]" \
+        abcli_show_usage "abcli select [<object_name>] [open,type=<type>,~trail]" \
             "select [object_name]."
         abcli_show_usage "abcli select git_issue <abc>" \
             "select git issue kamangir/bolt#<abc>."
@@ -22,31 +22,29 @@ function abcli_select() {
     local options=$2
     local update_trail=$(abcli_option_int "$options" trail 1)
     local do_open=$(abcli_option_int "$options" open 0)
-    local plugin_name=$(abcli_option "$options" plugin abcli)
+    local type_name=$(abcli_option "$options" type object)
 
-    local object_var_prev=${plugin_name}_object_name_prev
-    export ${plugin_name}_object_name_prev2=${!object_var_prev}
+    local object_name_var_prev=abcli_${type_name}_name_prev
+    export abcli_${type_name}_name_prev2=${!object_name_var_prev}
 
-    local object_var=${plugin_name}_object_name
-    export ${plugin_name}_object_name_prev=${!object_var}
+    local object_name_var=abcli_${type_name}_name
+    export abcli_${type_name}_name_prev=${!object_name_var}
 
-    export ${plugin_name}_object_name=$object_name
+    export abcli_${type_name}_name=$object_name
 
-    local path=$abcli_object_root/$object_name
-    export ${plugin_name}_object_path=$path
-    mkdir -p $path
+    local object_path=$abcli_object_root/$object_name
+    export abcli_${type_name}_path=$object_path
+    mkdir -p $object_path
 
-    if [ "$plugin_name" == abcli ]; then
-        cd $path
+    if [ "$type_name" == object ]; then
+        cd $object_path
 
-        if [ "$update_trail" == 1 ]; then
-            abcli_trail $path/$object_name
-        fi
+        [[ "$update_trail" == 1 ]] &&
+            abcli_trail $object_path/$object_name
     fi
 
-    abcli_log "📂 $plugin_name: $object_name"
+    abcli_log "📂 $type_name :: $object_name"
 
-    if [ "$do_open" == 1 ]; then
-        open $path
-    fi
+    [[ "$do_open" == 1 ]] &&
+        open $object_path
 }

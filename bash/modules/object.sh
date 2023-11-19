@@ -3,11 +3,11 @@
 function abcli_clarify_object() {
     local object_name=$1
     local default=$2
-    local plugin_name=${3:-abcli}
+    local type_name=${3:-object}
 
-    local object_var=${plugin_name}_object_name
-    local object_var_prev=${plugin_name}_object_name_prev
-    local object_var_prev2=${plugin_name}_object_name_prev2
+    local object_var=abcli_${type_name}_name
+    local object_var_prev=abcli_${type_name}_name_prev
+    local object_var_prev2=abcli_${type_name}_name_prev2
 
     if [ -z "$object_name" ] || [ "$object_name" == "-" ]; then
         local object_name=$default
