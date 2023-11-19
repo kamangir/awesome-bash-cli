@@ -3,7 +3,7 @@
 function abcli_publish() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli publish$ABCUL<object_name>$ABCUL[random_url]" \
             "publish <object_name> [and randmoize url]."
         abcli_show_usage "abcli publish$ABCUL<object_name>$ABCUL.mp4" \
@@ -20,16 +20,16 @@ function abcli_publish() {
     local filename=$2
 
     local othername=$3
-    if [ -z "$othername" ] ; then
+    if [ -z "$othername" ]; then
         local othername=$filename
     fi
 
-    if [ -z "$filename" ] || [ "$filename" == "random_url" ] ; then
+    if [ -z "$filename" ] || [ "$filename" == "random_url" ]; then
         abcli_log "publishing $object_name"
 
         local current_object=$abcli_object_name
 
-        if [ "$filename" == "random_url" ] ; then
+        if [ "$filename" == "random_url" ]; then
             local public_object_name=$(abcli_string_random --length 64)
         else
             local public_object_name=$object_name-published
@@ -41,7 +41,7 @@ function abcli_publish() {
         rm *.py
 
         # https://askubuntu.com/a/466225
-        find . -type f  ! -name "*.*"  -delete
+        find . -type f ! -name "*.*" -delete
 
         abcli_upload ~open,solid
 
@@ -57,7 +57,7 @@ function abcli_publish() {
         return
     fi
 
-    if [ "$filename" == "open" ] ; then
+    if [ "$filename" == "open" ]; then
         abcli_log "publishing files in $object_name..."
 
         local current_object=$abcli_object_name
@@ -68,7 +68,7 @@ function abcli_publish() {
         rm *.py
 
         # https://askubuntu.com/a/466225
-        find . -type f  ! -name "*.*"  -delete
+        find . -type f ! -name "*.*" -delete
 
         abcli_upload open
 
@@ -85,7 +85,7 @@ function abcli_publish() {
     fi
 
     local filename_name=${filename%%.*}
-    if [ ! -z "$filename_name" ] ; then
+    if [ ! -z "$filename_name" ]; then
         abcli_log "publishing $object_name/$filename as $othername"
 
         local public_filename=$(echo $othername | tr / -)
@@ -100,7 +100,7 @@ function abcli_publish() {
     fi
 
     local filename_
-    for filename_ in *$filename ; do
+    for filename_ in *$filename; do
         abcli_publish \
             $object_name \
             $filename_ \
