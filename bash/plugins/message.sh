@@ -3,7 +3,7 @@
 function abcli_message() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli message listen_as$ABCUL<recipient>$ABCUL[--sender <sender_1,sender_2>]$ABCUL[<args>]" \
             "listen as <recipient> to [<100>] messages [from <sender_1,sender_2>]."
         abcli_show_usage "abcli message submit$ABCUL[--data <data>]$ABCUL[--filename <filename>]$ABCUL[--recipient <host_1,host_2>]$ABCUL[--subject <subject>]" \
@@ -13,15 +13,15 @@ function abcli_message() {
         abcli_show_usage "abcli message update$ABCUL[--recipient host_1,host_2]" \
             "send update message [to host_1, host_2]."
 
-        if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
+        if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
             python3 -m abcli.plugins.message --help
         fi
         return
     fi
 
-    if [ $task == "listen_as" ] ; then
+    if [ $task == "listen_as" ]; then
         local recipient=$2
-        if [ "$recipient" == "." ] ; then
+        if [ "$recipient" == "." ]; then
             local recipient=$abcli_host_name
         fi
 
@@ -32,10 +32,10 @@ function abcli_message() {
         return
     fi
 
-    if [ $task == "submit" ] ; then
+    if [ $task == "submit" ]; then
         local subtask="$2"
 
-        if [ $subtask == "object" ] ; then
+        if [ $subtask == "object" ]; then
             local object_name=$(abcli_clarify_object $3 .)
             local recipient=$(abcli_clarify_input $4 stream)
 
@@ -47,7 +47,7 @@ function abcli_message() {
                 submit_object \
                 --object_name "$object_name" \
                 --recipient "$recipient" \
-                ${@:5}
+                "${@:5}"
 
             return
         fi
@@ -58,7 +58,7 @@ function abcli_message() {
         return
     fi
 
-    if [ $task == "update" ] ; then
+    if [ $task == "update" ]; then
         python3 -m abcli.plugins.message \
             update \
             ${@:2}
