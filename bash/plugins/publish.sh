@@ -13,8 +13,8 @@ function abcli_publish() {
     local do_dryrun=$(abcli_option_int "$options" dryrun 0)
     local do_tar=$(abcli_option "$options" tar 0)
     local do_randomize=$(abcli_option "$options" randomize 0)
-    local extension=$(fast_option "$options" extension)
-    local filename=$(fast_option "$options" filename)
+    local extension=$(abcli_option "$options" extension)
+    local filename=$(abcli_option "$options" filename)
 
     local object_name=$(abcli_clarify_object $2 .)
 
