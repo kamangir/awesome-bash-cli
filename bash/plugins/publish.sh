@@ -41,6 +41,8 @@ function abcli_publish() {
         return
     fi
 
+    abcli_log "publishing $object_name -> $public_object_name"
+
     local object_path=$abcli_object_root/$object_name
 
     if [[ -z "$extension$filename" ]]; then
