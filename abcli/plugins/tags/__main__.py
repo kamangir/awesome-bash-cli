@@ -29,6 +29,11 @@ parser.add_argument(
     default=-1,
 )
 parser.add_argument(
+    "--offset",
+    type=int,
+    default=0,
+)
+parser.add_argument(
     "--delim",
     type=str,
     default=", ",
@@ -103,7 +108,7 @@ elif args.task == "search":
         count=args.count,
         host=args.host,
         shuffle=args.shuffle,
-    )
+    )[args.offset :]
     success = True
 elif args.task == "set":
     success = set_(args.object, args.tags)

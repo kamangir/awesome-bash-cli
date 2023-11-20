@@ -3,43 +3,44 @@
 function abcli_clone() {
     local task=$(abcli_unpack_keyword $1)
 
-    if [ "$task" == "help" ] ; then
-        abcli_show_usage "abcli clone$ABCUL<object_name>$ABCUL[~cache,~meta,~relations,~tags,~trail]$ABCUL[<suffix>]" \
-            "clone $abcli_object_name[/suffix] -> object_name[/suffix]"
+    if [ "$task" == "help" ]; then
+        local options="~cache,~download,~meta,~relations,~tags,upload"
+        abcli_show_usage "abcli clone$ABCUL[..|<object-1>] [.|<object-2>]$ABCUL[$options]" \
+            "clone <object-2> -> <object-2>"
         return
     fi
 
-    local options=$2
+    local object_1_name=$(abcli_clarify_object $1 ..)
+    local object_2_name=$(abcli_clarify_object $2 .)
+
+    local options=$3
     local clone_meta=$(abcli_option_int "$options" meta 1)
     local clone_cache=$(abcli_option_int "$options" cache $clone_meta)
     local clone_relations=$(abcli_option_int "$options" relations $clone_meta)
     local clone_tags=$(abcli_option_int "$options" tags $clone_meta)
+    local do_download=$(abcli_option_int "$options" download 1)
+    local do_upload=$(abcli_option_int "$options" upload 0)
 
-    abcli_download
+    [[ "$do_download" == 1 ]] &&
+        abcli_download $object_1_name
 
-    local object_path=$abcli_object_path
-    local object_name=$abcli_object_name
+    rsync -arv \
+        $abcli_object_root/$object_1_name \
+        $abcli_object_root/$object_2_name
 
-    abcli_select $@
+    [[ "$clone_cache" == 1 ]] &&
+        abcli_cache clone $object_1_name $object_2_name
 
-    local suffix="$3"
-    if [ ! -z "$suffix" ] ; then
-        mkdir -p ./$suffix
+    if [ "$clone_relations" == 1 ]; then
+        abcli_relation clone $object_1_name $object_2_name
+        abcli_relation set $object_1_name $object_2_name cloned
     fi
 
-    rsync -arv "$object_path/$suffix" "./$suffix"
-
-    if [ "$clone_cache" == 1 ] ; then
-        abcli_cache clone $object_name $abcli_object_name
+    if [ "$clone_tags" == 1 ]; then
+        abcli_tag clone $object_1_name $object_2_name
+        abcli_tag set $object_2_name clone
     fi
 
-    if [ "$clone_relations" == 1 ] ; then
-        abcli_relation clone $object_name $abcli_object_name
-        abcli_relation set $abcli_object_name $object_name cloned
-    fi
-
-    if [ "$clone_tags" == 1 ] ; then
-        abcli_tag clone $object_name $abcli_object_name
-        abcli_tag set $abcli_object_name clone
-    fi
+    [[ "$do_upload" == 1 ]] &&
+        abcli_upload $object_2_name
 }

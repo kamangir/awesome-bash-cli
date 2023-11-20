@@ -9,6 +9,8 @@ alias @ref="abcli_cache read"
 alias @tag=abcli_tag
 alias @relation=abcli_relation
 
+alias @clone=abcli_clone
+
 alias @cookie=abcli_cookie
 
 alias @conda=abcli_conda
