@@ -26,6 +26,8 @@ function abcli_publish() {
     [[ "$do_randomize" == 1 ]] &&
         local public_object_name=$(abcli_string_random --length 64)
 
+    local url_prefix=https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com
+
     if [ "$do_tar" == 1 ]; then
         abcli_log "publishing $object_name -> $public_object_name.tar.gz"
 
@@ -35,13 +37,12 @@ function abcli_publish() {
             s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name.tar.gz \
             s3://$(abcli_aws_s3_public_bucket)/$public_object_name.tar.gz
 
-        local url="https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com/$abcli_object_name.tar.gz"
-        abcli_log "🔗 $url"
-
+        abcli_log "🔗 $url_prefix/$abcli_object_name.tar.gz"
         return
     fi
 
     abcli_log "publishing $object_name -> $public_object_name"
+    abcli_log "🔗 $url_prefix/$abcli_object_name/"
 
     local object_path=$abcli_object_root/$object_name
 
