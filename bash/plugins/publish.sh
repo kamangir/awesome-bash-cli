@@ -12,7 +12,7 @@ function abcli_publish() {
 
     local do_download=$(abcli_option_int "$options" download 1)
     local do_tar=$(abcli_option "$options" tar 0)
-    local do_randomize=$(abcli_option "$options" randomize 0)
+    local do_randomize=$(abcli_option_int "$options" randomize 0)
     local extension=$(abcli_option "$options" extension)
     local filename=$(abcli_option "$options" filename)
 
