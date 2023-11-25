@@ -3,7 +3,7 @@
 function abcli_upload() {
     local task=$(abcli_unpack_keyword $1)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli upload$ABCUL[~open,solid]$ABCUL[<object-name>]" \
             "upload object."
         abcli_show_usage "abcli upload$ABCUL[filename=<filename>]$ABCUL[<object-name>]" \
@@ -30,12 +30,12 @@ function abcli_upload() {
 
     rm -rf $object_path/auxiliary
 
-    if [ ! -z "$filename" ] ; then
+    if [ ! -z "$filename" ]; then
         abcli_log "$object_name/$filename upload started - $(abcli_file_size $filename)"
 
         aws s3 cp \
             $object_path/$filename \
-            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/
+            $abcli_s3_object_prefix/$object_name/
 
         return
     fi
@@ -45,13 +45,13 @@ function abcli_upload() {
 
         aws s3 sync \
             $object_path/ \
-            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/
+            $abcli_s3_object_prefix/$object_name/
 
         abcli_tag set $object_name open
     fi
 
     if [ "$do_solid" == 1 ]; then
-        pushd $abcli_object_root > /dev/null
+        pushd $abcli_object_root >/dev/null
 
         tar -czvf \
             $object_name.tar.gz \
@@ -61,11 +61,11 @@ function abcli_upload() {
 
         aws s3 cp \
             $object_name.tar.gz \
-            s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/
+            $abcli_s3_object_prefix/
 
         abcli_tag set $object_name solid
 
-        popd > /dev/null
+        popd >/dev/null
     fi
 
 }

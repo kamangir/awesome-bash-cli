@@ -15,7 +15,7 @@ function abcli_list() {
     local object_name=$(abcli_clarify_object $2 .)
 
     if [ "$where" == cloud ]; then
-        local s3_uri=s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name/
+        local s3_uri=$abcli_s3_object_prefix/$object_name/
         abcli_log "🔗 $s3_uri"
         aws s3 ls $s3_uri
     elif [ "$where" == local ]; then
