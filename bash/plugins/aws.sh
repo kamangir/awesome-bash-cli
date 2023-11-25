@@ -19,3 +19,5 @@ function abcli_aws_s3_prefix() {
 function abcli_aws_s3_public_bucket() {
     abcli_aws_json_get "['s3']['public_bucket_name']"
 }
+
+export abcli_s3_object_prefix=s3://$(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)
