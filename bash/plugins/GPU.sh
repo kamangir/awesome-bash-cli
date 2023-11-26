@@ -38,14 +38,14 @@ function abcli_gpu_status() {
 
         local status=""
         [[ "$from_cache" == 1 ]] &&
-            local status=$abcli_gpu_stattus
+            local status=$abcli_gpu_status
 
         [[ -z "$status" ]] &&
             local status=$(python3 -m abcli.plugins.gpu \
                 status \
                 "${@:3}")
 
-        export abcli_gpu_stattus=$status
+        export abcli_gpu_status=$status
 
         local message=$(python3 -c "print('found. ✅' if $status == 1 else 'not found.')")
         abcli_log "🔋 gpu: $message"
@@ -65,5 +65,5 @@ function abcli_gpu_status() {
 }
 
 abcli_gpu_status get
-[[ "$abcli_gpu_stattus" == 1 ]] &&
+[[ "$abcli_gpu_status" == 1 ]] &&
     export abcli_status_icons="🔋 $abcli_status_icons"
