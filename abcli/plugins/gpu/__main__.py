@@ -10,13 +10,14 @@ parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
-    help="validate",
+    help="status",
 )
 args = parser.parse_args()
 
 success = False
-if args.task == "validate":
-    success = validate()
+if args.task == "status":
+    success = True
+    print(int(get_status()))
 else:
     logger.error(f"-{NAME}: {args.task}: command not found.")
 

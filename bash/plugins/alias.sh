@@ -21,6 +21,8 @@ alias @eval=abcli_eval
 
 alias @git=abcli_git
 
+alias @gpu=abcli_gpu
+
 alias @init=abcli_init
 
 alias @instance=abcli_instance

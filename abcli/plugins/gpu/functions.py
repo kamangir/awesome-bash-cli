@@ -4,12 +4,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def validate():
-    import tensorflow as tf
+def get_status(verbose: bool = True):
+    # https://pytorch.org/docs/stable/generated/torch.cuda.is_available.html
+    try:
+        import torch
 
-    logger.info(f"TensorFlow: {tf.__version__}")
+        if torch.cuda.is_available():
+            return True
+    except Exception as e:
+        if verbose:
+            print(e)
 
-    devices = tf.config.list_physical_devices("GPU")
-    logger.info(f"{len(devices)} GPU(s) available: {devices}.")
-
-    return True
+    return False
