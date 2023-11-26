@@ -2,6 +2,7 @@
 
 export abcli_is_64bit=false
 export abcli_is_amazon_linux=false
+export abcli_is_cloudshell=false
 export abcli_is_docker=false
 export abcli_is_ec2=false
 export abcli_is_jetson=false
@@ -44,6 +45,8 @@ fi
 if [[ "$abcli_path_home" == "/home/sagemaker-user" ]]; then
     export abcli_is_sagemaker=true
     export abcli_is_sagemaker_system=true
+elif [[ "$abcli_path_home" == "/home/cloudshell-user" ]]; then
+    export abcli_is_cloudshell=true
 elif [[ "$(hostname)" == sagemaker* ]] || [[ "$(hostname)" == pytorch* ]]; then
     export abcli_is_sagemaker=true
 fi
