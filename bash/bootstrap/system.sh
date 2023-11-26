@@ -117,3 +117,13 @@ elif [[ "$abcli_is_cloudshell" == true ]]; then
 else
     export abcli_hostname=$(hostname)
 fi
+
+function abcli_killall() {
+    if [[ "$abcli_is_sagemaker" == true ]] || [[ "$abcli_is_cloudshell" == true ]]; then
+        # https://unstop.com/blog/kill-process-linux
+        pkill "$@"
+    else
+        # https://unix.stackexchange.com/a/94528
+        sudo killall "$@"
+    fi
+}

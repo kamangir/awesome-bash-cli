@@ -16,13 +16,7 @@ function abcli_screen() {
     fi
 
     if [ "$task" == "kill" ]; then
-        if [ "$abcli_is_sagemaker" == true ]; then
-            # https://unstop.com/blog/kill-process-linux
-            pkill remote_syslog
-        else
-            # https://unix.stackexchange.com/a/94528
-            killall screen
-        fi
+        abcli_killall screen
         return
     fi
 
