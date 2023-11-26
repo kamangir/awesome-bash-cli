@@ -112,6 +112,8 @@ fi
 
 if [[ "$abcli_is_sagemaker_system" == true ]]; then
     export abcli_hostname=sagemaker_system
+elif [[ "$abcli_is_cloudshell" == true ]]; then
+    export abcli_hostname=cloudshell
 else
     export abcli_hostname=$(hostname)
 fi
