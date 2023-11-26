@@ -3,7 +3,7 @@
 function abcli_seed() {
     local task=$(abcli_unpack_keyword $1)
 
-    local list_of_seed_targets="docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
+    local list_of_seed_targets="cloudshell|docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
 
     if [ "$task" == "help" ]; then
         local options="clipboard|filename=<filename>|key|screen,cookie=<cookie-name>,plugin=<plugin-name>,~log"
@@ -133,7 +133,7 @@ function abcli_seed() {
                 fi
             fi
 
-            if [[ "$target" != sagemaker* ]]; then
+            if [[ "$target" != sagemaker* ]] && [[ "$target" != cloudshell ]]; then
                 seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
                 seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
                 seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
@@ -150,7 +150,7 @@ function abcli_seed() {
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
             fi
 
-            if [[ "$target" != sagemaker* ]]; then
+            if [[ "$target" != sagemaker* ]] && [[ "$target" != cloudshell ]]; then
                 seed="${seed}"'ssh -T git@github.com'"$delim_section"
             fi
 
@@ -179,11 +179,16 @@ function abcli_seed() {
             pushd $abcli_path_bash/bootstrap/config >/dev/null
             local filename
             for filename in *.sh *.json *.pem; do
-                [[ "$target" == sagemaker-system ]] &&
+                (
+                    [[ "$target" == sagemaker-system ]] ||
+                        [[ "$target" == cloudshell ]]
+                ) &&
                     [[ "$filename" != "aws.json" ]] &&
                     [[ "$filename" != "papertrail.sh" ]] &&
                     continue
-                [[ "$target" == sagemaker ]] && continue
+
+                [[ "$target" == sagemaker ]] &&
+                    continue
 
                 seed="$seed$(abcli_seed \
                     add_file git/awesome-bash-cli/bash/bootstrap/config/$filename \
