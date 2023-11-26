@@ -4,6 +4,9 @@ function abcli_gpu() {
     local task=$(abcli_unpack_keyword $1 status)
 
     if [ "$task" == "help" ]; then
+        abcli_show_usage "abcli gpu validate" \
+            "validate gpu."
+
         abcli_gpu_status "$@"
         return
     fi
@@ -11,6 +14,11 @@ function abcli_gpu() {
     local function_name=abcli_gpu_$task
     if [[ $(type -t $function_name) == "function" ]]; then
         $function_name "${@:2}"
+        return
+    fi
+
+    if [ $task == "validate" ]; then
+        abcli_log $(python3 -m abcli.plugins.gpu validate)
         return
     fi
 
@@ -59,7 +67,7 @@ function abcli_gpu_status() {
 
         abcli_gpu_status get
 
-        abcli_log $(python3 -m abcli.plugins.gpu validate)
+        abcli_gpu validate
 
         return
     fi
