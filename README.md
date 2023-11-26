@@ -2,9 +2,15 @@
 
 ![image](./assets/marquee.png)
 
-`abcli` 🚀 is a library for [quickly building awesome bash cli's](https://github.com/kamangir/blue-plugin) for machine vision/deep learning applications, like [this robot](https://github.com/kamangir/blue-rvr) and [these other designs](https://github.com/kamangir/blue-bracket).
+`abcli` 🚀 is an implementation of [🔻 giza](https://github.com/kamangir/giza) and the library behind [these projects](https://github.com/kamangir/kamangir).
 
-To install `abcli` follow the instructions for [Amazon EC2 instances](https://github.com/kamangir/awesome-bash-cli/wiki/ec2), [Jetson Nano](https://github.com/kamangir/awesome-bash-cli/wiki/Jetson-Nano), [macOS](https://github.com/kamangir/awesome-bash-cli/wiki/macOS), and  [Raspberry Pi](https://github.com/kamangir/awesome-bash-cli/wiki/Raspberry-Pi). 
+To install `abcli` follow the instructions for:
+
+- [Amazon EC2 instances](https://github.com/kamangir/awesome-bash-cli/wiki/ec2)
+- [Amazon SageMaker](https://github.com/kamangir/blue-plugin/blob/main/SageMaker.md)
+- [Jetson Nano](https://github.com/kamangir/awesome-bash-cli/wiki/Jetson-Nano)
+- [macOS](https://github.com/kamangir/awesome-bash-cli/wiki/macOS)
+- [Raspberry Pi](https://github.com/kamangir/awesome-bash-cli/wiki/Raspberry-Pi). 
 
 To see the list of `abcli` commands type in:
 
