@@ -81,6 +81,7 @@ def search(
     host=-1,
     return_timestamp=False,
     shuffle=False,
+    offset=0,
 ):
     """search.
 
@@ -92,6 +93,7 @@ def search(
         host (int, optional): limit to/exclude/ignore (1/0/-1) hosts. Defaults to -1.
         return_timestamp (bool, optional): return timestamp. Defaults to False.
         shuffle (bool, optional): shuffle output. Defaults to False.
+        offset (int, optional): offset. Defaults to 0.
 
     Returns:
         List(str): list of keywords.
@@ -178,6 +180,8 @@ def search(
 
     if shuffle:
         random.shuffle(list_of_keywords)
+    else:
+        list_of_keywords = list_of_keywords[::-1]
 
     p = re.compile("([0-9]{13}|(0|1)[0-9,a-z]{15}|i-[0-9,a-z]{17})")
     if host == 1:
@@ -187,8 +191,10 @@ def search(
             keyword for keyword in list_of_keywords if not p.match(keyword)
         ]
 
+    list_of_keywords = list_of_keywords[offset:]
+
     list_of_keywords = (
-        list_of_keywords[-count:]
+        list_of_keywords[:count]
         if count > 0
         else []
         if count != -1

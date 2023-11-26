@@ -108,7 +108,8 @@ elif args.task == "search":
         count=args.count,
         host=args.host,
         shuffle=args.shuffle,
-    )[args.offset :]
+        offset=args.offset,
+    )
     success = True
 elif args.task == "set":
     success = set_(args.object, args.tags)
