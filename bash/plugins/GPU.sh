@@ -65,3 +65,5 @@ function abcli_gpu_status() {
 }
 
 abcli_gpu_status get
+[[ "$abcli_gpu_stattus" == 1 ]] &&
+    export abcli_status_icons="🔋 $abcli_status_icons"

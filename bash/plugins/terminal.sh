@@ -1,10 +1,6 @@
 #! /usr/bin/env bash
 
-function abcli_set_prompt() {
-    # https://askubuntu.com/a/946716
-    force_color_prompt=yes
-    color_prompt=yes
-
+function abcli_get_icon() {
     local icon=""
     if [ "$abcli_is_docker" == true ]; then
         if [ "$abcli_is_sagemaker" == true ]; then
@@ -24,7 +20,13 @@ function abcli_set_prompt() {
         local icon="💻 "
     fi
 
-    export abcli_icon="$icon"
+    echo "$abcli_status_icons$icon"
+}
+
+function abcli_set_prompt() {
+    # https://askubuntu.com/a/946716
+    force_color_prompt=yes
+    color_prompt=yes
 
     parse_git_branch() {
         git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -32,15 +34,15 @@ function abcli_set_prompt() {
 
     # https://misc.flogisoft.com/bash/tip_colors_and_formatting
     if [ "$color_prompt" = yes ]; then
-        PS1=$icon'\[\033[00;32m\]$abcli_fullname\[\033[00m\]:${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\n > '
+        PS1=$(abcli_get_icon)'\[\033[00;32m\]$abcli_fullname\[\033[00m\]:${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\n > '
     else
-        PS1=$icon'$abcli_fullname${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
+        PS1=$(abcli_get_icon)'$abcli_fullname${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
     fi
     unset color_prompt force_color_prompt
 }
 
 function abcli_update_terminal_title() {
-    local title="$abcli_icon $abcli_fullname"
+    local title="$(abcli_get_icon) $abcli_fullname"
     [[ "$abcli_is_sagemaker" == false ]] &&
         local title="$title@$(hostname)"
 
