@@ -43,7 +43,7 @@ function abcli_set_prompt() {
 
 function abcli_update_terminal_title() {
     local title="$(abcli_get_icon) $abcli_fullname"
-    [[ "$abcli_is_sagemaker" == false ]] &&
+    [[ "$abcli_is_sagemaker" == false ]] && [[ "$abcli_is_shell" == false ]] &&
         local title="$title@$(hostname)"
 
     [ $# -gt 0 ] &&
