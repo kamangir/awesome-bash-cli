@@ -28,7 +28,7 @@ alias @instance=abcli_instance
 alias @log=abcli_log
 
 alias @option=abcli_option
-alias @option::bool=abcli_option_int
+alias @option::int=abcli_option_int
 alias @option::choice=abcli_option_choice
 alias @option::subset=abcli_option_subset
 
