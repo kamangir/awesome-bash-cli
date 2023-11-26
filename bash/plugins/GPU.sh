@@ -58,6 +58,9 @@ function abcli_gpu_status() {
         abcli_log "CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES"
 
         abcli_gpu_status get
+
+        abcli_log $(python3 -m abcli.plugins.gpu validate)
+
         return
     fi
 
