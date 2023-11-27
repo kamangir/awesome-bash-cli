@@ -18,7 +18,7 @@ success = False
 if args.task == "status":
     success = True
     print(int(get_status()))
-if args.task == "validate":
+elif args.task == "validate":
     success = validate()
 else:
     logger.error(f"-{NAME}: {args.task}: command not found.")
