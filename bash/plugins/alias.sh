@@ -2,6 +2,10 @@
 
 alias @=abcli
 
+alias @mac='if [ "$abcli_is_mac" == true ]; then'
+alias @sagemaker='if [ "$abcli_is_sagemaker" == true ]; then'
+alias @.='fi'
+
 alias @download=abcli_download
 
 alias @cache=abcli_cache
