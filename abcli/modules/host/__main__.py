@@ -1,4 +1,5 @@
 import argparse
+import math
 from abcli import file
 from . import *
 from abcli import logging
@@ -52,6 +53,12 @@ parser.add_argument(
     help="0|1",
 )
 parser.add_argument(
+    "--word_wrap",
+    default=0,
+    type=int,
+    help="0|1",
+)
+parser.add_argument(
     "--name",
     type=str,
     default=".",
@@ -80,6 +87,8 @@ if args.task == "get":
         logger.error(f"-{NAME}: get: {args.keyword}: unknown keyword.")
         print("unknown")
 elif args.task == "add_signature":
+    import numpy as np
+
     success, image = file.load_image(args.filename)
     if success:
         from abcli.plugins.graphics import add_signature
@@ -90,7 +99,19 @@ elif args.task == "add_signature":
             add_signature(
                 image,
                 ([args.header] if args.header else []) + [" | ".join(header())],
-                ([args.footer] if args.footer else [])
+                (
+                    [args.footer]
+                    if not args.word_wrap
+                    else [
+                        " ".join(part)
+                        for part in np.array_split(
+                            args.footer.split(" "),
+                            int(math.ceil(len(args.footer) / 80)),
+                        )
+                    ]
+                    if args.footer
+                    else []
+                )
                 + [
                     " | ".join(
                         (lambda thing: [thing] if thing else [])(args.application)
