@@ -2,7 +2,7 @@ import argparse
 from . import *
 
 
-list_of_tasks = "in|intersect|len|nonempty|resize|sort"
+list_of_tasks = "in|intersect|item|len|nonempty|resize|sort"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -18,6 +18,10 @@ parser.add_argument(
     "--delim",
     type=str,
     default=",",
+)
+parser.add_argument(
+    "--index",
+    type=int,
 )
 parser.add_argument(
     "--item",
@@ -64,6 +68,8 @@ elif args.task == "intersect":
             ]
         )
     )
+elif args.task == "item":
+    print(list_of_items[args.index])
 elif args.task == "len":
     print(len(list_of_items))
 elif args.task == "nonempty":

@@ -10,6 +10,8 @@ export YELLOW='\033[0;33m'
 
 export ABCUL=" \\\\\n\t"
 
+export ABCHR=$(python3 -c "print(''.join(30*[' .. ']))")
+
 function abcli_show_usage() {
     local what=$1
 

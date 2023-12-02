@@ -21,6 +21,8 @@ function abcli_git() {
             "[first] push to <repo_name>."
         abcli_show_usage "abcli git recreate_ssh" \
             "recreate github ssh key."
+        abcli_show_usage "abcli git review$ABCUL[.|<repo_name>]" \
+            "review <repo-name>."
         abcli_show_usage "abcli git select_issue$ABCUL<kamangir/bolt#abc>" \
             "select git issue."
         abcli_show_usage "abcli git sync_fork$ABCUL<repo-name>$ABCUL<branch-name>" \
@@ -51,7 +53,7 @@ function abcli_git() {
     fi
 
     local repo_name_org=$2
-    local repo_name=$(abcli_unpack_repo_name $2)
+    local repo_name=$(abcli_unpack_repo_name $2 .)
 
     if [ "$task" == "cd" ]; then
         cd $abcli_path_git/$repo_name
@@ -241,6 +243,44 @@ function abcli_git() {
         # https://www.cyberciti.biz/faq/sudo-append-data-text-to-file-on-linux-unix-macos/
         ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts
         sudo ssh -T git@github.com
+        return
+    fi
+
+    if [ "$task" == "review" ]; then
+        pushd $abcli_path_git/$repo_name >/dev/null
+
+        local list_of_files=$(git diff --name-only HEAD | tr "\n" " ")
+        local list_of_files=$(abcli_list_nonempty "$list_of_files" --delim space)
+        if [[ -z "$list_of_files" ]]; then
+            abcli_log_warning "-abcli: git: $task: no changes."
+            popd >/dev/null
+            return
+        fi
+
+        local char="x"
+        local index=0
+        local count=$(abcli_list_len "$list_of_files" --delim=space)
+        while true; do
+            local index=$(python3 -c "print(min($count-1,max(0,$index)))")
+            local filename=$(abcli_list_item "$list_of_files" $index --delim space)
+
+            clear
+            git status
+            abcli_log "$ABCHR"
+            printf "📜 $RED$filename$NC\n"
+            git diff $filename
+
+            abcli_log "$ABCHR"
+            abcli_log "# Enter|space: next - p: previous - q: quit."
+            read -n 1 char
+            [[ "$char" == "q" ]] && break
+            [[ -z "$char" ]] && ((index++))
+            [[ "$char" == "p" ]] && ((index--))
+
+            $(python3 -c "print(str($index >= $count).lower())") && break
+        done
+
+        popd >/dev/null
         return
     fi
 

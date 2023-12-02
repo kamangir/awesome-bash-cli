@@ -17,7 +17,7 @@ args = parser.parse_args()
 success = False
 if args.task == "status":
     success = True
-    print(int(get_status()))
+    print(str(get_status()).lower())
 elif args.task == "validate":
     success = validate()
 else:

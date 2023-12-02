@@ -16,6 +16,14 @@ function abcli_list_intersect() {
         "${@:3}"
 }
 
+function abcli_list_item() {
+    python3 -m abcli.bash.list \
+        item \
+        --items "$1" \
+        --index "$2" \
+        "${@:3}"
+}
+
 function abcli_list_len() {
     python3 -m abcli.bash.list \
         len \
