@@ -28,15 +28,15 @@ try:
                 int(thing) for thing in output[-1].split() if thing.isnumeric()
             ]
 
-    elif not host.is_ec2() and not host.is_docker():
+    elif not host.is_ec2() and not host.is_docker() and not host.is_jupyter():
         from gi.repository import Gdk
 
         screen = Gdk.Screen.get_default()
         geo = screen.get_monitor_geometry(screen.get_primary_monitor())
         screen_width = geo.width
         screen_height = geo.height
-except:
-    logger.error(f"{NAME}: Failed.")
+except Exception as e:
+    logger.error(f"{NAME}: Failed: {e}.")
 
 used_default = False
 if screen_height is None or screen_width is None:
