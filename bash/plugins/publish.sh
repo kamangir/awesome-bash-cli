@@ -15,7 +15,7 @@ function abcli_publish() {
     fi
 
     local do_download=$(abcli_option_int "$options" download 1)
-    local do_tar=$(abcli_option "$options" tar 0)
+    local do_tar=$(abcli_option_int "$options" tar 0)
     local do_randomize=$(abcli_option_int "$options" randomize 0)
     local extension=$(abcli_option "$options" extension)
     local filename=$(abcli_option "$options" filename)
@@ -39,12 +39,12 @@ function abcli_publish() {
             $abcli_s3_object_prefix/$object_name.tar.gz \
             s3://$(abcli_aws_s3_public_bucket)/$public_object_name.tar.gz
 
-        abcli_log "🔗 $abcli_publish_prefix/$abcli_object_name.tar.gz"
+        abcli_log "🔗 $abcli_publish_prefix/$public_object_name.tar.gz"
         return
     fi
 
     abcli_log "publishing $object_name -> $public_object_name"
-    abcli_log "🔗 $abcli_publish_prefix/$abcli_object_name/"
+    abcli_log "🔗 $abcli_publish_prefix/$public_object_name/"
 
     local object_path=$abcli_object_root/$object_name
 
