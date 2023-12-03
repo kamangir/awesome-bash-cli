@@ -34,20 +34,22 @@ function abcli_object() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli object open" \
-            "open $abcli_object_name."
+        abcli_show_usage "abcli object open$ABCUL[.|<object-name>]" \
+            "open object."
         return
     fi
 
     if [ "$task" == "open" ]; then
-        abcli_download
+        local object_name=$(abcli_clarify_object $2 .)
 
-        rm -v ../$abcli_object_name.tar.gz
-        aws s3 rm "$abcli_s3_object_prefix/$abcli_object_name.tar.gz"
+        abcli_download object $object_name
 
-        abcli_tag set $abcli_object_name ~solid
+        rm -v ../$object_name.tar.gz
+        aws s3 rm "$abcli_s3_object_prefix/$object_name.tar.gz"
 
-        abcli_upload
+        abcli_tag set $object_name ~solid
+
+        abcli_upload object $object_name
 
         return
     fi

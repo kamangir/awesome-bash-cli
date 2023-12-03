@@ -33,11 +33,11 @@ function abcli_publish() {
     if [ "$do_tar" == 1 ]; then
         abcli_log "publishing $object_name -> $public_object_name.tar.gz"
 
-        abcli_upload solid $object_name
-
+        abcli_upload ~open,solid $object_name
         aws s3 cp \
             $abcli_s3_object_prefix/$object_name.tar.gz \
             s3://$(abcli_aws_s3_public_bucket)/$public_object_name.tar.gz
+        abcli_object open $object_name
 
         abcli_log "🔗 $abcli_publish_prefix/$public_object_name.tar.gz"
         return
