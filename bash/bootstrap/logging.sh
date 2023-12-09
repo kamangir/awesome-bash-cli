@@ -14,8 +14,10 @@ export ABCUL=" \\\\\n\t"
 # horizontal line
 export ABCHR=$(python3 -c "print(''.join(30*[' .. ']))")
 
-# extra options
-export ABCEP=",$GREEN*$LIGHTBLUE"
+# Extra Options
+export ABCXOP=$YELLOW
+export ABCXOPE=$LIGHTBLUE
+export ABCARGS="$ABCUL$ABCXOP[<args>]$ABCXOPE"
 
 function abcli_show_usage() {
     local what=$1
@@ -33,7 +35,7 @@ function abcli_show_usage() {
 
     local command=$1
     local description=$2
-    local extra_options=$3
+    local comments=$3
 
     if [[ ! -z "$abcli_show_usage_destination" ]]; then
         echo "- - $command" >>$abcli_show_usage_destination
@@ -44,8 +46,8 @@ function abcli_show_usage() {
     printf "${LIGHTBLUE}$command${NC}\n"
     [[ ! -z "$description" ]] &&
         printf "${CYAN} . $description${NC}\n"
-    [[ ! -z "$extra_options" ]] &&
-        printf "${GREEN} * $extra_options${NC}\n"
+    [[ ! -z "$comments" ]] &&
+        printf "${GREEN} * $comments${NC}\n"
 }
 
 function abcli_log() {
