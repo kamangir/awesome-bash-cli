@@ -268,7 +268,12 @@ function abcli_git() {
             git status
             abcli_log "$ABCHR"
             printf "📜 $RED$filename$NC\n"
-            git diff $filename
+
+            if [[ "$filename" == *.ipynb ]]; then
+                abcli_log_warning "jupyter notebook, will not review."
+            else
+                git diff $filename
+            fi
 
             abcli_log "$ABCHR"
             abcli_log "# Enter|space: next - p: previous - q: quit."
