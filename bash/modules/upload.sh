@@ -4,10 +4,10 @@ function abcli_upload() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli upload$ABCUL[~open,solid]$ABCUL[<object-name>]" \
-            "upload object."
-        abcli_show_usage "abcli upload$ABCUL[filename=<filename>]$ABCUL[<object-name>]" \
-            "upload <filename>."
+        abcli_show_usage "abcli upload [~open,solid] [.|<object-name>]" \
+            "upload <object-name>."
+        abcli_show_usage "abcli upload [filename=<filename>] [.|<object-name>]" \
+            "upload <object-name>/<filename>."
         return
     fi
 
@@ -24,7 +24,7 @@ function abcli_upload() {
     if [ -z "$exists" ]; then
         abcli_log_local "confirmed: $object_name does not exist."
     else
-        abcli_log_error "-abcli: upload: $object_name already exists."
+        abcli_log_error "-abcli: upload: $object_name.tar.gz already exists on the cloud, use \"abcli object open\" to open the object."
         return
     fi
 
@@ -67,5 +67,4 @@ function abcli_upload() {
 
         popd >/dev/null
     fi
-
 }
