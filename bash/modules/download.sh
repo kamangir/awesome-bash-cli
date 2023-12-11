@@ -24,7 +24,7 @@ function abcli_download() {
     local object_path=$abcli_object_root/$object_name
 
     if [ -f "../$object_name.tar.gz" ]; then
-        echo "$object_name already exists - skipping download."
+        abcli_log "✅ $object_name.tar.gz already exists - skipping download."
         return 1
     fi
 
