@@ -35,6 +35,8 @@ alias @instance=abcli_instance
 
 alias @log=abcli_log
 
+alias @metadata=abcli_metadata
+
 alias @object=abcli_object
 
 alias @option=abcli_option
