@@ -29,7 +29,10 @@ function abcli_trail() {
         fi
         touch "$log_filename"
 
-        sudo $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
+        local prefix
+        [[ "$abcli_is_docker" == false ]] && prefix=sudo
+
+        $prefix $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
             -p $abcli_papertrail_dest_port \
             -d $abcli_papertrail_dest_host \
             --pid-file=/var/run/remote_syslog.pid \
