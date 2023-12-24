@@ -5,17 +5,20 @@ export abcli_status_icons=""
 export abcli_path_bash="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 function abcli_main() {
+    local options=$1
+
     export abcli_is_in_notebook=false
-    [[ "$1" == "in_notebook" ]] && export abcli_is_in_notebook=true
+    [[ ",$options," == *",in_notebook,"* ]] && export abcli_is_in_notebook=true
+
+    export abcli_is_aws_batch=false
+    [[ ",$options," == *",aws_batch,"* ]] && export abcli_is_aws_batch=true
 
     source $abcli_path_bash/bootstrap/dependencies.sh
     abcli_source_dependencies
 
-    local options=$1
     local do_terraform=1
-    [[ "$abcli_is_mac" == true ]] &&
-        local do_terraform=0
-    local do_terraform=$(abcli_option_int "$options" terraform $do_terraform)
+    [[ "$abcli_is_mac" == true ]] && do_terraform=0
+    do_terraform=$(abcli_option_int "$options" terraform $do_terraform)
 
     [[ "$do_terraform" == 1 ]] &&
         abcli_terraform
@@ -35,5 +38,5 @@ function abcli_main() {
 if [ -f "$abcli_path_bash/bootstrap/cookie/disabled" ]; then
     printf "abcli is \033[0;31mdisabled\033[0m.\n"
 else
-    abcli_main $@
+    abcli_main "$@"
 fi

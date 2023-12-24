@@ -15,9 +15,9 @@ export ABCUL=" \\\\\n\t"
 export ABCHR=$(python3 -c "print(''.join(30*[' .. ']))")
 
 # Extra Options
-export ABCXOP=$YELLOW
-export ABCXOPE=$LIGHTBLUE
-export ABCARGS="$ABCUL$ABCXOP[<args>]$ABCXOPE"
+export EOP=$YELLOW
+export EOPE=$LIGHTBLUE
+export EARGS="$ABCUL$EOP[<args>]$EOPE"
 
 function abcli_show_usage() {
     local what=$1
