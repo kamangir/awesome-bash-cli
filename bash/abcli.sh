@@ -7,11 +7,19 @@ export abcli_path_bash="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 &&
 function abcli_main() {
     local options=$1
 
+    export abcli_is_silent=false
+    [[ ",$options," == *",silent,"* ]] && export abcli_is_silent=true
+
     export abcli_is_in_notebook=false
     [[ ",$options," == *",in_notebook,"* ]] && export abcli_is_in_notebook=true
 
     export abcli_is_aws_batch=false
     [[ ",$options," == *",aws_batch,"* ]] && export abcli_is_aws_batch=true
+
+    export abcli_is_colorful=true
+    [[ "$abcli_is_aws_batch" == true ]] || [[ "$abcli_is_silent" == true ]] ||
+        [[ ",$options," == *",mono,"* ]] &&
+        export abcli_is_colorful=false
 
     source $abcli_path_bash/bootstrap/dependencies.sh
     abcli_source_dependencies
