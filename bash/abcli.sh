@@ -7,6 +7,8 @@ export abcli_path_bash="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 &&
 function abcli_main() {
     local options=$1
 
+    [[ ",$options," == *",verbose,"* ]] && set -x
+
     export abcli_is_silent=false
     [[ ",$options," == *",silent,"* ]] && export abcli_is_silent=true
 
@@ -35,6 +37,8 @@ function abcli_main() {
 
     [[ "$abcli_is_in_notebook" == false ]] &&
         abcli_select $abcli_object_name
+
+    abcli_log "🚀 $abcli_fullname"
 
     local command="${@:2}"
     if [ ! -z "$command" ]; then
