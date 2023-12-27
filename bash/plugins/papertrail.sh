@@ -30,7 +30,8 @@ function abcli_trail() {
         touch "$log_filename"
 
         local prefix
-        [[ "$abcli_is_docker" == false ]] && prefix=sudo
+        [[ "$abcli_is_docker" == false ]] &&
+            [[ "$abcli_is_aws_batch" == false ]] && prefix=sudo
 
         $prefix $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
             -p $abcli_papertrail_dest_port \
