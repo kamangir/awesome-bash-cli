@@ -40,11 +40,9 @@ function abcli_main() {
 
     abcli_log "🚀 $abcli_fullname"
 
-    local command="${@:2}"
-    if [ ! -z "$command" ]; then
-        abcli_log "abcli: running '$command'."
-        eval $command
-    fi
+    local command_line="${@:2}"
+    [[ ! -z "$command_line" ]] &&
+        abcli_eval - "$command_line"
 }
 
 if [ -f "$abcli_path_bash/bootstrap/cookie/disabled" ]; then
