@@ -120,7 +120,7 @@ fi
 
 function abcli_killall() {
     # if [[ "$abcli_is_sagemaker" == true ]] || [[ "$abcli_is_cloudshell" == true ]]; then
-    if [[ "$abcli_is_docker" == true ]]; then
+    if [[ "$abcli_is_docker" == true ]] || [[ "$abcli_is_aws_batch" == true ]]; then
         # https://unstop.com/blog/kill-process-linux
         pkill "$@"
     else
