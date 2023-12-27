@@ -41,8 +41,10 @@ function abcli_main() {
     abcli_log "🚀 $abcli_fullname"
 
     local command_line="${@:2}"
-    [[ ! -z "$command_line" ]] &&
+    if [[ ! -z "$command_line" ]]; then
         abcli_eval - "$command_line"
+        abcli_log "✅ $command_line"
+    fi
 }
 
 if [ -f "$abcli_path_bash/bootstrap/cookie/disabled" ]; then
