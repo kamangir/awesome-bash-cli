@@ -80,6 +80,10 @@ def get_tags(cache=True):
     return HOST_TAGS
 
 
+def is_aws_batch():
+    return os.getenv("abcli_is_aws_batch", "false") == "true"
+
+
 def is_docker():
     return os.getenv("abcli_is_docker", "false") == "true"
 

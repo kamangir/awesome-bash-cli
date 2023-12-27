@@ -28,7 +28,12 @@ try:
                 int(thing) for thing in output[-1].split() if thing.isnumeric()
             ]
 
-    elif not host.is_ec2() and not host.is_docker() and not host.is_jupyter():
+    elif (
+        not host.is_ec2()
+        and not host.is_docker()
+        and not host.is_jupyter()
+        and not host.is_aws_batch()
+    ):
         from gi.repository import Gdk
 
         screen = Gdk.Screen.get_default()
