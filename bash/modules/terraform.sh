@@ -99,7 +99,9 @@ function abcli_terraform() {
         return
     fi
 
-    if [[ "$abcli_is_ubuntu" == true ]] && [[ "$abcli_is_docker" == false ]]; then
+    if [[ "$abcli_is_ubuntu" == true ]] &&
+        [[ "$abcli_is_docker" == false ]] &&
+        [[ "$abcli_is_aws_batch" == false ]]; then
         abcli_log "terraforming ubuntu"
 
         if [[ "$abcli_is_jetson" == true ]]; then
