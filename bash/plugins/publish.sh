@@ -22,7 +22,7 @@ function abcli_publish() {
 
     local object_name=$(abcli_clarify_object $2 .)
     [[ "$do_download" == 1 ]] &&
-        abcli_download object $object_name
+        abcli_download - $object_name
 
     abcli_tag set $object_name published
 

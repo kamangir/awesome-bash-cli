@@ -42,7 +42,7 @@ function abcli_object() {
     if [ "$task" == "open" ]; then
         local object_name=$(abcli_clarify_object $2 .)
 
-        abcli_download object $object_name
+        abcli_download - $object_name
 
         rm -v ../$object_name.tar.gz
         aws s3 rm "$abcli_s3_object_prefix/$object_name.tar.gz"

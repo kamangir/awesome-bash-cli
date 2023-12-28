@@ -1,26 +1,19 @@
 #! /usr/bin/env bash
 
 function abcli_download() {
-    local task=$(abcli_unpack_keyword $1)
+    local options=$1
 
-    if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli download" \
-            "download $abcli_object_name."
-        abcli_show_usage "abcli download <filename>" \
-            "download $abcli_object_name/<filename>."
-        abcli_show_usage "abcli download object <object_name>" \
-            "download <object_name>."
-        abcli_show_usage "abcli download object <object_name> <filename>" \
-            "download <object_name>/<filename>."
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+        local options="filename=<filename>,open"
+        abcli_show_usage "abcli download$ABCUL[$options]$ABCUL[.|<object-name>]" \
+            "download object."
         return
     fi
 
-    local object_name=$abcli_object_name
-    local filename=$1
-    if [ "$task" == "object" ]; then
-        local object_name=$(abcli_clarify_object $2 .)
-        local filename=$3
-    fi
+    local filename=$(abcli_option "$options" filename)
+    local do_open=$(abcli_option_int "$options" open 0)
+
+    local object_name=$(abcli_clarify_object $2 .)
     local object_path=$abcli_object_root/$object_name
 
     if [ -f "../$object_name.tar.gz" ]; then
@@ -29,16 +22,16 @@ function abcli_download() {
     fi
 
     if [ ! -z "$filename" ]; then
-        abcli_log "$object_name/$filename download started."
+        abcli_log "downloading $object_name/$filename ..."
         aws s3 cp "$abcli_s3_object_prefix/$object_name/$filename" "$object_path/$filename"
     else
         local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name.tar.gz)
         if [ -z "$exists" ]; then
-            abcli_log "$object_name open download started."
+            abcli_log "downloading $object_name: open ..."
 
             aws s3 sync "$abcli_s3_object_prefix/$object_name" "$object_path"
         else
-            abcli_log "$object_name solid download started."
+            abcli_log "downloading $object_name: solid ..."
 
             pushd $abcli_object_root >/dev/null
 
@@ -52,5 +45,8 @@ function abcli_download() {
         fi
     fi
 
-    abcli_log "$object_name download completed."
+    abcli_log "download completed: $object_name $filename"
+
+    [[ "$do_open" == 1 ]] &&
+        open $object_path
 }

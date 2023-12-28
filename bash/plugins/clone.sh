@@ -22,7 +22,7 @@ function abcli_clone() {
     local do_upload=$(abcli_option_int "$options" upload 0)
 
     [[ "$do_download" == 1 ]] &&
-        abcli_download $object_1_name
+        abcli_download - $object_1_name
 
     rsync -arv \
         $abcli_object_root/$object_1_name \

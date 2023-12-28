@@ -41,7 +41,7 @@ function abcli_message() {
 
             abcli_log "abcli: stream: $object_name -> $recipient"
 
-            abcli_download object $object_name
+            abcli_download - $object_name
 
             python3 -m abcli.plugins.message \
                 submit_object \
