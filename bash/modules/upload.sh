@@ -1,17 +1,14 @@
 #! /usr/bin/env bash
 
 function abcli_upload() {
-    local task=$(abcli_unpack_keyword $1)
+    local options=$1
 
-    if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli upload [~open,solid,~warn_if_exists] [.|<object-name>]" \
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+        abcli_show_usage "abcli upload$ABCUL[filename=<filename>,~open,solid,~warn_if_exists]$ABCUL[.|<object-name>]" \
             "upload <object-name>."
-        abcli_show_usage "abcli upload [filename=<filename>] [.|<object-name>]" \
-            "upload <object-name>/<filename>."
         return
     fi
 
-    local options=$1
     local filename=$(abcli_option "$options" filename)
     local do_open=$(abcli_option_int "$options" open 1)
     local do_solid=$(abcli_option_int "$options" solid 0)

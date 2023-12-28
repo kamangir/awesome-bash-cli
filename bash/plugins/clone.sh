@@ -42,5 +42,5 @@ function abcli_clone() {
     fi
 
     [[ "$do_upload" == 1 ]] &&
-        abcli_upload $object_2_name
+        abcli_upload - $object_2_name
 }

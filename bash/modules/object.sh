@@ -49,7 +49,7 @@ function abcli_object() {
 
         abcli_tag set $object_name ~solid
 
-        abcli_upload object $object_name
+        abcli_upload - $object_name
 
         return
     fi
