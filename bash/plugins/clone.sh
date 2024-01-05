@@ -6,7 +6,7 @@ function abcli_clone() {
     if [ "$task" == "help" ]; then
         local options="~cache,~download,~meta,~relations,~tags,upload"
         abcli_show_usage "abcli clone$ABCUL[..|<object-1>] [.|<object-2>]$ABCUL[$options]" \
-            "clone <object-2> -> <object-2>"
+            "clone <object-1> -> <object-2>."
         return
     fi
 
@@ -24,8 +24,9 @@ function abcli_clone() {
     [[ "$do_download" == 1 ]] &&
         abcli_download - $object_1_name
 
-    rsync -arv \
-        $abcli_object_root/$object_1_name \
+    abcli_eval - \
+        rsync -arv \
+        $abcli_object_root/$object_1_name/ \
         $abcli_object_root/$object_2_name
 
     [[ "$clone_cache" == 1 ]] &&

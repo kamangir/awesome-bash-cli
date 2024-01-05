@@ -21,6 +21,8 @@ alias @cookie=abcli_cookie
 
 alias @conda=abcli_conda
 
+alias @create_video=abcli_create_video
+
 alias @env=abcli_env
 
 alias @eval=abcli_eval
