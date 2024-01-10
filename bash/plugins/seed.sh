@@ -9,7 +9,7 @@ function abcli_seed() {
         local options="clipboard|filename=<filename>|key|screen,cookie=<cookie-name>,plugin=<plugin-name>,~log"
         abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]" \
             "generate and output a seed 🌱."
-        abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>]" \
+        abcli_show_usage "abcli seed add_file$ABCUL<filename>$ABCUL[output=<output>,target=<target>]" \
             "seed 🌱 += <filename>."
         abcli_show_usage "abcli seed eject" \
             "eject seed 🌱."
@@ -21,17 +21,20 @@ function abcli_seed() {
 
         local options=$3
         local output=$(abcli_option "$options" output "clipboard")
+        local target=$(abcli_option "$options" target ec2)
 
         local sudo_prefix="sudo "
+        [ "$target" == "sagemaker-system" ] &&
+            sudo_prefix=""
+
         local delim="\n"
-        if [ "$output" == "clipboard" ]; then
-            local delim="; "
-        fi
+        [ "$output" == "clipboard" ] &&
+            delim="; "
 
         local base64="base64"
         if [ "$abcli_is_ubuntu" == true ]; then
             # https://superuser.com/a/1225139
-            local base64="base64 -w 0"
+            base64="base64 -w 0"
         fi
 
         local var_name=_abcli_seed_$(echo $filename | tr / _ | tr . _ | tr - _)
@@ -109,6 +112,7 @@ function abcli_seed() {
 
     if [ -z "$seed" ]; then
         local sudo_prefix="sudo "
+
         local delim="\n"
         local delim_section="\n\n"
         local seed="#! /bin/bash$delim"
@@ -126,7 +130,7 @@ function abcli_seed() {
             if [[ "$target" != sagemaker ]]; then
                 if [ -d "$HOME/.kaggle" ]; then
                     seed="${seed}mkdir -p \$HOME/.kaggle$delim"
-                    seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output)$delim"
+                    seed="$seed$(abcli_seed add_file .kaggle/kaggle.json output=$output,target=$target)$delim"
                     seed="${seed}chmod 600 \$HOME/.kaggle/kaggle.json$delim_section"
                 else
                     abcli_log_warning "-abcli: seed: kaggle.json not found."
@@ -136,12 +140,12 @@ function abcli_seed() {
             if [[ "$target" != sagemaker* ]] && [[ "$target" != cloudshell ]]; then
                 seed="$seed${sudo_prefix}rm -rf ~/.aws$delim"
                 seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
-                seed="$seed$(abcli_seed add_file .aws/config output=$output)$delim"
-                seed="$seed$(abcli_seed add_file .aws/credentials output=$output)$delim_section"
+                seed="$seed$(abcli_seed add_file .aws/config output=$output,target=$target)$delim"
+                seed="$seed$(abcli_seed add_file .aws/credentials output=$output,target=$target)$delim_section"
 
                 seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
                 seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
-                seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output)$delim"
+                seed="$seed$(abcli_seed add_file .ssh/$abcli_git_ssh_key_name output=$output,target=$target)$delim"
                 seed="${seed}chmod 600 ~/.ssh/$abcli_git_ssh_key_name$delim"
                 seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
             fi
@@ -166,12 +170,16 @@ function abcli_seed() {
                 seed="$seed${sudo_prefix}apt-get --yes --force-yes install git$delim_section"
             fi
 
+            local repo_address="git@github.com:kamangir/awesome-bash-cli.git"
+            [[ "$target" == sagemaker-system ]] &&
+                repo_address="https://github.com/kamangir/awesome-bash-cli"
+
             if [[ "$target" == sagemaker ]]; then
                 seed="${seed}pip install --upgrade pip$delim_section"
                 seed="${seed}cd git/awesome-bash-cli${delim}"
             else
                 seed="${seed}cd; mkdir -p git; cd git$delim"
-                seed="${seed}git clone git@github.com:kamangir/awesome-bash-cli.git$delim"
+                seed="${seed}git clone $repo_address$delim"
                 seed="${seed}cd awesome-bash-cli${delim}"
                 seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
             fi
@@ -192,7 +200,7 @@ function abcli_seed() {
 
                 seed="$seed$(abcli_seed \
                     add_file git/awesome-bash-cli/bash/bootstrap/config/$filename \
-                    output=$output)$delim_section"
+                    output=$output,target=$target)$delim_section"
             done
             popd >/dev/null
 
