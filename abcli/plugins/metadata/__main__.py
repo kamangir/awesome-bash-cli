@@ -1,7 +1,7 @@
 import argparse
 import base64
 import json
-from abcli.plugins.metadata import get, NAME, update, MetadataSourceType
+from abcli.plugins.metadata import get, NAME, post, MetadataSourceType
 import abcli.logging
 import logging
 
@@ -13,7 +13,7 @@ parser.add_argument(
     "task",
     type=str,
     default="",
-    help="get|update",
+    help="get|post",
 )
 parser.add_argument(
     "--default",
@@ -83,8 +83,8 @@ if args.task == "get":
         filename=args.filename,
     )
     print(delim.join(output) if isinstance(output, list) else output)
-elif args.task == "update":
-    success = update(
+elif args.task == "post":
+    success = post(
         key=args.key,
         value=args.value,
         filename=args.filename,

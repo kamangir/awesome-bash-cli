@@ -14,20 +14,20 @@ logger = logging.getLogger(__name__)
 
 class MetadataSourceType(Enum):
     FILENAME = auto()
-    OBJECT_NAME = auto()
-    OBJECT_PATH = auto()
+    OBJECT = auto()
+    PATH = auto()
 
     def filename(self, source: str, filename="metadata.yaml"):
         if self == MetadataSourceType.FILENAME:
             return source
 
-        if self == MetadataSourceType.OBJECT_NAME:
+        if self == MetadataSourceType.OBJECT:
             return os.path.join(
                 objects.object_path(source),
                 filename,
             )
 
-        if self == MetadataSourceType.OBJECT_PATH:
+        if self == MetadataSourceType.PATH:
             return os.path.join(
                 os.getenv("abcli_object_path", "") if source == "." else source,
                 filename,
@@ -64,7 +64,7 @@ def get(
         return type(e).__name__
 
 
-def update(
+def post(
     key,
     value,
     filename: str = "metadata.yaml",

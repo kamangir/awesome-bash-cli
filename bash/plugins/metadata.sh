@@ -5,7 +5,7 @@ function abcli_metadata() {
 
     if [ "$task" == "help" ]; then
         abcli_metadata get "$@"
-        abcli_metadata update "$@"
+        abcli_metadata post "$@"
         return
     fi
 
@@ -16,18 +16,18 @@ function abcli_metadata() {
             abcli_show_usage "abcli metadata get$ABCUL$options,filename$ABCUL<filename.yaml>" \
                 "get <filename.yaml>[<key>]"
 
-            abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,object_name$ABCUL.|<object-name>$EOPE" \
+            abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,object$ABCUL.|<object-name>$EOPE" \
                 "get <object-name>/metadata[<key>]"
 
-            abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,${EOPE}object_path$ABCUL<object-path>" \
+            abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,${EOPE}path$ABCUL<object-path>" \
                 "get <object-path>/metadata[<key>]"
             return
         fi
 
-        local source_type=$(abcli_option_choice "$options" object_name,object_path,filename object_name)
+        local source_type=$(abcli_option_choice "$options" object,path,filename object)
 
         local source=$3
-        [[ "$source_type" == object_name ]] &&
+        [[ "$source_type" == object ]] &&
             local source=$(abcli_clarify_object $3 .)
 
         local key=$(abcli_option "$options" key)
@@ -46,28 +46,28 @@ function abcli_metadata() {
         return
     fi
 
-    if [ "$task" == "update" ]; then
+    if [ "$task" == "post" ]; then
         local key=$2
         if [ "$key" == "help" ]; then
-            abcli_show_usage "abcli metadata update$ABCUL<key> <value>${ABCUL}filename$ABCUL<filename.yaml>" \
+            abcli_show_usage "abcli metadata post$ABCUL<key> <value>${ABCUL}filename$ABCUL<filename.yaml>" \
                 "<filename.yaml>[<key>] = <value>"
 
-            abcli_show_usage "abcli metadata update$ABCUL<key> <value>$ABCUL${EOP}object_name,filename=<metadata.yaml>$ABCUL.|<object-name>$EOPE" \
+            abcli_show_usage "abcli metadata post$ABCUL<key> <value>$ABCUL${EOP}object,filename=<metadata.yaml>$ABCUL.|<object-name>$EOPE" \
                 "<object-name>[<key>] = <value>"
 
-            abcli_show_usage "abcli metadata update$ABCUL<key> <value>${ABCUL}object_path$EOP,filename=<metadata.yaml>$EOPE$ABCUL<object-path>" \
+            abcli_show_usage "abcli metadata post$ABCUL<key> <value>${ABCUL}path$EOP,filename=<metadata.yaml>$EOPE$ABCUL<object-path>" \
                 "<object-path>[<key>] = <value>"
             return
         fi
 
         local options=$4
-        local source_type=$(abcli_option_choice "$options" object_name,object_path,filename object_name)
+        local source_type=$(abcli_option_choice "$options" object,path,filename object)
 
         local source=$5
-        [[ "$source_type" == object_name ]] &&
+        [[ "$source_type" == object ]] &&
             local source=$(abcli_clarify_object $5 .)
 
-        python3 -m abcli.plugins.metadata update \
+        python3 -m abcli.plugins.metadata post \
             --filename $(abcli_option "$options" filename metadata.yaml) \
             --key "$key" \
             --value "$3" \
