@@ -114,8 +114,8 @@ function abcli_log_file() {
 }
 
 function abcli_log_list() {
-    local items="$1"
-    local delim="$2"
+    local items=$1
+    local delim=${2:-,}
 
     local items=$(abcli_list_sort "$items" --delim "$delim")
 
@@ -126,9 +126,8 @@ function abcli_log_list() {
     local message="$prefix$GREEN$count$NC $postfix: $GREEN$items$NC"
 
     local after="$5"
-    if [ ! -z "$after" ]; then
+    [[ ! -z "$after" ]] &&
         local message="$message - $after"
-    fi
 
     printf "$message\n"
 }
