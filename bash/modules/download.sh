@@ -47,6 +47,7 @@ function abcli_download() {
 
     abcli_log "download completed: $object_name $filename"
 
-    [[ "$do_open" == 1 ]] &&
+    if [[ "$do_open" == 1 ]]; then
         open $object_path
+    fi
 }
