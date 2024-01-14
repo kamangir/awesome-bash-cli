@@ -4,7 +4,6 @@ from enum import Enum, auto
 import os
 import os.path
 from abcli import file
-from abcli.modules import objects
 from . import NAME
 from abcli import logging
 import logging
@@ -22,6 +21,8 @@ class MetadataSourceType(Enum):
             return source
 
         if self == MetadataSourceType.OBJECT:
+            from abcli.modules import objects
+
             return os.path.join(
                 objects.object_path(source),
                 filename,
