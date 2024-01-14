@@ -81,6 +81,6 @@ def post(
 
     metadata[key] = copy.deepcopy(value)
 
-    logger.info(f"{NAME}.update[{filename}]: {key}={value})")
+    logger.info(f"{NAME}.post[{filename}]: {key}={value})")
 
     return file.save_yaml(filename, metadata)
