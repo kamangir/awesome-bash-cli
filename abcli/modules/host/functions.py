@@ -38,6 +38,9 @@ def get_name_():
     if is_mac():
         return os.getenv("USER", default)
 
+    if is_jupyter():
+        return "Jupyter-Notebook"
+
     try:
         if is_rpi():
             # https://www.raspberrypi-spy.co.uk/2012/09/getting-your-raspberry-pi-serial-number-using-python/
