@@ -12,15 +12,15 @@ function abcli_metadata() {
     if [ "$task" == "get" ]; then
         local options=$2
         if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-            local options="${EOP}delim=+,dict_keys,dict_values,${EOPE}key=<key>"
+            local options="${EOP}delim=+,dict.keys,dict.values,${EOPE}key=<key>"
             abcli_show_usage "abcli metadata get$ABCUL$options,filename$ABCUL<filename.yaml>" \
                 "get <filename.yaml>[<key>]"
 
             abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,object$ABCUL.|<object-name>$EOPE" \
                 "get <object-name>/metadata[<key>]"
 
-            abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,${EOPE}path$ABCUL<object-path>" \
-                "get <object-path>/metadata[<key>]"
+            abcli_show_usage "abcli metadata get$ABCUL$options$EOP,filename=<metadata.yaml>,${EOPE}path$ABCUL<path>" \
+                "get <path>/metadata[<key>]"
             return
         fi
 
@@ -36,8 +36,8 @@ function abcli_metadata() {
         python3 -m abcli.plugins.metadata get \
             --default "$default" \
             --delim $(abcli_option "$options" delim ,) \
-            --dict_keys $(abcli_option_int "$options" dict_keys 0) \
-            --dict_values $(abcli_option_int "$options" dict_values 0) \
+            --dict_keys $(abcli_option_int "$options" dict.keys 0) \
+            --dict_values $(abcli_option_int "$options" dict.values 0) \
             --filename $(abcli_option "$options" filename metadata.yaml) \
             --key "$key" \
             --source "$source" \
@@ -55,8 +55,8 @@ function abcli_metadata() {
             abcli_show_usage "abcli metadata post$ABCUL<key> <value>$ABCUL${EOP}object,filename=<metadata.yaml>$ABCUL.|<object-name>$EOPE" \
                 "<object-name>[<key>] = <value>"
 
-            abcli_show_usage "abcli metadata post$ABCUL<key> <value>${ABCUL}path$EOP,filename=<metadata.yaml>$EOPE$ABCUL<object-path>" \
-                "<object-path>[<key>] = <value>"
+            abcli_show_usage "abcli metadata post$ABCUL<key> <value>${ABCUL}path$EOP,filename=<metadata.yaml>$EOPE$ABCUL<path>" \
+                "<path>[<key>] = <value>"
             return
         fi
 
