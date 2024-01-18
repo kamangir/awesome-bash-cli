@@ -42,8 +42,11 @@ def list_of_files(object_name, cloud=False, **kwargs):
     )
 
 
-def object_path(object_name="."):
-    return os.path.join(
+def object_path(
+    object_name=".",
+    create=False,
+):
+    output = os.path.join(
         abcli_object_root,
         os.getenv(
             "abcli_object_name",
@@ -53,10 +56,19 @@ def object_path(object_name="."):
         else object_name,
     )
 
+    if create:
+        os.makedirs(output)
 
-def path_of(filename, object_name="."):
+    return output
+
+
+def path_of(
+    filename,
+    object_name=".",
+    create=False,
+):
     return os.path.join(
-        object_path(object_name),
+        object_path(object_name, create),
         filename,
     )
 
