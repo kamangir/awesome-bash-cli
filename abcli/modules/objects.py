@@ -57,7 +57,7 @@ def object_path(
     )
 
     if create:
-        os.makedirs(output)
+        os.makedirs(output, exist_ok=True)
 
     return output
 
