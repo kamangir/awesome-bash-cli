@@ -102,6 +102,8 @@ def add_signature(
                         int(math.ceil(len(line) / line_width)),
                     )
                 ]
+                if len(line) > 2 * line_width
+                else [line]
                 for line in content
             ],
             [],
