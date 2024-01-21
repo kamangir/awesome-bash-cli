@@ -1,8 +1,10 @@
 import cv2
+import math
 import numpy as np
 from .text import render_text
 from . import NAME
 from abcli import string
+from functools import reduce
 from abcli import logging
 import logging
 
@@ -78,22 +80,43 @@ def add_sidebar(image, lines, images=[], line_length=28):
     return np.concatenate([sidebar, image], axis=1)
 
 
-def add_signature(image, header, footer=[]):
-    """add signature to image.
-
-    Args:
-        image (np.ndarray): image.
-        header (List[str]): header.
-        footer (List[str], optional): footer. Defaults to [].
-
-    Returns:
-        bool: success
-    """
+def add_signature(
+    image,
+    header,
+    footer=[],
+    word_wrap=True,
+    line_width=80,
+):
     if image is None or not image.shape:
         return image
 
+    word_wrapper = lambda content: [
+        line
+        for line in reduce(
+            lambda x, y: x + y,
+            [
+                [
+                    " ".join(part)
+                    for part in np.array_split(
+                        line.split(" "),
+                        int(math.ceil(len(line) / line_width)),
+                    )
+                ]
+                for line in content
+            ],
+            [],
+        )
+        if line
+    ]
+
+    if word_wrap:
+        header = word_wrapper(header)
+        footer = word_wrapper(footer)
+
     adjust_length = (
-        lambda line: line if len(line) >= 80 else line + (80 - len(line)) * " "
+        lambda line: line
+        if len(line) >= line_width
+        else line + (line_width - len(line)) * " "
     )
 
     return np.concatenate(
