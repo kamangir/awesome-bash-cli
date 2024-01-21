@@ -98,26 +98,9 @@ elif args.task == "add_signature":
             args.filename,
             add_signature(
                 image,
-                ([args.header] if args.header else []) + [" | ".join(header())],
-                (
-                    [args.footer]
-                    if not args.word_wrap
-                    else [
-                        " ".join(part)
-                        for part in np.array_split(
-                            args.footer.split(" "),
-                            int(math.ceil(len(args.footer) / 80)),
-                        )
-                    ]
-                    if args.footer
-                    else []
-                )
-                + [
-                    " | ".join(
-                        (lambda thing: [thing] if thing else [])(args.application)
-                        + signature()
-                    )
-                ],
+                [args.header] + [" | ".join(header())],
+                [args.footer] + [" | ".join([args.application] + signature())],
+                word_wrap=args.word_wrap,
             ),
         )
 
