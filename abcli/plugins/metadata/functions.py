@@ -72,6 +72,7 @@ def post(
     source=".",
     source_type: MetadataSourceType = MetadataSourceType.FILENAME,
     is_base64_encoded=False,
+    verbose: bool = False,
 ):
     if is_base64_encoded:
         value = str(base64.b64decode(value))
@@ -82,6 +83,13 @@ def post(
 
     metadata[key] = copy.deepcopy(value)
 
-    logger.info(f"{NAME}.post[{filename}]: {key}={value})")
+    logger.info(
+        "{}.post[{}]: {}{}".format(
+            NAME,
+            filename,
+            key,
+            f"={value}" if verbose else "",
+        )
+    )
 
     return file.save_yaml(filename, metadata)

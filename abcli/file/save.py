@@ -49,12 +49,17 @@ def save(filename, data):
     return True
 
 
-def save_csv(filename, data):
+def save_csv(
+    filename,
+    df,
+    log=False,
+):
     """save data to filename as csv.
 
     Args:
         filename (str): filename.
-        data (Any): data.
+        df (pd.DataFrame): dataframe.
+        log (bool, optional): log. Defaults to False.
 
     Returns:
         bool: success.
@@ -62,18 +67,60 @@ def save_csv(filename, data):
     if not prepare_for_saving(filename):
         return False
 
-    if success:
-        # https://stackoverflow.com/a/10250924/10917551
-        try:
-            with open(filename, "w") as fh:
-                for row in data:
-                    fh.write("%s\n" % str(row))
+    # https://stackoverflow.com/a/10250924/10917551
+    try:
+        df.to_csv(filename)
+    except:
+        crash_report(f"-{NAME}: save_csv({filename}): failed.")
+        return False
 
-        except:
-            crash_report(f"-{NAME}: save_csv({filename}): failed.")
-            success = False
+    if log:
+        logger.info(
+            "{}.save_csv({}X[{}]) -> {}".format(
+                NAME,
+                len(df),
+                ",".join(list(df.columns)),
+                filename,
+            )
+        )
 
-    return success
+    return True
+
+
+def save_fig(
+    filename,
+    log=False,
+):
+    """save plt figure to filename.
+
+    Args:
+        filename (str): filename.
+        log (bool, optional): log. Defaults to False.
+
+    Returns:
+        bool: success.
+    """
+    from abcli.modules.host import is_jupyter
+
+    if not prepare_for_saving(filename):
+        return False
+
+    # https://stackoverflow.com/a/10250924/10917551
+    try:
+        import matplotlib.pyplot as plt
+
+        if is_jupyter():
+            plt.show()
+        plt.savefig(filename)
+        plt.close()
+    except:
+        crash_report(f"-{NAME}: save_fig({filename}): failed.")
+        return False
+
+    if log:
+        logger.info("{}.save_fig() -> {}".format(NAME, filename))
+
+    return True
 
 
 def save_geojson(
