@@ -18,7 +18,7 @@ function abcli_seed() {
     # https://superuser.com/a/1225139
     [[ "$abcli_is_ubuntu" == true ]] && base64="base64 -w 0"
 
-    # internal function, uses 2-level local variables.
+    # internal function.
     if [ "$task" == "add_file" ]; then
         local source_filename=$2
 
@@ -46,15 +46,6 @@ function abcli_seed() {
     local seed=""
 
     local target=$(abcli_clarify_input $1 ec2)
-    if [[ "|$list_of_seed_targets|" != *"|$target|"* ]]; then
-        local function_name=${target}_seed
-        if [[ $(type -t $function_name) == "function" ]]; then
-            seed=$($function_name "${@:2}")
-        else
-            abcli_log_error "-abcli: seed: $target: target not found."
-            return 1
-        fi
-    fi
 
     local options=$2
     local do_log=$(abcli_option_int "$options" log 1)
@@ -75,9 +66,18 @@ function abcli_seed() {
         fi
     fi
 
+    local delim="\n"
+    local delim_section="\n\n"
+    if [ "$output" == "clipboard" ]; then
+        local delim="; "
+        local delim_section="; "
+    fi
+
     local cookie_name=""
     [[ "$target" == "ec2" ]] && local cookie_name="worker"
     local cookie_name=$(abcli_option "$options" cookie $cookie_name)
+
+    local sudo_prefix="sudo "
 
     if [ "$output" == "key" ]; then
         if [[ "$abcli_is_jetson" == true ]]; then
@@ -95,22 +95,17 @@ function abcli_seed() {
     fi
 
     [[ "$do_log" == 1 ]] &&
-        abcli_log "seed: $abcli_fullname -$target-> $output 🌱"
+        abcli_log "$abcli_fullname seed 🌱 -$output-> $target"
 
-    if [ -z "$seed" ]; then
-        local sudo_prefix="sudo "
+    local seed="#! /bin/bash$delim"
+    [[ "$output" == "clipboard" ]] && seed=""
 
-        local delim="\n"
-        local delim_section="\n\n"
-        local seed="#! /bin/bash$delim"
-        if [ "$output" == "clipboard" ]; then
-            local delim="; "
-            local delim_section="; "
-            seed=""
-        fi
+    seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
 
-        seed="${seed}echo \"$abcli_fullname seed for $target\"$delim_section"
-
+    if [[ "|$list_of_seed_targets|" != *"|$target|"* ]]; then
+        # expected to append to/update $seed
+        ${target}_seed "${@:2}"
+    else
         if [ "$target" == docker ]; then
             seed="${seed}source /root/git/awesome-bash-cli/bash/abcli.sh$delim"
         else
@@ -129,7 +124,9 @@ function abcli_seed() {
                 seed="$seed${sudo_prefix}mkdir ~/.aws$delim_section"
                 seed="$seed$(abcli_seed add_file $HOME/.aws/config \$HOME/.aws/config)$delim"
                 seed="$seed$(abcli_seed add_file $HOME/.aws/credentials \$HOME/.aws/credentials)$delim_section"
+            fi
 
+            if [[ "|cloudshell|sagemaker|" != *"|$target|"* ]]; then
                 seed="${seed}${sudo_prefix}mkdir -p ~/.ssh$delim_section"
                 seed="$seed"'eval "$(ssh-agent -s)"'"$delim_section"
                 seed="$seed$(abcli_seed add_file $HOME/.ssh/$abcli_git_ssh_key_name \$HOME/.ssh/$abcli_git_ssh_key_name)$delim"
@@ -141,7 +138,7 @@ function abcli_seed() {
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
             fi
 
-            if [[ "$target" != sagemaker* ]] && [[ "$target" != cloudshell ]]; then
+            if [[ "$target" != sagemaker ]] && [[ "$target" != cloudshell ]]; then
                 seed="${seed}"'ssh -T git@github.com'"$delim_section"
             fi
 

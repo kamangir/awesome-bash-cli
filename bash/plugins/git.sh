@@ -407,3 +407,13 @@ function abcli_git_pull() {
         abcli_init
     fi
 }
+
+# internal function to abcli_seed.
+function git_seed() {
+    # seed is NOT local
+    local user_email=$(git config --global user.email)
+    seed="${seed}git config --global user.email \"$user_email\"$delim"
+
+    local user_name=$(git config --global user.name)
+    seed="${seed}git config --global user.name \"$user_name\"$delim_section"
+}
