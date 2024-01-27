@@ -134,6 +134,8 @@ function abcli_seed() {
                 seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
             fi
 
+            [[ "$target" == "sagemaker-system" ]] && git_seed
+
             if [[ "$target" == *"rpi" ]]; then
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
             fi
