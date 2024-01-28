@@ -21,7 +21,7 @@ function abcli_list() {
     elif [ "$where" == local ]; then
         local path=$abcli_object_root/$object_name
         abcli_log "📂 $path"
-        ls $path
+        ls -1lh $path
     else
         abcli_log_error "-abcli: list: $where: location not found."
         return 1
