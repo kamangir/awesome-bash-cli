@@ -98,24 +98,36 @@ def auxiliary(nickname, extension, add_timestamp=True):
     return filename
 
 
-def copy(source, destination, log=True):
+def copy(
+    source,
+    destination,
+    log=True,
+    overwrite=True,
+):
     """copy source to destination.
 
     Args:
         source (str): source filename.
-        destination (str): desctination filename.
+        destination (str): destination filename.
         log (bool, optional): log. Defaults to True.
+        overwrite (bool, optional): log. Defaults to True.
 
     Returns:
         bool: success
     """
     from abcli.file.save import prepare_for_saving
 
+    if not overwrite and exist(destination):
+        if log:
+            logger.info(f"✅ {destination}")
+        return True
+
     if not prepare_for_saving(destination):
         return False
 
     try:
         # https://stackoverflow.com/a/8858026
+        # better choice: copy2
         shutil.copyfile(source, destination)
     except:
         crash_report(f"-{NAME}: copy({source},{destination}): failed.")
