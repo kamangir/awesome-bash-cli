@@ -1,18 +1,11 @@
 import os
 from abcli import file, path, string
+from abcli.path import abcli_object_root
 from abcli.plugins.storage import instance as storage
 from abcli import logging
 import logging
 
 logger = logging.getLogger(__name__)
-
-abcli_object_root = os.getenv(
-    "abcli_object_root",
-    os.path.join(
-        os.getenv("HOME"),
-        "storage/abcli",
-    ),
-)
 
 
 def list_of_files(object_name, cloud=False, **kwargs):

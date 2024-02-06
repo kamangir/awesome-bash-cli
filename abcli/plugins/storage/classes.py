@@ -3,6 +3,7 @@ import os.path
 import time
 from abcli import file
 from abcli import path
+from abcli.path import abcli_object_root
 from abcli import string
 from abcli.plugins import aws
 from . import default_bucket_name, object_prefix
@@ -87,7 +88,7 @@ class Storage(object):
 
         if filename == "object":
             filename = os.path.join(
-                os.getenv("abcli_object_root", ""),
+                abcli_object_root,
                 "/".join(object_name.split("/")[1:]),
             )
 
