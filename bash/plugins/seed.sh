@@ -134,7 +134,12 @@ function abcli_seed() {
                 seed="${seed}ssh-add -k ~/.ssh/$abcli_git_ssh_key_name$delim_section"
             fi
 
-            [[ "$target" == "sagemaker-system" ]] && git_seed
+            if [[ "$target" == "sagemaker-system" ]]; then
+                git_seed
+
+                # https://chat.openai.com/c/8bdce889-a9fa-41c2-839f-f75c14d48e52
+                seed="${seed}conda install -y unzip$delim_section"
+            fi
 
             if [[ "$target" == *"rpi" ]]; then
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
