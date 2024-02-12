@@ -141,6 +141,11 @@ function abcli_seed() {
                 seed="${seed}conda install -y unzip$delim_section"
             fi
 
+            if [[ "$target" == "sagemaker" ]]; then
+                seed="${seed}apt-get update$delim"
+                seed="${seed}apt install libgl1-mesa-glx$delim_section"
+            fi
+
             if [[ "$target" == *"rpi" ]]; then
                 seed="${seed}ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts$delim_section"
             fi
