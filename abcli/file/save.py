@@ -111,7 +111,7 @@ def save_fig(
 
         if is_jupyter():
             plt.show()
-        plt.savefig(filename)
+        plt.savefig(filename, bbox_inches="tight")
         plt.close()
     except:
         crash_report(f"-{NAME}: save_fig({filename}): failed.")
