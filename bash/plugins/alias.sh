@@ -5,7 +5,6 @@ alias @=abcli
 alias @T=abcli_terraform
 
 alias @mac='if [ "$abcli_is_mac" == true ]; then'
-alias @sagemaker='if [ "$abcli_is_sagemaker" == true ]; then'
 alias @.='fi'
 
 alias @download=abcli_download
