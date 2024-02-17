@@ -4,7 +4,7 @@ function abcli_conda() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>,~recreate]" \
+        abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>,repo=<repo-name>,~recreate]" \
             "create conda environment."
         abcli_show_usage "abcli conda exists$ABCUL[<environment-name>]" \
             "does conda environment exist? true|false."
@@ -29,6 +29,7 @@ function abcli_conda() {
         local clone_from=$(abcli_option "$options" clone auto)
         local do_recreate=$(abcli_option_int "$options" recreate 1)
         local environment_name=$(abcli_option "$options" name abcli)
+        local repo_name=$(abcli_option "$options" repo $environment_name)
 
         conda init bash
 
@@ -63,7 +64,7 @@ function abcli_conda() {
         popd >/dev/null
 
         abcli_eval \
-            path=$abcli_path_git/$environment_name \
+            path=$abcli_path_git/$repo_name \
             pip3 install -e .
 
         return
