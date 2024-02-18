@@ -5,10 +5,7 @@ from .text import render_text
 from . import NAME
 from abcli import string
 from functools import reduce
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 def add_sidebar(image, lines, images=[], line_length=28):
@@ -95,15 +92,17 @@ def add_signature(
         for line in reduce(
             lambda x, y: x + y,
             [
-                [
-                    " ".join(part)
-                    for part in np.array_split(
-                        line.split(" "),
-                        int(math.ceil(len(line) / line_width)),
-                    )
-                ]
-                if len(line) > 2 * line_width
-                else [line]
+                (
+                    [
+                        " ".join(part)
+                        for part in np.array_split(
+                            line.split(" "),
+                            int(math.ceil(len(line) / line_width)),
+                        )
+                    ]
+                    if len(line) > 2 * line_width
+                    else [line]
+                )
                 for line in content
             ],
             [],
@@ -115,10 +114,8 @@ def add_signature(
         header = word_wrapper(header)
         footer = word_wrapper(footer)
 
-    adjust_length = (
-        lambda line: line
-        if len(line) >= line_width
-        else line + (line_width - len(line)) * " "
+    adjust_length = lambda line: (
+        line if len(line) >= line_width else line + (line_width - len(line)) * " "
     )
 
     return np.concatenate(

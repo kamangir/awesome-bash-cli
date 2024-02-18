@@ -7,11 +7,7 @@ from abcli.path import abcli_object_root
 from abcli import string
 from abcli.plugins import aws
 from . import default_bucket_name, object_prefix
-from abcli.logging import crash_report
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger, crash_report
 
 
 class Storage:

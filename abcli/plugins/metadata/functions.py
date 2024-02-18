@@ -5,10 +5,7 @@ import os
 import os.path
 from abcli import file
 from . import NAME
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 class MetadataSourceType(Enum):

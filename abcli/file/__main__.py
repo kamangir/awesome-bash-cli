@@ -2,10 +2,7 @@ import argparse
 from abcli import string, NAME
 from abcli.file import size
 from . import load_text, save_text
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(

@@ -3,11 +3,7 @@ import os.path
 import pymysql
 from abcli import file
 from . import NAME
-from abcli.logging import crash_report
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger, crash_report
 
 
 class Table:

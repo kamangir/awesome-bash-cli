@@ -1,11 +1,7 @@
 from copy import deepcopy
 import json
 from abcli.file import NAME
-from abcli.logging import crash_report
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger, crash_report
 
 
 def load(filename, civilized=False, default={}):

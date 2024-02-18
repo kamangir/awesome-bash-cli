@@ -2,10 +2,7 @@ import os
 from abcli import fullname
 from abcli import file
 from abcli import string
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 def lxde(_):

@@ -1,10 +1,8 @@
 import os
 from abcli.modules import host
 from . import NAME
-from abcli import logging
-import logging
+from abcli.logging import logger
 
-logger = logging.getLogger(__name__)
 
 screen_width = None
 screen_height = None

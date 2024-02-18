@@ -2,10 +2,7 @@ import os
 from abcli import file, path, string
 from abcli.path import abcli_object_root
 from abcli.plugins.storage import instance as storage
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 def list_of_files(object_name, cloud=False, **kwargs):
@@ -41,12 +38,14 @@ def object_path(
 ):
     output = os.path.join(
         abcli_object_root,
-        os.getenv(
-            "abcli_object_name",
-            "",
-        )
-        if object_name == "."
-        else object_name,
+        (
+            os.getenv(
+                "abcli_object_name",
+                "",
+            )
+            if object_name == "."
+            else object_name
+        ),
     )
 
     if create:
