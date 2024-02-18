@@ -1,5 +1,5 @@
-from abcli import string
 import time
+from abcli import string
 
 
 class ElapsedTimer:
