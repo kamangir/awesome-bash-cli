@@ -51,6 +51,7 @@ alias @option::subset=abcli_option_subset
 
 alias @plugins=abcli_plugins
 
+alias @pylint=abcli_pylint
 alias @pytest=abcli_pytest
 
 alias @publish=abcli_publish
