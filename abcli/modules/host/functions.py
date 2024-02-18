@@ -63,11 +63,11 @@ def get_seed_filename():
     return (
         "/media/abcli/SEED/abcli/jetson.sh"
         if is_jetson()
-        else "/Volumes/seed/abcli/ubuntu.sh"
-        if is_ubuntu()
-        else "/media/pi/SEED/abcli/rpi.sh"
-        if is_rpi()
-        else ""
+        else (
+            "/Volumes/seed/abcli/ubuntu.sh"
+            if is_ubuntu()
+            else "/media/pi/SEED/abcli/rpi.sh" if is_rpi() else ""
+        )
     )
 
 
@@ -215,7 +215,7 @@ def tensor_processing_signature():
         pass
 
     try:
-        import tensorflow.keras as keras
+        from tensorflow import keras
 
         output += [f"Keras {keras.__version__}"]
     except:
