@@ -18,7 +18,7 @@ def absolute(path, reference=None):
         reference (str, optional): reference. Defaults to None=current path.
 
     Returns:
-        str: abcolute path.
+        str: absolute path.
     """
     if reference is None:
         reference = current()
@@ -29,9 +29,11 @@ def absolute(path, reference=None):
     return (
         reference
         if not path
-        else path
-        if path[0] != "."
-        else str(pathlib.Path(os.path.join(reference, path)).resolve())
+        else (
+            path
+            if path[0] != "."
+            else str(pathlib.Path(os.path.join(reference, path)).resolve())
+        )
     )
 
 
@@ -151,13 +153,7 @@ def exist(path):
     Returns:
         bool: does path exist?
     """
-    return (
-        False
-        if not os.path.isdir(path)
-        else False
-        if not os.path.exists(path)
-        else True
-    )
+    return os.path.exists(path) and os.path.isdir(path)
 
 
 def list_of(path, recursive=False):
