@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def lxde(user):
+def lxde(user):  # pylint: disable=unused-argument
     return terraform(
         ["/etc/xdg/lxsession/LXDE/autostart"],
         ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh - abcli session start"],

@@ -224,7 +224,7 @@ def tensor_processing_signature():
     try:
         import tflite_runtime.interpreter as tflite
 
-        output += [f"TensorFlow Lite"]
+        output += ["TensorFlow Lite"]
     except:
         pass
 
