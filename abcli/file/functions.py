@@ -195,7 +195,6 @@ def download(
     if not overwrite and exist(filename):
         return True
 
-    success = True
     try:
         import urllib3
 
