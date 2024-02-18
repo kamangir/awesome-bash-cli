@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class MessageQueue(object):
+class MessageQueue:
     def __init__(self, name):
         self.name = name
         self.queue = None
@@ -67,8 +67,7 @@ class MessageQueue(object):
             bool: success
             List[Message]: list of messages.
         """
-        import abcli.plugins.message
-        import abcli.modules.host as host
+        from abcli.modules import host
 
         messages = []
         success = False

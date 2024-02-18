@@ -9,7 +9,7 @@ NAME = "cli"
 
 
 def task_1(bool_arg, int_arg, str_arg):
-    logger.info("cli.task_1({bool_arg},{int_arg},{str_arg}): Hello World!")
+    logger.info(f"cli.task_1({bool_arg},{int_arg},{str_arg}): Hello World!")
     return True
 
 

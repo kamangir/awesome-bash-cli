@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Table(object):
+class Table:
     def __init__(self, name):
         self.name = name
 

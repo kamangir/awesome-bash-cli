@@ -1,6 +1,7 @@
 NAME = "abcli.file"
 
 # pylint: disable=wrong-import-position
+from .classes import JsonEncoder
 from .functions import (
     absolute,
     add_postfix,

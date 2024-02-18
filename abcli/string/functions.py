@@ -20,12 +20,10 @@ def after(s, sub_string, n=1):
     Returns:
         str: string after the n-th instance of sub_string in s.
     """
-    if sub_string == "":
+    if sub_string == "" or sub_string not in s:
         return ""
-    elif sub_string not in s:
-        return ""
-    else:
-        return sub_string.join(s.split(sub_string)[n:])
+
+    return sub_string.join(s.split(sub_string)[n:])
 
 
 def before(s, sub_string, n=1):
@@ -39,12 +37,10 @@ def before(s, sub_string, n=1):
     Returns:
         str: string before the n-th instance of sub_string in s.
     """
-    if sub_string == "":
+    if sub_string == "" or sub_string not in s:
         return ""
-    elif sub_string not in s:
-        return ""
-    else:
-        return sub_string.join(s.split(sub_string)[:n])
+
+    return sub_string.join(s.split(sub_string)[:n])
 
 
 def between(s, sub_string_1, sub_string_2):
@@ -200,12 +196,14 @@ def pretty_frequency(frequency):
     if frequency >= 0.5:
         if frequency < 10**3:
             return f"{frequency:.1f} Hz"
-        elif frequency < 10**6:
+
+        if frequency < 10**6:
             return f"{frequency / 10**3:.1f} kHz"
-        elif frequency < 10**6:
+
+        if frequency < 10**6:
             return f"{frequency / 10**6:.1f} MHz"
-        else:
-            return f"{frequency / 10**9:.1f} GHz"
+
+        return f"{frequency / 10**9:.1f} GHz"
 
     return "1/{}".format(
         pretty_duration(
@@ -216,16 +214,18 @@ def pretty_frequency(frequency):
     )
 
 
-def pretty_param(param, value=None):
+def pretty_param(param, value=None) -> str:
     if isinstance(param, str):
         return unit_of.get(param.split(".")[0], "{}").format(value)
-    elif isinstance(param, dict):
+
+    if isinstance(param, dict):
         return [
             f"{param_}: {pretty_param(param_, value_)}"
             for param_, value_ in param.items()
         ]
-    else:
-        print(f"{NAME}.pretty_param({param.__class__.__name__}), class not found.")
+
+    print(f"{NAME}.pretty_param({param.__class__.__name__}), class not found.")
+    return ""
 
 
 def pretty_shape(shape):
@@ -356,7 +356,8 @@ def random_(
 
     Args:
         length (int, optional): length. Defaults to 16.
-        alphabet (str, optional): alphabet. Defaults to string.ascii_lowercase+string.digits+string.ascii_uppercase.
+        alphabet (str, optional): alphabet. Defaults to
+        string.ascii_lowercase+string.digits+string.ascii_uppercase.
 
     Returns:
         str: random string
@@ -425,15 +426,15 @@ def utc_timestamp(
         return (
             datetime.datetime.now(timezone.utc).replace(tzinfo=timezone.utc).timestamp()
         )
-    else:
-        try:
-            # https://stackoverflow.com/a/79877/17619982
-            import pytz
 
-            local = pytz.timezone(timezone_)
-            naive = datetime.datetime.strptime(date, format)
-            local_dt = local.localize(naive, is_dst=None)
-            return local_dt.astimezone(pytz.utc).timestamp()
-        except:
-            print(f"-{NAME}: utc_timestamp({date},{format}): failed.")
-            return "unknown"
+    try:
+        # https://stackoverflow.com/a/79877/17619982
+        import pytz
+
+        local = pytz.timezone(timezone_)
+        naive = datetime.datetime.strptime(date, format)
+        local_dt = local.localize(naive, is_dst=None)
+        return local_dt.astimezone(pytz.utc).timestamp()
+    except:
+        print(f"-{NAME}: utc_timestamp({date},{format}): failed.")
+        return "unknown"

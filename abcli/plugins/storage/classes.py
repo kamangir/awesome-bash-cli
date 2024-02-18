@@ -14,7 +14,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Storage(object):
+class Storage:
     def __init__(self, bucket_name=default_bucket_name):
         self.region = aws.get_from_json("region", "")
 
@@ -160,7 +160,7 @@ class Storage(object):
         output = [thing[1:] if thing.startswith("/") else thing for thing in output]
 
         if include_folders:
-            output = sorted(list(set([thing.split("/")[0] for thing in output])))
+            output = sorted(list({thing.split("/")[0] for thing in output}))
         elif not recursive:
             output = [thing for thing in output if "/" not in thing]
 
@@ -197,13 +197,11 @@ class Storage(object):
                 bucket_name, "/".join([object_prefix, object_name])
             ).load()
         except botocore.exceptions.ClientError as e:
-            if e.response["Error"]["Code"] == "404":
-                return False
-            else:
+            if e.response["Error"]["Code"] != "404":
                 crash_report("-storage: exists: failed.")
-                return False
-        else:
-            return True
+            return False
+
+        return True
 
     def upload_file(
         self,
@@ -237,9 +235,11 @@ class Storage(object):
             object_name = "{}/{}{}".format(
                 object_prefix,
                 abcli_object_name,
-                string.after(filename, abcli_object_name)
-                if abcli_object_name in filename
-                else filename,
+                (
+                    string.after(filename, abcli_object_name)
+                    if abcli_object_name in filename
+                    else filename
+                ),
             )
 
         success = True

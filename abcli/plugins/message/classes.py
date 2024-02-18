@@ -2,13 +2,10 @@ import copy
 import os
 import os.path
 from abcli import string
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
-class Message(object):
+class Message:
     def __init__(
         self,
         raw={},
