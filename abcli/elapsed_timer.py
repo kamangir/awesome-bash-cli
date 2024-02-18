@@ -1,8 +1,8 @@
-from abcli import string
 import time
+from abcli import string
 
 
-class ElapsedTimer(object):
+class ElapsedTimer:
     def __init__(self):
         self.start_time = time.time()
         self.elapsed_time = None

@@ -1,7 +1,7 @@
 from abcli.plugins.message.queue import MessageQueue
 
 
-class Messenger(object):
+class Messenger:
     def __init__(self, recipients=[]):
         self.recipients = recipients
         self._queue = {}
@@ -50,7 +50,8 @@ class Messenger(object):
             if not success_:
                 success = False
                 break
-            elif messages:
+
+            if messages:
                 output.extend(messages)
 
         return success, output

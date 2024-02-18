@@ -3,10 +3,7 @@ import random
 import re
 from abcli.options import Options
 from abcli.table import Table
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 def clone(object_1, object_2):
@@ -196,9 +193,7 @@ def search(
     list_of_keywords = (
         list_of_keywords[:count]
         if count > 0
-        else []
-        if count != -1
-        else list_of_keywords
+        else [] if count != -1 else list_of_keywords
     )
 
     return (list_of_keywords, timestamp) if return_timestamp else list_of_keywords

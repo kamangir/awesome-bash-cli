@@ -1,14 +1,10 @@
 from abcli import string
 from . import NAME
 from ..classes import Message
-from abcli.logging import crash_report
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger, crash_report
 
 
-class MessageQueue(object):
+class MessageQueue:
     def __init__(self, name):
         self.name = name
         self.queue = None
@@ -67,8 +63,7 @@ class MessageQueue(object):
             bool: success
             List[Message]: list of messages.
         """
-        import abcli.plugins.message
-        import abcli.modules.host as host
+        from abcli.modules import host
 
         messages = []
         success = False

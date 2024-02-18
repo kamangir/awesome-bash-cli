@@ -29,40 +29,37 @@ class Options(dict):
         Returns:
             Options: options.
         """
-        super(Options, self).__init__()
+        super().__init__()
 
         if not args:
             return
 
-        if len(args) == 1:
-            if isinstance(args[0], dict):
-                self.update(args[0])
-                return
-
-            if isinstance(args[0], str):
-                for input in args[0].split(","):
-                    if input in "-+" or not input:
-                        continue
-
-                    if input.startswith("+"):
-                        self[input[1:]] = True
-                    elif (
-                        input.startswith("-")
-                        or input.startswith("~")
-                        or input.startswith("!")
-                    ):
-                        self[input[1:]] = False
-                    elif "=" in input:
-                        option_name = input.split("=")[0]
-                        option_value = "=".join(input.split("=")[1:])
-                        self[option_name] = option_value
-                    else:
-                        self[input] = True
-            else:
-                raise NameError(f"-{NAME}: cannot read {args[0].__class__.__name__}.")
-        else:
+        if len(args) > 1:
             for index in range(0, len(args), 2):
                 self[args[index]] = args[index + 1]
+            return
+
+        if isinstance(args[0], dict):
+            self.update(args[0])
+            return
+
+        if not isinstance(args[0], str):
+            raise NameError(f"-{NAME}: cannot read {args[0].__class__.__name__}.")
+
+        for item in args[0].split(","):
+            if item in "-+" or not item:
+                continue
+
+            if item.startswith("+"):
+                self[item[1:]] = True
+            elif item.startswith("-") or item.startswith("~") or item.startswith("!"):
+                self[item[1:]] = False
+            elif "=" in item:
+                option_name = item.split("=")[0]
+                option_value = "=".join(item.split("=")[1:])
+                self[option_name] = option_value
+            else:
+                self[item] = True
 
     def get(self, keyword, default):
         """return self.get(keyword, default).
@@ -74,7 +71,7 @@ class Options(dict):
         Returns:
             Any: value.
         """
-        output = super(Options, self).get(keyword, default)
+        output = super().get(keyword, default)
 
         if isinstance(default, bool):
             try:
@@ -104,11 +101,11 @@ class Options(dict):
         """
         return ",".join(
             [
-                f"+{keyword}"
-                if value == True
-                else f"~{keyword}"
-                if value == False
-                else f"{keyword}={value}"
+                (
+                    f"+{keyword}"
+                    if value is True
+                    else f"~{keyword}" if value is False else f"{keyword}={value}"
+                )
                 for keyword, value in self.items()
             ]
         )

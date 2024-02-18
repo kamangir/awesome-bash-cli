@@ -1,3 +1,3 @@
 NAME = "abcli.options"
 
-from .classes import *
+from .classes import Options

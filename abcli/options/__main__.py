@@ -1,6 +1,5 @@
 import argparse
-from . import *
-from abcli import keywords
+from . import NAME, Options
 
 list_of_tasks = "choice|get|subset"
 

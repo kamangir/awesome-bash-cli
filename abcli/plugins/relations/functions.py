@@ -2,10 +2,7 @@ from functools import reduce
 import os
 from abcli import file
 from abcli.table import Table
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 _, inverse_of = file.load_json(
@@ -75,7 +72,7 @@ def get(object_1, object_2):
     """
 
     if object_1 > object_2:
-        return inverse_of[get(object_2, object_1)]
+        return inverse_of[get(object_1=object_2, object_2=object_1)]
 
     table = Table(name="relations")
 
@@ -111,7 +108,8 @@ def search(object, relation="", count=-1):
         count (int, optional): return count, only relevant if relation. Defaults to -1 (all).
 
     Returns:
-        Any: {"relation_1": ["object_1","object_2"], "relation_2": ["object_3" ,"object_4"]} or ["object_1", "object_2"] if relation is given.
+        Any: {"relation_1": ["object_1","object_2"], "relation_2": ["object_3" ,"object_4"]} or
+        ["object_1", "object_2"] if relation is given.
     """
     table = Table(name="relations")
 

@@ -1,10 +1,7 @@
-import abcli.file as file
+from abcli import file
 from abcli.modules import objects
+from abcli.logging import logger
 from .classes import Message
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 def submit_object(

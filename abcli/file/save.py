@@ -2,11 +2,7 @@ import json
 from abcli.file import NAME
 from abcli.file.classes import JsonEncoder
 from abcli import string
-from abcli.logging import crash_report
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger, crash_report
 
 
 def prepare_for_saving(filename):
@@ -282,7 +278,8 @@ def save_text(
         filename (str): filename.
         text (List[str]): text.
         log (bool, optional): log. Defaults to False.
-        if_different (bool, optional): save if text is different from current filename content. Defaults to False.
+        if_different (bool, optional): save if text is different
+        from current filename content. Defaults to False.
         remove_empty_lines (bool, optional): remove empty lines. Defaults to False.
 
     Returns:

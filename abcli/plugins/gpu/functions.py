@@ -1,9 +1,3 @@
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
-
-
 def get_status(verbose: bool = False):
     # https://pytorch.org/docs/stable/generated/torch.cuda.is_available.html
     try:

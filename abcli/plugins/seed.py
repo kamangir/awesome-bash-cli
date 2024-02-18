@@ -1,8 +1,6 @@
 import os
-from abcli import logging
-import logging
+from abcli.logging import logger
 
-logger = logging.getLogger(__name__)
 
 NAME = "abcli.plugins.seed"
 

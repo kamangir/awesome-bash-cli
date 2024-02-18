@@ -2,13 +2,10 @@ import os
 from abcli import fullname
 from abcli import file
 from abcli import string
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
-def lxde(user):
+def lxde(_):
     return terraform(
         ["/etc/xdg/lxsession/LXDE/autostart"],
         ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh - abcli session start"],
@@ -55,7 +52,7 @@ def mac(user):
     )
 
 
-def rpi(user, is_headless=False):
+def rpi(_, is_headless=False):
     success = terraform(
         ["/home/pi/.bashrc"],
         [
