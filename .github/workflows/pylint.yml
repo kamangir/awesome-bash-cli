@@ -20,4 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint -d W1203 C0103 C0114 C0115 $(git ls-files '*.py')
+        pylint -d W1203,C0103,C0114,C0115 $(git ls-files '*.py')
