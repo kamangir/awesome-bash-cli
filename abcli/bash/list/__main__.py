@@ -1,14 +1,16 @@
+"""list functions used in bash"""
+
 import argparse
-from . import *
+from . import NAME
 
 
-list_of_tasks = "in|intersect|item|len|nonempty|resize|sort"
+LIST_OF_TASKS = "in|intersect|item|len|nonempty|resize|sort"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
-    help=list_of_tasks,
+    help=LIST_OF_TASKS,
 )
 parser.add_argument(
     "--count",
@@ -55,7 +57,7 @@ list_of_items = (
     else None
 )
 
-success = args.task in list_of_tasks.split("|")
+success = args.task in LIST_OF_TASKS.split("|")
 if args.task == "in":
     print("True" if args.item in list_of_items else "False")
 elif args.task == "intersect":

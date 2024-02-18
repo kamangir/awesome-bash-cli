@@ -1,10 +1,11 @@
-import argparse
-from . import *
-from abcli import string
-from abcli import logging
-import logging
+"""file interface"""
 
-logger = logging.getLogger(__name__)
+import argparse
+from abcli import string, NAME
+from abcli.file import size
+from abcli.logging import logger
+from . import load_text, save_text
+
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
