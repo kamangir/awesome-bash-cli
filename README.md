@@ -19,3 +19,8 @@ abcli ?
 ```
 
 To configure `abcli` follow [these instructions](./bash/bootstrap/config/README.md).
+
+## branches
+
+- [current](.) active branch.
+- [main](https://github.com/kamangir/awesome-bash-cli/tree/main) running on Raspberry pis, do not touch. ⚠️
