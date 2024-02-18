@@ -1,5 +1,3 @@
-"""file interface"""
-
 import argparse
 from abcli import string, NAME
 from abcli.file import size

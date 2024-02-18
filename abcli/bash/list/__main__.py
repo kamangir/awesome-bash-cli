@@ -1,5 +1,3 @@
-"""list functions used in bash"""
-
 import argparse
 from . import NAME
 

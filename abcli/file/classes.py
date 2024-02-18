@@ -1,6 +1,7 @@
 import datetime
 import json
 
+
 # https://gist.github.com/jsbueno/9b2ea63fb16b84658281ec29b375283e
 class JsonEncoder(json.JSONEncoder):
     def default(self, obj):

@@ -1,5 +1,3 @@
-"""file interface"""
-
 NAME = "abcli.file"
 
 # pylint: disable=wrong-import-position

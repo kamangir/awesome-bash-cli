@@ -1,9 +1,6 @@
 import time
 from abcli import string
-from abcli import logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logging import logger
 
 
 class Timer(object):
@@ -25,31 +22,37 @@ class Timer(object):
 
         return "{}:{}/{}~{}".format(
             self.name,
-            "?"
-            if since is None
-            else string.pretty_duration(
-                since,
-                largest=True,
-                short=True,
-            )
-            if since < self.period / 2
-            else string.pretty_duration(
-                -(self.period - since),
-                largest=True,
-                short=True,
+            (
+                "?"
+                if since is None
+                else (
+                    string.pretty_duration(
+                        since,
+                        largest=True,
+                        short=True,
+                    )
+                    if since < self.period / 2
+                    else string.pretty_duration(
+                        -(self.period - since),
+                        largest=True,
+                        short=True,
+                    )
+                )
             ),
             string.pretty_duration(
                 self.period,
                 largest=True,
                 short=True,
             ),
-            string.pretty_duration(
-                (current_time - self.start_time) / self.count,
-                largest=True,
-                short=True,
-            )
-            if self.count
-            else "?",
+            (
+                string.pretty_duration(
+                    (current_time - self.start_time) / self.count,
+                    largest=True,
+                    short=True,
+                )
+                if self.count
+                else "?"
+            ),
         )
 
     def tick(self, wait=False):

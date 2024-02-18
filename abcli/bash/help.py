@@ -1,6 +1,3 @@
-"""used by "abcli help"
-"""
-
 from functools import reduce
 from abcli import file
 
