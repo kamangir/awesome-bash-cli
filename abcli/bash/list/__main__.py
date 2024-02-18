@@ -65,8 +65,8 @@ elif args.task == "intersect":
         delim.join(
             [
                 item
-                for item in [item for item in args.items_1.split(delim)]
-                if item in [item for item in args.items_2.split(delim)] and item
+                for item in args.items_1.split(delim)
+                if item in args.items_2.split(delim) and item
             ]
         )
     )
