@@ -1,11 +1,8 @@
-"""awesome-bash-cli: 🚀 a language to speak AI.
-"""
-
 import os
 
 NAME = "abcli"
 
-VERSION = "7.2697.1"
+VERSION = "7.2698.1"
 
 DESCRIPTION = "🚀 a language to speak AI."
 

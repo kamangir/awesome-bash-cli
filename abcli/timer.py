@@ -1,9 +1,8 @@
 import time
 from abcli import string
-from abcli.logging import logger
 
 
-class Timer(object):
+class Timer:
     def __init__(self, period, name):
         self.count = 0
         self.hot = False
