@@ -1,5 +1,5 @@
 import argparse
-from . import *
+from . import NAME, pack, KEYWORDS
 
 list_of_tasks = "pack|unpack"
 

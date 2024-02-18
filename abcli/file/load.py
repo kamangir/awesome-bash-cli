@@ -1,7 +1,6 @@
 from copy import deepcopy
 import json
 from abcli.file import NAME
-from abcli.file.classes import JsonEncoder
 from abcli.logging import crash_report
 from abcli import logging
 import logging
@@ -155,7 +154,7 @@ def load_json(filename, civilized=False, default={}):
         data: Any.
     """
     success = False
-    data = {}
+    data = default
 
     try:
         with open(filename, "r") as fh:
@@ -223,7 +222,7 @@ def load_yaml(filename, civilized=False, default={}):
         data: Any.
     """
     success = False
-    data = {}
+    data = default
 
     try:
         import yaml

@@ -282,7 +282,8 @@ def save_text(
         filename (str): filename.
         text (List[str]): text.
         log (bool, optional): log. Defaults to False.
-        if_different (bool, optional): save if text is different from current filename content. Defaults to False.
+        if_different (bool, optional): save if text is different
+        from current filename content. Defaults to False.
         remove_empty_lines (bool, optional): remove empty lines. Defaults to False.
 
     Returns:
