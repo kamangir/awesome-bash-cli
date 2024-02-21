@@ -1,5 +1,4 @@
 import json
-from abcli.file import NAME
 from abcli.file.classes import JsonEncoder
 from abcli import string
 from abcli.logging import logger, crash_report
@@ -39,7 +38,7 @@ def save(filename, data):
         with open(filename, "wb") as fp:
             dill.dump(data, fp)
     except:
-        crash_report(f"-{NAME}: save({filename}): failed.")
+        crash_report(f"save({filename}) failed.")
         return False
 
     return True
@@ -67,13 +66,12 @@ def save_csv(
     try:
         df.to_csv(filename)
     except:
-        crash_report(f"-{NAME}: save_csv({filename}): failed.")
+        crash_report(f"save_csv({filename}) failed.")
         return False
 
     if log:
         logger.info(
-            "{}.save_csv({}X[{}]) -> {}".format(
-                NAME,
+            "save_csv: {}X[{}] -> {}".format(
                 len(df),
                 ",".join(list(df.columns)),
                 filename,
@@ -110,11 +108,11 @@ def save_fig(
         plt.savefig(filename, bbox_inches="tight")
         plt.close()
     except:
-        crash_report(f"-{NAME}: save_fig({filename}): failed.")
+        crash_report(f"save_fig({filename}) failed.")
         return False
 
     if log:
-        logger.info("{}.save_fig() -> {}".format(NAME, filename))
+        logger.info(f"figure -> {filename}")
 
     return True
 
@@ -140,11 +138,11 @@ def save_geojson(
     try:
         gdf.to_file(filename, driver="GeoJSON")
     except:
-        crash_report(f"-{NAME}: save_geojson({filename}): failed.")
+        crash_report(f"save_geojson({filename}) failed.")
         return False
 
     if log:
-        logger.info("{}.save_geojson({}) -> {}".format(NAME, len(gdf), filename))
+        logger.info(f"save_geojson: {len(gdf)} -> {filename}")
 
     return True
 
@@ -168,7 +166,7 @@ def save_image(
     import numpy as np
 
     if image is None:
-        logger.info(f"-{NAME}: save_image(None) ignored.")
+        logger.info(f"save_image(None) ignored.")
         return True
 
     if not prepare_for_saving(filename):
@@ -183,14 +181,16 @@ def save_image(
         cv2.imwrite(filename, data)
     except:
         crash_report(
-            f"-{NAME}: save_image({string.pretty_shape_of_matrix(image)},{filename}): failed."
+            "save_image({},{}) failed.".format(
+                string.pretty_shape_of_matrix(image),
+                filename,
+            )
         )
         return False
 
     if log:
         logger.info(
-            "{}.save_image({}) -> {}".format(
-                NAME,
+            "save_image: {} -> {}".format(
                 string.pretty_shape_of_matrix(image),
                 filename,
             )
@@ -231,11 +231,11 @@ def save_json(
                 ensure_ascii=False,
             )
     except:
-        crash_report(f"-{NAME}: save_json({filename}): failed.")
+        crash_report(f"save_json({filename}) failed.")
         return False
 
     if log:
-        logger.info("{}.save_json -> {}".format(NAME, filename))
+        logger.info(f"save_json -> {filename}")
 
     return True
 
@@ -260,7 +260,12 @@ def save_tensor(
     success = save(set_extension(filename, "pyndarray"), tensor)
 
     if success and log:
-        logger.info(f"-{NAME}: {string.pretty_shape_of_matrix(tensor)} -> {filename}")
+        logger.info(
+            "save_tensor: {} -> {}".format(
+                string.pretty_shape_of_matrix(tensor),
+                filename,
+            )
+        )
 
     return success
 
@@ -309,11 +314,11 @@ def save_text(
         with open(filename, "w") as fp:
             fp.writelines([string + "\n" for string in text])
     except:
-        crash_report(f"-{NAME}: save_text({filename}): failed.")
+        crash_report(f"save_text({filename}) failed.")
         return False
 
     if log:
-        logger.info(f"{NAME}.save_text({filename}): {len(text)} lines.")
+        logger.info(f"save_text: {len(text)} line(s) -> {filename}")
     return True
 
 
@@ -341,10 +346,10 @@ def save_yaml(
         with open(filename, "w") as f:
             yaml.dump(data, f)
     except:
-        crash_report(f"-{NAME}: save_yaml({filename}): failed.")
+        crash_report(f"save_yaml({filename}) failed.")
         return False
 
     if log:
-        logger.info(f"{NAME}.save_yaml({filename}): {', '.join(data.keys())}.")
+        logger.info(f"save_yaml: {', '.join(data.keys())} -> {filename}.")
 
     return True
