@@ -166,7 +166,7 @@ def save_image(
     import numpy as np
 
     if image is None:
-        logger.info(f"save_image(None) ignored.")
+        logger.info("save_image(None) ignored.")
         return True
 
     if not prepare_for_saving(filename):
