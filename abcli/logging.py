@@ -9,6 +9,7 @@ abcli_log_filename = os.getenv("abcli_log_filename", "abcli.log")
 logging.addLevelName(logging.INFO, "ℹ️ ")
 logging.addLevelName(logging.DEBUG, "❓")
 logging.addLevelName(logging.ERROR, "❗️")
+logging.addLevelName(logging.WARNING, "⚠️ ")
 
 logging_level = logging.INFO
 
