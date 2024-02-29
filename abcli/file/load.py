@@ -95,7 +95,7 @@ def load_image(
     filename,
     civilized=False,
     log=False,
-) -> Tuple(bool, np.ndarray):
+) -> Tuple[bool, np.ndarray]:
     """load image from filename
 
     Args:
