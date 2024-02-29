@@ -24,10 +24,13 @@ function abcli_clone() {
     [[ "$do_download" == 1 ]] &&
         abcli_download - $object_1_name
 
+    local object_1_path=$abcli_object_root/$object_1_name
+    local object_2_path=$abcli_object_root/$object_2_name
+
     abcli_eval - \
         rsync -arv \
-        $abcli_object_root/$object_1_name/ \
-        $abcli_object_root/$object_2_name
+        $object_1_path/ \
+        $object_2_path
 
     [[ "$clone_cache" == 1 ]] &&
         abcli_cache clone $object_1_name $object_2_name
@@ -41,6 +44,15 @@ function abcli_clone() {
         abcli_tag clone $object_1_name $object_2_name
         abcli_tag set $object_2_name clone
     fi
+
+    pushd $object_1_path >/dev/null
+    local filename
+    for filename in $object_1_name.*; do
+        cp -v \
+            $filename \
+            $object_2_path/$object_2_name.${filename##*.}
+    done
+    popd >/dev/null
 
     [[ "$do_upload" == 1 ]] &&
         abcli_upload - $object_2_name
