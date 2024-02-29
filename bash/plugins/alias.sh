@@ -44,6 +44,8 @@ alias @metadata=abcli_metadata
 
 alias @object=abcli_object
 
+alias @open=abcli_open
+
 alias @option=abcli_option
 alias @option::int=abcli_option_int
 alias @option::choice=abcli_option_choice

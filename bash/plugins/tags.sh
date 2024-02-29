@@ -11,17 +11,17 @@ function abcli_tag() {
     local object=$(abcli_clarify_object $2 .)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli tag clone$ABCUL<object_1>$ABCUL<object_2>" \
-            "clone object_1 tags -> object_2."
+        abcli_show_usage "abcli tag clone$ABCUL<object-1>$ABCUL<object-2>" \
+            "clone <object-1> tags -> <object-2>."
 
-        abcli_show_usage "abcli tag get$ABCUL<object_name>" \
-            "get object_name tags."
+        abcli_show_usage "abcli tag get$ABCUL<object-name>" \
+            "get <object-name> tags."
 
         abcli_show_usage "abcli tag search$ABCUL<tag>$ABCUL$abcli_tag_search_args" \
             "search for all objects that are tagged tag."
 
-        abcli_show_usage "abcli tag set$ABCUL<object_1,object_2>$ABCUL<tag_1,~tag_2>$ABCUL[validate]" \
-            "add tag_1 and remove tag_2 from object_1 and object_2 [and validate]."
+        abcli_show_usage "abcli tag set$ABCUL<object-1,object-2>$ABCUL<tag-1,~tag-2>$ABCUL[validate]" \
+            "add <tag-1> and remove <tag-2> from <object-1> and <object-2> [and validate]."
 
         abcli_show_usage "abcli tag set${ABCUL}disable|enable" \
             "disable|enable 'abcli tag set'."
