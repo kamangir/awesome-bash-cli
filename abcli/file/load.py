@@ -1,5 +1,7 @@
+from typing import Tuple
 from copy import deepcopy
 import json
+import numpy as np
 from abcli.file import NAME
 from abcli.logging import logger, crash_report
 
@@ -93,7 +95,7 @@ def load_image(
     filename,
     civilized=False,
     log=False,
-):
+) -> Tuple(bool, np.ndarray):
     """load image from filename
 
     Args:
@@ -106,7 +108,6 @@ def load_image(
         image: np.ndarray.
     """
     import cv2
-    import numpy as np
     from abcli import string
 
     success = True
