@@ -7,5 +7,5 @@ setup(
     author="kamangir",
     version=VERSION,
     description=DESCRIPTION,
-    packages=["abcli"],
+    packages=["abcli", "abcli.modules"],
 )
