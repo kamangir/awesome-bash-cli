@@ -9,6 +9,8 @@ setup(
     description=DESCRIPTION,
     packages=[
         "abcli",
+        "abcli.file",
         "abcli.modules",
+        "abcli.plugins",
     ],
 )
