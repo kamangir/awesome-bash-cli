@@ -13,6 +13,8 @@ setup(
         "abcli.path",
         "abcli.modules",
         "abcli.plugins",
+        "abcli.plugins.cache",
+        "abcli.plugins.graphics",
         "abcli.plugins.metadata",
         "abcli.plugins.storage",
         "abcli.string",
