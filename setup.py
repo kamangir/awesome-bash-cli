@@ -12,6 +12,7 @@ setup(
         "abcli.file",
         "abcli.path",
         "abcli.modules",
+        "abcli.modules.host",
         "abcli.plugins",
         "abcli.plugins.cache",
         "abcli.plugins.graphics",
