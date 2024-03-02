@@ -32,7 +32,7 @@ function abcli_env() {
             abcli_show_usage "abcli env dot load" \
                 "load .env."
 
-            abcli_show_usage "abcli env list" \
+            abcli_show_usage "abcli env dot list" \
                 "list env repo."
 
             abcli_show_usage "abcli env dot set <variable> <value>" \
@@ -76,6 +76,12 @@ function abcli_env() {
 
                 cat $filename
 
+                return
+            fi
+
+            if [[ "$env_name" == "sample" ]]; then
+                abcli_eval - \
+                    cat $abcli_path_abcli/sample.env
                 return
             fi
 
@@ -146,7 +152,7 @@ function abcli_env() {
         fi
 
         if [[ "$subtask" == "list" ]]; then
-            ls -1lh $abcli_path_abcli/assets/envs/*.env
+            ls -1lh $abcli_path_abcli/assets/env/*.env
             return
         fi
 
