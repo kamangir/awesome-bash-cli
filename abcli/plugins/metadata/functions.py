@@ -1,5 +1,6 @@
 import base64
 import copy
+from abcli import env
 from enum import Enum, auto
 import os
 import os.path
@@ -27,7 +28,7 @@ class MetadataSourceType(Enum):
 
         if self == MetadataSourceType.PATH:
             return os.path.join(
-                os.getenv("abcli_object_path", "") if source == "." else source,
+                env.abcli_object_path if source == "." else source,
                 filename,
             )
 

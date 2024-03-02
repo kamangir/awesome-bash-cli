@@ -42,7 +42,26 @@ abcli_gpu = os.getenv("abcli_gpu", "")
 
 abcli_hardware_kind = os.getenv("abcli_hardware_kind", "")
 
+abcli_hostname = os.getenv("abcli_hostname", "")
+
 abcli_messenger_recipients = os.getenv("abcli_messenger_recipients", "")
+
+HOME = os.getenv("HOME", "")
+abcli_path_home = os.getenv("abcli_path_home", HOME)
+abcli_path_storage = os.getenv(
+    "abcli_path_storage",
+    os.path.join(abcli_path_home, "storage"),
+)
+abcli_object_root = os.getenv(
+    "abcli_object_root",
+    os.path.join(abcli_path_storage, "abcli"),
+)
+abcli_object_name = os.getenv("abcli_object_name", "")
+abcli_object_path = os.getenv("abcli_object_path", "")
+abcli_path_git = os.getenv("abcli_path_git", "")
+abcli_path_static = os.getenv("abcli_path_static", "")
+abcli_path_abcli = os.getenv("abcli_path_abcli", "")
+abcli_log_filename = os.getenv("abcli_log_filename", "")
 
 abcli_papertrail_dest_host = os.getenv("abcli_papertrail_dest_host", "")
 abcli_papertrail_dest_port = os.getenv("abcli_papertrail_dest_port", "")
@@ -64,6 +83,8 @@ abcli_session_temperature_period = os.getenv("abcli_session_temperature_period",
 abcli_session = os.getenv("abcli_session", "")
 abcli_ultralytics_api_key = os.getenv("abcli_ultralytics_api_key", "")
 abcli_youtube_api_key = os.getenv("abcli_youtube_api_key", "")
+
+abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 

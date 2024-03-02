@@ -1,13 +1,13 @@
 from functools import reduce
 import os
-from abcli import file
+from abcli import env, file
 from abcli.table import Table
 from abcli.logging import logger
 
 
 _, inverse_of = file.load_json(
     os.path.join(
-        os.getenv("abcli_path_abcli", ""),
+        env.abcli_path_abcli,
         "abcli/plugins/relations/relations.json",
     )
 )

@@ -1,18 +1,16 @@
 import os
 import os.path
 import time
-from abcli import file
+from abcli import env, file
 from abcli import path
-from abcli.path import abcli_object_root
+from abcli import env
 from abcli import string
-from abcli.plugins import aws
-from . import default_bucket_name, object_prefix
 from abcli.logging import logger, crash_report
 
 
 class Storage:
-    def __init__(self, bucket_name=default_bucket_name):
-        self.region = aws.get_from_json("region", "")
+    def __init__(self, bucket_name=env.abcli_aws_s3_bucket_name):
+        self.region = env.abcli_aws_region
 
         try:
             import boto3
@@ -78,13 +76,13 @@ class Storage:
         """
         if filename == "static":
             filename = os.path.join(
-                os.getenv("abcli_path_static", ""),
+                env.abcli_path_static,
                 object_name.replace("/", "-"),
             )
 
         if filename == "object":
             filename = os.path.join(
-                abcli_object_root,
+                env.abcli_object_root,
                 "/".join(object_name.split("/")[1:]),
             )
 
@@ -134,7 +132,7 @@ class Storage:
         Returns:
             List[str]: list of objects.
         """
-        prefix = f"{object_prefix}/{prefix}"
+        prefix = f"{env.abcli_aws_s3_prefix}/{prefix}"
 
         if bucket_name is None:
             bucket_name = self.bucket_name
@@ -190,7 +188,7 @@ class Storage:
 
         try:
             boto3.resource("s3").Object(
-                bucket_name, "/".join([object_prefix, object_name])
+                bucket_name, "/".join([env.abcli_aws_s3_prefix, object_name])
             ).load()
         except botocore.exceptions.ClientError as e:
             if e.response["Error"]["Code"] != "404":
@@ -227,13 +225,12 @@ class Storage:
             return False, bucket_name, ""
 
         if object_name is None:
-            abcli_object_name = os.getenv("abcli_object_name", "")
             object_name = "{}/{}{}".format(
-                object_prefix,
-                abcli_object_name,
+                env.abcli_aws_s3_prefix,
+                env.abcli_object_name,
                 (
-                    string.after(filename, abcli_object_name)
-                    if abcli_object_name in filename
+                    string.after(filename, env.abcli_object_name)
+                    if env.abcli_object_name in filename
                     else filename
                 ),
             )
@@ -275,5 +272,9 @@ class Storage:
             bool: success.
         """
         return "https://{}.s3.{}.amazonaws.com/{}/{}/{}".format(
-            self.bucket_name, self.region, object_prefix, object_name, filename
+            self.bucket_name,
+            self.region,
+            env.abcli_aws_s3_prefix,
+            object_name,
+            filename,
         )

@@ -1,4 +1,5 @@
 import argparse
+from abcli import env
 from . import *
 
 parser = argparse.ArgumentParser(NAME)
@@ -16,7 +17,7 @@ parser.add_argument(
 parser.add_argument(
     "--bucket_name",
     type=str,
-    default=default_bucket_name,
+    default=env.abcli_aws_s3_bucket_name,
 )
 parser.add_argument(
     "--count",
