@@ -9,6 +9,7 @@ setup(
     description=DESCRIPTION,
     packages=[
         "abcli",
+        "abcli.env",
         "abcli.file",
         "abcli.path",
         "abcli.modules",
