@@ -7,3 +7,4 @@ __pycache__
 temp
 build
 dist
+.env

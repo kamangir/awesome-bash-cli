@@ -1,5 +1,0 @@
-{
-    "plugins": "blue-sbc",
-    "session": "blue_sbc",
-    "session.imager": "lepton"
-}
