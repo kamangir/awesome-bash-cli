@@ -14,7 +14,7 @@ class Table:
         self.db = env.abcli_aws_rds_db
         self.host = env.abcli_aws_rds_host
         self.password = env.abcli_aws_rds_password
-        self.port = env.abcli_aws_rds_port
+        self.port = int(env.abcli_aws_rds_port)
         self.user = env.abcli_aws_rds_user
 
         self.connection = None
