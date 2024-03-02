@@ -16,8 +16,6 @@ alias @relation=abcli_relation
 
 alias @clone=abcli_clone
 
-alias @cookie=abcli_cookie
-
 alias @conda=abcli_conda
 
 alias @create_video=abcli_create_video
