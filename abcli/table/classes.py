@@ -1,8 +1,9 @@
 import os
 import os.path
 import pymysql
+from abcli import env
 from abcli import file
-from . import NAME
+from abcli.table import NAME
 from abcli.logging import logger, crash_report
 
 
@@ -10,17 +11,11 @@ class Table:
     def __init__(self, name):
         self.name = name
 
-        _, info = file.load_json(
-            os.path.join(
-                os.getenv("abcli_path_bash", ""),
-                "bootstrap/config/aws.json",
-            )
-        )
-        self.db = info["rds"]["db"]
-        self.host = info["rds"]["host"]
-        self.password = info["rds"]["password"]
-        self.port = info["rds"]["port"]
-        self.user = info["rds"]["user"]
+        self.db = env.abcli_aws_rds_db
+        self.host = env.abcli_aws_rds_host
+        self.password = env.abcli_aws_rds_password
+        self.port = env.abcli_aws_rds_port
+        self.user = env.abcli_aws_rds_user
 
         self.connection = None
 

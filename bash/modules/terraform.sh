@@ -51,12 +51,13 @@ function abcli_terraform() {
     fi
 
     if [ "$task" == "disable" ]; then
-        touch $abcli_path_cookie/disabled
+        abcli_eval - \
+            touch $abcli_path_ignore/disabled
         return
     fi
 
     if [ "$task" == "enable" ]; then
-        rm $abcli_path_cookie/disabled
+        rm -v $abcli_path_ignore/disabled
         return
     fi
 

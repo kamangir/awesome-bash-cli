@@ -1,2 +1,2 @@
 pymysql==0.10.1
-python-dotenv
+python-dotenv[cli]

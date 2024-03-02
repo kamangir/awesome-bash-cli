@@ -6,24 +6,29 @@ function abcli_list() {
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli list cloud|local <object_name>" \
             "list <object_name>"
+
+        abcli_show_usage "abcli list <path>" \
+            "list <path>"
         return
     fi
 
     local options=$1
-    local where=$(abcli_option_choice "$options" cloud,local cloud)
 
-    local object_name=$(abcli_clarify_object $2 .)
+    if [ $(abcli_option_int "$options" cloud 0) == 1 ]; then
+        local object_name=$(abcli_clarify_object $2 .)
 
-    if [ "$where" == cloud ]; then
-        local s3_uri=$abcli_s3_object_prefix/$object_name/
-        abcli_log "🔗 $s3_uri"
-        aws s3 ls $s3_uri
-    elif [ "$where" == local ]; then
-        local path=$abcli_object_root/$object_name
-        abcli_log "📂 $path"
-        ls -1lh $path
-    else
-        abcli_log_error "-abcli: list: $where: location not found."
-        return 1
+        abcli_eval - \
+            aws s3 ls $abcli_s3_object_prefix/$object_name/
+        return
     fi
+
+    if [ $(abcli_option_int "$options" local 0) == 1 ]; then
+        local object_name=$(abcli_clarify_object $2 .)
+
+        abcli_eval - \
+            ls -1lh $abcli_object_root/$object_name
+    fi
+
+    abcli_eval - \
+        ls -1lh"${@:2}"
 }

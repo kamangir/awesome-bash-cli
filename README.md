@@ -18,7 +18,7 @@ To see the list of `abcli` commands type in:
 abcli ?
 ```
 
-To configure `abcli` follow [these instructions](./bash/bootstrap/config/README.md).
+To configure `abcli` complete the [.env](./.env) file using this [sample](./sample.env).
 
 ## branches
 

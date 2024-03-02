@@ -44,7 +44,7 @@ function abcli_instance() {
     fi
 
     if [ "$task" == "from_image" ]; then
-        local instance_type=$(abcli_aws_json_get ".get('ec2',{}).get('default_instance_type','')")
+        local instance_type=$abcli_aws_ec2_default_instance_type
         local instance_type=$(abcli_clarify_input $2 $instance_type)
 
         local instance_name=$USER-$(abcli_string_timestamp)
@@ -53,9 +53,10 @@ function abcli_instance() {
         local options=$4
         local image_name=$(abcli_option "$options" image abcli)
 
-        local image_id=$(abcli_aws_json_get ".get('ec2',{}).get('image_id',{}).get('$image_name','')")
-        local security_group_ids=$(abcli_aws_json_get ".get('ec2',{}).get('security_group_ids','')")
-        local subnet_id=$(abcli_aws_json_get ".get('ec2',{}).get('subnet_id','')")
+        local var_name=abcli_aws_ec2_image_id_${image_name}
+        local image_id=${!var_name}
+        local security_group_ids=$abcli_aws_ec2_security_group_ids
+        local subnet_id=$abcli_aws_ec2_subnet_id
 
         if [[ -z "$image_id" ]]; then
             abcli_log_error "-abcli: instance: $task: image_id not found."
@@ -92,10 +93,11 @@ function abcli_instance() {
     if [ "$task" == "from_template" ]; then
         local template_name=$2
         if [ -z "$template_name" ] || [ "$template_name" == "-" ]; then
-            local template_name=$(abcli_aws_json_get "['ec2']['default_template']")
+            local template_name=$abcli_aws_ec2_default_template
         fi
 
-        local template_id=$(abcli_aws_json_get "['ec2']['templates'].get('$template_name','')")
+        local var_name=abcli_aws_ec2_templates_${template_name}
+        local template_id=${!var_name}
         if [ -z "$template_id" ]; then
             abcli_log_error "-abcli: instance: $template_name: template not found."
             return
