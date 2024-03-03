@@ -17,8 +17,11 @@ function abcli_instance() {
 
         printf "suggested instance_type(s): ${GREEN}p2.xlarge${NC} if gpu needed else ${GREEN}t2.xlarge${NC}.\n"
 
-        abcli_log_list $abcli_instance_templates , "template(s)"
-        abcli_log_list $abcli_aws_ec2_templates_list , "image(s)"
+        abcli_log_list $abcli_instance_templates \
+            --after "template(s)"
+
+        abcli_log_list $abcli_aws_ec2_templates_list \
+            --after "image(s)"
 
         return
     fi

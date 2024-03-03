@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 
 function abcli_list() {
-    local task=$(abcli_unpack_keyword $1 help)
+    local options=$1
 
-    if [ "$task" == "help" ]; then
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         abcli_show_usage "abcli list cloud|local <object_name>" \
             "list <object_name>"
 
@@ -12,23 +12,21 @@ function abcli_list() {
         return
     fi
 
-    local options=$1
+    local on_cloud=$(abcli_option_int "$options" cloud 0)
+    local on_local=$(abcli_option_int "$options" local 0)
 
-    if [ $(abcli_option_int "$options" cloud 0) == 1 ]; then
+    [[ "$on_cloud" == 1 ]] ||
+        [[ "$on_local" == 1 ]] &&
         local object_name=$(abcli_clarify_object $2 .)
 
+    if [ "$on_cloud" == 1 ]; then
         abcli_eval - \
             aws s3 ls $abcli_s3_object_prefix/$object_name/
-        return
-    fi
-
-    if [ $(abcli_option_int "$options" local 0) == 1 ]; then
-        local object_name=$(abcli_clarify_object $2 .)
-
+    elif [ "$on_local" == 1 ]; then
         abcli_eval - \
             ls -1lh $abcli_object_root/$object_name
+    else
+        abcli_eval - \
+            ls -1 "$@"
     fi
-
-    abcli_eval - \
-        ls -1lh"${@:2}"
 }

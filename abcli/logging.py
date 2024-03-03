@@ -7,16 +7,16 @@ import os
 abcli_log_filename = env.abcli_log_filename
 
 # Based on https://stackoverflow.com/a/22313803
-logging.addLevelName(logging.INFO, "ℹ️ ")
-logging.addLevelName(logging.DEBUG, "❓")
-logging.addLevelName(logging.ERROR, "❗️")
-logging.addLevelName(logging.WARNING, "⚠️ ")
+logging.addLevelName(logging.INFO, "")
+logging.addLevelName(logging.DEBUG, "❓ ")
+logging.addLevelName(logging.ERROR, "❗️ ")
+logging.addLevelName(logging.WARNING, "⚠️  ")
 
 logging_level = logging.INFO
 
 logging.getLogger().setLevel(logging_level)
 
-log_formatter = logging.Formatter("%(levelname)s %(name)s :: %(message)s")
+log_formatter = logging.Formatter("%(levelname)s%(message)s")
 try:
     file_handler = RotatingFileHandler(
         abcli_log_filename,

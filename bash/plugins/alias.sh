@@ -66,6 +66,8 @@ alias @sleep=abcli_sleep
 
 alias @storage=abcli_storage
 
+alias @test=abcli_test
+
 alias @timestamp=abcli_string_timestamp
 
 alias @upload=abcli_upload

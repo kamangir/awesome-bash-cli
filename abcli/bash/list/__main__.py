@@ -1,14 +1,27 @@
 import argparse
 from . import NAME
 
+GREEN = "\033[0;32m"
+NC = "\033[0m"
 
-LIST_OF_TASKS = "in|intersect|item|len|nonempty|resize|sort"
+
+LIST_OF_TASKS = "in|intersect|item|len|log|nonempty|resize|sort"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
     help=LIST_OF_TASKS,
+)
+parser.add_argument(
+    "--after",
+    type=str,
+    default="item(s)",
+)
+parser.add_argument(
+    "--before",
+    type=str,
+    default="list of",
 )
 parser.add_argument(
     "--count",
@@ -72,6 +85,19 @@ elif args.task == "item":
     print(list_of_items[args.index])
 elif args.task == "len":
     print(len(list_of_items))
+elif args.task == "log":
+    print(
+        "{} {} {}: {}".format(
+            args.before,
+            f"{GREEN}{len(list_of_items)}{NC}",
+            args.after,
+            "{}{}{}.".format(
+                GREEN,
+                f"{NC}, {GREEN}".join(list_of_items),
+                NC,
+            ),
+        )
+    )
 elif args.task == "nonempty":
     print(delim.join(list_of_items))
 elif args.task == "resize":

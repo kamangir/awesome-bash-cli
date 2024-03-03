@@ -115,26 +115,24 @@ function abcli_log_file() {
 
 function abcli_log_list() {
     local items=$1
-    local delim=${2:-,}
 
-    local items=$(abcli_list_sort "$items" --delim "$delim")
+    if [[ "$items" == "help" ]]; then
+        local args="[--before \"list of\"]$ABCUL[--after \"items(s)\"]$ABCUL[--delim space|<delim>]"
+        abcli_show_usage "abcli_log_list <this,that>$ABCUL$EOP$args$EOPE" \
+            "log list."
+        return
+    fi
 
-    local count=$(abcli_list_len "$items" --delim "$delim")
-
-    local postfix="$3"
-    local prefix="$4"
-    local message="$prefix$GREEN$count$NC $postfix: $GREEN$items$NC"
-
-    local after="$5"
-    [[ ! -z "$after" ]] &&
-        local message="$message - $after"
-
+    local message=$(python3 -m abcli.bash.list \
+        log \
+        --items "$items" \
+        "${@:2}")
     printf "$message\n"
 }
 
 function abcli_log_local() {
-    message="$@"
-    printf "${CYAN}${message}${NC}\n"
+    local message="$@"
+    printf "$CYAN$message$NC\n"
 }
 
 function abcli_log_local_and_cat() {
@@ -168,7 +166,7 @@ function abcli_log_remote() {
 function abcli_log_warning() {
     local message="$@"
 
-    printf "${YELLOW}$message$NC\n"
+    printf "$YELLOW$message$NC\n"
 
     echo "warning: $message" >>$abcli_log_filename
 }
