@@ -20,10 +20,10 @@ function abcli_env() {
         if [[ "$subtask" == "help" ]]; then
             abcli_env dot cat "$@"
 
-            abcli_show_usage "abcli env dot cp|copy$ABCUL<env-name>$ABCUL[jetson_nano|rpi] [<machine-name>]" \
+            abcli_show_usage "abcli env dot cp|copy$ABCUL<env-name>${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
                 "cp <env-name> to machine."
 
-            abcli_show_usage "abcli env dot edit$ABCUL[jetson_nano|rpi] [<machine-name>]" \
+            abcli_show_usage "abcli env dot edit${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
                 "edit .env on machine."
 
             abcli_show_usage "abcli env dot get <variable>" \
