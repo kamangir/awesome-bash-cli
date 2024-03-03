@@ -21,7 +21,7 @@ function abcli_wifi() {
 
     if [ "$task" == "copy_to_sd_card" ]; then
         cp -v \
-            $abcli_path_abcli/assets/ignore/wpa_supplicant.conf \
+            $abcli_path_ignore/wpa_supplicant.conf \
             /Volumes/boot/
         return
     fi
