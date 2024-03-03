@@ -15,10 +15,10 @@ function abcli_env() {
     fi
 
     if [ "$task" == dot ]; then
-        local subtask=$2
+        local subtask=${2:-cat}
 
         if [[ "$subtask" == "help" ]]; then
-            abcli_env dot cat "$@"
+            abcli_env dot cat "${@:2}"
 
             abcli_show_usage "abcli env dot cp|copy$ABCUL<env-name>${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
                 "cp <env-name> to machine."
@@ -144,7 +144,7 @@ function abcli_env() {
             return
         fi
 
-        if [ "$task" == "get" ]; then
+        if [ "$subtask" == "get" ]; then
             pushd $abcli_path_abcli >/dev/null
             dotenv get "${@:3}"
             popd >/dev/null
@@ -186,7 +186,8 @@ function abcli_env() {
         return
     fi
 
-    env | grep abcli_ | grep "$1" | sort
+    abcli_eval - \
+        "env | grep abcli_ | grep \"$1\" | sort"
 }
 
 abcli_env dot load
