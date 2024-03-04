@@ -2,7 +2,7 @@ import os
 from abcli import env
 import os.path
 from abcli import string
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 class Message:

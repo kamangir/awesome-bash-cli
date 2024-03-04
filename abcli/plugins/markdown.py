@@ -1,8 +1,5 @@
 import math
-import abcli.logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logger import logger
 
 
 def generate_table(items, cols=3):

@@ -1,7 +1,7 @@
 from abcli import string
 from . import NAME
 from ..classes import Message
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 class MessageQueue:

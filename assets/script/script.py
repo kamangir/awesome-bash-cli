@@ -1,5 +1,5 @@
 from abcli import env
-from abcli.logging import logger
+from abcli.logger import logger
 
 logger.info(f"{env.abcli_object_name}: started.")
 

@@ -1,11 +1,6 @@
 import argparse
-import base64
-import json
 from abcli.plugins.metadata import get, NAME, post, MetadataSourceType
-import abcli.logging
-import logging
-
-logger = logging.getLogger(__name__)
+from abcli.logger import logger
 
 
 parser = argparse.ArgumentParser(NAME)

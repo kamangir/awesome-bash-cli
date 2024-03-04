@@ -1,7 +1,7 @@
 import os
 from abcli import env, file, path, string
 from abcli.plugins.storage import instance as storage
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def list_of_files(object_name, cloud=False, **kwargs):

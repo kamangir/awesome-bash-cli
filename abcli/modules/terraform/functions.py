@@ -1,7 +1,7 @@
 from abcli import fullname
 from abcli import env, file
 from abcli import string
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def lxde(_):

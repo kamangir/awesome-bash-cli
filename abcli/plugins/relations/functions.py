@@ -2,7 +2,7 @@ from functools import reduce
 import os
 from abcli import env, file
 from abcli.table import Table
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 _, inverse_of = file.load_json(

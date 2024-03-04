@@ -2,7 +2,7 @@ import cv2
 from functools import reduce
 import numpy as np
 from . import NAME
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def add_label(

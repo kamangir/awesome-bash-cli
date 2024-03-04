@@ -2,7 +2,7 @@ from functools import reduce
 import json
 from abcli import string
 from abcli.table import Table
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 columns = "keyword,value,timestamp".split(",")

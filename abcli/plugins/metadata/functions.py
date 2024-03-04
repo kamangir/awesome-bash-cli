@@ -6,7 +6,7 @@ import os
 import os.path
 from abcli import file
 from . import NAME
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 class MetadataSourceType(Enum):

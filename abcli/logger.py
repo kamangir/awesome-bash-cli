@@ -34,7 +34,7 @@ console_handler.setLevel(logging_level)
 console_handler.setFormatter(log_formatter)
 logging.getLogger().addHandler(console_handler)
 
-logger = logging.getLogger("abcli")
+logger = logging.getLogger("")
 
 
 def crash_report(description):

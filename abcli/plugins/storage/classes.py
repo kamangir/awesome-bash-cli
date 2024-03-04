@@ -5,7 +5,7 @@ from abcli import env, file
 from abcli import path
 from abcli import env
 from abcli import string
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 class Storage:

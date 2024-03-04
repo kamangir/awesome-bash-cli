@@ -4,7 +4,7 @@ import pymysql
 from abcli import env
 from abcli import file
 from abcli.table import NAME
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 class Table:

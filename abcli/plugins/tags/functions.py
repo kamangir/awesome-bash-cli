@@ -3,7 +3,7 @@ import random
 import re
 from abcli.options import Options
 from abcli.table import Table
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def clone(object_1, object_2):

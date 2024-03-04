@@ -3,7 +3,7 @@ from abcli import fullname
 from abcli import env, file
 from abcli import string
 from . import HOST_NAME, HOST_TAGS, NAME
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 def get_name(cache=True):

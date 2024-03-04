@@ -1,7 +1,7 @@
 import argparse
 from abcli import file
 from . import *
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 parser = argparse.ArgumentParser(NAME)

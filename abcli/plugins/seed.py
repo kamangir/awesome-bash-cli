@@ -1,5 +1,5 @@
 from abcli import env
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 NAME = "abcli.plugins.seed"

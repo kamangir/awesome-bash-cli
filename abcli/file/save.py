@@ -1,7 +1,7 @@
 import json
 from abcli.file.classes import JsonEncoder
 from abcli import string
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 def prepare_for_saving(filename):

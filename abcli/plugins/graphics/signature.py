@@ -5,7 +5,7 @@ from .text import render_text
 from . import NAME
 from abcli import string
 from functools import reduce
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def add_sidebar(image, lines, images=[], line_length=28):

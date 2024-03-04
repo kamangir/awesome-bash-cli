@@ -3,9 +3,9 @@ from functools import reduce
 import os
 import shutil
 from abcli import env
-from abcli.file import NAME
 from abcli import string
-from abcli.logging import logger, crash_report
+from abcli.file import NAME
+from abcli.logger import logger, crash_report
 
 
 def absolute(filename, reference_path=None):

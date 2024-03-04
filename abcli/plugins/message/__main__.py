@@ -4,7 +4,7 @@ import time
 from . import *
 from abcli import file
 from abcli import VERSION
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 parser = argparse.ArgumentParser(NAME)
