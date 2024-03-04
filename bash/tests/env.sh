@@ -1,10 +1,6 @@
 #! /usr/bin/env bash
 
 function test_abcli_env() {
-    local options=$1
-    local do_dryrun=$(abcli_option_int "$options" dryrun 0)
-    local do_upload=$(abcli_option_int "$options" upload 0)
-
     abcli env
     abcli env path
 

@@ -5,18 +5,28 @@ export abcli_pylint_ignored=W1203,C0103,C0111,C0114,C0115,C0116,C0411,W0404,W023
 function abcli_pylint() {
     local options=$1
 
+    local plugin_name=$(abcli_option "$options" plugin abcli)
+
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        abcli_show_usage "abcli pylint [<args>]" \
-            "pylint abcli."
+        local options=" - "
+        [[ "$plugin_name" == "abcli" ]] && options="$ABCUL[ignore=<ignore>,plugin=<plugin-name>]"
+        abcli_show_usage "$plugin_name pylint$options$ABCUL[<args>]" \
+            "pylint $plugin_name."
         return
     fi
 
     abcli_pip install pylint
 
-    pushd $abcli_path_git/awesome-bash-cli >/dev/null
+    local repo_name=$(abcli_unpack_repo_name $plugin_name)
+
+    abcli_log "$plugin_name: pylint: repo=$repo_name"
+
+    local ignore=$(abcli_option "$options" ignore voidvoidvoid)
+
+    pushd $abcli_path_git/$repo_name >/dev/null
     pylint \
         -d $abcli_pylint_ignored \
-        $(git ls-files '*.py') \
+        $(git ls-files '*.py' | grep -v $ignore) \
         "${@:2}"
     popd >/dev/null
 }
