@@ -2,9 +2,10 @@ import fnmatch
 from functools import reduce
 import os
 import shutil
-from abcli.file import NAME
+from abcli import env
 from abcli import string
-from abcli.logging import logger, crash_report
+from abcli.file import NAME
+from abcli.logger import logger, crash_report
 
 
 def absolute(filename, reference_path=None):
@@ -70,7 +71,7 @@ def auxiliary(nickname, extension, add_timestamp=True):
     from abcli.file.save import prepare_for_saving
 
     filename = os.path.join(
-        os.getenv("abcli_object_path", ""),
+        env.abcli_object_path,
         "auxiliary",
         "-".join(
             [nickname]

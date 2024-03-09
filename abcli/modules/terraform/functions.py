@@ -1,8 +1,7 @@
-import os
 from abcli import fullname
-from abcli import file
+from abcli import env, file
 from abcli import string
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def lxde(_):
@@ -124,12 +123,7 @@ def signature():
                     include_zone=True,
                 ),
             ]
-            + (lambda x: [x] if x else [])(
-                os.getenv(
-                    "abcli_wifi_ssid",
-                    "",
-                )
-            )
+            + ([env.abcli_wifi_ssid] if env.abcli_wifi_ssid else [])
         ),
     ]
 

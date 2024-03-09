@@ -30,7 +30,7 @@ if [ "$(uname -m)" == "x86_64" ]; then
     export abcli_is_64bit=true
 fi
 
-if [ -f "$abcli_path_cookie/headless" ]; then
+if [ -f "$abcli_path_ignore/headless" ]; then
     export abcli_is_headless=true
 fi
 

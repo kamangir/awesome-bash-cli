@@ -1,4 +1,0 @@
-{
-    "plugins": "aiart,blue-stability,blue-wiki,blue-worker,Kanata,openai,Vancouver-Watching,Iran-Watching,yolov5",
-    "session": "blue_worker"
-}

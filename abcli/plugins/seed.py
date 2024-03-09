@@ -1,5 +1,5 @@
-import os
-from abcli.logging import logger
+from abcli import env
+from abcli.logger import logger
 
 
 NAME = "abcli.plugins.seed"
@@ -9,9 +9,7 @@ def log(
     object_name: str = ".",
     target: str = "open_object",
 ):
-    object_name = (
-        os.getenv("abcli_object_name", "") if object_name == "." else object_name
-    )
+    object_name = env.abcli_object_name if object_name == "." else object_name
 
     lines = []
     if target == "download_object":

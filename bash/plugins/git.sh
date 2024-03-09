@@ -4,10 +4,10 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli git <repo_name>" \
-            "cd $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git cd$ABCUL<repo_name>" \
-            "cd $abcli_path_git/<repo_name>."
+        abcli_show_usage "abcli git [cd] <repo_name>" \
+            "cd <repo_name>."
+        abcli_show_usage "abcli git browse$ABCUL<repo_name>" \
+            "browse <repo_name>."
         abcli_show_usage "abcli git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
             "clone <repo_name>."
         abcli_show_usage "abcli git create_branch$ABCUL<repo_name>$ABCUL<branch-name>" \
@@ -54,6 +54,11 @@ function abcli_git() {
 
     local repo_name_org=$2
     local repo_name=$(abcli_unpack_repo_name $2 .)
+
+    if [ "$task" == "browse" ]; then
+        abcli_browse_url https://github.com/kamangir/$repo_name
+        return
+    fi
 
     if [ "$task" == "cd" ]; then
         cd $abcli_path_git/$repo_name

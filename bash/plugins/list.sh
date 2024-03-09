@@ -1,29 +1,32 @@
 #! /usr/bin/env bash
 
 function abcli_list() {
-    local task=$(abcli_unpack_keyword $1 help)
+    local options=$1
 
-    if [ "$task" == "help" ]; then
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         abcli_show_usage "abcli list cloud|local <object_name>" \
             "list <object_name>"
+
+        abcli_show_usage "abcli list <path>" \
+            "list <path>"
         return
     fi
 
-    local options=$1
-    local where=$(abcli_option_choice "$options" cloud,local cloud)
+    local on_cloud=$(abcli_option_int "$options" cloud 0)
+    local on_local=$(abcli_option_int "$options" local 0)
 
-    local object_name=$(abcli_clarify_object $2 .)
+    [[ "$on_cloud" == 1 ]] ||
+        [[ "$on_local" == 1 ]] &&
+        local object_name=$(abcli_clarify_object $2 .)
 
-    if [ "$where" == cloud ]; then
-        local s3_uri=$abcli_s3_object_prefix/$object_name/
-        abcli_log "🔗 $s3_uri"
-        aws s3 ls $s3_uri
-    elif [ "$where" == local ]; then
-        local path=$abcli_object_root/$object_name
-        abcli_log "📂 $path"
-        ls -1lh $path
+    if [ "$on_cloud" == 1 ]; then
+        abcli_eval - \
+            aws s3 ls $abcli_s3_object_prefix/$object_name/
+    elif [ "$on_local" == 1 ]; then
+        abcli_eval - \
+            ls -1lh $abcli_object_root/$object_name
     else
-        abcli_log_error "-abcli: list: $where: location not found."
-        return 1
+        abcli_eval - \
+            ls -1 "$@"
     fi
 }

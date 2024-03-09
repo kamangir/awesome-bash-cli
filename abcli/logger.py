@@ -1,15 +1,16 @@
+from abcli import env
 import logging
 from logging.handlers import RotatingFileHandler
 import os
 
 
-abcli_log_filename = os.getenv("abcli_log_filename", "abcli.log")
+abcli_log_filename = env.abcli_log_filename
 
 # Based on https://stackoverflow.com/a/22313803
-logging.addLevelName(logging.INFO, "ℹ️ ")
-logging.addLevelName(logging.DEBUG, "❓")
-logging.addLevelName(logging.ERROR, "❗️")
-logging.addLevelName(logging.WARNING, "⚠️ ")
+logging.addLevelName(logging.INFO, "")
+logging.addLevelName(logging.DEBUG, "❓ ")
+logging.addLevelName(logging.ERROR, "❗️ ")
+logging.addLevelName(logging.WARNING, "⚠️  ")
 
 logging_level = logging.INFO
 
@@ -33,7 +34,7 @@ console_handler.setLevel(logging_level)
 console_handler.setFormatter(log_formatter)
 logging.getLogger().addHandler(console_handler)
 
-logger = logging.getLogger("abcli")
+logger = logging.getLogger("")
 
 
 def crash_report(description):

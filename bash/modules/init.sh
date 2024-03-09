@@ -15,12 +15,11 @@ function abcli_init() {
     local current_path=$(pwd)
 
     if [ "$plugin_name" == "all" ]; then
-        if [ "$abcli_is_mac" == true ]; then
+        [[ "$abcli_is_mac" == true ]] &&
             local options=~terraform,$options
-        fi
 
         local repo_name
-        for repo_name in $(echo $(abcli_cookie read plugins) | tr , " "); do
+        for repo_name in $(echo $abcli_plugins | tr , " "); do
             abcli_git clone $repo_name if_cloned,install
         done
 

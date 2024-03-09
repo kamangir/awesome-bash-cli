@@ -1,11 +1,7 @@
-import os
-from abcli import logging
-import logging
+from abcli import env
+from abcli.logger import logger
 
-logger = logging.getLogger(__name__)
-
-abcli_object_name = os.getenv("abcli_object_name")
-logger.info(f"{abcli_object_name}: started.")
+logger.info(f"{env.abcli_object_name}: started.")
 
 # --- your script here
 
@@ -13,4 +9,4 @@ logger.info("Hello World!")
 
 # /script
 
-logger.info(f"{abcli_object_name}: completed.")
+logger.info(f"{env.abcli_object_name}: completed.")

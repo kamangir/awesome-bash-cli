@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-export abcli_publish_prefix=https://$(abcli_aws_s3_public_bucket).s3.$(abcli_aws_region).amazonaws.com
+export abcli_publish_prefix=https://$abcli_aws_s3_public_bucket_name.s3.$abcli_aws_region.amazonaws.com
 
 function abcli_publish() {
     local options=$1
@@ -36,7 +36,7 @@ function abcli_publish() {
         abcli_upload ~open,solid $object_name
         aws s3 cp \
             $abcli_s3_object_prefix/$object_name.tar.gz \
-            s3://$(abcli_aws_s3_public_bucket)/$public_object_name.tar.gz
+            s3://$abcli_aws_s3_public_bucket_name/$public_object_name.tar.gz
         abcli_object open $object_name
 
         abcli_log "🔗 $abcli_publish_prefix/$public_object_name.tar.gz"
@@ -51,7 +51,7 @@ function abcli_publish() {
     if [[ -z "$extension$filename" ]]; then
         aws s3 sync \
             $object_path/ \
-            s3://$(abcli_aws_s3_public_bucket)/$public_object_name/
+            s3://$abcli_aws_s3_public_bucket_name/$public_object_name/
         return
     fi
 
@@ -63,7 +63,7 @@ function abcli_publish() {
 
         aws s3 cp \
             $filename_ \
-            s3://$(abcli_aws_s3_public_bucket)/$public_object_name/$filename_
+            s3://$abcli_aws_s3_public_bucket_name/$public_object_name/$filename_
     done
     popd >/dev/null
 }

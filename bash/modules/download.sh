@@ -25,7 +25,7 @@ function abcli_download() {
         abcli_log "downloading $object_name/$filename ..."
         aws s3 cp "$abcli_s3_object_prefix/$object_name/$filename" "$object_path/$filename"
     else
-        local exists=$(aws s3 ls $(abcli_aws_s3_bucket)/$(abcli_aws_s3_prefix)/$object_name.tar.gz)
+        local exists=$(aws s3 ls $abcli_aws_s3_bucket_name/$abcli_aws_s3_prefix/$object_name.tar.gz)
         if [ -z "$exists" ]; then
             abcli_log "downloading $object_name: open ..."
 

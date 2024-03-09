@@ -3,7 +3,7 @@ from copy import deepcopy
 import json
 import numpy as np
 from abcli.file import NAME
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 def load(filename, civilized=False, default={}):

@@ -12,7 +12,6 @@ setup(
         "abcli.file",
         "abcli.path",
         "abcli.modules",
-        "abcli.modules.cookie",
         "abcli.modules.host",
         "abcli.plugins",
         "abcli.plugins.cache",

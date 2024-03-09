@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+export abcli_s3_object_prefix=s3://$abcli_aws_s3_bucket_name/$abcli_aws_s3_prefix
+
 function abcli_clarify_object() {
     local object_name=$1
     local default=$2

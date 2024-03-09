@@ -6,7 +6,7 @@ function abcli_seed() {
     local list_of_seed_targets="cloudshell|docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
 
     if [ "$task" == "help" ]; then
-        local options="clipboard|filename=<filename>|key|screen,cookie=<cookie-name>,plugin=<plugin-name>,~log"
+        local options="clipboard|filename=<filename>|key|screen,env=<env-name>,plugin=<plugin-name>,~log"
         abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]" \
             "generate and output a seed 🌱."
         abcli_show_usage "abcli seed eject" \
@@ -73,9 +73,9 @@ function abcli_seed() {
         local delim_section="; "
     fi
 
-    local cookie_name=""
-    [[ "$target" == "ec2" ]] && local cookie_name="worker"
-    local cookie_name=$(abcli_option "$options" cookie $cookie_name)
+    local env_name=""
+    [[ "$target" == "ec2" ]] && local env_name="worker"
+    local env_name=$(abcli_option "$options" env $env_name)
 
     local sudo_prefix="sudo "
 
@@ -180,29 +180,13 @@ function abcli_seed() {
                 seed="${seed}git checkout $abcli_git_branch; git pull$delim_section"
             fi
 
-            pushd $abcli_path_bash/bootstrap/config >/dev/null
-            local filename
-            for filename in *.sh *.json *.pem; do
-                (
-                    [[ "$target" == sagemaker-system ]] ||
-                        [[ "$target" == cloudshell ]]
-                ) &&
-                    [[ "$filename" != "aws.json" ]] &&
-                    [[ "$filename" != "papertrail.sh" ]] &&
-                    continue
-
-                [[ "$target" == sagemaker ]] &&
-                    continue
-
-                seed="$seed$(abcli_seed \
-                    add_file \
-                    $HOME/git/awesome-bash-cli/bash/bootstrap/config/$filename \
-                    \$HOME/git/awesome-bash-cli/bash/bootstrap/config/$filename)$delim_section"
-            done
-            popd >/dev/null
+            seed="$seed$(abcli_seed \
+                add_file \
+                $HOME/git/awesome-bash-cli/.env \
+                \$HOME/git/awesome-bash-cli/.env)$delim_section"
 
             if [ "$target" == "headless_rpi" ]; then
-                seed="${seed}touch ~/git/awesome-bash-cli/bash/bootstrap/cookie/headless$delim_section"
+                seed="${seed}touch ~/git/awesome-bash-cli/assets/ignore/headless$delim_section"
             fi
 
             if [ "$target" == "rpi" ]; then
@@ -226,8 +210,8 @@ function abcli_seed() {
                 seed="${seed}source ~/.bashrc$delim_section"
             fi
 
-            if [ ! -z "$cookie_name" ]; then
-                seed="${seed}abcli cookie copy $cookie_name$delim"
+            if [ ! -z "$env_name" ]; then
+                seed="${seed}abcli_env dot copy $env_name$delim"
                 seed="${seed}abcli init$delim_section"
             fi
 

@@ -1,9 +1,9 @@
 import os
 from abcli import fullname
-from abcli import file
+from abcli import env, file
 from abcli import string
 from . import HOST_NAME, HOST_TAGS, NAME
-from abcli.logging import logger, crash_report
+from abcli.logger import logger, crash_report
 
 
 def get_name(cache=True):
@@ -186,7 +186,7 @@ def signature():
         + list(
             set(
                 [
-                    os.getenv("abcli_hostname", ""),
+                    env.abcli_hostname,
                     get_name(),
                 ]
             )
@@ -196,7 +196,7 @@ def signature():
             "Python {}".format(platform.python_version()),
             "{} {}".format(platform.system(), platform.release()),
         ]
-        + (lambda x: [x] if x else [])(os.getenv("abcli_wifi_ssid", ""))
+        + ([env.abcli_wifi_ssid] if env.abcli_wifi_ssid else [])
     )
 
 

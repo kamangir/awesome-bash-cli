@@ -1,7 +1,7 @@
 import argparse
 import cv2
 from abcli import file
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 NAME = "abcli.plugins.video"

@@ -1,6 +1,6 @@
 from abcli import file
 from abcli.modules import objects
-from abcli.logging import logger
+from abcli.logger import logger
 from .classes import Message
 
 

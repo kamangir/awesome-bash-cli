@@ -1,8 +1,8 @@
-import copy
 import os
+from abcli import env
 import os.path
 from abcli import string
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 class Message:
@@ -87,7 +87,7 @@ class Message:
             and self.data.get("object_name", "")
         ):
             filename = os.path.join(
-                os.getenv("abcli_object_path", ""),
+                env.abcli_object_path,
                 "auxiliary",
                 "-".join(
                     [self.data["bucket_name"]] + self.data["object_name"].split("/")

@@ -16,8 +16,6 @@ alias @relation=abcli_relation
 
 alias @clone=abcli_clone
 
-alias @cookie=abcli_cookie
-
 alias @conda=abcli_conda
 
 alias @create_video=abcli_create_video
@@ -67,6 +65,8 @@ alias @select=abcli_select
 alias @sleep=abcli_sleep
 
 alias @storage=abcli_storage
+
+alias @test=abcli_test
 
 alias @timestamp=abcli_string_timestamp
 

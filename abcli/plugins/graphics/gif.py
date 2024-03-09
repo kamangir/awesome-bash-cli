@@ -1,7 +1,7 @@
 from PIL import Image
 from tqdm import tqdm
 from typing import List
-from abcli.logging import logger
+from abcli.logger import logger, crash_report
 
 
 NAME = "abcli.plugins.gif"
@@ -37,8 +37,6 @@ def generate_animated_gif(
             loop=0,  # 0 means infinite loop
         )
     except Exception:
-        from abcli.logging import crash_report
-
         crash_report("generate_animated_gif")
         return False
 

@@ -1,8 +1,7 @@
 import os
-from abcli import file, path, string
-from abcli.path import abcli_object_root
+from abcli import env, file, path, string
 from abcli.plugins.storage import instance as storage
-from abcli.logging import logger
+from abcli.logger import logger
 
 
 def list_of_files(object_name, cloud=False, **kwargs):
@@ -23,7 +22,7 @@ def list_of_files(object_name, cloud=False, **kwargs):
         if cloud
         else file.list_of(
             os.path.join(
-                abcli_object_root,
+                env.abcli_object_root,
                 object_name,
                 "*",
             ),
@@ -37,15 +36,8 @@ def object_path(
     create=False,
 ):
     output = os.path.join(
-        abcli_object_root,
-        (
-            os.getenv(
-                "abcli_object_name",
-                "",
-            )
-            if object_name == "."
-            else object_name
-        ),
+        env.abcli_object_root,
+        env.abcli_object_name if object_name == "." else object_name,
     )
 
     if create:
@@ -67,13 +59,17 @@ def path_of(
 
 def select(object_name: str):
     os.environ["abcli_object_name"] = object_name
-    os.environ["abcli_object_path"] = object_path(object_name)
+    env.abcli_object_name = object_name
+
+    path = object_path(object_name)
+    os.environ["abcli_object_path"] = path
+    env.abcli_object_path = path
 
 
 def signature(info=None, object_name="."):
     return [
         "{}{}".format(
-            os.getenv("abcli_object_name", "") if object_name == "." else object_name,
+            env.abcli_object_name if object_name == "." else object_name,
             "" if info is None else f"/{str(info)}",
         ),
         string.pretty_date(include_time=False),
