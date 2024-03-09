@@ -63,6 +63,8 @@ abcli_path_static = os.getenv("abcli_path_static", "")
 abcli_path_abcli = os.getenv("abcli_path_abcli", "")
 abcli_log_filename = os.getenv("abcli_log_filename", "")
 
+abcli_publish_prefix = os.getenv("abcli_publish_prefix", "")
+
 abcli_papertrail_dest_host = os.getenv("abcli_papertrail_dest_host", "")
 abcli_papertrail_dest_port = os.getenv("abcli_papertrail_dest_port", "")
 
