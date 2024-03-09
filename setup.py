@@ -10,6 +10,7 @@ setup(
     packages=[
         "abcli",
         "abcli.file",
+        "abcli.options",
         "abcli.path",
         "abcli.modules",
         "abcli.modules.host",
