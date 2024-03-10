@@ -83,7 +83,7 @@ abcli_session_reboot_period = os.getenv("abcli_session_reboot_period", "")
 abcli_session_screen_period = os.getenv("abcli_session_screen_period", "")
 abcli_session_temperature_period = os.getenv("abcli_session_temperature_period", "")
 abcli_session = os.getenv("abcli_session", "")
-abcli_ultralytics_api_key = os.getenv("abcli_ultralytics_api_key", "")
+
 abcli_youtube_api_key = os.getenv("abcli_youtube_api_key", "")
 
 abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
