@@ -26,6 +26,7 @@ abcli_aws_rds_user = os.getenv("abcli_aws_rds_user", "")
 abcli_aws_region = os.getenv("abcli_aws_region", "")
 abcli_aws_s3_bucket_name = os.getenv("abcli_aws_s3_bucket_name", "")
 abcli_aws_s3_prefix = os.getenv("abcli_aws_s3_prefix", "")
+abcli_s3_object_prefix = os.getenv("abcli_s3_object_prefix", "")
 abcli_aws_s3_public_bucket_name = os.getenv("abcli_aws_s3_public_bucket_name", "")
 
 abcli_blue_sbc_application = os.getenv("abcli_blue_sbc_application", "")
