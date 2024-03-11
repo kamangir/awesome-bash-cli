@@ -11,11 +11,11 @@ class Table:
     def __init__(self, name):
         self.name = name
 
-        self.db = env.abcli_aws_rds_db
-        self.host = env.abcli_aws_rds_host
-        self.password = env.abcli_aws_rds_password
-        self.port = int(env.abcli_aws_rds_port)
-        self.user = env.abcli_aws_rds_user
+        self.db = env.ABCLI_AWS_RDS_DB
+        self.host = env.ABCLI_AWS_RDS_HOST
+        self.password = env.ABCLI_AWS_RDS_PASSWORD
+        self.port = int(env.ABCLI_AWS_RDS_PORT)
+        self.user = env.ABCLI_AWS_RDS_USER
 
         self.connection = None
 
