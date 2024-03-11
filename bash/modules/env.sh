@@ -32,8 +32,7 @@ function abcli_env() {
             abcli_show_usage "abcli env dot get <variable>" \
                 "<variable>."
 
-            abcli_show_usage "abcli env dot load$ABCUL[plugin=<plugin-name>,verbose]" \
-                "load .env."
+            abcli_env dot load "${@:2}"
 
             abcli_show_usage "abcli env dot list" \
                 "list env repo."
@@ -160,14 +159,24 @@ function abcli_env() {
         fi
 
         if [[ "$subtask" == "load" ]]; then
+            if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+                abcli_show_usage "abcli env dot load$ABCUL[filename=<.env>,plugin=<plugin-name>,verbose]" \
+                    "load .env."
+                return
+            fi
+
             local repo_name=$(abcli_unpack_repo_name $plugin_name)
 
+            local filename=$(abcli_option "$options" filename .env)
             local verbose=$(abcli_option_int "$options" verbose 0)
 
             pushd $abcli_path_git/$repo_name >/dev/null
             local line
             local count=0
-            for line in $(dotenv list --format shell); do
+            for line in $(dotenv \
+                --file $filename \
+                list \
+                --format shell); do
                 [[ $verbose == 1 ]] && abcli_log "$line"
 
                 export "$line"
@@ -175,7 +184,7 @@ function abcli_env() {
             done
             popd >/dev/null
 
-            abcli_log "📜 loaded $count env var(s) from $repo_name/.env"
+            abcli_log "📜 $repo_name/$filename: $count env var(s)"
             return
         fi
 
@@ -200,3 +209,5 @@ function abcli_env() {
 }
 
 abcli_env dot load
+abcli_env dot load \
+    filename=config.env
