@@ -92,3 +92,5 @@ abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
 STABILITY_KEY = os.getenv("STABILITY_KEY", "")
+
+VANWATCH_TEST_OBJECT = os.getenv("VANWATCH_TEST_OBJECT", "vanwatch-test-object-v2")
