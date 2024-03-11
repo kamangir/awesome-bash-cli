@@ -4,7 +4,7 @@ from abcli.modules import objects
 
 def test_object_path():
     object_name = objects.unique_object()
-    object_path = objects.object_path(object_name)
+    object_path = objects.object_path(object_name, create=True)
     assert object_path
     assert path.exist(object_path)
 

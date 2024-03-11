@@ -27,4 +27,7 @@ def test_download_object(object_name):
             object_name=object_name,
             filename="vancouver.json",
         )
+    ), objects.path_of(
+        object_name=object_name,
+        filename="vancouver.json",
     )
