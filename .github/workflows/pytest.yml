@@ -30,7 +30,6 @@ jobs:
         ABCLI_AWS_RDS_PORT: ${{ secrets.ABCLI_AWS_RDS_PORT }}
         ABCLI_AWS_RDS_USER: ${{ secrets.ABCLI_AWS_RDS_USER }}
       run: |
-        echo "ULTRALYTICS_API_KEY: $ULTRALYTICS_API_KEY"
         echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
         echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
         echo "ABCLI_AWS_RDS_DB: $ABCLI_AWS_RDS_DB"
