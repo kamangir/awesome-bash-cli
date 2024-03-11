@@ -20,14 +20,14 @@ def test_download_object(object_name):
         for filename in objects.list_of_files(object_name=object_name)
     ]
 
-    assert "vancouver.json" in list_of_files
+    assert "vancouver.json" in list_of_files, objects.path_of(
+        object_name=object_name,
+        filename="vancouver.json",
+    )
 
     assert file.exist(
         objects.path_of(
             object_name=object_name,
             filename="vancouver.json",
         )
-    ), objects.path_of(
-        object_name=object_name,
-        filename="vancouver.json",
     )
