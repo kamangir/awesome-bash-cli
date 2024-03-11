@@ -9,32 +9,34 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e .
-        pip install pytest
-        pip install -r requirements.txt
-    - name: Run tests
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        ABCLI_AWS_RDS_DB: ${{ secrets.ABCLI_AWS_RDS_DB }}
-        ABCLI_AWS_RDS_HOST: ${{ secrets.ABCLI_AWS_RDS_HOST }}
-        ABCLI_AWS_RDS_PASSWORD: ${{ secrets.ABCLI_AWS_RDS_PASSWORD }}
-        ABCLI_AWS_RDS_PORT: ${{ secrets.ABCLI_AWS_RDS_PORT }}
-        ABCLI_AWS_RDS_USER: ${{ secrets.ABCLI_AWS_RDS_USER }}
-      run: |
-        echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
-        echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
-        echo "ABCLI_AWS_RDS_DB: $ABCLI_AWS_RDS_DB"
-        echo "ABCLI_AWS_RDS_HOST: $ABCLI_AWS_RDS_HOST"
-        echo "ABCLI_AWS_RDS_PASSWORD: $ABCLI_AWS_RDS_PASSWORD"
-        echo "ABCLI_AWS_RDS_PORT: $ABCLI_AWS_RDS_PORT"
-        echo "ABCLI_AWS_RDS_USER: $ABCLI_AWS_RDS_USER"
-        pytest
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pytest
+          pip install -r requirements.txt
+      - name: Run tests
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          ABCLI_AWS_RDS_DB: ${{ secrets.ABCLI_AWS_RDS_DB }}
+          ABCLI_AWS_RDS_HOST: ${{ secrets.ABCLI_AWS_RDS_HOST }}
+          ABCLI_AWS_RDS_PASSWORD: ${{ secrets.ABCLI_AWS_RDS_PASSWORD }}
+          ABCLI_AWS_RDS_PORT: ${{ secrets.ABCLI_AWS_RDS_PORT }}
+          ABCLI_AWS_RDS_USER: ${{ secrets.ABCLI_AWS_RDS_USER }}
+        run: |
+          echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+          echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+          echo "ABCLI_AWS_RDS_DB: $ABCLI_AWS_RDS_DB"
+          echo "ABCLI_AWS_RDS_HOST: $ABCLI_AWS_RDS_HOST"
+          echo "ABCLI_AWS_RDS_PASSWORD: $ABCLI_AWS_RDS_PASSWORD"
+          echo "ABCLI_AWS_RDS_PORT: $ABCLI_AWS_RDS_PORT"
+          echo "ABCLI_AWS_RDS_USER: $ABCLI_AWS_RDS_USER"
+          mkdir -pv ~/storage/abcli/vanwatch-test-object-v2
+          aws s3 sync s3://kamangir/bolt/vanwatch-test-object-v2/ ~/storage/abcli/vanwatch-test-object-v2/
+          pytest
