@@ -43,7 +43,4 @@ jobs:
           echo "ABCLI_AWS_RDS_PASSWORD: $ABCLI_AWS_RDS_PASSWORD"
           echo "ABCLI_AWS_RDS_PORT: $ABCLI_AWS_RDS_PORT"
           echo "ABCLI_AWS_RDS_USER: $ABCLI_AWS_RDS_USER"
-          # mkdir -pv ~/storage/abcli/vanwatch-test-object-v2
-          # aws s3 ls s3://kamangir/bolt/
-          # aws s3 sync s3://kamangir/bolt/vanwatch-test-object-v2/ ~/storage/abcli/vanwatch-test-object-v2/
           pytest
