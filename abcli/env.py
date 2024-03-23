@@ -1,8 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv(".env")
-load_dotenv("config.env")
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+load_dotenv(os.path.join(parent_dir, ".env"))
+load_dotenv(os.path.join(parent_dir, "config.env"))
 
 abcli_aws_ec2_default_image_name = os.getenv("abcli_aws_ec2_default_image_name", "")
 abcli_aws_ec2_default_instance_type = os.getenv(
@@ -93,7 +95,6 @@ abcli_youtube_api_key = os.getenv("abcli_youtube_api_key", "")
 
 abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
 STABILITY_KEY = os.getenv("STABILITY_KEY", "")
 
