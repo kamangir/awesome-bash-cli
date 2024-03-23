@@ -27,8 +27,8 @@ ABCLI_AWS_RDS_PORT = os.getenv("ABCLI_AWS_RDS_PORT", "")
 ABCLI_AWS_RDS_USER = os.getenv("ABCLI_AWS_RDS_USER", "")
 
 abcli_aws_region = os.getenv("abcli_aws_region", "")
-abcli_aws_s3_bucket_name = os.getenv("abcli_aws_s3_bucket_name", "")
-abcli_aws_s3_prefix = os.getenv("abcli_aws_s3_prefix", "")
+abcli_aws_s3_bucket_name = os.getenv("abcli_aws_s3_bucket_name", "kamangir")
+abcli_aws_s3_prefix = os.getenv("abcli_aws_s3_prefix", "bolt")
 abcli_s3_object_prefix = os.getenv(
     "abcli_s3_object_prefix",
     f"s3://{abcli_aws_s3_bucket_name}/{abcli_aws_s3_prefix}",
