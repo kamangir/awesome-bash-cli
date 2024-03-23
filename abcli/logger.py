@@ -16,7 +16,7 @@ logging_level = logging.INFO
 
 logging.getLogger().setLevel(logging_level)
 
-log_formatter = logging.Formatter("%(levelname)s %(name)s :: %(message)s")
+log_formatter = logging.Formatter("%(levelname)s%(name)s :: %(message)s")
 try:
     file_handler = RotatingFileHandler(
         abcli_log_filename,
