@@ -16,7 +16,7 @@ logging_level = logging.INFO
 
 logging.getLogger().setLevel(logging_level)
 
-log_formatter = logging.Formatter("%(levelname)s%(name)s :: %(message)s")
+log_formatter = logging.Formatter("%(levelname)s%(name)s %(message)s")
 try:
     file_handler = RotatingFileHandler(
         abcli_log_filename,
@@ -34,9 +34,13 @@ console_handler.setLevel(logging_level)
 console_handler.setFormatter(log_formatter)
 logging.getLogger().addHandler(console_handler)
 
-logger = logging.getLogger("")
+logger = logging.getLogger("::")
 
 
 def crash_report(description):
     # https://stackoverflow.com/a/10645855
     logger.error(f"crash: {description}", exc_info=1)
+
+
+def get_logger(ICON):
+    return logging.getLogger(f"{ICON} ")
