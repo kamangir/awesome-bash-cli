@@ -49,6 +49,8 @@ alias @option::int=abcli_option_int
 alias @option::choice=abcli_option_choice
 alias @option::subset=abcli_option_subset
 
+alias @pause=abcli_pause
+
 alias @pip=abcli_pip
 
 alias @plugins=abcli_plugins
