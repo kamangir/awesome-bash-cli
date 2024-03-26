@@ -47,7 +47,7 @@ function abcli_main() {
     fi
 }
 
-if [ -f "$abcli_path_ignore/disabled" ]; then
+if [ -f "$abcli_path_bash/../assets/ignore/disabled" ]; then
     printf "abcli is \033[0;31mdisabled\033[0m.\n"
 else
     abcli_main "$@"
