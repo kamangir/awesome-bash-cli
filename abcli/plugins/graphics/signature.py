@@ -1,5 +1,6 @@
 import cv2
 import math
+from typing import List
 import numpy as np
 from .text import render_text
 from . import NAME
@@ -78,12 +79,12 @@ def add_sidebar(image, lines, images=[], line_length=28):
 
 
 def add_signature(
-    image,
-    header,
-    footer=[],
-    word_wrap=True,
-    line_width=80,
-):
+    image: np.ndarray,
+    header: List[str],
+    footer: List[str] = [],
+    word_wrap: bool = True,
+    line_width: int = 80,
+) -> np.ndarray:
     if image is None or not image.shape:
         return image
 
