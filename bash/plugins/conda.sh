@@ -29,7 +29,8 @@ function abcli_conda() {
         local clone_from=$(abcli_option "$options" clone auto)
         local do_recreate=$(abcli_option_int "$options" recreate 1)
         local environment_name=$(abcli_option "$options" name abcli)
-        local repo_name=$(abcli_option "$options" repo $environment_name)
+        local repo_name=$(abcli_unpack_repo_name $environment_name)
+        repo_name=$(abcli_option "$options" repo $repo_name)
 
         conda init bash
 
