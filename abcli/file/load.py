@@ -64,6 +64,47 @@ def load_geojson(filename, civilized=False):
     return success, data
 
 
+def load_dataframe(
+    filename,
+    civilized=False,
+    log=False,
+):
+    """load filename.csv as a DataFrame.
+
+    Args:
+        filename (str): filename.
+        civilized (bool, optional): if failed, do not print error message. Defaults to False.
+        log (bool, optional): log. Defaults to False.
+
+    Returns:
+        bool: success.
+        data: DataFrame.
+    """
+    success = False
+    df = None
+
+    try:
+        import pandas
+
+        df = pandas.read_csv(filename)
+
+        success = True
+    except:
+        if not civilized:
+            crash_report(f"-{NAME}: load_dataframe({filename}): failed.")
+
+    if success and log:
+        logger.info(
+            "loaded {} row(s) of {} from {}".format(
+                len(df),
+                ", ".join(df.columns),
+                filename,
+            )
+        )
+
+    return success, df
+
+
 def load_geodataframe(filename, civilized=False):
     """load filename.geojson as a GeoDataFrame.
 
