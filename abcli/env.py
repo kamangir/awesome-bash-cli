@@ -65,7 +65,10 @@ abcli_object_root = os.getenv(
 )
 abcli_object_name = os.getenv("abcli_object_name", "")
 abcli_object_path = os.getenv("abcli_object_path", "")
-abcli_path_git = os.getenv("abcli_path_git", "")
+abcli_path_git = os.getenv(
+    "abcli_path_git",
+    os.path.join(abcli_path_home, "git"),
+)
 abcli_path_static = os.getenv("abcli_path_static", "")
 abcli_path_abcli = os.getenv("abcli_path_abcli", "")
 abcli_log_filename = os.getenv("abcli_log_filename", "")
