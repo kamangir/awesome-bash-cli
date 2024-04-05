@@ -36,6 +36,8 @@ alias @init=abcli_init
 
 alias @instance=abcli_instance
 
+alias @latex=abcli_latex
+
 alias @log=abcli_log
 
 alias @ls="abcli_list"
