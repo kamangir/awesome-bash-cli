@@ -11,6 +11,7 @@ function abcli_initialize() {
     [[ "$abcli_is_docker" == false ]] &&
         [[ "$abcli_is_in_notebook" == false ]] &&
         [[ "$abcli_is_aws_batch" == false ]] &&
+        [[ "$abcli_is_github_workflow" == false ]] &&
         abcli_add_ssh_keys
 
     export abcli_host_name=$(python3 -m abcli.modules.host get --keyword name)
