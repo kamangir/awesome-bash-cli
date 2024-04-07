@@ -91,6 +91,10 @@ def is_ec2():
     return os.getenv("abcli_is_ec2", "false") == "true"
 
 
+def is_github_workflow():
+    return os.getenv("abcli_is_github_workflow", "false") == "true"
+
+
 def is_headless():
     return os.getenv("abcli_is_headless", "false") == "true"
 

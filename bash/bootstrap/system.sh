@@ -5,6 +5,7 @@ export abcli_is_amazon_linux=false
 export abcli_is_cloudshell=false
 export abcli_is_docker=false
 export abcli_is_ec2=false
+export abcli_is_github_workflow=false
 export abcli_is_jetson=false
 export abcli_is_headless=false
 export abcli_is_mac=false

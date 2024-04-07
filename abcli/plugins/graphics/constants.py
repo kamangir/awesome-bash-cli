@@ -29,6 +29,7 @@ try:
     elif (
         not host.is_ec2()
         and not host.is_docker()
+        and not host.is_github_workflow()
         and not host.is_jupyter()
         and not host.is_aws_batch()
     ):
