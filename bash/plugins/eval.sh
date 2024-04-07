@@ -28,4 +28,6 @@ function abcli_eval() {
     [[ "$path" != "./" ]] && pushd $path >/dev/null
     eval "$command_line"
     [[ "$path" != "./" ]] && popd >/dev/null
+
+    return 0
 }
