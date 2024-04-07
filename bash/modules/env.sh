@@ -170,6 +170,11 @@ function abcli_env() {
             local filename=$(abcli_option "$options" filename .env)
             local verbose=$(abcli_option_int "$options" verbose 0)
 
+            if [[ ! -f "$abcli_path_git/$repo_name/$filename" ]]; then
+                abcli_log_warning "$repo_name/$filename: file not found."
+                return
+            fi
+
             pushd $abcli_path_git/$repo_name >/dev/null
             local line
             local count=0
