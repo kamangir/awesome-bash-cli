@@ -56,6 +56,10 @@ if [[ "$OSTYPE" == "linux-gnueabihf" ]]; then
     export abcli_is_rpi=true
 fi
 
+if [[ "$GITHUB_ACTIONS" == true ]]; then
+    export abcli_is_github_workflow=true
+fi
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     export abcli_is_ubuntu=true
 
