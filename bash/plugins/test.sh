@@ -18,7 +18,8 @@ function abcli_test() {
     fi
 
     if [ $(abcli_option_int "$options" list 0) == 1 ]; then
-        declare -F | awk '{print $3}' | grep test_${plugin_name}
+        local plugin_name_=$(echo $plugin_name | tr - _)
+        declare -F | awk '{print $3}' | grep test_${plugin_name_}
         return
     fi
 
