@@ -33,12 +33,27 @@ function abcli_test() {
         --after "test(s)"
 
     local test_name
+    local failed_test_list=
     for test_name in $list_of_tests; do
         abcli_eval dryrun=$do_dryrun \
             $test_name \
             "$test_options" \
             "${@:3}"
+        if [ $? -ne 0 ]; then
+            abcli_log "$test_name: failed."
+            failed_test_list=$failed_test_list,$test_name
+        fi
     done
+
+    failed_test_list=$(abcli_list_nonempty $failed_test_list)
+    if [[ -z "$failed_test_list" ]]; then
+        return
+    else
+        abcli_log_list $list_of_tests \
+            --after "failed test(s)" \
+            --before ""
+        return 1
+    fi
 }
 
 abcli_source_path \
