@@ -80,4 +80,5 @@ function abcli_huggingface() {
     fi
 
     abcli_log_error "-abcli: huggingface: $task: command not found."
+    return 1
 }

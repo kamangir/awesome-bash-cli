@@ -27,6 +27,7 @@ function abcli_wifi() {
     fi
 
     abcli_log_error "-abcli: wifi: $task: command not found."
+    return 1
 }
 
 function abcli_wifi_get_ssid() {

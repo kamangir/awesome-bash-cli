@@ -105,4 +105,5 @@ function abcli_session() {
     fi
 
     abcli_log_error "-abcli: session: $task: command not found."
+    return 1
 }

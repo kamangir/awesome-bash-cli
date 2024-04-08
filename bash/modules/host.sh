@@ -3,7 +3,7 @@
 function abcli_host() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [ "$task" == "help" ] ; then
+    if [ "$task" == "help" ]; then
         abcli_show_usage "abcli host get name" \
             "get $abcli_host_name."
         abcli_show_usage "abcli host get tags [<host_name>]" \
@@ -15,13 +15,13 @@ function abcli_host() {
         abcli_show_usage "abcli host tag <tag_1,~tag_2> [<host_name>]" \
             "tag [host_name] tag_1,~tag_2."
 
-        if [ "$(abcli_keyword_is $2 verbose)" == true ] ; then
+        if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
             python3 -m abcli.modules.host --help
         fi
         return
     fi
 
-    if [ $task == "get" ] ; then
+    if [ $task == "get" ]; then
         python3 -m abcli.modules.host \
             get \
             --keyword "$2" \
@@ -30,13 +30,13 @@ function abcli_host() {
         return
     fi
 
-    if [ $task == "reboot" ] ; then
+    if [ $task == "reboot" ]; then
         local recipient="$2"
-        if [ "$recipient" == "$abcli_host_name" ] ; then
+        if [ "$recipient" == "$abcli_host_name" ]; then
             local recipient=""
         fi
 
-        if [ -z "$recipient" ] ; then
+        if [ -z "$recipient" ]; then
             if [[ "$abcli_is_mac" == false ]]; then
                 abcli_log "rebooting..."
                 sudo reboot
@@ -51,13 +51,13 @@ function abcli_host() {
         return
     fi
 
-    if [ $task == "shutdown" ] ; then
+    if [ $task == "shutdown" ]; then
         local recipient="$2"
-        if [ "$recipient" == "$abcli_host_name" ] ; then
+        if [ "$recipient" == "$abcli_host_name" ]; then
             local recipient=""
         fi
 
-        if [ -z "$recipient" ] ; then
+        if [ -z "$recipient" ]; then
             if [[ "$abcli_is_mac" == false ]]; then
                 abcli_log "shutting down."
                 sudo shutdown -h now
@@ -71,18 +71,19 @@ function abcli_host() {
         return
     fi
 
-    if [ $task == "tag" ] ; then
+    if [ $task == "tag" ]; then
         local tags=$2
 
         local host_name=$3
-        if [ -z "$host_name" ] || [ "$host_name" == "." ] ; then
+        if [ -z "$host_name" ] || [ "$host_name" == "." ]; then
             local host_name=$abcli_host_name
         fi
-            
+
         abcli_tag set $host_name $tags
 
         return
     fi
 
     abcli_log_error "-abcli: host: $task: command not found."
+    return 1
 }

@@ -52,4 +52,5 @@ function abcli_plugins() {
     fi
 
     abcli_log_error "-abcli: plugins: $task: command not found."
+    return 1
 }

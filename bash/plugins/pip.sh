@@ -19,4 +19,5 @@ function abcli_pip() {
     fi
 
     abcli_log_error "-abcli: pip: $task: command not found."
+    return 1
 }

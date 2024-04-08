@@ -78,4 +78,5 @@ function abcli_metadata() {
     fi
 
     abcli_log_error "-abcli: metadata: $task: command not found."
+    return 1
 }

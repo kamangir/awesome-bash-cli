@@ -76,6 +76,7 @@ function abcli_log() {
             abcli_set_log_verbosity
         else
             abcli_log_error "-abcli: log: verbose: $what: command not found."
+            return 1
         fi
 
         return

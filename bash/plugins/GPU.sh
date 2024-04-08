@@ -23,6 +23,7 @@ function abcli_gpu() {
     fi
 
     abcli_log_error "-abcli: gpu: $task: command not found."
+    return 1
 }
 
 function abcli_gpu_status() {
@@ -73,6 +74,7 @@ function abcli_gpu_status() {
     fi
 
     abcli_log_error "-abcli: gpu: status: $task: command not found."
+    return 1
 }
 
 abcli_gpu_status get

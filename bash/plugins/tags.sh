@@ -90,4 +90,5 @@ function abcli_tag() {
     fi
 
     abcli_log_error "-abcli: tag: $task: command not found."
+    return 1
 }

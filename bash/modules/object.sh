@@ -57,4 +57,5 @@ function abcli_object() {
     fi
 
     abcli_log_error "-abcli: object: $task: command not found."
+    return 1
 }

@@ -84,4 +84,5 @@ function abcli_storage() {
     fi
 
     abcli_log_error "-abcli: storage: $task: command not found."
+    return 1
 }

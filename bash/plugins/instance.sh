@@ -166,4 +166,5 @@ function abcli_instance() {
     fi
 
     abcli_log_error "-abcli: instance: $task: command not found."
+    return 1
 }

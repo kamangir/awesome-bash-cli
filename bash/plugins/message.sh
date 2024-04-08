@@ -66,4 +66,5 @@ function abcli_message() {
     fi
 
     abcli_log_error "-abcli: message: $task: command not found."
+    return 1
 }
