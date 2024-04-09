@@ -5,7 +5,7 @@ function abcli_eval() {
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         local options="dryrun,~log,path=<path>"
-        abcli_show_usage "abcli eval$ABCUL[$options]$ABCUL<command-line>" \
+        abcli_show_usage "@eval$ABCUL[$options]$ABCUL<command-line>" \
             "eval <command-line>."
         return
     fi

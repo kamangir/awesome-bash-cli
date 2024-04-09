@@ -78,4 +78,6 @@ alias @timestamp=abcli_string_timestamp
 
 alias @upload=abcli_upload
 
+alias @version="abcli version"
+
 alias @watch=abcli_watch
