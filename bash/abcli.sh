@@ -7,7 +7,10 @@ export abcli_path_bash="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 &&
 function abcli_main() {
     local options=$1
 
-    [[ ",$options," == *",verbose,"* ]] && set -x
+    if [[ ",$options," == *",verbose,"* ]]; then
+        set -x
+        touch $abcli_path_bash/../../verbose
+    fi
 
     export abcli_is_silent=false
     [[ ",$options," == *",silent,"* ]] && export abcli_is_silent=true
