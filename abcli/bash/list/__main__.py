@@ -1,8 +1,9 @@
+import os
 import argparse
 from . import NAME
 
-GREEN = "\033[0;32m"
-NC = "\033[0m"
+GREEN = os.getenv("GREEN", "")
+NC = os.getenv("NC", "")
 
 
 LIST_OF_TASKS = "in|intersect|item|len|log|nonempty|resize|sort"
