@@ -71,7 +71,7 @@ def post(
     source_type: MetadataSourceType = MetadataSourceType.FILENAME,
     is_base64_encoded=False,
     verbose: bool = False,
-):
+) -> bool:
     if is_base64_encoded:
         value = str(base64.b64decode(value))
 

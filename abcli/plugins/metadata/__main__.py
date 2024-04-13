@@ -61,6 +61,12 @@ parser.add_argument(
     "--value",
     type=str,
 )
+parser.add_argument(
+    "--verbose",
+    type=int,
+    default="0",
+    help="0|1",
+)
 args = parser.parse_args()
 
 delim = " " if args.delim == "space" else args.delim
@@ -86,6 +92,7 @@ elif args.task == "post":
         source=args.source,
         source_type=MetadataSourceType[args.source_type.upper()],
         is_base64_encoded=args.is_base64_encoded,
+        verbose=args.verbose == 1,
     )
 else:
     logger.error(f"-{NAME}: {args.task}: command not found.")
