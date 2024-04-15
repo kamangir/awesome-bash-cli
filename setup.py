@@ -24,4 +24,7 @@ setup(
         f"{NAME}.table",
         f"{NAME}.tests",
     ],
+    package_data={
+        NAME: ["config.env"],
+    },
 )
