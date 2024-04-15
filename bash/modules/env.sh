@@ -189,7 +189,7 @@ function abcli_env() {
             done
             popd >/dev/null
 
-            abcli_log "📜 $repo_name/$filename: $count env var(s)"
+            abcli_log "📜 $repo_name: $filename: $count env var(s)"
             return
         fi
 

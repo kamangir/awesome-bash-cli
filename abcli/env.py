@@ -3,23 +3,30 @@ from dotenv import load_dotenv
 import pkg_resources
 
 
-load_dotenv(
-    os.path.join(
-        os.path.dirname(
-            pkg_resources.resource_filename(
-                __name__,
-                "",
-            )
-        ),
-        ",env",
+def load_config(package_name: str):
+    env_filename = pkg_resources.resource_filename(
+        __name__,
+        "config.env",
     )
-)
+    assert load_dotenv(env_filename), pkg_resources.resource_listdir(__name__, "")
 
-env_filename = pkg_resources.resource_filename(
-    __name__,
-    "config.env",
-)
-assert load_dotenv(env_filename), pkg_resources.resource_listdir("abcli", "")
+
+def load_env(package_name: str):
+    load_dotenv(
+        os.path.join(
+            os.path.dirname(
+                pkg_resources.resource_filename(
+                    package_name,
+                    "",
+                )
+            ),
+            ".env",
+        )
+    )
+
+
+load_env(__name__)
+load_config(__name__)
 
 
 abcli_aws_ec2_default_image_name = os.getenv("abcli_aws_ec2_default_image_name", "")
