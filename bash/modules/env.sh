@@ -215,4 +215,4 @@ function abcli_env() {
 
 abcli_env dot load
 abcli_env dot load \
-    filename=config.env
+    filename=abcli/config.env

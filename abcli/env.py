@@ -1,10 +1,26 @@
 import os
 from dotenv import load_dotenv
+import pkg_resources
 
-parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-load_dotenv(os.path.join(parent_dir, ".env"))
-load_dotenv(os.path.join(parent_dir, "config.env"))
+load_dotenv(
+    os.path.join(
+        os.path.dirname(
+            pkg_resources.resource_filename(
+                __name__,
+                "",
+            )
+        ),
+        ",env",
+    )
+)
+
+env_filename = pkg_resources.resource_filename(
+    __name__,
+    "config.env",
+)
+assert load_dotenv(env_filename), env_filename
+
 
 abcli_aws_ec2_default_image_name = os.getenv("abcli_aws_ec2_default_image_name", "")
 abcli_aws_ec2_default_instance_type = os.getenv(

@@ -25,6 +25,6 @@ setup(
         f"{NAME}.tests",
     ],
     package_data={
-        NAME: ["config.env"],
+        NAME: ["abcli/config.env"],
     },
 )

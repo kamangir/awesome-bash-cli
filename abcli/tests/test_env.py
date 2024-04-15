@@ -4,8 +4,6 @@ from abcli import file
 
 
 def test_abcli_env():
-    assert file.exist(os.path.join(env.parent_dir, "config.env"))
-
     assert env.abcli_path_home
     assert env.abcli_path_git
     assert env.abcli_path_storage
