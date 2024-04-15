@@ -22,5 +22,6 @@ setup(
         f"{NAME}.plugins.tags",
         f"{NAME}.string",
         f"{NAME}.table",
+        f"{NAME}.tests",
     ],
 )
