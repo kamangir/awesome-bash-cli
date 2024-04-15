@@ -19,7 +19,7 @@ env_filename = pkg_resources.resource_filename(
     __name__,
     "config.env",
 )
-assert load_dotenv(env_filename), env_filename
+assert load_dotenv(env_filename), pkg_resources.resource_listdir("abcli", "")
 
 
 abcli_aws_ec2_default_image_name = os.getenv("abcli_aws_ec2_default_image_name", "")
