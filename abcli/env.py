@@ -8,14 +8,14 @@ def load_config(
     verbose: bool = False,
 ):
     env_filename = pkg_resources.resource_filename(
-        __name__,
+        package_name,
         "config.env",
     )
 
     if verbose:
         print(f"loading {env_filename}.")
 
-    assert load_dotenv(env_filename), pkg_resources.resource_listdir(__name__, "")
+    assert load_dotenv(env_filename), pkg_resources.resource_listdir(package_name, "")
 
 
 def load_env(
