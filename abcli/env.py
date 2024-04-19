@@ -3,26 +3,39 @@ from dotenv import load_dotenv
 import pkg_resources
 
 
-def load_config(package_name: str):
+def load_config(
+    package_name: str,
+    verbose: bool = False,
+):
     env_filename = pkg_resources.resource_filename(
         __name__,
         "config.env",
     )
+
+    if verbose:
+        print(f"loading {env_filename}.")
+
     assert load_dotenv(env_filename), pkg_resources.resource_listdir(__name__, "")
 
 
-def load_env(package_name: str):
-    load_dotenv(
-        os.path.join(
-            os.path.dirname(
-                pkg_resources.resource_filename(
-                    package_name,
-                    "",
-                )
-            ),
-            ".env",
-        )
+def load_env(
+    package_name: str,
+    verbose: bool = False,
+):
+    env_filename = os.path.join(
+        os.path.dirname(
+            pkg_resources.resource_filename(
+                package_name,
+                "",
+            )
+        ),
+        ".env",
     )
+
+    if verbose:
+        print(f"loading {env_filename}.")
+
+    load_dotenv(env_filename)
 
 
 load_env(__name__)
