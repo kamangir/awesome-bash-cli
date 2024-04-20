@@ -4,30 +4,31 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli git [cd] <repo_name>" \
+        abcli_show_usage "@git <repo_name>$ABCUL<command-args>" \
+            "run '@git <command-args>' in $abcli_path_git/<repo_name>."
+
+        abcli_show_usage "@git [cd] <repo_name>" \
             "cd <repo_name>."
-        abcli_show_usage "abcli git browse$ABCUL<repo_name>" \
+        abcli_show_usage "@git browse$ABCUL<repo_name>" \
             "browse <repo_name>."
-        abcli_show_usage "abcli git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
+        abcli_show_usage "@git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
             "clone <repo_name>."
-        abcli_show_usage "abcli git create_branch$ABCUL<repo_name>$ABCUL<branch-name>" \
+        abcli_show_usage "@git create_branch$ABCUL<repo_name>$ABCUL<branch-name>" \
             "create branch <branch-name> in <repo_name>."
 
         abcli_git_pull $@
 
-        abcli_show_usage "abcli git <repo_name>$ABCUL<command-args>" \
-            "run 'git <command-args>' in $abcli_path_git/<repo_name>."
-        abcli_show_usage "abcli git push$ABCUL<repo_name>$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
+        abcli_show_usage "@git push$ABCUL<repo_name>$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
             "[first] push to <repo_name>."
-        abcli_show_usage "abcli git recreate_ssh" \
+        abcli_show_usage "@git recreate_ssh" \
             "recreate github ssh key."
-        abcli_show_usage "abcli git review$ABCUL[.|<repo_name>]" \
+        abcli_show_usage "@git review$ABCUL[.|<repo_name>]" \
             "review <repo-name>."
-        abcli_show_usage "abcli git select_issue$ABCUL<kamangir/bolt#abc>" \
+        abcli_show_usage "@git select_issue$ABCUL<kamangir/bolt#abc>" \
             "select git issue."
-        abcli_show_usage "abcli git sync_fork$ABCUL<repo-name>$ABCUL<branch-name>" \
+        abcli_show_usage "@git sync_fork$ABCUL<repo-name>$ABCUL<branch-name>" \
             "sync fork w/ upstream."
-        abcli_show_usage "abcli git status" \
+        abcli_show_usage "@git status" \
             "git status."
         return
     fi
@@ -46,7 +47,7 @@ function abcli_git() {
         fi
 
         pushd $abcli_path_git/$repo_name >/dev/null
-        git "${@:2}"
+        abcli_git "${@:2}"
         popd >/dev/null
 
         return
@@ -369,7 +370,7 @@ function abcli_git_pull() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli git pull$ABCUL[~all,init]" \
+        abcli_show_usage "@git pull$ABCUL[~all,init]" \
             "pull [not all repos] [and init if version change]."
         return
     fi
