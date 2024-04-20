@@ -33,7 +33,7 @@ def increment_version(repo_path: str) -> bool:
             version_parts[1] = str(int(version_parts[1]) + 1)
             new_version = match.group(1) + ".".join(version_parts) + match.group(3)
 
-            logger.info(f"version={new_version}")
+            logger.info(new_version)
 
             updated_source_code.append(new_version)
         else:
