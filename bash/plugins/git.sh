@@ -7,29 +7,17 @@ function abcli_git() {
         abcli_show_usage "@git <repo_name> <command-line>" \
             "run '@git <command-line>' in <repo_name>."
 
-        abcli_show_usage "@git [cd] <repo_name>" \
-            "cd <repo_name>."
-        abcli_show_usage "@git browse [.|<repo_name>]" \
-            "browse <repo_name>."
-        abcli_show_usage "@git clone [.|<repo_name>]$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
-            "clone <repo_name>."
-        abcli_show_usage "@git create_branch$ABCUL[.|<repo_name>]$ABCUL<branch-name>" \
-            "create <branch-name> in <repo_name>."
-
+        abcli_git cd "$@"
+        abcli_git browse "$@"
+        abcli_git clone "$@"
+        abcli_git create_branch "$@"
         abcli_git_pull $@
-
-        abcli_show_usage "@git push$ABCUL[.|<repo_name>]$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
-            "[first] push to <repo_name>."
-        abcli_show_usage "@git recreate_ssh" \
-            "recreate github ssh key."
-        abcli_show_usage "@git review [.|<repo_name>]" \
-            "review <repo-name>."
-        abcli_show_usage "@git select_issue$ABCUL<kamangir/bolt#abc>" \
-            "select git issue."
-        abcli_show_usage "@git sync_fork$ABCUL[.|<repo_name>]$ABCUL<branch-name>" \
-            "sync fork w/ upstream."
-        abcli_show_usage "@git status" \
-            "git status."
+        abcli_git push "$@"
+        abcli_git recreate_ssh "$@"
+        abcli_git review "$@"
+        abcli_git select_issue "$@"
+        abcli_git status "$@"
+        abcli_git sync_fork "$@"
         return
     fi
 
@@ -54,6 +42,58 @@ function abcli_git() {
     fi
 
     local repo_name_org=$2
+
+    if [[ "$repo_name_org" == "help" ]]; then
+        case $task in
+        browse)
+            abcli_show_usage "@git browse [.|<repo_name>]" \
+                "browse <repo_name>."
+            ;;
+        cd)
+            abcli_show_usage "@git [cd] <repo_name>" \
+                "cd <repo_name>."
+            ;;
+        clone)
+            abcli_show_usage "@git clone [.|<repo_name>]$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
+                "clone <repo_name>."
+            ;;
+        create_branch)
+            abcli_show_usage "@git create_branch$ABCUL[.|<repo_name>]$ABCUL<branch-name>" \
+                "create <branch-name> in <repo_name>."
+            ;;
+        push)
+            abcli_show_usage "@git push$ABCUL[.|<repo_name>]$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
+                "[first] push to <repo_name>."
+            ;;
+        recreate_ssh)
+            abcli_show_usage "@git recreate_ssh" \
+                "recreate github ssh key."
+            ;;
+        review)
+            abcli_show_usage "@git review [.|<repo_name>]" \
+                "review <repo-name>."
+            ;;
+        select_issue)
+            abcli_show_usage "@git select_issue$ABCUL<kamangir/bolt#abc>" \
+                "select git issue."
+            ;;
+        sync_fork)
+            abcli_show_usage "@git sync_fork$ABCUL[.|<repo_name>]$ABCUL<branch-name>" \
+                "sync fork w/ upstream."
+            ;;
+        status)
+            abcli_show_usage "@git status" \
+                "git status."
+            ;;
+        *)
+            abcli_log_error "-abcli: git: $task: command not found."
+            return 1
+            ;;
+        esac
+
+        return
+    fi
+
     local repo_name=$(abcli_unpack_repo_name $2 .)
 
     if [ "$task" == "browse" ]; then
