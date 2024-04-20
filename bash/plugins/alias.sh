@@ -25,6 +25,7 @@ alias @env=abcli_env
 alias @eval=abcli_eval
 
 alias @git=abcli_git
+alias @git++="abcli_git increment_version"
 
 alias @gpu=abcli_gpu
 

@@ -6,14 +6,6 @@ function abcli_select() {
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli select [<object_name>] [open,type=<type>,~trail]" \
             "select [object_name]."
-        abcli_show_usage "abcli select git_issue <abc>" \
-            "select git issue kamangir/bolt#<abc>."
-        return
-    fi
-
-    if [ "$task" == "git_issue" ]; then
-        export abcli_bolt_git_issue=$2
-        abcli_log "#️⃣ git-issue: kamangir/bolt#$abcli_bolt_git_issue"
         return
     fi
 
