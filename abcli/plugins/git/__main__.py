@@ -1,9 +1,7 @@
 import argparse
-from abcli import file
+from abcli.plugins.git import increment_version, NAME
 from abcli.logger import logger
 
-
-NAME = "abcli.plugins.git"
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -20,9 +18,7 @@ args = parser.parse_args()
 
 success = False
 if args.task == "increment_version":
-    logger.info(f"{NAME}.increment_version({args.repo_path})")
-    logger.info("🪄")
-    success = True
+    success = increment_version(args.repo_path)
 else:
     logger.error(f"-{NAME}: {args.task}: command not found.")
 
