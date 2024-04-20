@@ -44,9 +44,11 @@ function abcli_git() {
     local repo_name_org=$2
 
     if [[ "$repo_name_org" == "help" ]]; then
+        local options
         case $task in
         browse)
-            abcli_show_usage "@git browse [.|<repo_name>]" \
+            options="actions"
+            abcli_show_usage "@git browse [.|<repo_name>]$ABCUL[$options]" \
                 "browse <repo_name>."
             ;;
         cd)
@@ -54,7 +56,8 @@ function abcli_git() {
                 "cd <repo_name>."
             ;;
         clone)
-            abcli_show_usage "@git clone [.|<repo_name>]$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
+            options="cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>"
+            abcli_show_usage "@git clone [.|<repo_name>]$ABCUL[$options]" \
                 "clone <repo_name>."
             ;;
         create_branch)
@@ -62,7 +65,8 @@ function abcli_git() {
                 "create <branch-name> in <repo_name>."
             ;;
         push)
-            abcli_show_usage "@git push$ABCUL[.|<repo_name>]$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
+            options="accept_no_issue,delete,first,object,~status"
+            abcli_show_usage "@git push$ABCUL[.|<repo_name>]$ABCUL[$options]$ABCUL[<message>]" \
                 "[first] push to <repo_name>."
             ;;
         recreate_ssh)
@@ -97,7 +101,13 @@ function abcli_git() {
     local repo_name=$(abcli_unpack_repo_name $2 .)
 
     if [ "$task" == "browse" ]; then
-        abcli_browse_url https://github.com/kamangir/$repo_name
+        local options=$3
+        local browse_actions=$(abcli_option_int "$options" actions 0)
+
+        local url=https://github.com/kamangir/$repo_name
+        [[ "$browse_actions" == 1 ]] && url="$url/actions"
+
+        abcli_browse_url $url
         return
     fi
 
