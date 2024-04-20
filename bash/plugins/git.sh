@@ -4,29 +4,29 @@ function abcli_git() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "@git <repo_name>$ABCUL<command-args>" \
-            "run '@git <command-args>' in $abcli_path_git/<repo_name>."
+        abcli_show_usage "@git <repo_name> <command-line>" \
+            "run '@git <command-line>' in <repo_name>."
 
         abcli_show_usage "@git [cd] <repo_name>" \
             "cd <repo_name>."
-        abcli_show_usage "@git browse$ABCUL<repo_name>" \
+        abcli_show_usage "@git browse [.|<repo_name>]" \
             "browse <repo_name>."
-        abcli_show_usage "@git clone$ABCUL<repo_name>$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
+        abcli_show_usage "@git clone [.|<repo_name>]$ABCUL[cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>]" \
             "clone <repo_name>."
-        abcli_show_usage "@git create_branch$ABCUL<repo_name>$ABCUL<branch-name>" \
-            "create branch <branch-name> in <repo_name>."
+        abcli_show_usage "@git create_branch$ABCUL[.|<repo_name>]$ABCUL<branch-name>" \
+            "create <branch-name> in <repo_name>."
 
         abcli_git_pull $@
 
-        abcli_show_usage "@git push$ABCUL<repo_name>$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
+        abcli_show_usage "@git push$ABCUL[.|<repo_name>]$ABCUL[accept_no_issue,delete,first,object,~status]$ABCUL[<message>]" \
             "[first] push to <repo_name>."
         abcli_show_usage "@git recreate_ssh" \
             "recreate github ssh key."
-        abcli_show_usage "@git review$ABCUL[.|<repo_name>]" \
+        abcli_show_usage "@git review [.|<repo_name>]" \
             "review <repo-name>."
         abcli_show_usage "@git select_issue$ABCUL<kamangir/bolt#abc>" \
             "select git issue."
-        abcli_show_usage "@git sync_fork$ABCUL<repo-name>$ABCUL<branch-name>" \
+        abcli_show_usage "@git sync_fork$ABCUL[.|<repo_name>]$ABCUL<branch-name>" \
             "sync fork w/ upstream."
         abcli_show_usage "@git status" \
             "git status."
@@ -35,7 +35,7 @@ function abcli_git() {
 
     local function_name="abcli_git_$task"
     if [[ $(type -t $function_name) == "function" ]]; then
-        $function_name ${@:2}
+        $function_name "${@:2}"
         return
     fi
 
