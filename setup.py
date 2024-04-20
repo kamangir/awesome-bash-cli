@@ -9,7 +9,10 @@ setup(
     description=DESCRIPTION,
     packages=[
         NAME,
+        f"{NAME}.bash",
+        f"{NAME}.bash.list",
         f"{NAME}.file",
+        f"{NAME}.keywords",
         f"{NAME}.options",
         f"{NAME}.path",
         f"{NAME}.modules",
