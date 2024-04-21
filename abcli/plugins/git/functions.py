@@ -12,20 +12,28 @@ def increment_version(
 ) -> bool:
     logger.info(f"{NAME}.increment_version({repo_path})")
 
-    filename = sorted(
-        glob.glob(
-            os.path.join(repo_path, "**", "__init__.py"),
-            recursive=True,
-        )
+    list_of_paths = sorted(
+        [
+            file.path(filename)
+            for filename in glob.glob(
+                os.path.join(repo_path, "**", "__init__.py"),
+                recursive=True,
+            )
+        ]
     )
     if verbose:
-        logger.info("{} options: {}".format(len(filename), ", ".join(filename)))
+        logger.info(
+            "{} options: {}".format(
+                len(list_of_paths),
+                ", ".join(list_of_paths),
+            )
+        )
 
-    if not filename:
+    if not list_of_paths:
         logger.error("cannot find __init__.py, quitting.")
         return False
 
-    filename = filename[0]
+    filename = os.path.join(list_of_paths[0], "__init__.py")
     success, source_code = file.load_text(filename, log=True)
     if not success:
         return success
