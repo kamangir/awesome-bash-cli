@@ -39,8 +39,4 @@ def increment_version(repo_path: str) -> bool:
         else:
             updated_source_code.append(line)
 
-    return file.save_text(
-        filename,
-        updated_source_code,
-        log=True,
-    )
+    return file.save_text(filename, updated_source_code)
