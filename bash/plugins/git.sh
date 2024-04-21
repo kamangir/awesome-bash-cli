@@ -20,6 +20,11 @@ function abcli_git() {
         return
     fi
 
+    if [ "$task" == "++" ]; then
+        abcli_git increment_version "${@:2}"
+        return
+    fi
+
     local repo_name=$(abcli_unpack_repo_name $1)
     if [ -d "$abcli_path_git/$repo_name" ]; then
         if [[ -z "${@:2}" ]]; then

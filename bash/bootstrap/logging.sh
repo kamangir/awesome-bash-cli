@@ -15,9 +15,6 @@ fi
 # new line
 export ABCUL=" \\\\\n\t"
 
-# horizontal line
-export ABCHR=$(python3 -c "print(''.join(30*[' .. ']))")
-
 # Extra Options
 export EOP=$YELLOW
 export EOPE=$LIGHTBLUE
@@ -55,8 +52,8 @@ function abcli_show_usage() {
 }
 
 function abcli_hr() {
-    python3 -m abcli.bash.logging hr \
-        --width $(tput cols)
+    printf "$(python3 -m abcli.bash.logging hr \
+        --width $(tput cols))\n"
 }
 
 function abcli_log() {

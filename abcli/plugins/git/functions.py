@@ -39,4 +39,7 @@ def increment_version(repo_path: str) -> bool:
         else:
             updated_source_code.append(line)
 
+    while updated_source_code and not updated_source_code[len(updated_source_code) - 1]:
+        updated_source_code = updated_source_code[:-1]
+
     return file.save_text(filename, updated_source_code)

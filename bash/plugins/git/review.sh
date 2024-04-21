@@ -22,7 +22,7 @@ function abcli_git_review() {
 
         clear
         git status
-        abcli_log "$ABCHR"
+        abcli_hr
         printf "📜 $RED$filename$NC\n"
 
         if [[ "$filename" == *.ipynb ]]; then
@@ -31,7 +31,7 @@ function abcli_git_review() {
             git diff $filename
         fi
 
-        abcli_log "$ABCHR"
+        abcli_hr
         abcli_log "# Enter|space: next - p: previous - q: quit."
         read -n 1 char
         [[ "$char" == "q" ]] && break
