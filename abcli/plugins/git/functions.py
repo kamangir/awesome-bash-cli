@@ -31,11 +31,11 @@ def increment_version(repo_path: str) -> bool:
         if match:
             version_parts = match.group(2).split(".")
             version_parts[1] = str(int(version_parts[1]) + 1)
-            new_version = match.group(1) + ".".join(version_parts) + match.group(3)
+            updated_line = match.group(1) + ".".join(version_parts) + match.group(3)
 
-            logger.info(new_version)
+            logger.info(f"{line} -> {updated_line}")
 
-            updated_source_code.append(new_version)
+            updated_source_code.append(updated_line)
         else:
             updated_source_code.append(line)
 

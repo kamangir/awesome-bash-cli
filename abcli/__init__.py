@@ -2,7 +2,7 @@ import os
 
 NAME = "abcli"
 
-VERSION = "8.47.1"
+VERSION = "8.48.1"
 
 DESCRIPTION = "🚀 a language to speak AI."
 
@@ -13,6 +13,7 @@ def fullname() -> str:
         VERSION,
         f"-{abcli_git_branch}" if abcli_git_branch else "",
     )
+
 
 
 
