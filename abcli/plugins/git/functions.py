@@ -6,7 +6,10 @@ from abcli.plugins.git import NAME
 from abcli.logger import logger
 
 
-def increment_version(repo_path: str) -> bool:
+def increment_version(
+    repo_path: str,
+    verbose: bool = False,
+) -> bool:
     logger.info(f"{NAME}.increment_version({repo_path})")
 
     filename = sorted(
@@ -15,6 +18,9 @@ def increment_version(repo_path: str) -> bool:
             recursive=True,
         )
     )
+    if verbose:
+        logger.info("{} options: {}".format(len(filename), ", ".join(filename)))
+
     if not filename:
         logger.error("cannot find __init__.py, quitting.")
         return False

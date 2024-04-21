@@ -57,7 +57,9 @@ function abcli_git() {
                 "create <branch-name> in the repo."
             ;;
         increment_version)
-            abcli_show_usage "@git ++|increment|increment_version" \
+            local options=diff
+            local args="[--verbose 1]"
+            abcli_show_usage "@git ++|increment|increment_version$ABCUL[$options]$ABCUL$args" \
                 "increment repo version."
             ;;
         pull)
