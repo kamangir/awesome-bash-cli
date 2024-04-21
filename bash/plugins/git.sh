@@ -61,7 +61,7 @@ function abcli_git() {
                 "pull."
             ;;
         push)
-            options="+plus,delete,first,object,~status"
+            options="+plus,browse,delete,first,object,~status"
             abcli_show_usage "@git push [<message>]$ABCUL[$options]" \
                 "push to the repo."
             ;;

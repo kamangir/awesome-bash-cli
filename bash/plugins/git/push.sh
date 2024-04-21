@@ -5,6 +5,7 @@ function abcli_git_push() {
 
     local options=$2
     local in_object=$(abcli_option_int "$options" object 0)
+    local do_browse=$(abcli_option_int "$options" browse 0)
     local do_delete=$(abcli_option_int "$options" delete 0)
     local do_increment_version=$(abcli_option_int "$options" plus 0)
     local show_status=$(abcli_option_int "$options" status 1)
@@ -42,4 +43,6 @@ function abcli_git_push() {
 
     popd >/dev/null
 
+    [[ "$do_browse" == 1 ]] &&
+        abcli_git $repo_name browse actions
 }
