@@ -54,6 +54,11 @@ function abcli_show_usage() {
         printf "${GREEN} * $comments${NC}\n"
 }
 
+function abcli_hr() {
+    python3 -m abcli.bash.logging hr \
+        --width $(tput cols)
+}
+
 function abcli_log() {
     local task=$(abcli_unpack_keyword "$1")
 

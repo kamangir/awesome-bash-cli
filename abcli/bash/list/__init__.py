@@ -1,1 +1,0 @@
-NAME = "abcli.bash.list"

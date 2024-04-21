@@ -58,3 +58,24 @@ function abcli_test() {
 
 abcli_source_path \
     $abcli_path_abcli/bash/tests
+
+function abcli_assert() {
+    local value=$1
+    local expected_value=$2
+    local message=$3
+
+    if [[ "$value" == "$expected_value" ]]; then
+        abcli_log "✅ $message: $value"
+        return
+    fi
+
+    abcli_log_error "$message: $value != $expected_value"
+    return 1
+}
+
+function abcli_assert_list() {
+    abcli_assert \
+        $(abcli_list_sort "$1") \
+        $(abcli_list_sort "$2") \
+        "${@:3}"
+}

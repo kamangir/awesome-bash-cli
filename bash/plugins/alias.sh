@@ -4,6 +4,8 @@ alias @=abcli
 
 alias @T=abcli_terraform
 
+alias @assert=abcli_assert
+
 alias @mac='if [ "$abcli_is_mac" == true ]; then'
 alias @.='fi'
 
@@ -32,6 +34,8 @@ alias @gpu=abcli_gpu
 alias @help=abcli_help
 
 alias @host=abcli_host
+
+alias @hr=abcli_hr
 
 alias @init=abcli_init
 

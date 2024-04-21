@@ -10,7 +10,6 @@ setup(
     packages=[
         NAME,
         f"{NAME}.bash",
-        f"{NAME}.bash.list",
         f"{NAME}.file",
         f"{NAME}.keywords",
         f"{NAME}.options",

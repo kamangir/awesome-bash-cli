@@ -1,9 +1,7 @@
-import os
 import argparse
-from . import NAME
+from abcli.bash.colors import GREEN, NC
 
-GREEN = os.getenv("GREEN", "")
-NC = os.getenv("NC", "")
+NAME = "abcli.bash.list"
 
 
 LIST_OF_TASKS = "in|intersect|item|len|log|nonempty|resize|sort"
