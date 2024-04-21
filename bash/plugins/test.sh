@@ -43,6 +43,8 @@ function abcli_test() {
             abcli_log "$test_name: failed."
             failed_test_list=$failed_test_list,$test_name
         fi
+
+        abcli_hr
     done
 
     failed_test_list=$(abcli_list_nonempty $failed_test_list)
