@@ -20,7 +20,7 @@ def increment_version(repo_path: str) -> bool:
         return False
 
     filename = filename[0]
-    success, source_code = file.load_text(filename)
+    success, source_code = file.load_text(filename, log=True)
     if not success:
         return success
 
@@ -39,4 +39,8 @@ def increment_version(repo_path: str) -> bool:
         else:
             updated_source_code.append(line)
 
-    return file.save_text(filename, updated_source_code)
+    return file.save_text(
+        filename,
+        updated_source_code,
+        log=True,
+    )
