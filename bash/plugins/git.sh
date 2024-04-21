@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 function abcli_git() {
-    local task=$(abcli_unpack_keyword $1 help)
+    local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
         abcli_show_usage "@git <repo_name> <command-line>" \
