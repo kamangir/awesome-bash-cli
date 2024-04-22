@@ -52,7 +52,7 @@ function abcli_show_usage() {
 }
 
 function abcli_hr() {
-    local width=40
+    local width=42
     ! $abcli_is_github_workflow && width=$(tput cols)
 
     printf "$(python3 -m abcli.bash.logging hr \
