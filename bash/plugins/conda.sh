@@ -1,17 +1,42 @@
 #! /usr/bin/env bash
 
 function abcli_conda() {
-    local task=$(abcli_unpack_keyword $1 help)
+    local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli conda create_env$ABCUL[clone=<auto|base>,name=<environment-name>,repo=<repo-name>,~recreate]" \
-            "create conda environment."
-        abcli_show_usage "abcli conda exists$ABCUL[<environment-name>]" \
-            "does conda environment exist? true|false."
-        abcli_show_usage "abcli conda list" \
-            "show list of conda environments."
-        abcli_show_usage "abcli conda remove|rm$ABCUL[<environment-name>]" \
-            "remove conda environment."
+        abcli_conda create "$@"
+        abcli_conda exists "$@"
+        abcli_conda list "$@"
+        abcli_conda remove "$@"
+        return
+    fi
+
+    if [[ "$2" == "help" ]]; then
+        local options
+        case $task in
+        create)
+            options="clone=<auto|base>,name=<environment-name>,repo=<repo-name>,~recreate"
+            abcli_show_usage "@conda create$ABCUL[$options]" \
+                "create conda environment."
+            ;;
+        exists)
+            abcli_show_usage "@conda exists$ABCUL[<environment-name>]" \
+                "does conda environment exist? true|false."
+            ;;
+        list)
+            abcli_show_usage "@conda list" \
+                "show list of conda environments."
+            ;;
+        remove | rm)
+            abcli_show_usage "@conda remove|rm$ABCUL[<environment-name>]" \
+                "remove conda environment."
+            ;;
+        *)
+            abcli_log_error "-@conda: $task: command not found."
+            return 1
+            ;;
+        esac
+
         return
     fi
 
@@ -20,53 +45,6 @@ function abcli_conda() {
 
         conda activate base
         conda remove -y --name $environment_name --all
-
-        return
-    fi
-
-    if [ "$task" == "create_env" ]; then
-        local options=$2
-        local clone_from=$(abcli_option "$options" clone auto)
-        local do_recreate=$(abcli_option_int "$options" recreate 1)
-        local environment_name=$(abcli_option "$options" name abcli)
-        local repo_name=$(abcli_unpack_repo_name $environment_name)
-        repo_name=$(abcli_option "$options" repo $repo_name)
-
-        conda init bash
-
-        if [[ "$do_recreate" == 0 ]] && [[ $(abcli_conda exists $environment_name) == 1 ]]; then
-            abcli_eval - conda activate $environment_name
-            return
-        fi
-
-        if [ "$clone_from" == auto ]; then
-            if [[ "$abcli_is_sagemaker" == true ]]; then
-                local clone_from=base
-            else
-                local clone_from=""
-            fi
-        fi
-
-        conda activate base
-        conda remove -y --name $environment_name --all
-
-        if [[ -z "$clone_from" ]]; then
-            echo "conda: creating $environment_name"
-            conda create -y --name $environment_name python=3.9
-        else
-            echo "conda: cloning $clone_from -> $environment_name"
-            conda create -y --name $environment_name --clone $clone_from
-        fi
-
-        conda activate $environment_name
-
-        pushd $abcli_path_git/awesome-bash-cli >/dev/null
-        pip3 install -e .
-        popd >/dev/null
-
-        abcli_eval \
-            path=$abcli_path_git/$repo_name \
-            pip3 install -e .
 
         return
     fi
@@ -84,19 +62,18 @@ function abcli_conda() {
     fi
 
     if [ "$task" == "list" ]; then
-        abcli_eval - \
-            conda info --envs
+        conda info --envs "${@:2}"
         return
     fi
 
-    if [ "$task" == "validate" ]; then
-        python3 -m abcli2.bootstrap \
-            validate
-        lspci # -v
-        nvidia-smi
+    local function_name="abcli_conda_$task"
+    if [[ $(type -t $function_name) == "function" ]]; then
+        $function_name "${@:2}"
         return
     fi
 
-    abcli_log_error "-abcli: conda: $task: command not found."
-    return 1
+    conda "$@"
 }
+
+abcli_source_path \
+    $abcli_path_git/awesome-bash-cli/bash/plugins/conda

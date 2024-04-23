@@ -18,7 +18,6 @@ KEYWORDS = {
     "bs": "blue-stability",
     "bw": "blue-wiki",
     "bwiki": "blue-wiki",
-    "ce": "create_env",
     "cp": "copy",
     "det": "detect",
     "dl": "download",

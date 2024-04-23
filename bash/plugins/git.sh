@@ -90,7 +90,7 @@ function abcli_git() {
                 "git status."
             ;;
         *)
-            abcli_log_error "-abcli: git: $task: command not found."
+            abcli_log_error "-@git: $task: command not found."
             return 1
             ;;
         esac
