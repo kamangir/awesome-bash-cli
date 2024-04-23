@@ -29,6 +29,7 @@ function abcli_plugins() {
             local repo_name=$(echo "$plugin_name" | tr _ -)
             pushd $abcli_path_git/$repo_name >/dev/null
             pip3 install -e .
+            pip3 install -r requirements.txt
             popd >/dev/null
         fi
 

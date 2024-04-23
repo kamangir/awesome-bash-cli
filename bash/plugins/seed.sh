@@ -219,7 +219,7 @@ function abcli_seed() {
                 local plugin_name=$(abcli_option "$options" plugin)
 
                 [[ ! -z "$plugin_name" ]] &&
-                    seed="${seed}$plugin_name conda create ~recreate,validate$delim"
+                    seed="${seed}abcli_conda create name=$plugin_name,~recreate$delim"
             fi
         fi
     fi

@@ -38,7 +38,10 @@ function abcli_conda_create() {
     pip3 install -r requirements.txt
     popd >/dev/null
 
-    abcli_eval \
-        path=$abcli_path_git/$repo_name \
-        pip3 install -e .
+    abcli_plugins install $repo_name
+
+    pip3 uninstall -y abcli
+    pushd $abcli_path_git/awesome-bash-cli >/dev/null
+    pip3 install -e .
+    popd >/dev/null
 }
