@@ -19,6 +19,7 @@ setup(
         f"{NAME}.plugins",
         f"{NAME}.plugins.cache",
         f"{NAME}.plugins.graphics",
+        f"{NAME}.plugins.git",
         f"{NAME}.plugins.gpu",
         f"{NAME}.plugins.metadata",
         f"{NAME}.plugins.storage",
