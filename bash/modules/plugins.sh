@@ -4,24 +4,25 @@ function abcli_plugins() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli plugins install [<plugin-name>]" \
+        abcli_show_usage "@plugins install [<plugin-name>]" \
             "install <plugin-name>|all plugins."
-        abcli_show_usage "abcli plugins is_present <plugin-name>" \
+
+        abcli_show_usage "@plugins is_present <plugin-name>" \
             "is <plugin-name> present?"
-        abcli_show_usage "abcli plugins list_of_external" \
+
+        abcli_show_usage "@plugins list_of_external" \
             "show list of expernal plugins."
 
-        if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
+        [[ "$(abcli_keyword_is $2 verbose)" == true ]] &&
             python3 -m abcli.plugins --help
-        fi
-        return
+
+        return 0
     fi
 
     if [ $task == "install" ]; then
         local plugin_name=$(abcli_unpack_keyword "$2")
 
         if [ -z "$plugin_name" ]; then
-            local plugin_name
             for plugin_name in $(abcli_plugins list_of_external --log 0 --delim space); do
                 abcli_plugins install $plugin_name
             done
@@ -48,10 +49,10 @@ function abcli_plugins() {
     if [ $task == "list_of_external" ]; then
         python3 -m abcli.plugins \
             list_of_external \
-            ${@:2}
+            "${@:2}"
         return
     fi
 
-    abcli_log_error "-abcli: plugins: $task: command not found."
+    abcli_log_error "-@plugins: $task: command not found."
     return 1
 }

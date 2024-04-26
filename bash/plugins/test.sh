@@ -4,20 +4,37 @@ function abcli_test() {
     local options=$1
     local plugin_name=$(abcli_option "$options" plugin abcli)
 
-    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        options="list"
-        [[ "$plugin_name" == abcli ]] && options="$options$EOP,plugin=<plugin-name>$EOPE"
-        abcli_show_usage "$plugin_name test$ABCUL$options" \
-            "list $plugin_name tests."
+    local plugin_display_name
+    [[ "$plugin_name" == abcli ]] &&
+        plugin_display_name="@" ||
+        plugin_display_name="$plugin_name "
 
-        options="${EOP}what=all|<test-name>,dryrun"
-        local test_options="dryrun$EOPE"
-        abcli_show_usage "$plugin_name test$ABCUL$options$ABCUL$test_options" \
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+        abcli_test list,plugin=$plugin_name "$@"
+
+        options="${EOP}what=all|<test-name>,dryrun$EOPE"
+        local test_options="${EOP}dryrun$EOPE"
+        abcli_show_usage "${plugin_display_name}test $options$ABCUL$test_options" \
             "test $plugin_name."
+
+        [[ "$plugin_name" == abcli ]] &&
+            abcli_show_usage "abcli_test$ABCUL$EOP$options,plugin=<plugin-name>$EOPE$ABCUL$test_options" \
+                "test <plugin-name>."
+
         return
     fi
 
     if [ $(abcli_option_int "$options" list 0) == 1 ]; then
+        if [ $(abcli_option_int "$2" help 0) == 1 ]; then
+            [[ "$plugin_name" == abcli ]] &&
+                abcli_show_usage "abcli_test list,plugin=<plugin-name>" \
+                    "list <plugin-name> tests."
+
+            abcli_show_usage "${plugin_display_name}test list" \
+                "list $plugin_name tests."
+            return
+        fi
+
         local plugin_name_=$(echo $plugin_name | tr - _)
         declare -F | awk '{print $3}' | grep test_${plugin_name_}
         return
