@@ -47,6 +47,7 @@ function abcli_test() {
         list_of_tests=$(abcli_test list,plugin=$plugin_name | tr "\n" " ")
     abcli_log_list "$list_of_tests" \
         --delim space \
+        --before "running" \
         --after "test(s)"
 
     local test_name
