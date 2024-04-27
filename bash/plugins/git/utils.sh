@@ -9,7 +9,7 @@ function abcli_get_abcli_git_branch() {
 }
 
 function abcli_git_get_branch() {
-    local repo_name=$(abcli_unpack_repo_name $1)
+    local repo_name=$(abcli_unpack_repo_name $1 .)
 
     local options=$2
     local in_object=$(abcli_option_int "$options" object 0)
