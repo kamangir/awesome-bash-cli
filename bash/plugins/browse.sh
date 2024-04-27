@@ -4,7 +4,7 @@ function abcli_browse_url() {
     local url=$1
 
     if [[ "$url" == "help" ]]; then
-        abcli_show_usage "abcli browse_url$ABCUL<url>" \
+        abcli_show_usage "abcli browse_url <url>" \
             "browse <url>."
         return
     fi

@@ -53,8 +53,13 @@ function abcli_git() {
                 "clone <repo-name>."
             ;;
         create_branch)
-            abcli_show_usage "@git create_branch$ABCUL<branch-name>" \
+            options="~increment_version"
+            abcli_show_usage "@git create_branch <branch-name>$ABCUL[$options]" \
                 "create <branch-name> in the repo."
+            ;;
+        create_pull_request)
+            abcli_show_usage "@git create_pull_request" \
+                "create a pull request in the repo."
             ;;
         increment_version)
             local options=diff
@@ -68,7 +73,7 @@ function abcli_git() {
                 "pull."
             ;;
         push)
-            options="browse,delete,first,-increment_version,object,~status"
+            options="browse,~create_pull_request,delete,first,~increment_version,object,~status"
             abcli_show_usage "@git push [<message>]$ABCUL[$options]" \
                 "push to the repo."
             ;;
@@ -81,7 +86,7 @@ function abcli_git() {
                 "review the repo."
             ;;
         sync_fork)
-            abcli_show_usage "@git sync_fork$ABCUL<branch-name>" \
+            abcli_show_usage "@git sync_fork <branch-name>" \
                 "sync fork w/ upstream."
             ;;
         status)
@@ -108,6 +113,12 @@ function abcli_git() {
     if [[ "$repo_name" == "unknown" ]]; then
         abcli_log_error "-abcli: git: $task: $(pwd): repo not found."
         return 1
+    fi
+
+    if [[ "$task" == "create_pull_request" ]]; then
+        abcli_browse_url \
+            https://github.com/kamangir/$repo_name/compare/$(abcli_git_get_branch)?expand=1
+        return
     fi
 
     if [ "$task" == "recreate_ssh" ]; then
