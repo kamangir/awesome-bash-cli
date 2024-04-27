@@ -57,6 +57,10 @@ function abcli_git() {
             abcli_show_usage "@git create_branch <branch-name>$ABCUL[$options]" \
                 "create <branch-name> in the repo."
             ;;
+        create_pull_request)
+            abcli_show_usage "@git create_pull_request" \
+                "create a pull request in the repo."
+            ;;
         increment_version)
             local options=diff
             local args="[--verbose 1]"
@@ -109,6 +113,12 @@ function abcli_git() {
     if [[ "$repo_name" == "unknown" ]]; then
         abcli_log_error "-abcli: git: $task: $(pwd): repo not found."
         return 1
+    fi
+
+    if [[ "$task" == "create_pull_request" ]]; then
+        abcli_browse_url \
+            https://github.com/kamangir/$repo_name/compare/$(abcli_git_get_branch)?expand=1
+        return
     fi
 
     if [ "$task" == "recreate_ssh" ]; then
