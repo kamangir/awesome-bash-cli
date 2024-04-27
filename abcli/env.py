@@ -1,6 +1,14 @@
+from typing import List
 import os
 from dotenv import load_dotenv
 import pkg_resources
+
+
+class Env:
+    def __init__(self, vars: List[str] = []):
+        self.vars = sorted(vars)
+        for var in self.vars:
+            setattr(self, var, os.getenv(var, ""))
 
 
 def load_config(
