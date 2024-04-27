@@ -29,6 +29,14 @@ function abcli_string_timestamp() {
         "$@"
 }
 
+function abcli_string_timestamp_short() {
+    python3 -m abcli.string \
+        pretty_date \
+        --include_time 0 \
+        --unique 1 \
+        "$@"
+}
+
 function abcli_string_today() {
     python3 -m abcli.string \
         pretty_date \
