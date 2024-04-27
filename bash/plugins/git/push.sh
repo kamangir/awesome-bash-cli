@@ -10,6 +10,7 @@ function abcli_git_push() {
     local do_increment_version=$(abcli_option_int "$options" increment_version 1)
     local show_status=$(abcli_option_int "$options" status 1)
     local first_push=$(abcli_option_int "$options" first 0)
+    local create_pull_request=$(abcli_option_int "$options" create_pull_request $first_push)
 
     local repo_name=$(abcli_unpack_repo_name .)
     local path=$abcli_path_git/$repo_name
@@ -31,6 +32,8 @@ function abcli_git_push() {
     if [ "$first_push" == 1 ]; then
         local branch_name=$(abcli_git_get_branch $repo_name $options)
         git push --set-upstream origin $branch_name
+
+        [[ "$create_pull_request" == 1 ]] && abcli_git create_pull_request
     else
         git push
     fi
