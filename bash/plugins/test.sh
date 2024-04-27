@@ -4,6 +4,8 @@ function abcli_test() {
     local options=$1
     local plugin_name=$(abcli_option "$options" plugin abcli)
 
+    local test_options=$2
+
     local plugin_display_name
     [[ "$plugin_name" == abcli ]] &&
         plugin_display_name="@" ||

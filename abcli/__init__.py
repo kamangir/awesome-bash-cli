@@ -2,7 +2,7 @@ import os
 
 NAME = "abcli"
 
-VERSION = "8.98.1"
+VERSION = "8.100.1"
 
 DESCRIPTION = "🚀 a language to speak AI."
 
