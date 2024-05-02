@@ -4,25 +4,24 @@ export abcli_s3_object_prefix=s3://$abcli_aws_s3_bucket_name/$abcli_aws_s3_prefi
 
 function abcli_clarify_object() {
     local object_name=$1
-    local default=$2
+    local default=${2:-$(abcli_string_timestamp)}
     local type_name=${3:-object}
 
     local object_var=abcli_${type_name}_name
     local object_var_prev=abcli_${type_name}_name_prev
     local object_var_prev2=abcli_${type_name}_name_prev2
 
-    if [ -z "$object_name" ] || [ "$object_name" == "-" ]; then
-        local object_name=$default
-    fi
+    [[ -z "$object_name" ]] || [[ "$object_name" == "-" ]] &&
+        object_name=$default
+
     if [ "$object_name" == "." ]; then
-        local object_name=${!object_var}
+        object_name=${!object_var}
+    elif [ "$object_name" == ".." ]; then
+        object_name=${!object_var_prev}
+    elif [ "$object_name" == "..." ]; then
+        object_name=${!object_var_prev2}
     fi
-    if [ "$object_name" == ".." ]; then
-        local object_name=${!object_var_prev}
-    fi
-    if [ "$object_name" == "..." ]; then
-        local object_name=${!object_var_prev2}
-    fi
+
     if [ "$(abcli_keyword_is $object_name validate)" == true ]; then
         local object_name="validate"
     fi

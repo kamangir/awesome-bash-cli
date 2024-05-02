@@ -84,20 +84,30 @@ abcli_source_path \
 function abcli_assert() {
     local value=$1
     local expected_value=$2
-    local message=$3
+
+    local function_name="${FUNCNAME[1]}"
+
+    if [[ "$expected_value" == "non-empty" ]]; then
+        if [[ ! -z "$value" ]]; then
+            abcli_log "✅ $function_name: $value is non-empty."
+            return
+        fi
+
+        abcli_log_error "$function_name: empty value."
+        return 1
+    fi
 
     if [[ "$value" == "$expected_value" ]]; then
-        abcli_log "✅ $message: $value"
+        abcli_log "✅ $function_name: $value."
         return
     fi
 
-    abcli_log_error "$message: $value != $expected_value"
+    abcli_log_error "$function_name: $value != $expected_value"
     return 1
 }
 
 function abcli_assert_list() {
     abcli_assert \
         $(abcli_list_sort "$1") \
-        $(abcli_list_sort "$2") \
-        "${@:3}"
+        $(abcli_list_sort "$2")
 }
