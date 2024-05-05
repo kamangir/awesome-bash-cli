@@ -58,7 +58,7 @@ function abcli_session() {
                 else
                     abcli_log_error "-session: plugin: $plugin_name: plugin not found."
                 fi
-                abcli_sleep 60s
+                abcli_sleep seconds=60
             fi
 
             abcli_log "session closed."
@@ -98,7 +98,7 @@ function abcli_session() {
                 return
             fi
 
-            abcli_sleep 5s
+            abcli_sleep seconds=5
         done
 
         return

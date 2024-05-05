@@ -1,14 +1,16 @@
 #! /usr/bin/env bash
 
 function abcli_sleep() {
-    local seconds=${1:-3}
+    local options=$1
 
-    if [ "$seconds" == help ]; then
-        abcli_show_usage "abcli sleep <seconds>" \
-            "sleep <seconds>"
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+        abcli_show_usage "@sleep seconds=<seconds>" \
+            "sleep seconds=<seconds>"
         return
     fi
 
-    abcli_log_local "pausing for $seconds s ... (Ctrl+C to stop)"
+    local seconds=$(abcli_option "$options" seconds 3)
+
+    abcli_log_local "pausing for $seconds s ... (^C to stop)"
     sleep $seconds
 }

@@ -1,12 +1,22 @@
 #! /usr/bin/env bash
 
 function abcli_watch() {
-    local command_line="$@"
+    local options=$1
 
-    if [ "$command_line" == help ]; then
-        abcli_show_usage "abcli watch <command-line>" \
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+        options="dryrun,seconds=<seconds>"
+        abcli_show_usage "@watch [$options]$ABCUL<command-line>" \
             "watch <command-line>"
         return
     fi
-    watch "$HOME/git/awesome-bash-cli/bash/abcli.sh silent \"$command_line\""
+
+    local command_line="${@:2}"
+
+    abcli_log "watching $command_line ..."
+
+    while true; do
+        abcli_eval ,$options "$command_line"
+
+        abcli_sleep ,$options
+    done
 }
