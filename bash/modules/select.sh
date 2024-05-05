@@ -4,8 +4,9 @@ function abcli_select() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli select [<object_name>] [open,type=<type>,~trail]" \
-            "select [object_name]."
+        local options="open,type=<type>,~trail"
+        abcli_show_usage "@select [<object-name>]$ABCUL[$options]" \
+            "select <object-name>."
         return
     fi
 
