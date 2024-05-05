@@ -26,8 +26,16 @@ function abcli_eval() {
     [[ "$do_dryrun" == 1 ]] && return
 
     [[ "$path" != "./" ]] && pushd $path >/dev/null
+
     eval "$command_line"
-    if [[ "$path" != "./" ]]; then
-        popd >/dev/null
+    local error_code=$?
+
+    [[ "$path" != "./" ]] && popd >/dev/null
+
+    if [[ $error_code -ne 0 ]]; then
+        abcli_log_error "@eval: failed: $command_line"
+        return 1
     fi
+
+    return 0
 }
