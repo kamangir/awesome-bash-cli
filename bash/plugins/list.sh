@@ -4,10 +4,10 @@ function abcli_list() {
     local options=$1
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        abcli_show_usage "abcli list cloud|local <object-name>" \
+        abcli_show_usage "@ls cloud|local <object-name>" \
             "list <object-name>"
 
-        abcli_show_usage "abcli list <path>" \
+        abcli_show_usage "@ls <path>" \
             "list <path>"
         return
     fi
@@ -29,4 +29,6 @@ function abcli_list() {
         abcli_eval - \
             ls -1 "$@"
     fi
+
+    return 0
 }

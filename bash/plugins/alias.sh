@@ -45,7 +45,8 @@ alias @latex=abcli_latex
 
 alias @log=abcli_log
 
-alias @ls="abcli_list"
+alias @list=abcli_list
+alias @ls=abcli_list
 
 alias @metadata=abcli_metadata
 
