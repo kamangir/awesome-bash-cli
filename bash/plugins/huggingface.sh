@@ -8,10 +8,10 @@ function abcli_huggingface() {
             "clone huggingface/repo_name."
         abcli_show_usage "abcli huggingface install" \
             "install huggingface."
-        abcli_show_usage "abcli huggingface get_model_path <repo_name> [<model_name>] [model=object/*saved]" \
-            "return model_path for saved/object model repo_name/model_name."
-        abcli_show_usage "abcli huggingface save <repo_name> <model_name> <object_name> [force]" \
-            "[force] save object_name as huggingface/repo_name/model_name."
+        abcli_show_usage "abcli huggingface get_model_path <repo_name> [<model-name>] [model=object/*saved]" \
+            "return model_path for saved/object model repo_name/<model-name>."
+        abcli_show_usage "abcli huggingface save <repo-name> <model-name> <object-name> [force]" \
+            "[force] save <object-name> as huggingface/<repo-name>/<model-name>."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
             python3 -m abcli.plugins.huggingface --help

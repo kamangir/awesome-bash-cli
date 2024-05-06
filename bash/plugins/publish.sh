@@ -6,9 +6,15 @@ function abcli_publish() {
     local options=$1
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        local options="~download,extension=<png>,filename=<filename-1+filename-2>,randomize,tar"
-        abcli_show_usage "abcli publish$ABCUL[$options]$ABCUL[.|<object_name>]" \
-            "publish <object_name>."
+        local common_options="as=<public-object-name>,~download"
+
+        options="$EOP$common_options,${EOPE}tar"
+        abcli_show_usage "@publish$ABCUL$options$ABCUL$EOP.|<object-name>$EOPE" \
+            "publish <object-name>.tar.gz."
+
+        options="$EOP$common_options,prefix=<prefix>,suffix=<.png>"
+        abcli_show_usage "@publish$ABCUL$options$ABCUL.|<object-name>$EOPE" \
+            "publish <object-name>."
 
         abcli_log "🔗 $abcli_publish_prefix"
         return
@@ -16,9 +22,8 @@ function abcli_publish() {
 
     local do_download=$(abcli_option_int "$options" download 1)
     local do_tar=$(abcli_option_int "$options" tar 0)
-    local do_randomize=$(abcli_option_int "$options" randomize 0)
-    local extension=$(abcli_option "$options" extension)
-    local filename=$(abcli_option "$options" filename)
+    local prefix=$(abcli_option "$options" prefix)
+    local suffix=$(abcli_option "$options" suffix)
 
     local object_name=$(abcli_clarify_object $2 .)
     [[ "$do_download" == 1 ]] &&
@@ -26,9 +31,7 @@ function abcli_publish() {
 
     abcli_tag set $object_name published
 
-    local public_object_name=$object_name
-    [[ "$do_randomize" == 1 ]] &&
-        local public_object_name=$(abcli_string_random --length 64)
+    local public_object_name=$(abcli_option "$options" as $object_name)
 
     if [ "$do_tar" == 1 ]; then
         abcli_log "publishing $object_name -> $public_object_name.tar.gz"
@@ -48,7 +51,7 @@ function abcli_publish() {
 
     local object_path=$abcli_object_root/$object_name
 
-    if [[ -z "$extension$filename" ]]; then
+    if [[ -z "$prefix$suffix" ]]; then
         aws s3 sync \
             $object_path/ \
             s3://$abcli_aws_s3_public_bucket_name/$public_object_name/
@@ -56,14 +59,13 @@ function abcli_publish() {
     fi
 
     pushd $object_path >/dev/null
-    local filename_
-    for filename_ in $(ls *); do
-        [[ ! -z "$filename" ]] && [[ "+$filename+" != *"+$filename_+"* ]] && continue
-        [[ ! -z "$extension" ]] && [[ "$filename_" != *".$extension" ]] && continue
+    local filename
+    for filename in $(ls *); do
+        [[ "$filename" != "$prefix"*"$suffix" ]] && continue
 
         aws s3 cp \
-            $filename_ \
-            s3://$abcli_aws_s3_public_bucket_name/$public_object_name/$filename_
+            $filename \
+            s3://$abcli_aws_s3_public_bucket_name/$public_object_name/$filename
     done
     popd >/dev/null
 }

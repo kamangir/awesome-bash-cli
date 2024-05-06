@@ -15,8 +15,8 @@ function abcli_relation() {
             "get relation between object_1 and object_2."
         abcli_show_usage "abcli relation list" \
             "list possible relations."
-        abcli_show_usage "abcli relation search <object_name> [--relation <relation>]" \
-            "search for all relations of/relation to object_name."
+        abcli_show_usage "abcli relation search <object-name> [--relation <relation>]" \
+            "search for all relations of/relation to <object-name>."
         abcli_show_usage "abcli relation set <object_1> <object_2> <relation> [validate]" \
             "set object_1 =relation=> object_2 [and validate]."
 

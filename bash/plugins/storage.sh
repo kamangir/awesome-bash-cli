@@ -6,9 +6,9 @@ function abcli_storage() {
     if [ "$task" == "help" ]; then
         abcli_show_usage "abcli storage clear" \
             "clear storage."
-        abcli_show_usage "abcli storage download_file$ABCUL<object_name> [filename]" \
-            "download filename -> object_name."
-        abcli_show_usage "abcli storage exists$ABCUL<object_name>" \
+        abcli_show_usage "abcli storage download_file$ABCUL<object-name> [filename]" \
+            "download filename -> <object-name>."
+        abcli_show_usage "abcli storage exists$ABCUL<object-name>" \
             "True/False."
         abcli_show_usage "abcli storage list$ABCUL<prefix> [<args>]" \
             "list prefix in storage."
