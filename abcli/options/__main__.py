@@ -65,7 +65,7 @@ if args.task == "choice":
         print(args.default)
 elif args.task == "get":
     output = Options(args.options).get(args.keyword, args.default)
-    print(int(output) if args.is_int == 1 else output)
+    print((int(output) if output else 0) if args.is_int == 1 else output)
 elif args.task == "subset":
     options = Options(args.options)
     subset = Options(args.subset)
