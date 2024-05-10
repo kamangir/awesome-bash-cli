@@ -100,12 +100,14 @@ class Options(dict):
             str: self as str.
         """
         return ",".join(
-            [
-                (
-                    f"+{keyword}"
-                    if value is True
-                    else f"~{keyword}" if value is False else f"{keyword}={value}"
-                )
-                for keyword, value in self.items()
-            ]
+            sorted(
+                [
+                    (
+                        f"+{keyword}"
+                        if value is True
+                        else f"~{keyword}" if value is False else f"{keyword}={value}"
+                    )
+                    for keyword, value in self.items()
+                ]
+            )
         )

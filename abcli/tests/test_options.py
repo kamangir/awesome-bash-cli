@@ -4,8 +4,22 @@ from abcli.options import Options
 test_option_1 = "a,~b,c=1,d=0,var_e,-f,g=2,h=that,i=12.34"
 
 
-def test_options_add():
-    assert True
+@pytest.mark.parametrize(
+    ["options1", "options2", "expected_output"],
+    [
+        ["", "", ""],
+        ["", "a=1,b=2", "a=1,b=2"],
+        ["a=1,b=2", "", "a=1,b=2"],
+        ["a=1,b=2", "b=3,c=4", "a=1,b=3,c=4"],
+        ["a=1,b=2", "d=3,c=4", "a=1,b=2,c=4,d=3"],
+    ],
+)
+def test_options_add(
+    options1: str,
+    options2: str,
+    expected_output: str,
+):
+    assert (Options(options1) + Options(options2)).to_str() == expected_output
 
 
 @pytest.mark.parametrize(
@@ -87,5 +101,35 @@ def test_options_get(
     assert Options(options).get(keyword, default) == expected_value
 
 
-def test_options_to_str():
-    assert True
+@pytest.mark.parametrize(
+    ["options", "expected_as_str"],
+    [
+        ["x=3,z=4", "x=3,z=4"],
+        ["x=3,z=4,a,~b", "+a,x=3,z=4,~b"],
+        [
+            "x=3,z=4,a,~b,ratio=12.34,type=central",
+            "+a,ratio=12.34,type=central,x=3,z=4,~b",
+        ],
+        [{"x": 1, "y": 2}, "x=1,y=2"],
+        [
+            {"x": 3, "z": 4, "a": True, "b": False},
+            "+a,x=3,z=4,~b",
+        ],
+        [
+            {
+                "x": 3,
+                "z": 4,
+                "a": True,
+                "b": False,
+                "weight": -4.56,
+                "category": "radial",
+            },
+            "+a,category=radial,weight=-4.56,x=3,z=4,~b",
+        ],
+    ],
+)
+def test_options_to_str(
+    options: str,
+    expected_as_str: str,
+):
+    assert Options(options).to_str() == expected_as_str
