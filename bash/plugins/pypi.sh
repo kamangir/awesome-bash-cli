@@ -4,15 +4,8 @@ function abcli_pypi() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        local options="~download,dryrun,~upload"
-        local args="[--<keyword-1> <value>]$ABCUL[--<keyword-2> <value>]"
-        abcli_show_usage "abcli_ pypi <task-1>$ABCUL[$options]$ABCUL[.|<object-name-1>]$ABCUL[-|<object-name-2>]$ABCUL$args" \
-            "<object-name-1> -[blue-plugin pypi <task-1>]-> <object-name-2>."
-
-        abcli_show_usage "abcli_ pypi <task-2> ..." \
-            "blue-plugin pypi <task-2> <object-name>."
-
-        abcli_pypi_leaf "$@"
+        abcli_pypi_build "$@"
+        abcli_pypi_install "$@"
         return
     fi
 
