@@ -5,7 +5,6 @@ function abcli_pypi() {
 
     if [ "$task" == "help" ]; then
         abcli_pypi_build "$1,$2"
-        abcli_pypi_install "$1,$2"
         return
     fi
 
