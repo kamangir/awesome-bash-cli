@@ -1,34 +1,11 @@
 #! /usr/bin/env bash
 
-function abcli_get_abcli_git_branch() {
-    abcli_get_version
+function abcli_refresh_branch_and_version() {
+    export abcli_version=$(python3 -c "import abcli; print(abcli.VERSION)")
 
-    export abcli_git_branch=$(abcli_git_get_branch awesome-bash-cli)
+    export abcli_git_branch=$(abcli_git awesome-bash-cli get_branch)
 
     export abcli_fullname=abcli-$abcli_version.$abcli_git_branch
-}
-
-function abcli_git_get_branch() {
-    local repo_name=$(abcli_unpack_repo_name $1 .)
-
-    local options=$2
-    local in_object=$(abcli_option_int "$options" object 0)
-
-    if [ "$in_object" == 1 ]; then
-        pushd $abcli_object_path/$repo_name >/dev/null
-    else
-        pushd $abcli_path_git/$repo_name >/dev/null
-    fi
-
-    # https://stackoverflow.com/a/1593487
-    local branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
-        local branch_name="master" # detached HEAD
-
-    popd >/dev/null
-
-    local branch_name=${branch_name##refs/heads/}
-
-    echo $branch_name
 }
 
 # internal function for abcli_seed.

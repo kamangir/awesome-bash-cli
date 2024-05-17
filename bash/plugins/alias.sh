@@ -65,6 +65,8 @@ alias @pip=abcli_pip
 
 alias @plugins=abcli_plugins
 
+alias @pypi=abcli_pypi
+
 alias @pylint=abcli_pylint
 alias @pytest=abcli_pytest
 

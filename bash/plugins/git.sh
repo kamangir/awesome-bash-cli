@@ -43,38 +43,42 @@ function abcli_git() {
         local options
         case $task in
         browse)
-            options="actions"
-            abcli_show_usage "@git browse [$options]" \
+            options="${EOP}actions$EOPE"
+            abcli_show_usage "@git browse $options" \
                 "browse the repo."
             ;;
         clone)
-            options="cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>"
-            abcli_show_usage "@git clone <repo-name>$ABCUL[$options]" \
+            options="${EOP}cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>$EOPE"
+            abcli_show_usage "@git clone <repo-name>$ABCUL$options" \
                 "clone <repo-name>."
             ;;
         create_branch)
-            options="~increment_version"
-            abcli_show_usage "@git create_branch <branch-name>$ABCUL[$options]" \
+            options="$EOP~increment_version,${EOPE}push"
+            abcli_show_usage "@git create_branch <branch-name>$ABCUL$options" \
                 "create <branch-name> in the repo."
             ;;
         create_pull_request)
             abcli_show_usage "@git create_pull_request" \
                 "create a pull request in the repo."
             ;;
+        get_branch)
+            abcli_show_usage "@git get_branch" \
+                "get brach name."
+            ;;
         increment_version)
-            local options=diff
-            local args="[--verbose 1]"
-            abcli_show_usage "@git ++|increment|increment_version$ABCUL[$options]$ABCUL$args" \
+            local options="diff"
+            local args="--verbose 1"
+            abcli_show_usage "@git ++|increment|increment_version$ABCUL$EOP$options$ABCUL$args$EOPE" \
                 "increment repo version."
             ;;
         pull)
-            options="~all,init"
-            abcli_show_usage "@git pull [$options]" \
+            options="$EOP~all,${EOPE}init"
+            abcli_show_usage "@git pull $options" \
                 "pull."
             ;;
         push)
-            options="browse,~create_pull_request,delete,first,~increment_version,object,~status"
-            abcli_show_usage "@git push [<message>]$ABCUL[$options]" \
+            options="${EOP}browse,~create_pull_request,${EOPE}first$EOP,~increment_version,~status$EOPE"
+            abcli_show_usage "@git push <message>$ABCUL$options" \
                 "push to the repo."
             ;;
         recreate_ssh)
@@ -91,7 +95,7 @@ function abcli_git() {
             ;;
         status)
             options="~all"
-            abcli_show_usage "@git status [$options]" \
+            abcli_show_usage "@git status $EOP$options$EOPE" \
                 "git status."
             ;;
         *)
@@ -111,13 +115,22 @@ function abcli_git() {
 
     local repo_name=$(abcli_unpack_repo_name .)
     if [[ "$repo_name" == "unknown" ]]; then
-        abcli_log_error "-abcli: git: $task: $(pwd): repo not found."
+        abcli_log_error "-@git: $task: $(pwd): repo not found."
         return 1
     fi
 
     if [[ "$task" == "create_pull_request" ]]; then
         abcli_browse_url \
             https://github.com/kamangir/$repo_name/compare/$(abcli_git_get_branch)?expand=1
+        return
+    fi
+
+    if [[ "$task" == "get_branch" ]]; then
+        # https://stackoverflow.com/a/1593487
+        local branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
+            local branch_name="master" # detached HEAD
+
+        echo ${branch_name##refs/heads/}
         return
     fi
 
@@ -145,4 +158,4 @@ function abcli_git() {
 abcli_source_path \
     $abcli_path_git/awesome-bash-cli/bash/plugins/git
 
-abcli_get_abcli_git_branch
+abcli_refresh_branch_and_version

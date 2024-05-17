@@ -34,7 +34,7 @@ def increment_version(
         return False
 
     filename = os.path.join(list_of_paths[0], "__init__.py")
-    success, source_code = file.load_text(filename, log=True)
+    success, source_code = file.load_text(filename)
     if not success:
         return success
 
@@ -56,4 +56,4 @@ def increment_version(
     while updated_source_code and not updated_source_code[len(updated_source_code) - 1]:
         updated_source_code = updated_source_code[:-1]
 
-    return file.save_text(filename, updated_source_code)
+    return file.save_text(filename, updated_source_code, log=True)

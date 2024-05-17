@@ -17,7 +17,3 @@ function abcli() {
         return 1
     fi
 }
-
-function abcli_get_version() {
-    export abcli_version=$(python3 -c "import abcli; print(abcli.VERSION)")
-}
