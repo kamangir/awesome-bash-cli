@@ -37,5 +37,9 @@ function abcli_git_push() {
     [[ "$do_browse" == 1 ]] &&
         abcli_git browse actions
 
+    local build_options=$3
+    [[ $(abcli_option_int "$build_options" build 0) == 1 ]] &&
+        abcli_pypi_build $build_options
+
     return 0
 }

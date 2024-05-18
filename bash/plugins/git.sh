@@ -78,7 +78,8 @@ function abcli_git() {
             ;;
         push)
             options="${EOP}browse,~create_pull_request,${EOPE}first$EOP,~increment_version,~status$EOPE"
-            abcli_show_usage "@git push <message>$ABCUL$options" \
+            local build_options="build,$abcli_pypi_build_options"
+            abcli_show_usage "@git push <message>$ABCUL$options$ABCUL$build_options" \
                 "push to the repo."
             ;;
         recreate_ssh)
