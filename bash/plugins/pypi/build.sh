@@ -31,6 +31,8 @@ function abcli_pypi_build() {
 
     pushd $abcli_path_git/$repo_name >/dev/null
     python3 -m build
+    [[ $? -ne 0 ]] && return 1
+
     [[ "$do_upload" == 1 ]] &&
         twine upload dist/*
     popd >/dev/null
