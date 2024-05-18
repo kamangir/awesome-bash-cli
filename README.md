@@ -20,7 +20,7 @@ abcli ?
 
 # configuration
 
-create a copy of [`./sample.env`](./sample.env) as `./.env` and fill in the secrets.
+create a copy of [`sample.env`](./sample.env) as `.env` and fill in the secrets.
 
 # branches
 
