@@ -9,5 +9,5 @@ function abcli_git_browse() {
     local url=https://github.com/kamangir/$repo_name
     [[ "$browse_actions" == 1 ]] && url="$url/actions"
 
-    abcli_browse_url $url
+    abcli_browse $url
 }

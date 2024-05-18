@@ -6,10 +6,7 @@ alias @T=abcli_terraform
 
 alias @assert=abcli_assert
 
-alias @mac='if [ "$abcli_is_mac" == true ]; then'
-alias @.='fi'
-
-alias @download=abcli_download
+alias @browse=abcli_browse
 
 alias @cache=abcli_cache
 alias @ref="abcli_cache read"
@@ -21,6 +18,8 @@ alias @clone=abcli_clone
 alias @conda=abcli_conda
 
 alias @create_video=abcli_create_video
+
+alias @download=abcli_download
 
 alias @env=abcli_env
 
@@ -47,6 +46,9 @@ alias @log=abcli_log
 
 alias @list=abcli_list
 alias @ls=abcli_list
+
+alias @mac='if [ "$abcli_is_mac" == true ]; then'
+alias @.='fi'
 
 alias @metadata=abcli_metadata
 

@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
 
-function abcli_browse_url() {
+function abcli_browse() {
     local url=$1
 
     if [[ "$url" == "help" ]]; then
-        abcli_show_usage "abcli browse_url <url>" \
+        abcli_show_usage "@browse <url>" \
             "browse <url>."
         return
     fi
@@ -17,6 +17,6 @@ function abcli_browse_url() {
     elif [ "$abcli_is_rpi" == true ]; then
         DISPLAY=:0 chromium-browser -kiosk --no-sandbox "$url"
     else
-        abcli_log_error "-abcli: browse_url: $url: failed."
+        abcli_log_warning "-@browse: $url: skipped."
     fi
 }

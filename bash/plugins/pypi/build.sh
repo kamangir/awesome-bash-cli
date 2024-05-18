@@ -6,7 +6,7 @@ function abcli_pypi_build() {
     local plugin_name=$(abcli_option "$options" plugin abcli)
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        local options="${EOP}install,${EOPE}upload"
+        local options="browse,${EOP}install,${EOPE}upload"
         [[ "$plugin_name" == abcli ]] && options="$options$EOP,plugin=<plugin-name>$EOPE"
         abcli_show_usage "@pypi build$ABCUL$options" \
             "build $plugin_name for pypi."
@@ -15,6 +15,7 @@ function abcli_pypi_build() {
 
     local do_install=$(abcli_option_int "$options" install 0)
     local do_upload=$(abcli_option_int "$options" upload 0)
+    local do_browse=$(abcli_option_int "$options" browse 0)
 
     if [[ "$do_install" == 1 ]]; then
         pip3 install setuptools wheel twine
@@ -36,6 +37,9 @@ function abcli_pypi_build() {
     [[ "$do_upload" == 1 ]] &&
         twine upload dist/*
     popd >/dev/null
+
+    [[ "$do_browse" == 1 ]] &&
+        abcli_browse "https://pypi.org/project/$plugin_name/"
 
     return 0
 }
