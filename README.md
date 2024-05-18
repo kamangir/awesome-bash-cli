@@ -1,6 +1,6 @@
 # awesome bash cli (abcli/abc)
 
-![image](./assets/marquee.png)
+![image](https://github.com/kamangir/awesome-bash-cli/raw/current/assets/marquee.png)
 
 `abcli` 🚀 is an implementation of [🔻 giza](https://github.com/kamangir/giza) and the library behind [these projects](https://github.com/kamangir/kamangir).
 
