@@ -23,4 +23,4 @@ To configure `abcli` complete the [.env](./.env) file using this [sample](./samp
 ## branches
 
 - [current](.) active branch.
-- [main](https://github.com/kamangir/awesome-bash-cli/tree/main) running on Raspberry pis, do not touch. ⚠️
+- [main](https://github.com/kamangir/awesome-bash-cli/tree/main) running on [a cluster of Raspberry pis](https://github.com/kamangir/blue-bracket), do not touch. ⚠️
