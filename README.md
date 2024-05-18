@@ -4,7 +4,7 @@
 
 `abcli` 🚀 is an implementation of [🔻 giza](https://github.com/kamangir/giza) and the library behind [these projects](https://github.com/kamangir/kamangir).
 
-To install `abcli` follow the instructions for:
+To install `abcli` follow the instructions for (⚠️ outdated instructions ⚠️):
 
 - [Amazon EC2 instances](https://github.com/kamangir/awesome-bash-cli/wiki/ec2)
 - [Amazon SageMaker](https://github.com/kamangir/blue-plugin/blob/main/SageMaker.md)
@@ -18,9 +18,11 @@ To see the list of `abcli` commands type in:
 abcli ?
 ```
 
-To configure `abcli` complete the [.env](./.env) file using this [sample](./sample.env).
+# configuration
 
-## branches
+create a copy of [`./sample.env`](./sample.env) as `./.env` and fill in the secrets.
 
-- [current](.) active branch.
-- [main](https://github.com/kamangir/awesome-bash-cli/tree/main) running on [a cluster of Raspberry pis](https://github.com/kamangir/blue-bracket), do not touch. ⚠️
+# branches
+
+- [current](.) active and default branch.
+- [main](https://github.com/kamangir/awesome-bash-cli/tree/main) legacy branch, is running on [a cluster of Raspberry pis](https://github.com/kamangir/blue-bracket). ⚠️ do not touch. ⚠️
