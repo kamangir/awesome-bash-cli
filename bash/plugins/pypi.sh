@@ -3,7 +3,10 @@
 function abcli_pypi() {
     local task=$(abcli_unpack_keyword $1 help)
 
-    if [ "$task" == "help" ]; then
+    local options=$2
+    local plugin_name=$(abcli_option "$options" plugin abcli)
+
+    if [[ "$task" == "help" ]]; then
         abcli_pypi_build "$1,$2"
         return
     fi
@@ -14,7 +17,7 @@ function abcli_pypi() {
         return
     fi
 
-    abcli_log_error "-@pypi: $task: command not found."
+    abcli_log_error "-$plugin_name: pypi: $task: command not found."
     return 1
 }
 
