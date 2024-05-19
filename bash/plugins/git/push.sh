@@ -38,8 +38,12 @@ function abcli_git_push() {
         abcli_git browse actions
 
     local build_options=$3
-    [[ $(abcli_option_int "$build_options" build 0) == 1 ]] &&
-        abcli_pypi_build $build_options
+    if [[ $(abcli_option_int "$build_options" build 0) == 1 ]]; then
+        local repo_name=$(abcli_git_get_repo_name)
+        local plugin_name=$(abcli_plugin_name_from_repo $repo_name)
+
+        abcli_pypi_build $build_options,plugin=$plugin_name
+    fi
 
     return 0
 }

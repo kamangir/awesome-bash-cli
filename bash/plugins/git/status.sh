@@ -4,10 +4,8 @@ function abcli_git_status() {
     local options=$1
     local do_all=$(abcli_option_int "$options" all 1)
 
-    local repo_name=$(abcli_unpack_repo_name .)
-
     if [[ "$do_all" == 0 ]]; then
-        abcli_eval path=$abcli_path_git/$repo_name,~log \
+        abcli_eval path=$abcli_path_git/$(abcli_git_get_repo_name),~log \
             git status
         return
     fi

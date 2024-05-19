@@ -56,3 +56,15 @@ function abcli_plugins() {
     abcli_log_error "-@plugins: $task: command not found."
     return 1
 }
+
+function abcli_plugin_name_from_repo() {
+    local repo_name=${1:-.}
+
+    [[ "$repo_name" == "." ]] && repo_name=$(abcli_git_get_repo_name)
+
+    local plugin_name=$(echo "$repo_name" | tr - _)
+
+    [[ "$plugin_name" == "awesome_bash_cli" ]] && plugin_name="abcli"
+
+    echo $plugin_name
+}

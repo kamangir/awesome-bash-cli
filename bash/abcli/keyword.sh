@@ -37,22 +37,10 @@ function abcli_unpack_keyword() {
 function abcli_unpack_repo_name() {
     local repo_name=$(abcli_unpack_keyword "$1" awesome-bash-cli)
 
-    local repo_name=$(echo "$repo_name" | tr _ -)
+    repo_name=$(echo "$repo_name" | tr _ -)
 
-    if [ "$repo_name" == "." ]; then
-        local current_path=$(pwd)
-
-        if [[ "$current_path" == "$abcli_path_git"* ]]; then
-            local repo_name=${current_path#*git}
-            local repo_name=$(python3 -c "print('$repo_name/'.split('/')[1])")
-
-            if [ -z "$repo_name" ]; then
-                local repo_name="unknown"
-            fi
-        else
-            local repo_name="unknown"
-        fi
-    fi
+    [[ "$repo_name" == "." ]] &&
+        repo_name=$(abcli_git_get_repo_name)
 
     echo $repo_name
 }

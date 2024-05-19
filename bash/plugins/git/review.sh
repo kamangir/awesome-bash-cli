@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 function abcli_git_review() {
-    local repo_name=$(abcli_unpack_repo_name .)
+    local repo_name=$(abcli_git_get_repo_name)
 
     pushd $abcli_path_git/$repo_name >/dev/null
 

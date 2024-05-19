@@ -11,6 +11,7 @@ function abcli_git() {
         abcli_git browse "$@"
         abcli_git create_branch "$@"
         abcli_git clone "$@"
+        abcli_git get_repo_name "$@"
         abcli_git pull $@
         abcli_git push "$@"
         abcli_git recreate_ssh "$@"
@@ -65,6 +66,10 @@ function abcli_git() {
             abcli_show_usage "@git get_branch" \
                 "get brach name."
             ;;
+        get_repo_name)
+            abcli_show_usage "@git get_repo_name" \
+                "get repo name."
+            ;;
         increment_version)
             local options="diff"
             local args="--verbose 1"
@@ -114,7 +119,7 @@ function abcli_git() {
         return
     fi
 
-    local repo_name=$(abcli_unpack_repo_name .)
+    local repo_name=$(abcli_git_get_repo_name)
     if [[ "$repo_name" == "unknown" ]]; then
         abcli_log_error "-@git: $task: $(pwd): repo not found."
         return 1
