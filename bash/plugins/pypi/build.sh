@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-export abcli_pypi_build_options="${EOP}browse,install,${EOPE}upload"
+export abcli_pypi_build_options="${EOP}browse,install,~rm_dist,${EOPE}upload"
 
 function abcli_pypi_build() {
     local options=$1
@@ -19,6 +19,7 @@ function abcli_pypi_build() {
     local do_install=$(abcli_option_int "$options" install 0)
     local do_upload=$(abcli_option_int "$options" upload 0)
     local do_browse=$(abcli_option_int "$options" browse 0)
+    local rm_dist=$(abcli_option_int "$options" rm_dist 1)
 
     if [[ "$do_install" == 1 ]]; then
         pip3 install setuptools wheel twine
@@ -34,11 +35,16 @@ function abcli_pypi_build() {
     abcli_log "pypi: building $plugin_name ($repo_name)..."
 
     pushd $abcli_path_git/$repo_name >/dev/null
+
     python3 -m build
     [[ $? -ne 0 ]] && return 1
 
     [[ "$do_upload" == 1 ]] &&
         twine upload dist/*
+
+    [[ "$rm_dist" == 1 ]] &&
+        rm -v dist/*
+
     popd >/dev/null
 
     [[ "$do_browse" == 1 ]] &&
