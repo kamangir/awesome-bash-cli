@@ -9,6 +9,9 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as f:
         "https://github.com/kamangir/awesome-bash-cli/raw/current/",
     )
 
+with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as f:
+    requirements = f.read().strip().split("\n")
+
 
 setup(
     name=NAME,
@@ -17,6 +20,7 @@ setup(
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/kamangir/awesome-bash-cli",
     packages=[
         NAME,
         f"{NAME}.bash",
@@ -42,4 +46,12 @@ setup(
     package_data={
         NAME: ["config.env"],
     },
+    install_requires=requirements,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Unix Shell",
+        "License :: Public Domain",
+        "Operating System :: OS Independent",
+    ],
+    license="Public Domain",
 )
