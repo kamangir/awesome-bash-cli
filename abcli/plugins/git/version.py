@@ -5,12 +5,14 @@ from abcli import file
 from abcli.plugins.git import NAME
 from abcli.logger import logger
 
+NAME = f"{NAME}.version"
 
-def increment_version(
+
+def increment(
     repo_path: str,
     verbose: bool = False,
 ) -> bool:
-    logger.info(f"{NAME}.increment_version({repo_path})")
+    logger.info(f"{NAME}.increment({repo_path})")
 
     list_of_paths = sorted(
         [

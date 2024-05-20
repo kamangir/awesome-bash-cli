@@ -1,5 +1,5 @@
 import argparse
-from abcli.plugins.git import increment_version, NAME
+from abcli.plugins.git import version, NAME
 from abcli.logger import logger
 
 
@@ -24,7 +24,7 @@ args = parser.parse_args()
 
 success = False
 if args.task == "increment_version":
-    success = increment_version(
+    success = version.increment(
         repo_path=args.repo_path,
         verbose=args.verbose == 1,
     )
