@@ -7,6 +7,7 @@ function abcli_pypi() {
     local plugin_name=$(abcli_option "$options" plugin abcli)
 
     if [[ "$task" == "help" ]]; then
+        abcli_pypi_browse "$1,$2"
         abcli_pypi_build "$1,$2"
         return
     fi

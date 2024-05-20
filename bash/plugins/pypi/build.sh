@@ -48,7 +48,7 @@ function abcli_pypi_build() {
     popd >/dev/null
 
     [[ "$do_browse" == 1 ]] &&
-        abcli_browse "https://pypi.org/project/$plugin_name/"
+        abcli_pypi_browse "$@"
 
     return 0
 }

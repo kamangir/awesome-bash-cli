@@ -68,3 +68,13 @@ function abcli_plugin_name_from_repo() {
 
     echo $plugin_name
 }
+
+function abcli_get_module_name_from_plugin() {
+    local module_name=$1
+
+    [[ "$module_name" == "CV" ]] && module_name="abadpour"
+    [[ "$module_name" == "giza" ]] && module_name="gizai"
+    [[ "$module_name" == "hubble" ]] && module_name="hubblescope"
+
+    echo $module_name
+}

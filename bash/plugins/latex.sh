@@ -40,8 +40,8 @@ function abcli_latex() {
             -interaction=nonstopmode \
             $filename.tex
 
-        abcli_eval dryrun=$do_dryrun \
-            makeindex $filename.idx
+        #abcli_eval dryrun=$do_dryrun \
+        #    makeindex $filename.idx
 
         abcli_eval dryrun=$do_dryrun \
             dvips \
