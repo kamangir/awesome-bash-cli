@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-export abcli_pypi_build_options="${EOP}browse,install,~rm_dist,${EOPE}upload"
+export abcli_pypi_build_options="${EOP}browse,install,~rm_dist,~upload$EOPE"
 
 function abcli_pypi_build() {
     local options=$1
@@ -17,7 +17,7 @@ function abcli_pypi_build() {
     fi
 
     local do_install=$(abcli_option_int "$options" install 0)
-    local do_upload=$(abcli_option_int "$options" upload 0)
+    local do_upload=$(abcli_option_int "$options" upload 1)
     local do_browse=$(abcli_option_int "$options" browse 0)
     local rm_dist=$(abcli_option_int "$options" rm_dist 1)
 
