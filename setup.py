@@ -3,6 +3,7 @@ from blueness.pypi import setup
 
 setup(
     filename=__file__,
+    repo_name="awesome-bash-cli",
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
