@@ -1,26 +1,11 @@
-from setuptools import setup
-import os
-
 from abcli import NAME, VERSION, DESCRIPTION
-
-with open(os.path.join(os.path.dirname(__file__), "README.md")) as f:
-    long_description = f.read().replace(
-        "./",
-        "https://github.com/kamangir/awesome-bash-cli/raw/current/",
-    )
-
-with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as f:
-    requirements = f.read().strip().split("\n")
-
+from blueness.pypi import setup
 
 setup(
+    filename=__file__,
     name=NAME,
-    author="kamangir",
     version=VERSION,
     description=DESCRIPTION,
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/kamangir/awesome-bash-cli",
     packages=[
         NAME,
         f"{NAME}.bash",
@@ -46,12 +31,4 @@ setup(
     package_data={
         NAME: ["config.env"],
     },
-    install_requires=requirements,
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Unix Shell",
-        "License :: Public Domain",
-        "Operating System :: OS Independent",
-    ],
-    license="Public Domain",
 )
