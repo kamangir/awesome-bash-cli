@@ -93,7 +93,11 @@ function abcli_generic_task() {
 
     if [ "$task" == "init" ]; then
         abcli_init $plugin_name "${@:2}"
-        return
+
+        [[ $(abcli_conda exists $plugin_name) == 1 ]] &&
+            conda activate $plugin_name
+
+        return 0
     fi
 
     if [[ "|pylint|pytest|test|" == *"|$task|"* ]]; then
