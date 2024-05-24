@@ -75,6 +75,7 @@ function abcli_get_module_name_from_plugin() {
     [[ "$module_name" == "CV" ]] && module_name="abadpour"
     [[ "$module_name" == "giza" ]] && module_name="gizai"
     [[ "$module_name" == "hubble" ]] && module_name="hubblescope"
+    [[ "$module_name" == "aiart" ]] && module_name="articraft"
 
     echo $module_name
 }

@@ -7,9 +7,10 @@ function abcli_pypi_browse() {
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         local callable=$([[ "$plugin_name" == "abcli" ]] && echo "@" || echo "$plugin_name ")
-        [[ "$plugin_name" == abcli ]] && options="$ABCUL$EOPplugin=<plugin-name>$EOPE"
-        abcli_show_usage "${callable}pypi browse$options" \
-            "browse pypi/$plugin_name"
+        options=""
+        [[ "$plugin_name" == abcli ]] && options="${EOP}plugin=<plugin-name>$EOPE"
+        abcli_show_usage "${callable}pypi browse $options" \
+            "browse pypi/$plugin_name."
         return
     fi
 
