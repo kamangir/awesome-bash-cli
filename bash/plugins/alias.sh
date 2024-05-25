@@ -4,6 +4,10 @@ alias @=abcli
 
 alias @T=abcli_terraform
 
+alias @act=abcli_perform_action
+alias @action=abcli_perform_action
+alias @perform_action=abcli_perform_action
+
 alias @assert=abcli_assert
 
 alias @browse=abcli_browse
