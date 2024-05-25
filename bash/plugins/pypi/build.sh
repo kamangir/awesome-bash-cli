@@ -21,10 +21,8 @@ function abcli_pypi_build() {
     local do_browse=$(abcli_option_int "$options" browse 0)
     local rm_dist=$(abcli_option_int "$options" rm_dist 1)
 
-    if [[ "$do_install" == 1 ]]; then
-        pip3 install setuptools wheel twine
-        python3 -m pip install --upgrade build
-    fi
+    [[ "$do_install" == 1 ]] &&
+        abcli_pypi_install
 
     local repo_name=$(abcli_unpack_repo_name $plugin_name)
     if [[ ! -d "$abcli_path_git/$repo_name" ]]; then
