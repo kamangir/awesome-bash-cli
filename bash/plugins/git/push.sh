@@ -20,6 +20,9 @@ function abcli_git_push() {
     [[ "$show_status" == 1 ]] &&
         git status
 
+    local repo_name=$(abcli_git_get_repo_name)
+    local plugin_name=$(abcli_plugin_name_from_repo $repo_name)
+
     git add .
 
     git commit -a -m "$message - kamangir/bolt#746"
@@ -38,12 +41,8 @@ function abcli_git_push() {
         abcli_git browse actions
 
     local build_options=$3
-    if [[ $(abcli_option_int "$build_options" build 0) == 1 ]]; then
-        local repo_name=$(abcli_git_get_repo_name)
-        local plugin_name=$(abcli_plugin_name_from_repo $repo_name)
-
+    [[ $(abcli_option_int "$build_options" build 0) == 1 ]] &&
         abcli_pypi_build $build_options,plugin=$plugin_name
-    fi
 
     return 0
 }
