@@ -18,7 +18,7 @@ function abcli_perform_action() {
     [[ $(type -t $function_name) != "function" ]] &&
         return 0
 
-    abcli_log "✴️ action: $plugin_name: $action_name."
+    abcli_log "✴️  action: $plugin_name: $action_name."
     $function_name "${@:2}"
 }
 
