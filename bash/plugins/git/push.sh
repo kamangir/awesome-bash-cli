@@ -13,6 +13,7 @@ function abcli_git_push() {
     local show_status=$(abcli_option_int "$options" status 1)
     local first_push=$(abcli_option_int "$options" first 0)
     local create_pull_request=$(abcli_option_int "$options" create_pull_request $first_push)
+    local do_action=$(abcli_option_int "$options" action 1)
 
     [[ "$do_increment_version" == 1 ]] &&
         abcli_git increment_version
@@ -22,6 +23,12 @@ function abcli_git_push() {
 
     local repo_name=$(abcli_git_get_repo_name)
     local plugin_name=$(abcli_plugin_name_from_repo $repo_name)
+
+    if [[ "$do_action" == 1 ]]; then
+        local function_name=${plugin_name}_action_git_before_push
+        [[ $(type -t $function_name) == "function" ]] &&
+            $function_name
+    fi
 
     git add .
 
