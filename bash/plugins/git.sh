@@ -127,7 +127,7 @@ function abcli_git() {
 
     if [[ "$task" == "create_pull_request" ]]; then
         abcli_browse \
-            https://github.com/kamangir/$repo_name/compare/$(abcli_git_get_branch)?expand=1
+            https://github.com/kamangir/$repo_name/compare/$(abcli_git get_branch)?expand=1
         return
     fi
 
