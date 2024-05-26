@@ -2,16 +2,7 @@ import os
 from abcli import env, path
 
 
-def list_of_external(repo_names=False):
-    """return list of external plugins.
-
-    Args:
-        repo_names (bool, optional): return repo names. Defaults to False.
-
-    Returns:
-        list[str]: list of external plugins.
-    """
-
+def list_of_external(repo_names=False) -> list[str]:
     output = sorted(
         [
             repo_name
