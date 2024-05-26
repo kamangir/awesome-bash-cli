@@ -32,7 +32,9 @@ function abcli_source_dependencies() {
 
     local repo_name
     for repo_name in $(abcli_plugins list_of_external --log 0 --delim space --repo_names 1); do
-        pushd $abcli_path_git/$repo_name/.abcli >/dev/null
+        local module_name=$(abcli_plugins get_module_name $repo_name)
+        pushd $abcli_path_git/$repo_name/$module_name/.abcli >/dev/null
+
         local filename
         for filename in *.sh; do
             source $filename

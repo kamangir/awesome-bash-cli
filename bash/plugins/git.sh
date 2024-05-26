@@ -161,7 +161,6 @@ function abcli_git() {
     git "$@"
 }
 
-abcli_source_path \
-    $abcli_path_git/awesome-bash-cli/bash/plugins/git
+abcli_source_path - caller,suffix=/git
 
 abcli_refresh_branch_and_version

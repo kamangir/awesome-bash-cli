@@ -1,3 +1,3 @@
-NAME = "abcli.plugins"
+from abcli import NAME
 
-from .functions import *
+NAME = f"{NAME}.plugins"

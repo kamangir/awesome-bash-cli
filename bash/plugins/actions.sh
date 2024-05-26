@@ -23,5 +23,6 @@ function abcli_perform_action() {
 }
 
 function abcli_action_git_before_push() {
-    abcli pypi build
+    [[ "$(abcli_git get_branch)" == "main" ]] &&
+        abcli pypi build
 }

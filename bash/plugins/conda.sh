@@ -75,5 +75,4 @@ function abcli_conda() {
     conda "$@"
 }
 
-abcli_source_path \
-    $abcli_path_git/awesome-bash-cli/bash/plugins/conda
+abcli_source_path - caller,suffix=/conda
