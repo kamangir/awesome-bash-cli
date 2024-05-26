@@ -3,6 +3,11 @@
 function test_abcli_plugin_name_from_repo() {
     local options=$1
 
+    if [[ "$abcli_is_github_workflow" == true ]]; then
+        abcli_log_warning "plugins are not present in the github workflow."
+        return
+    fi
+
     abcli_assert \
         $(abcli_plugin_name_from_repo awesome-bash-cli) \
         abcli
@@ -33,6 +38,11 @@ function test_abcli_plugin_name_from_repo() {
 }
 
 function test_abcli_get_module_name_from_plugin() {
+    if [[ "$abcli_is_github_workflow" == true ]]; then
+        abcli_log_warning "plugins are not present in the github workflow."
+        return
+    fi
+
     abcli_assert \
         $(abcli_get_module_name_from_plugin abcli) \
         abcli
