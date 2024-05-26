@@ -124,7 +124,7 @@ abcli_publish_prefix = os.getenv("abcli_publish_prefix", "")
 abcli_papertrail_dest_host = os.getenv("abcli_papertrail_dest_host", "")
 abcli_papertrail_dest_port = os.getenv("abcli_papertrail_dest_port", "")
 
-abcli_plugins = os.getenv("abcli_plugins", "")
+abcli_plugins_must_have = os.getenv("abcli_plugins_must_have", "")
 
 abcli_session_auto_upload = os.getenv("abcli_session_auto_upload", "")
 abcli_session_imager_diff = os.getenv("abcli_session_imager_diff", "")

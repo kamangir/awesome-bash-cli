@@ -19,28 +19,29 @@ function abcli_init() {
             local options=~terraform,$options
 
         local repo_name
-        for repo_name in $(echo $abcli_plugins | tr , " "); do
+        for repo_name in $(echo $abcli_plugins_must_have | tr , " "); do
             abcli_git clone $repo_name if_cloned,install
         done
 
-        source $abcli_path_abcli/bash/abcli.sh "$options" ${@:3}
+        source $abcli_path_abcli/bash/abcli.sh "$options" "${@:3}"
     elif [ "$plugin_name" == "clear" ]; then
         abcli_init - clear
     else
         local plugin_name=$(abcli_unpack_keyword $1)
-        local repo_name=$(echo "$plugin_name" | tr _ -)
+        local repo_name=$(abcli_get_repo_name_from_plugin $plugin_name)
+        local module_name=$(abcli_get_module_name_from_plugin $plugin_name)
 
-        for filename in $abcli_path_git/$repo_name/.abcli/*.sh; do
+        for filename in $abcli_path_git/$repo_name/$module_name/.abcli/*.sh; do
             source $filename
         done
     fi
 
-    if [[ "$current_path" == "$abcli_path_git"* ]]; then
+    [[ "$current_path" == "$abcli_path_git"* ]] &&
         cd $current_path
-    fi
 
     local do_clear=$(abcli_option_int "$options" clear 0)
-    if [ "$do_clear" == 1 ]; then
+    [[ "$do_clear" == 1 ]] &&
         clear
-    fi
+
+    return 0
 }
