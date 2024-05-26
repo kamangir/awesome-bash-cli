@@ -23,5 +23,4 @@ function abcli_pypi() {
     return 1
 }
 
-abcli_source_path \
-    $abcli_path_git/awesome-bash-cli/bash/plugins/pypi
+abcli_source_path - caller,suffix=/pypi

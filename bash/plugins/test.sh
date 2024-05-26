@@ -71,15 +71,14 @@ function abcli_test() {
     if [[ -z "$failed_test_list" ]]; then
         return
     else
-        abcli_log_list $list_of_tests \
+        abcli_log_list "$failed_test_list" \
             --after "failed test(s)" \
             --before ""
         return 1
     fi
 }
 
-abcli_source_path \
-    $abcli_path_abcli/bash/tests
+abcli_source_path - caller,suffix=/../tests
 
 function abcli_assert() {
     local value=$1
@@ -98,7 +97,7 @@ function abcli_assert() {
     fi
 
     if [[ "$value" == "$expected_value" ]]; then
-        abcli_log "✅ $function_name: $value."
+        abcli_log "✅ $function_name: $value == $expected_value."
         return
     fi
 

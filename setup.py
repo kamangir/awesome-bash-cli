@@ -1,9 +1,9 @@
-from abcli import NAME, VERSION, DESCRIPTION
+from abcli import NAME, VERSION, DESCRIPTION, REPO_NAME
 from blueness.pypi import setup
 
 setup(
     filename=__file__,
-    repo_name="awesome-bash-cli",
+    repo_name=REPO_NAME,
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,

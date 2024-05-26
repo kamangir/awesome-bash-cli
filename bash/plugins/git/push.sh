@@ -34,7 +34,7 @@ function abcli_git_push() {
 
     if [ "$first_push" == 1 ]; then
         git push \
-            --set-upstream origin $(abcli_git_get_branch)
+            --set-upstream origin $(abcli_git get_branch)
     else
         git push
     fi

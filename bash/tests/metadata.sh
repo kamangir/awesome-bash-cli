@@ -47,11 +47,7 @@ function test_abcli_metadata() {
                     key=$key,filename=metadata.yaml,path \
                     $object_path)
 
-            if [[ "$value" != "$returned_value" ]]; then
-                abcli_log_error "-metadata: post_func #$post_func, get_func #$get_func: $value != $returned_value: test failed."
-                return 1
-            fi
-            abcli_log "✅"
+            abcli_assert "$value" "$returned_value"
         done
     done
 }

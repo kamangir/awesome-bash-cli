@@ -50,6 +50,8 @@ load_env(__name__)
 load_config(__name__)
 
 
+abcli_is_github_workflow = os.getenv("GITHUB_ACTIONS", "")
+
 abcli_aws_ec2_default_image_name = os.getenv("abcli_aws_ec2_default_image_name", "")
 abcli_aws_ec2_default_instance_type = os.getenv(
     "abcli_aws_ec2_default_instance_type", ""

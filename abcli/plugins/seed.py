@@ -1,8 +1,9 @@
+from abcli import NAME
 from abcli import env
 from abcli.logger import logger
 
 
-NAME = "abcli.plugins.seed"
+NAME = f"{NAME}.plugins.seed"
 
 
 def log(
