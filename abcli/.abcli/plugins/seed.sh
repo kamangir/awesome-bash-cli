@@ -107,7 +107,7 @@ function abcli_seed() {
         ${target}_seed "${@:2}"
     else
         if [ "$target" == docker ]; then
-            seed="${seed}source /root/git/awesome-bash-cli/bash/abcli.sh$delim"
+            seed="${seed}source /root/git/awesome-bash-cli/abcli/.abcli/abcli.sh$delim"
         else
             if [[ "$target" != sagemaker ]]; then
                 if [ -d "$HOME/.kaggle" ]; then
@@ -202,7 +202,7 @@ function abcli_seed() {
                 seed="${seed}pip3 install -e .$delim_section"
             fi
 
-            seed="${seed}source ./bash/abcli.sh$delim_section"
+            seed="${seed}source ./abcli/.abcli/abcli.sh$delim_section"
 
             if [ "$target" == "ec2" ]; then
                 seed="${seed}source ~/.bash_profile$delim_section"

@@ -1,2 +1,1 @@
-source $HOME/git/awesome-bash-cli/bash/abcli.sh
-
+source $HOME/git/awesome-bash-cli/abcli/.abcli/abcli.sh

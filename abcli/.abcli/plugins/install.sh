@@ -32,6 +32,6 @@ function abcli_install_papertrail() {
 }
 
 [[ "$abcli_is_ec2" == true ]] &&
-    abcli_install_module ffmpeg 101
+    abcli_install_module ffmpeg 2.1.1
 
-abcli_install_module papertrail 104
+abcli_install_module papertrail 2.1.1

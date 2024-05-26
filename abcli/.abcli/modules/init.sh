@@ -23,7 +23,7 @@ function abcli_init() {
             abcli_git clone $repo_name if_cloned,install
         done
 
-        source $abcli_path_abcli/bash/abcli.sh "$options" "${@:3}"
+        source $abcli_path_abcli/abcli/.abcli/abcli.sh "$options" "${@:3}"
     elif [ "$plugin_name" == "clear" ]; then
         abcli_init - clear
     else

@@ -7,7 +7,9 @@ from abcli.logger import logger
 def lxde(_):
     return terraform(
         ["/etc/xdg/lxsession/LXDE/autostart"],
-        ["@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh - abcli session start"],
+        [
+            "@bash /home/pi/git/awesome-bash-cli/abcli/.abcli/abcli.sh - abcli session start"
+        ],
     )
 
 
@@ -47,7 +49,7 @@ def poster(filename):
 def mac(user):
     return terraform(
         ["/Users/{}/.bash_profile".format(user)],
-        ["source ~/git/awesome-bash-cli/bash/abcli.sh"],
+        ["source ~/git/awesome-bash-cli/abcli/.abcli/abcli.sh"],
     )
 
 
@@ -55,7 +57,7 @@ def rpi(_, is_headless=False):
     success = terraform(
         ["/home/pi/.bashrc"],
         [
-            "source /home/pi/git/awesome-bash-cli/bash/abcli.sh{}".format(
+            "source /home/pi/git/awesome-bash-cli/abcli/.abcli/abcli.sh{}".format(
                 "  - abcli session start" if is_headless else ""
             )
         ],
@@ -65,7 +67,7 @@ def rpi(_, is_headless=False):
         if not terraform(
             ["/etc/xdg/lxsession/LXDE-pi/autostart"],
             [
-                "@bash /home/pi/git/awesome-bash-cli/bash/abcli.sh  - abcli session start"
+                "@bash /home/pi/git/awesome-bash-cli/abcli/.abcli/abcli.sh  - abcli session start"
             ],
         ):
             success = False
@@ -131,5 +133,5 @@ def signature():
 def ubuntu(user):
     return terraform(
         ["/home/{}/.bashrc".format(user)],
-        ["source /home/{}/git/awesome-bash-cli/bash/abcli.sh".format(user)],
+        ["source /home/{}/git/awesome-bash-cli/abcli/.abcli/abcli.sh".format(user)],
     )
