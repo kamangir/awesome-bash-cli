@@ -2,9 +2,11 @@ import os
 
 NAME = "abcli"
 
-VERSION = "9.20.1"
+VERSION = "9.21.1"
 
 DESCRIPTION = "🚀 a language to speak AI."
+
+REPO_NAME = "awesome-bash-cli"
 
 
 def fullname() -> str:
