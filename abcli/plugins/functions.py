@@ -1,6 +1,5 @@
-from typing import Dict
+from typing import List
 import glob
-from enum import Enum, auto
 import os
 from abcli import env, path, file
 
@@ -24,7 +23,7 @@ def get_module_name(repo_name: str) -> str:
     return path.name(list_of_candidates[0])
 
 
-def list_of_external(repo_names=False) -> list[str]:
+def list_of_external(repo_names=False) -> List[str]:
     output = sorted(
         [
             repo_name
