@@ -5,4 +5,6 @@ function test_abcli_version() {
 
     abcli_eval ,$options \
         "abcli version ${@:2}"
+
+    return 0
 }
