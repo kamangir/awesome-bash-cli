@@ -2,9 +2,11 @@ import os
 
 NAME = "abcli"
 
-VERSION = "9.32.1"
+ICON = "🚀"
 
-DESCRIPTION = "🚀 a language to speak AI."
+DESCRIPTION = f"{ICON} a language to speak AI."
+
+VERSION = "9.33.1"
 
 REPO_NAME = "awesome-bash-cli"
 
