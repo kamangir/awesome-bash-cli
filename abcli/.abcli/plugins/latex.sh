@@ -35,10 +35,13 @@ function abcli_latex() {
         rm -v $filename.dvi
         rm -v $filename.ps
 
-        abcli_eval dryrun=$do_dryrun \
-            latex \
-            -interaction=nonstopmode \
-            $filename.tex
+        local round
+        for round in 1 2; do
+            abcli_eval dryrun=$do_dryrun \
+                latex \
+                -interaction=nonstopmode \
+                $filename.tex
+        done
 
         #abcli_eval dryrun=$do_dryrun \
         #    makeindex $filename.idx
