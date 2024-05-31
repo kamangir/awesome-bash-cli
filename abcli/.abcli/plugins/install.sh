@@ -27,17 +27,17 @@ function abcli_install_papertrail() {
 
     abcli_log "installing $filename ..."
 
-    # https://github.com/papertrail/remote_syslog2/releases/tag/v0.20
-    local url="https://github.com/papertrail/remote_syslog2/releases/download/v0.20/$filename.tar.gz"
+    # https://github.com/papertrail/remote_syslog2/releases/tag/v0.21
+    local url="https://github.com/papertrail/remote_syslog2/releases/download/v0.21/$filename.tar.gz"
 
     pushd $abcli_path_temp >/dev/null
     curl -O -L $url
     tar -xzf $filename.tar.gz
-    chmod +x $filename/$filename
+    chmod +x remote_syslog/remote_syslog
     popd >/dev/null
 }
 
 [[ "$abcli_is_ec2" == true ]] &&
     abcli_install_module ffmpeg 2.1.1
 
-abcli_install_module papertrail 3.2.1
+abcli_install_module papertrail 3.3.1
