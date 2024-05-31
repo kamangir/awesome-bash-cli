@@ -33,7 +33,7 @@ function abcli_trail() {
         [[ "$abcli_is_docker" == false ]] &&
             [[ "$abcli_is_aws_batch" == false ]] && prefix=sudo
 
-        $prefix $abcli_path_temp/remote_syslog2/remote_syslog \
+        $prefix $abcli_path_temp/remote_syslog/remote_syslog \
             -p $abcli_papertrail_dest_port \
             -d $abcli_papertrail_dest_host \
             --pid-file=/var/run/remote_syslog.pid \
