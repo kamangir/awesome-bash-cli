@@ -24,16 +24,16 @@ function abcli_trail() {
     if [ "$log_filename" != "$abcli_log_filename" ]; then
         abcli_trail stop
 
-        if [ -f "$log_filename" ]; then
+        [[ -f "$log_filename" ]] &&
             sudo rm "$log_filename"
-        fi
+
         touch "$log_filename"
 
         local prefix
         [[ "$abcli_is_docker" == false ]] &&
             [[ "$abcli_is_aws_batch" == false ]] && prefix=sudo
 
-        $prefix $abcli_path_abcli/assets/papertrail/remote_syslog/remote_syslog \
+        $prefix $abcli_path_temp/remote_syslog/remote_syslog \
             -p $abcli_papertrail_dest_port \
             -d $abcli_papertrail_dest_host \
             --pid-file=/var/run/remote_syslog.pid \
