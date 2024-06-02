@@ -10,6 +10,8 @@ alias @perform_action=abcli_perform_action
 
 alias @assert=abcli_assert
 
+alias @badge=abcli_badge
+
 alias @browse=abcli_browse
 
 alias @cache=abcli_cache
