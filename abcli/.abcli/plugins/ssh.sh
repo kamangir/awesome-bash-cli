@@ -4,10 +4,10 @@ function abcli_add_ssh_keys() {
     if [ -z "$abcli_ssh_keys_added" ] || [ "$1" == "force" ]; then
         eval "$(ssh-agent -s)"
 
-        ssh-add -k $abcli_path_home/.ssh/$abcli_git_ssh_key_name
+        ssh-add -k $HOME/.ssh/$abcli_git_ssh_key_name
 
-        if [ -f "$abcli_path_home/.ssh/abcli" ]; then
-            ssh-add -k $abcli_path_home/.ssh/abcli
+        if [ -f "$HOME/.ssh/abcli" ]; then
+            ssh-add -k $HOME/.ssh/abcli
         fi
 
         export abcli_ssh_keys_added="true"
@@ -34,7 +34,7 @@ function abcli_ssh() {
     if [ "$task" == "add" ]; then
         local filename=$(abcli_clarify_input $2 abcli)
 
-        ssh-add -k $abcli_path_home/.ssh/$filename
+        ssh-add -k $HOME/.ssh/$filename
         return
     fi
 
@@ -43,14 +43,14 @@ function abcli_ssh() {
         local filename=$(abcli_clarify_input $2 abcli)
         local args=$(abcli_ssh_args ${@:3})
 
-        ssh-copy-id -i $abcli_path_home/.ssh/$filename.pub $args
+        ssh-copy-id -i $HOME/.ssh/$filename.pub $args
         return
     fi
 
     # https://www.raspberrypi.com/tutorials/cluster-raspberry-pi-tutorial/
     if [ "$task" == "keygen" ]; then
         local filename=$(abcli_clarify_input $2 abcli)
-        ssh-keygen -t rsa -b 4096 -f $abcli_path_home/.ssh/$filename
+        ssh-keygen -t rsa -b 4096 -f $HOME/.ssh/$filename
         return
     fi
 

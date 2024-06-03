@@ -43,10 +43,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export abcli_is_mac=true
 fi
 
-if [[ "$abcli_path_home" == "/home/sagemaker-user" ]]; then
+if [[ "$HOME" == "/home/sagemaker-user" ]]; then
     export abcli_is_sagemaker=true
     export abcli_is_sagemaker_system=true
-elif [[ "$abcli_path_home" == "/home/cloudshell-user" ]]; then
+elif [[ "$HOME" == "/home/cloudshell-user" ]]; then
     export abcli_is_cloudshell=true
 elif [[ "$(hostname)" == sagemaker* ]] || [[ "$(hostname)" == pytorch* ]]; then
     export abcli_is_sagemaker=true
@@ -90,7 +90,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 fi
 
 if [[ "$abcli_is_ec2" == true ]]; then
-    source $abcli_path_home/.bashrc
+    source $HOME/.bashrc
     # https://stackoverflow.com/a/17723894/17619982
     # export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libatomic.so.1
 fi

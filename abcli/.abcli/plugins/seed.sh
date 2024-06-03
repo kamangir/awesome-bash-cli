@@ -186,7 +186,7 @@ function abcli_seed() {
                 \$HOME/git/awesome-bash-cli/.env)$delim_section"
 
             if [ "$target" == "headless_rpi" ]; then
-                seed="${seed}touch ~/git/awesome-bash-cli/assets/ignore/headless$delim_section"
+                seed="${seed}touch ~/storage/temp/ignore/headless$delim_section"
             fi
 
             if [ "$target" == "rpi" ]; then

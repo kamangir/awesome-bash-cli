@@ -62,8 +62,8 @@ function abcli_terraform() {
     fi
 
     if [[ "$abcli_is_headless" == false ]] && [[ "$abcli_is_mac" == false ]] && [[ "$abcli_is_docker" == false ]]; then
-        rm ${abcli_path_abcli}/assets/images/background*
-        local background_image=$abcli_path_abcli/assets/images/background-$(abcli_string_timestamp).jpg
+        rm $abcli_path_ignore/background*
+        local background_image=$abcli_path_ignore/background-$(abcli_string_timestamp).jpg
 
         python3 -m abcli.modules.terraform poster \
             --filename $background_image
@@ -111,7 +111,7 @@ function abcli_terraform() {
 
             # https://forums.developer.nvidia.com/t/how-to-run-a-python-program-as-soon-as-power-is-turned-on-jetson-nano-jetpack/168757/9
             sudo mkdir -p /home/$USER/.config/autostart/
-            sudo cp $abcli_path_abcli/assets/jetson/abcli.desktop /home/$USER/.config/autostart/
+            sudo cp $abcli_path_assets/jetson/abcli.desktop /home/$USER/.config/autostart/
 
             if [[ "$desktop_environment" == "GNOME" ]]; then
                 # https://askubuntu.com/a/69500
@@ -144,7 +144,7 @@ function abcli_terraform() {
         if [[ "$abcli_is_ec2" == true ]]; then
             abcli_log "terraforming ec2"
             sudo cp \
-                $abcli_path_abcli/assets/aws/ec2_bash_profile \
+                $abcli_path_assets/aws/ec2_bash_profile \
                 /home/$USER/.bash_profile
         else
             sudo python3 -m abcli.modules.terraform \
