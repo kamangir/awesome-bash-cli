@@ -4,7 +4,7 @@ from abcli import file
 
 
 def test_abcli_env():
-    assert env.abcli_path_home
+    assert env.HOME
     assert env.abcli_path_git
     assert env.abcli_path_storage
 

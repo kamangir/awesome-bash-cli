@@ -94,7 +94,7 @@ function abcli_env() {
             fi
 
             abcli_eval - \
-                cat $abcli_path_abcli/assets/env/$env_name.env
+                cat $abcli_path_assets/env/$env_name.env
 
             return
         fi
@@ -106,14 +106,14 @@ function abcli_env() {
 
             if [ "$machine_kind" == "local" ]; then
                 cp -v \
-                    $abcli_path_abcli/assets/env/$env_name.env \
+                    $abcli_path_assets/env/$env_name.env \
                     $$abcli_path_abcli/.env
             else
                 # https://kb.iu.edu/d/agye
                 abcli_scp \
                     local \
                     - \
-                    $abcli_path_abcli/assets/env/$env_name.env \
+                    $abcli_path_assets/env/$env_name.env \
                     $machine_kind \
                     $machine_name \
                     \~/git/awesome-bash-cli/.env
@@ -160,7 +160,7 @@ function abcli_env() {
         fi
 
         if [[ "$subtask" == "list" ]]; then
-            ls -1lh $abcli_path_abcli/assets/env/*.env
+            ls -1lh $abcli_path_assets/env/*.env
             return
         fi
 

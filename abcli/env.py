@@ -100,10 +100,9 @@ abcli_hostname = os.getenv("abcli_hostname", "")
 abcli_messenger_recipients = os.getenv("abcli_messenger_recipients", "")
 
 HOME = os.getenv("HOME", "")
-abcli_path_home = os.getenv("abcli_path_home", HOME)
 abcli_path_storage = os.getenv(
     "abcli_path_storage",
-    os.path.join(abcli_path_home, "storage"),
+    os.path.join(HOME, "storage"),
 )
 abcli_object_root = os.getenv(
     "abcli_object_root",
@@ -113,7 +112,7 @@ abcli_object_name = os.getenv("abcli_object_name", "")
 abcli_object_path = os.getenv("abcli_object_path", "")
 abcli_path_git = os.getenv(
     "abcli_path_git",
-    os.path.join(abcli_path_home, "git"),
+    os.path.join(HOME, "git"),
 )
 abcli_path_static = os.getenv("abcli_path_static", "")
 abcli_path_abcli = os.getenv("abcli_path_abcli", "")
@@ -143,7 +142,6 @@ abcli_session = os.getenv("abcli_session", "")
 abcli_youtube_api_key = os.getenv("abcli_youtube_api_key", "")
 
 abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
-
 
 STABILITY_KEY = os.getenv("STABILITY_KEY", "")
 
