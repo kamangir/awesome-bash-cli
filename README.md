@@ -12,7 +12,7 @@ To install `abcli`, type in,
 pip install abcli
 ```
 
-or follow these (not-too-update) instructions for custom environments:
+or follow these (outdated) instructions for custom environments:
 
 - [Amazon EC2 instances](https://github.com/kamangir/awesome-bash-cli/wiki/ec2)
 - [Amazon SageMaker](https://github.com/kamangir/blue-plugin/blob/main/SageMaker.md)
