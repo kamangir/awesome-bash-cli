@@ -1,10 +1,10 @@
 # awesome bash cli (abcli/abc)
 
+`abcli` 🚀 is an implementation of [🔻 giza](https://github.com/kamangir/giza) and the library behind [these projects](https://github.com/kamangir/kamangir).
+
 ![image](./abcli/assets/marquee.png)
 
 [![PyPI version](https://img.shields.io/pypi/v/abcli.svg)](https://pypi.org/project/abcli/)
-
-`abcli` 🚀 is an implementation of [🔻 giza](https://github.com/kamangir/giza) and the library behind [these projects](https://github.com/kamangir/kamangir).
 
 To install `abcli`, type in,
 
