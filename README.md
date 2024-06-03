@@ -2,9 +2,17 @@
 
 ![image](./abcli/assets/marquee.png)
 
+[![PyPI version](https://img.shields.io/pypi/v/abcli.svg)](https://pypi.org/project/abcli/)
+
 `abcli` 🚀 is an implementation of [🔻 giza](https://github.com/kamangir/giza) and the library behind [these projects](https://github.com/kamangir/kamangir).
 
-To install `abcli` follow the instructions for (⚠️ outdated instructions ⚠️):
+To install `abcli`, type in,
+
+```bash
+pip install abcli
+```
+
+or follow these (not-too-update) instructions for custom environments:
 
 - [Amazon EC2 instances](https://github.com/kamangir/awesome-bash-cli/wiki/ec2)
 - [Amazon SageMaker](https://github.com/kamangir/blue-plugin/blob/main/SageMaker.md)
