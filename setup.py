@@ -33,6 +33,7 @@ setup(
         NAME: [
             "config.env",
             ".abcli/**/*.sh",
+            ".abcli/assets/**/*",
         ],
     },
 )
