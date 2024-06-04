@@ -7,6 +7,7 @@ function abcli_conda_create() {
     local environment_name=$(abcli_option "$options" name abcli)
     local repo_name=$(abcli_unpack_repo_name $environment_name)
     repo_name=$(abcli_option "$options" repo $repo_name)
+    local do_install_plugin=$(abcli_option_int "$options" install_plugin 1)
 
     conda init bash
 
@@ -38,10 +39,12 @@ function abcli_conda_create() {
     pip3 install -r requirements.txt
     popd >/dev/null
 
-    abcli_plugins install $repo_name
+    if [[ "$install_plugin" == 1 ]]; then
+        abcli_plugins install $repo_name
 
-    pip3 uninstall -y abcli
-    pushd $abcli_path_git/awesome-bash-cli >/dev/null
-    pip3 install -e .
-    popd >/dev/null
+        pip3 uninstall -y abcli
+        pushd $abcli_path_git/awesome-bash-cli >/dev/null
+        pip3 install -e .
+        popd >/dev/null
+    fi
 }

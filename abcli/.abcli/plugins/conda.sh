@@ -15,7 +15,7 @@ function abcli_conda() {
         local options
         case $task in
         create)
-            options="${EOP}clone=<auto|base>,${EOPE}name=<environment-name>${EOP},repo=<repo-name>,~recreate${EOP}"
+            options="${EOP}clone=<auto|base>,~install_plugin,${EOPE}name=<environment-name>${EOP},repo=<repo-name>,~recreate${EOP}"
             abcli_show_usage "@conda create$ABCUL$options" \
                 "create conda environment."
             ;;
