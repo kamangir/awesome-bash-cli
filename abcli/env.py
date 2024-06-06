@@ -146,3 +146,5 @@ abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
 STABILITY_KEY = os.getenv("STABILITY_KEY", "")
 
 VANWATCH_TEST_OBJECT = os.getenv("VANWATCH_TEST_OBJECT", "vanwatch-test-object-v2")
+
+NGROK_AUTHTOKEN = os.getenv("NGROK_AUTHTOKEN", "")
