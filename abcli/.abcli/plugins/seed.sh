@@ -78,6 +78,7 @@ function abcli_seed() {
     local env_name=$(abcli_option "$options" env $env_name)
 
     local sudo_prefix="sudo "
+    [[ "$target" == "sagemaker" ]] && sudo_prefix=""
 
     if [ "$output" == "key" ]; then
         if [[ "$abcli_is_jetson" == true ]]; then
