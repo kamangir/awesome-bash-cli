@@ -242,5 +242,8 @@ function abcli_seed() {
             abcli_log "seed 🌱 -> $filename."
     elif [ "$output" == "screen" ]; then
         printf "$GREEN$seed$NC\n"
+    else
+        abcli_log_error "this should not happen - output: $output".
+        return 1
     fi
 }
