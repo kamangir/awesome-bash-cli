@@ -6,8 +6,8 @@ function abcli_seed() {
     local list_of_seed_targets="cloudshell|docker|ec2|jetson|headless_rpi|mac|rpi|sagemaker|sagemaker-system"
 
     if [ "$task" == "help" ]; then
-        local options="clipboard|filename=<filename>|key|screen,env=<env-name>,plugin=<plugin-name>,~log"
-        abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]" \
+        local options="clipboard|filename=<filename>|key|screen,env=<env-name>,eval,plugin=<plugin-name>,~log"
+        abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]$ABCUL[$abcli_scripts_options]$ABCUL<command-line>" \
             "generate and output a seed 🌱."
         abcli_show_usage "abcli seed eject" \
             "eject seed 🌱."
@@ -49,43 +49,31 @@ function abcli_seed() {
 
     local options=$2
     local do_log=$(abcli_option_int "$options" log 1)
-
-    local output=clipboard
+    local do_eval=$(abcli_option_int "$options" eval 0)
+    local output=$(abcli_option_choice "$options" clipboard,key,screen clipboard)
     [[ "$abcli_is_sagemaker" == true ]] &&
-        local output=screen
-    local filename=""
-    local to_key=$(abcli_option_int "$options" key 0)
-    if [ "$to_key" == 1 ]; then
-        local output="key"
-    else
-        local to_screen=$(abcli_option_int "$options" screen 0)
-        if [ "$to_screen" == 1 ]; then
-            local output="screen"
-        else
-            local filename=$(abcli_option "$options" filename)
-        fi
-    fi
+        output=screen
 
     local delim="\n"
     local delim_section="\n\n"
     if [ "$output" == "clipboard" ]; then
-        local delim="; "
-        local delim_section="; "
+        delim="; "
+        delim_section="; "
     fi
 
     local env_name=""
-    [[ "$target" == "ec2" ]] && local env_name="worker"
-    local env_name=$(abcli_option "$options" env $env_name)
+    [[ "$target" == "ec2" ]] &&
+        env_name="worker"
+    env_name=$(abcli_option "$options" env $env_name)
 
     local sudo_prefix="sudo "
-    [[ "$target" == "sagemaker" ]] && sudo_prefix=""
+    [[ "$target" == "sagemaker" ]] &&
+        sudo_prefix=""
 
     if [ "$output" == "key" ]; then
-        if [[ "$abcli_is_jetson" == true ]]; then
-            local seed_path="/media/abcli/SEED"
-        else
-            local seed_path="/Volumes/seed"
-        fi
+        local seed_path="/Volumes/seed"
+        [[ "$abcli_is_jetson" == true ]] &&
+            seed_path="/media/abcli/SEED"
 
         if [ ! -d "$seed_path" ]; then
             abcli_log_error "-abcli: seed: usb key not found."
@@ -225,9 +213,11 @@ function abcli_seed() {
         fi
     fi
 
-    if [[ "$target" == sagemaker* ]]; then
+    [[ "$do_eval" == 1 ]] &&
+        seed="${seed}abcli_eval ${@:3}$delim_section"
+
+    [[ "$target" == sagemaker* ]] &&
         abcli_log_warning "run \"bash\" before pasting the seed."
-    fi
 
     if [ "$output" == "clipboard" ]; then
         if [ "$abcli_is_mac" == true ]; then
@@ -235,29 +225,25 @@ function abcli_seed() {
         elif [ "$abcli_is_ubuntu" == true ]; then
             echo $seed | xclip -sel clip
         fi
-        if [ "$do_log" == 1 ]; then
+
+        [[ "$do_log" == 1 ]] &&
             abcli_log "📋 paste the seed 🌱 in the $target terminal."
-        fi
-    elif [ "$output" == "key" ] || [ "$output" == "file" ]; then
-        if [ "$output" == "key" ]; then
-            local filename="$seed_path/abcli/$target"
-        else
-            local filename=$(abcli_option "$options" filename $abcli_object_path/seed)
-        fi
+    elif [ "$output" == "key" ] || [ "$output" == "filename" ]; then
+        filename=$(abcli_option "$options" filename $abcli_object_path/seed)
+        [[ "$output" == "key" ]] &&
+            filename="$seed_path/abcli/$target"
 
         echo -en $seed >$filename.sh
         chmod +x $filename.sh
 
         echo "{\"version\":\"$abcli_version\"}" >$filename.json
 
-        if [ "$do_log" == 1 ]; then
+        [[ "$do_log" == 1 ]] &&
             abcli_log "seed 🌱 -> $filename."
-        fi
     elif [ "$output" == "screen" ]; then
         printf "$GREEN$seed$NC\n"
     else
-        if [ "$do_log" == 1 ]; then
-            abcli_log_error "-abcli: seed: $output: output not found."
-        fi
+        abcli_log_error "this should not happen - output: $output".
+        return 1
     fi
 }
