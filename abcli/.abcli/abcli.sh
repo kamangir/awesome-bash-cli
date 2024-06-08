@@ -57,7 +57,7 @@ function abcli_main() {
 }
 
 if [ -f "$HOME/storage/temp/ignore/disabled" ]; then
-    printf "abcli is \033[0;31mdisabled\033[0m.\n"
+    printf "abcli is \033[0;31mdisabled\033[0m, run '@T enable' first.\n"
 else
     abcli_main "$@"
 fi
