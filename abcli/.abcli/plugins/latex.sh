@@ -41,7 +41,9 @@ function abcli_latex() {
         rm -v $filename.ps
 
         local round
-        for round in 1 2; do
+        for round in 1 2 3; do
+            abcli_log "round $round..."
+
             abcli_eval dryrun=$do_dryrun \
                 latex \
                 -interaction=nonstopmode \
