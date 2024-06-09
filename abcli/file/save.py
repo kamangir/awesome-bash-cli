@@ -142,7 +142,7 @@ def save_geojson(
         return False
 
     if log:
-        logger.info(f"save_geojson: {len(gdf)} -> {filename}")
+        logger.info(f"save_geojson: {len(gdf):,} row(s) -> {filename}")
 
     return True
 
