@@ -12,9 +12,9 @@ function abcli_clone() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        local options="$EOP~cache,~download,~meta,~relations,~tags,${EOPE}upload"
-        abcli_show_usage "@clone$ABCUL[..|<object-1>] [.|<object-2>]$ABCUL$options" \
-            "clone <object-1> -> <object-2>."
+        local options="~cache,~download,~meta,~relations,~tags,${EOPE}upload"
+        abcli_show_usage "@cp$EOP|@copy|@clone$ABCUL..|<object-1> .|<object-2>$ABCUL$options" \
+            "copy <object-1> -> <object-2>."
         return
     fi
 
