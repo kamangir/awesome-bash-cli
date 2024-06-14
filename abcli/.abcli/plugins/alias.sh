@@ -20,6 +20,8 @@ alias @tag=abcli_tag
 alias @relation=abcli_relation
 
 alias @clone=abcli_clone
+alias @copy=abcli_copy
+alias @cp=abcli_cp
 
 alias @conda=abcli_conda
 
