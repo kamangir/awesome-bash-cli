@@ -2,8 +2,8 @@
 
 function abcli_open() {
     if [ "$1" == "help" ]; then
-        local options="extension=<extension>,filename=<filename>,QGIS"
-        abcli_show_usage "abcli open$ABCUL[.|<object-name>]$ABCUL[$options]" \
+        local options="extension=<extension>,${EOPE}filename=<filename>,QGIS"
+        abcli_show_usage "@open$ABCUL.$EOP|<object-name>$ABCUL$options" \
             "open <object-name>."
         return
     fi
@@ -25,4 +25,6 @@ function abcli_open() {
 
     abcli_eval - \
         open "$what"
+
+    return 0
 }
