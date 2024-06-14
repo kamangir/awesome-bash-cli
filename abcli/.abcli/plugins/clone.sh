@@ -1,11 +1,19 @@
 #! /usr/bin/env bash
 
+function abcli_copy() {
+    abcli_clone "$@"
+}
+
+function abcli_cp() {
+    abcli_clone "$@"
+}
+
 function abcli_clone() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        local options="~cache,~download,~meta,~relations,~tags,upload"
-        abcli_show_usage "abcli clone$ABCUL[..|<object-1>] [.|<object-2>]$ABCUL[$options]" \
+        local options="$EOP~cache,~download,~meta,~relations,~tags,${EOPE}upload"
+        abcli_show_usage "@clone$ABCUL[..|<object-1>] [.|<object-2>]$ABCUL$options" \
             "clone <object-1> -> <object-2>."
         return
     fi
@@ -56,4 +64,6 @@ function abcli_clone() {
 
     [[ "$do_upload" == 1 ]] &&
         abcli_upload - $object_2_name
+
+    return 0
 }
