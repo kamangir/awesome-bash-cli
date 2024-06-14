@@ -11,20 +11,20 @@ function abcli_tag() {
     local object=$(abcli_clarify_object $2 .)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli tag clone$ABCUL<object-1>$ABCUL<object-2>" \
+        abcli_show_usage "@tag clone$ABCUL<object-1>$ABCUL<object-2>" \
             "clone <object-1> tags -> <object-2>."
 
-        abcli_show_usage "abcli tag get$ABCUL<object-name>" \
+        abcli_show_usage "@tag get$ABCUL<object-name>" \
             "get <object-name> tags."
 
-        abcli_show_usage "abcli tag search$ABCUL<tag>$ABCUL$abcli_tag_search_args" \
+        abcli_show_usage "@tag search$ABCUL<tag>$ABCUL$abcli_tag_search_args" \
             "search for all objects that are tagged tag."
 
-        abcli_show_usage "abcli tag set$ABCUL<object-1,object-2>$ABCUL<tag-1,~tag-2>$ABCUL[validate]" \
+        abcli_show_usage "@tag set$ABCUL<object-1,object-2>$ABCUL<tag-1,~tag-2>$ABCUL[validate]" \
             "add <tag-1> and remove <tag-2> from <object-1> and <object-2> [and validate]."
 
-        abcli_show_usage "abcli tag set${ABCUL}disable|enable" \
-            "disable|enable 'abcli tag set'."
+        abcli_show_usage "@tag set${ABCUL}disable|enable" \
+            "disable|enable '@tag set'."
 
         if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
             python3 -m abcli.plugins.tags --help
@@ -66,7 +66,7 @@ function abcli_tag() {
             export ABCLI_TAG_DISABLE=false
             return
         elif [ "$ABCLI_TAG_DISABLE" == true ]; then
-            abcli_log_warning "ignored 'abcli tag set ${@:2}'."
+            abcli_log_warning "ignored '@tag set ${@:2}'."
             return
         fi
 
@@ -89,6 +89,6 @@ function abcli_tag() {
         return
     fi
 
-    abcli_log_error "-abcli: tag: $task: command not found."
+    abcli_log_error "-@tag: $task: command not found."
     return 1
 }
