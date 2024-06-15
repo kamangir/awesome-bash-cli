@@ -12,7 +12,7 @@ function abcli_clone() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        local options="~cache,~download,~meta,~relations,~tags,${EOPE}upload"
+        local options="~cache,cp,~download,~meta,~relations,~tags,${EOPE}upload"
         abcli_show_usage "@cp$EOP|@copy|@clone$ABCUL..|<object-1> .|<object-2>$ABCUL$options" \
             "copy <object-1> -> <object-2>."
         return
@@ -28,6 +28,7 @@ function abcli_clone() {
     local clone_tags=$(abcli_option_int "$options" tags $clone_meta)
     local do_download=$(abcli_option_int "$options" download 1)
     local do_upload=$(abcli_option_int "$options" upload 0)
+    local transfer_mechanism=$(abcli_option_choice "$options" cp,mv mv)
 
     [[ "$do_download" == 1 ]] &&
         abcli_download - $object_1_name
@@ -56,7 +57,7 @@ function abcli_clone() {
     pushd $object_1_path >/dev/null
     local filename
     for filename in $object_1_name.*; do
-        cp -v \
+        $transfer_mechanism -v \
             $filename \
             $object_2_path/$object_2_name.${filename##*.}
     done
