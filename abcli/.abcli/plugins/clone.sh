@@ -30,6 +30,8 @@ function abcli_clone() {
     local do_upload=$(abcli_option_int "$options" upload 0)
     local transfer_mechanism=$(abcli_option_choice "$options" cp,mv mv)
 
+    abcli_log "$object_1_name -$transfer_mechanism-> $object_2_name"
+
     [[ "$do_download" == 1 ]] &&
         abcli_download - $object_1_name
 
@@ -54,7 +56,7 @@ function abcli_clone() {
         abcli_tag set $object_2_name clone
     fi
 
-    pushd $object_1_path >/dev/null
+    pushd $object_2_path >/dev/null
     local filename
     for filename in $object_1_name.*; do
         $transfer_mechanism -v \
