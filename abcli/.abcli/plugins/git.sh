@@ -54,7 +54,7 @@ function abcli_git() {
                 "clone <repo-name>."
             ;;
         create_branch)
-            options="$EOP~increment_version,${EOPE}push"
+            options="$EOP~increment_version,~push$EOPE"
             abcli_show_usage "@git create_branch <branch-name>$ABCUL$options" \
                 "create <branch-name> in the repo."
             ;;

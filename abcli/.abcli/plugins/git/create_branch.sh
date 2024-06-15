@@ -8,7 +8,7 @@ function abcli_git_create_branch() {
     fi
 
     local options=$2
-    local do_push=$(abcli_option_int "$options" push 0)
+    local do_push=$(abcli_option_int "$options" push 1)
     local do_increment_version=$(abcli_option_int "$options" increment_version $(abcli_not $do_push))
 
     [[ "$do_increment_version" == 1 ]] &&
@@ -19,7 +19,7 @@ function abcli_git_create_branch() {
     git push origin $branch_name
 
     [[ "$do_push" == 1 ]] &&
-        abcli_git_push "hello world." first
+        abcli_git_push "fascinating feature 🪄" first
 
     return 0
 }
