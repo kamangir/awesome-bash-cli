@@ -17,7 +17,7 @@ pip install abcli
 or follow these (outdated) instructions for custom environments:
 
 - [Amazon EC2 instances](https://github.com/kamangir/awesome-bash-cli/wiki/ec2)
-- [Amazon SageMaker](https://github.com/kamangir/blue-plugin/blob/main/SageMaker.md)
+- [Amazon SageMaker](https://github.com/kamangir/notebooks-and-scripts/blob/main/SageMaker.md)
 - [Jetson Nano](https://github.com/kamangir/awesome-bash-cli/wiki/Jetson-Nano)
 - [macOS](https://github.com/kamangir/awesome-bash-cli/wiki/macOS)
 - [Raspberry Pi](https://github.com/kamangir/awesome-bash-cli/wiki/Raspberry-Pi)
