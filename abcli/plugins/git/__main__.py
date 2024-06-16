@@ -1,7 +1,7 @@
 import argparse
 from abcli.plugins.git import version, NAME
 from abcli.logger import logger
-from blueness.argparse.generic import ending
+from blueness.argparse.generic import sys_exit
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -32,4 +32,4 @@ if args.task == "increment_version":
 else:
     success = None
 
-ending(logger, NAME, args.task, success)
+sys_exit(logger, NAME, args.task, success)

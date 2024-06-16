@@ -1,7 +1,7 @@
 import argparse
 from . import *
 from abcli.logger import logger
-from blueness.argparse.generic import ending
+from blueness.argparse.generic import sys_exit
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -21,4 +21,4 @@ elif args.task == "validate":
 else:
     success = None
 
-ending(logger, NAME, args.task, success)
+sys_exit(logger, NAME, args.task, success)

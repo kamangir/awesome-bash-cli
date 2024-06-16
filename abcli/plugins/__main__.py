@@ -3,7 +3,7 @@ from abcli import VERSION
 from abcli.plugins import NAME
 from abcli.plugins.functions import get_module_name, get_plugin_name, list_of_external
 from abcli.logger import logger
-from blueness.argparse.generic import ending
+from blueness.argparse.generic import sys_exit
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -73,4 +73,4 @@ elif args.task == "list_of_external":
 else:
     success = None
 
-ending(logger, NAME, args.task, success, log=args.log)
+sys_exit(logger, NAME, args.task, success, log=args.log)

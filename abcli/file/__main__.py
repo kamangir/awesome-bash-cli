@@ -3,7 +3,7 @@ import sys
 from abcli import string, NAME
 from abcli import file
 from abcli.logger import logger
-from blueness.argparse.generic import ending
+from blueness.argparse.generic import sys_exit
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -45,4 +45,4 @@ elif args.task == "size":
 else:
     success = None
 
-ending(logger, NAME, args.task, success)
+sys_exit(logger, NAME, args.task, success)

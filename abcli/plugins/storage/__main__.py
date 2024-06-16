@@ -1,7 +1,7 @@
 import argparse
 from abcli import env
 from . import *
-from blueness.argparse.generic import ending
+from blueness.argparse.generic import sys_exit
 from abcli.logger import logger
 
 parser = argparse.ArgumentParser(NAME)
@@ -104,4 +104,4 @@ if success and output is not None:
     else:
         print(delim.join(output))
 
-ending(logger, NAME, args.task, success, log=args.log)
+sys_exit(logger, NAME, args.task, success, log=args.log)

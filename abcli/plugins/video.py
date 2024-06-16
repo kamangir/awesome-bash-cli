@@ -2,7 +2,7 @@ import argparse
 import cv2
 from abcli import file
 from abcli.logger import logger
-from blueness.argparse.generic import ending
+from blueness.argparse.generic import sys_exit
 
 
 NAME = "abcli.plugins.video"
@@ -59,4 +59,4 @@ elif args.task == "size_of":
 else:
     success = None
 
-ending(logger, NAME, args.task, success)
+sys_exit(logger, NAME, args.task, success)
