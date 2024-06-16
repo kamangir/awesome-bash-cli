@@ -1,6 +1,8 @@
 import argparse
 from abcli import env
 from . import *
+from blueness.argparse.generic import ending
+from abcli.logger import logger
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -102,5 +104,4 @@ if success and output is not None:
     else:
         print(delim.join(output))
 
-if not success:
-    print(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success, log=args.log)

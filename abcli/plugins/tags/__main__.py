@@ -1,6 +1,7 @@
 import argparse
 from . import *
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -112,13 +113,12 @@ elif args.task == "search":
 elif args.task == "set":
     success = set_(args.object, args.tags)
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if success and output is not None:
+if success == True and output is not None:
     if args.log:
         logger.info(f"{len(output):,} {args.item_name}(s): {delim.join(output)}")
     else:
         print(delim.join(output))
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success, log=args.log)

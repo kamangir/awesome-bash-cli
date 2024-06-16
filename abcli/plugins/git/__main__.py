@@ -1,6 +1,7 @@
 import argparse
 from abcli.plugins.git import version, NAME
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -29,7 +30,6 @@ if args.task == "increment_version":
         verbose=args.verbose == 1,
     )
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success)

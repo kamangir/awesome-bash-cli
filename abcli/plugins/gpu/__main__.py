@@ -1,6 +1,7 @@
 import argparse
 from . import *
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -18,7 +19,6 @@ if args.task == "status":
 elif args.task == "validate":
     success = validate()
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success)

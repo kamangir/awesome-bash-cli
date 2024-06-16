@@ -3,6 +3,7 @@ from abcli import VERSION
 from abcli.plugins import NAME
 from abcli.plugins.functions import get_module_name, get_plugin_name, list_of_external
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -70,7 +71,6 @@ elif args.task == "list_of_external":
         print(delim.join(output))
     success = True
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success, log=args.log)

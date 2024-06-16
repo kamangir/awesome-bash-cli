@@ -1,6 +1,7 @@
 import argparse
 from abcli.plugins.metadata import get, NAME, post, MetadataSourceType
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 
 parser = argparse.ArgumentParser(NAME)
@@ -95,7 +96,6 @@ elif args.task == "post":
         verbose=args.verbose == 1,
     )
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success)

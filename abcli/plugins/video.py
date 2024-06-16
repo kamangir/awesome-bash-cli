@@ -2,6 +2,7 @@ import argparse
 import cv2
 from abcli import file
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 
 NAME = "abcli.plugins.video"
@@ -56,7 +57,6 @@ elif args.task == "size_of":
             )
         )
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success)

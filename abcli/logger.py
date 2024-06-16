@@ -1,7 +1,6 @@
 from abcli import env
 import logging
 from logging.handlers import RotatingFileHandler
-import os
 
 # to hide "botocore.credentials Found credentials in environment variables."
 logging.getLogger("botocore.credentials").setLevel(logging.WARNING)

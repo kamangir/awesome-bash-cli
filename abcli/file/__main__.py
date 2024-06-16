@@ -1,8 +1,9 @@
 import argparse
+import sys
 from abcli import string, NAME
-from abcli.file import size
-from abcli.file import load_text, save_text
+from abcli import file
 from abcli.logger import logger
+from blueness.argparse.generic import ending
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
@@ -24,19 +25,24 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+if args.task in ["replace"]:
+    if not file.exist(args.filename):
+        logger.error(f"-{NAME}: {args.task}: {args.filename}: file not found.")
+        sys.exit(1)
+
 success = False
 if args.task == "replace":
     logger.info(f"{NAME}.{args.task}: {args.this} -> {args.that} in {args.filename}")
-    success, content = load_text(args.filename)
+
+    success, content = file.load_text(args.filename)
     if success:
         content = [line.replace(args.this, args.that) for line in content]
 
-        success = save_text(args.filename, content)
+        success = file.save_text(args.filename, content)
 elif args.task == "size":
-    print(string.pretty_bytes(size(args.filename)))
+    print(string.pretty_bytes(file.size(args.filename)))
     success = True
 else:
-    logger.error(f"-{NAME}: {args.task}: command not found.")
+    success = None
 
-if not success:
-    logger.error(f"-{NAME}: {args.task}: failed.")
+ending(logger, NAME, args.task, success)
