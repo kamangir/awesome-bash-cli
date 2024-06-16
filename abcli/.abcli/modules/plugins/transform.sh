@@ -32,10 +32,16 @@ function abcli_plugins_transform() {
     for filename in $(find . -type f \( -name "*.sh" \
         -o -name "*.py" \
         -o -name "*.yml" \)); do
+
         abcli_file replace \
             $filename \
             --this blue_plugin \
             --that $plugin_name
+
+        abcli_file replace \
+            $filename \
+            --this blue-plugin \
+            --that $repo_name
 
     done
 
