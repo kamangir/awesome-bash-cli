@@ -13,7 +13,7 @@ function abcli_install_module() {
     local install_checkpoint=$install_path/${module}-${version}
 
     if [ -f "$install_checkpoint" ]; then
-        abcli_log "✅ $module-$version"
+        abcli_log "🌀 $module-$version"
     else
         abcli_log "installing $module-$version..."
 
