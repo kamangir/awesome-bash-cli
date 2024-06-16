@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
     "task",
     type=str,
-    help="size",
+    help="replace|size",
 )
 parser.add_argument(
     "--filename",

@@ -1,12 +1,8 @@
 #! /usr/bin/env bash
 
-# diff.ignore.start
-
-function abcli_file_size() {
+function abcli_file() {
     python3 -m abcli.file \
-        size \
-        --filename "$1" \
-        ${@:2}
+        "$1" \
+        --filename "$2" \
+        "${@:3}"
 }
-
-# diff.ignore.end
