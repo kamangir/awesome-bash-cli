@@ -15,6 +15,7 @@ function abcli_git() {
         abcli_git pull $@
         abcli_git push "$@"
         abcli_git recreate_ssh "$@"
+        abcli_git reset "$@"
         abcli_git review "$@"
         abcli_git status "$@"
         abcli_git sync_fork "$@"
@@ -91,6 +92,10 @@ function abcli_git() {
             abcli_show_usage "@git recreate_ssh" \
                 "recreate github ssh key."
             ;;
+        reset)
+            abcli_show_usage "@git reset" \
+                "reset to the latest commit of the current branch."
+            ;;
         review)
             abcli_show_usage "@git review" \
                 "review the repo."
@@ -144,6 +149,11 @@ function abcli_git() {
         # https://www.cyberciti.biz/faq/sudo-append-data-text-to-file-on-linux-unix-macos/
         ssh-keyscan github.com | sudo tee -a ~/.ssh/known_hosts
         sudo ssh -T git@github.com
+        return
+    fi
+
+    if [ "$task" == "reset" ]; then
+        abcli_eval - "git reset --hard @{u}"
         return
     fi
 
