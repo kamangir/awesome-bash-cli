@@ -26,18 +26,17 @@ function abcli_plugins_transform() {
         $plugin_name/.abcli/blue_plugin.sh \
         $plugin_name/.abcli/$plugin_name.sh
 
-    rm -v $plugin_name.abcli/session.sh
+    rm -v $plugin_name/.abcli/session.sh
 
     local filename
-    for filename in \
-        ./$plugin_name/.abcli/$plugin_name.sh \
-        ./$plugin_name/__init__.py \
-        ./setup.py; do
-
+    for filename in $(find . -type f \( -name "*.sh" \
+        -o -name "*.py" \
+        -o -name "*.yml" \)); do
         abcli_file replace \
             $filename \
             --this blue_plugin \
             --that $plugin_name
+
     done
 
     echo "# $plugin_name" >README.md
