@@ -7,7 +7,8 @@ function abcli_source_dependencies() {
     source $abcli_path_bash/bootstrap/install.sh
     source $abcli_path_bash/bootstrap/source.sh
 
-    python3 -c "from blueness import *; print(f'{ICON} {NAME}-{VERSION}')"
+    python3 -m blueness version \
+        --show_icon 1
 
     local module_name
     for module_name in abcli modules plugins; do
