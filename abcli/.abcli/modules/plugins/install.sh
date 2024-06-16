@@ -1,5 +1,4 @@
 #! /usr/bin/env bash
-#! /usr/bin/env bash
 
 function abcli_plugins_install() {
     local plugin_name=$(abcli_unpack_keyword "$1")

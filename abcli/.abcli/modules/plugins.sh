@@ -12,6 +12,8 @@ function abcli_plugins() {
         abcli_show_usage "@plugins list_of_external" \
             "show list of external plugins."
 
+        abcli_plugins_transform "$@"
+
         return 0
     fi
 
