@@ -109,7 +109,7 @@ elif args.task == "add_signature":
 else:
     success = None
 
-if success == True and output is not None:
+if success is True and output is not None:
     if args.log:
         logger.info(f"{len(output):,} {args.item_name}(s): {delim.join(output)}")
     else:
