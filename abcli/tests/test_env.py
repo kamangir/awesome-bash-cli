@@ -1,6 +1,4 @@
-import os
 from abcli import env
-from abcli import file
 
 
 def test_abcli_env():
