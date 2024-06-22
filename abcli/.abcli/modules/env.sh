@@ -4,12 +4,12 @@ function abcli_env() {
     local task=$(abcli_unpack_keyword $1)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli env [keyword]" \
+        abcli_show_usage "@env [keyword]" \
             "show environment variables [relevant to keyword]."
 
         abcli_env dot "$@"
 
-        abcli_show_usage "abcli env memory" \
+        abcli_show_usage "@env memory" \
             "show memory status."
         return
     fi
@@ -23,21 +23,21 @@ function abcli_env() {
         if [[ "$subtask" == "help" ]]; then
             abcli_env dot cat "${@:2}"
 
-            abcli_show_usage "abcli env dot cp|copy$ABCUL<env-name>${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
+            abcli_show_usage "@env dot cp|copy$ABCUL<env-name>${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
                 "cp <env-name> to machine."
 
-            abcli_show_usage "abcli env dot edit${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
+            abcli_show_usage "@env dot edit${ABCUL}jetson_nano|rpi$ABCUL<machine-name>" \
                 "edit .env on machine."
 
-            abcli_show_usage "abcli env dot get <variable>" \
+            abcli_show_usage "@env dot get <variable>" \
                 "<variable>."
 
             abcli_env dot load "${@:2}"
 
-            abcli_show_usage "abcli env dot list" \
+            abcli_show_usage "@env dot list" \
                 "list env repo."
 
-            abcli_show_usage "abcli env dot set <variable> <value>" \
+            abcli_show_usage "@env dot set <variable> <value>" \
                 "<variable> = <value>."
             return
         fi
@@ -46,10 +46,10 @@ function abcli_env() {
             local env_name=$(abcli_clarify_input $3 .env)
 
             if [[ "$env_name" == "help" ]]; then
-                abcli_show_usage "abcli env dot cat$ABCUL[|<env-name>|config|sample]" \
+                abcli_show_usage "@env dot cat$ABCUL[|<env-name>|config|sample]" \
                     "cat .env|<env-name>|sample.env."
 
-                abcli_show_usage "abcli env dot cat${ABCUL}jetson_nano|rpi <machine-name>" \
+                abcli_show_usage "@env dot cat${ABCUL}jetson_nano|rpi <machine-name>" \
                     "cat .env from machine."
                 return
             fi
@@ -166,7 +166,7 @@ function abcli_env() {
 
         if [[ "$subtask" == "load" ]]; then
             if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-                abcli_show_usage "abcli env dot load$ABCUL[filename=<.env>,plugin=<plugin-name>,verbose]" \
+                abcli_show_usage "@env dot load$ABCUL[filename=<.env>,plugin=<plugin-name>,verbose]" \
                     "load .env."
                 return
             fi
