@@ -42,8 +42,7 @@ aws configure
 
 git config --global user.name kamangir
 git config --global user.email arash@kamangir.net
-...
-
+```
 
 on other environments:
 
