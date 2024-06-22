@@ -23,4 +23,14 @@ function abcli_pypi_browse() {
         url="https://pypi.org/manage/account/token/"
 
     abcli_browse $url
+
+    [[ "$do_token" == 0 ]] && return 0
+
+    local pyrc_filename=$HOME/.pypirc
+    [[ ! -f "$pyrc_filename" ]] &&
+        cp -v \
+            $abcli_path_assets/pypi/.pypirc \
+            $pyrc_filename
+
+    nano $pyrc_filename
 }
