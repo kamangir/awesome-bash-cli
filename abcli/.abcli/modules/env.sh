@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+export abcli_path_env_backup=$HOME/env-backup
+mkdir -pv $abcli_path_env_backup
+
 function abcli_env() {
     local task=$(abcli_unpack_keyword $1)
 
@@ -7,10 +10,38 @@ function abcli_env() {
         abcli_show_usage "@env [keyword]" \
             "show environment variables [relevant to keyword]."
 
+        abcli_env backup help
+
         abcli_env dot "$@"
 
         abcli_show_usage "@env memory" \
             "show memory status."
+        return
+    fi
+
+    if [ "$task" == backup ]; then
+        if [ "$2" == "help" ]; then
+            abcli_show_usage "@env backup" \
+                "backup env -> $abcli_path_env_backup."
+            return
+        fi
+
+        mkdir -pv $abcli_path_env_backup
+
+        pushd $abcli_path_git >/dev/null
+        local repo_name
+        for repo_name in $(ls -d */); do
+            repo_name=$(basename $repo_name)
+
+            [[ -f $repo_name/.env ]] &&
+                cp -v \
+                    $repo_name/.env \
+                    $abcli_path_env_backup/$repo_name.env
+        done
+        popd >/dev/null
+
+        abcli_log "ℹ️ make sure $abcli_path_env_backup is synced with Google Drive."
+
         return
     fi
 
