@@ -53,6 +53,7 @@ function abcli_latex() {
                 latex \
                 -interaction=nonstopmode \
                 $filename.tex
+            [[ $? -ne 0 ]] && return 1
 
             [[ ! -z "$bib_file" ]] &&
                 abcli_eval dryrun=$do_dryrun \
