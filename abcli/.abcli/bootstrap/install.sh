@@ -7,7 +7,7 @@ function abcli_install_module() {
 
     local version=${2-"1.1.1"}
 
-    local install_path=$abcli_path_git/_install
+    local install_path=$HOME/_abcli_install_checkpoint
     mkdir -pv $install_path
 
     local install_checkpoint=$install_path/${module}-${version}
