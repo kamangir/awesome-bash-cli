@@ -1,14 +1,26 @@
 import pytest
 from abcli import env
-from abcli.plugins.functions import list_of_external, get_plugin_name, get_module_name
-
-
-@pytest.mark.skipif(
-    env.abcli_is_github_workflow == "true",
-    reason="plugins are not present in the github workflow.",
+from abcli.plugins.functions import (
+    list_of_external,
+    list_of_installed,
+    get_plugin_name,
+    get_module_name,
 )
-def test_list_of_external():
-    assert list_of_external()
+
+
+@pytest.mark.parametrize(
+    ["repo_names"],
+    [
+        [True],
+        [False],
+    ],
+)
+def test_list_of_external(repo_names: bool):
+    assert isinstance(list_of_external(repo_names), list)
+
+
+def test_list_of_installed():
+    assert isinstance(list_of_installed(), list)
 
 
 @pytest.mark.skipif(

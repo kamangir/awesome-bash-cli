@@ -32,6 +32,8 @@ function abcli_source_dependencies() {
         popd >/dev/null
     done
 
+    :
+
     [[ "$abcli_is_in_notebook" == true ]] && return
 
     local repo_name

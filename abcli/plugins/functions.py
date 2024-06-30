@@ -1,4 +1,5 @@
 from typing import List
+import pkg_resources
 import glob
 import os
 from abcli import env, path, file
@@ -45,5 +46,25 @@ def list_of_external(repo_names=False) -> List[str]:
 
     if not repo_names:
         output = [repo_name.replace("-", "_") for repo_name in output]
+
+    return output
+
+
+def list_of_installed() -> List[str]:
+    output = []
+    for module in pkg_resources.working_set:
+        if "git" in module.module_path.split(os.sep):
+            continue
+
+        if not os.path.exists(
+            os.path.join(
+                module.module_path,
+                module.key,
+                ".abcli/abcli.sh",
+            )
+        ):
+            continue
+
+        output += [module.key]
 
     return output
