@@ -53,6 +53,9 @@ def list_of_external(repo_names=False) -> List[str]:
 def list_of_installed(return_path: bool = False) -> List[str]:
     output = []
     for module in pkg_resources.working_set:
+        if module.key in ["abcli"]:
+            continue
+
         if "git" in module.module_path.split(os.sep):
             continue
 
@@ -67,4 +70,4 @@ def list_of_installed(return_path: bool = False) -> List[str]:
 
         output += [module_bash_folder if return_path else module.key]
 
-    return [item for item in output if item not in ["abcli"]]
+    return output
