@@ -9,6 +9,6 @@ function abcli_pypi_install() {
         return
     fi
 
-    pip3 install setuptools wheel twine
+    pip3 install --upgrade setuptools wheel twine
     python3 -m pip install --upgrade build
 }
