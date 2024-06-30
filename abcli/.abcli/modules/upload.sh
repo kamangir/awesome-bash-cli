@@ -4,7 +4,7 @@ function abcli_upload() {
     local options=$1
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        abcli_show_usage "abcli upload$ABCUL[filename=<filename>,~open,solid,~warn_if_exists]$ABCUL[.|<object-name>]" \
+        abcli_show_usage "@upload$ABCUL[filename=<filename>,~open,solid,~warn_if_exists]$ABCUL[.|<object-name>]" \
             "upload <object-name>."
         return
     fi
