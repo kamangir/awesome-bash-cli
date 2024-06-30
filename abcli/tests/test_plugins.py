@@ -19,8 +19,15 @@ def test_list_of_external(repo_names: bool):
     assert isinstance(list_of_external(repo_names), list)
 
 
-def test_list_of_installed():
-    assert isinstance(list_of_installed(), list)
+@pytest.mark.parametrize(
+    ["return_path"],
+    [
+        [True],
+        [False],
+    ],
+)
+def test_list_of_installed(return_path: bool):
+    assert isinstance(list_of_installed(return_path), list)
 
 
 @pytest.mark.skipif(

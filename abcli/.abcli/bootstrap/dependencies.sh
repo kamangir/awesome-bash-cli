@@ -32,8 +32,6 @@ function abcli_source_dependencies() {
         popd >/dev/null
     done
 
-    :
-
     [[ "$abcli_is_in_notebook" == true ]] && return
 
     local repo_name
@@ -47,4 +45,16 @@ function abcli_source_dependencies() {
         done
         popd >/dev/null
     done
+
+    for module_path in $(abcli_plugins list_of_installed --log 0 --delim space --return_path 1); do
+        #abcli_log "🔵 $module_path"
+        pushd $module_path >/dev/null
+
+        local filename
+        for filename in *.sh; do
+            source $filename
+        done
+        popd >/dev/null
+    done
+
 }

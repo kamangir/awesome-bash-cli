@@ -41,6 +41,12 @@ parser.add_argument(
     type=str,
 )
 parser.add_argument(
+    "--return_path",
+    default=0,
+    type=int,
+    help="0|1",
+)
+parser.add_argument(
     "--plugin_name",
     default="",
     type=str,
@@ -66,7 +72,7 @@ elif args.task in ["list_of_external", "list_of_installed"]:
     output = (
         list_of_external(args.repo_names == 1)
         if args.task == "list_of_external"
-        else list_of_installed()
+        else list_of_installed(args.return_path == 1)
     )
 
     if args.log:
