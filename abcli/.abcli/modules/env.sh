@@ -50,6 +50,10 @@ function abcli_env() {
         done
         popd >/dev/null
 
+        cp -v \
+            "$HOME/Library/Application Support/Code/User/settings.json" \
+            $abcli_path_env_backup/vscode-settings.json
+
         abcli_log "ℹ️ make sure $abcli_path_env_backup is synced with Google Drive."
 
         return
