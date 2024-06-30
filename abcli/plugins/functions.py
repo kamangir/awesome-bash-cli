@@ -51,6 +51,20 @@ def list_of_external(repo_names=False) -> List[str]:
 
 
 def list_of_installed() -> List[str]:
-    installed_packages_list = sorted([i.key for i in pkg_resources.working_set])
+    output = []
+    for module in pkg_resources.working_set:
+        if "git" in module.module_path.split(os.sep):
+            continue
 
-    return installed_packages_list
+        if not os.path.exists(
+            os.path.join(
+                module.module_path,
+                module.key,
+                ".abcli/abcli.sh",
+            )
+        ):
+            continue
+
+        output += [module.key]
+
+    return output
