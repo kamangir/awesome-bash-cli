@@ -1,7 +1,12 @@
 import argparse
 from abcli import VERSION
 from abcli.plugins import NAME
-from abcli.plugins.functions import get_module_name, get_plugin_name, list_of_external
+from abcli.plugins.functions import (
+    get_module_name,
+    get_plugin_name,
+    list_of_external,
+    list_of_installed,
+)
 from abcli.logger import logger
 from blueness.argparse.generic import sys_exit
 
@@ -11,7 +16,7 @@ parser.add_argument(
     "task",
     type=str,
     default="",
-    help="get_module_name|get_plugin_name|list_of_external",
+    help="get_module_name|get_plugin_name|list_of_external|list_of_installed",
 )
 parser.add_argument(
     "--delim",
@@ -57,12 +62,18 @@ if args.task == "get_module_name":
 elif args.task == "get_plugin_name":
     success = True
     print(get_plugin_name(args.repo_name))
-elif args.task == "list_of_external":
-    output = list_of_external(args.repo_names == 1)
+elif args.task in ["list_of_external", "list_of_installed"]:
+    output = (
+        list_of_external(args.repo_names == 1)
+        if args.task == "list_of_external"
+        else list_of_installed()
+    )
+
     if args.log:
         logger.info(
-            "{:,} external {}(s): {}".format(
+            "{:,} {} {}(s): {}".format(
                 len(output),
+                args.task.split("list_of_")[1],
                 "repo" if args.repo_names else "plugin",
                 delim.join(output),
             )

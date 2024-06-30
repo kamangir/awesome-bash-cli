@@ -1,4 +1,5 @@
 from typing import List
+import pkg_resources
 import glob
 import os
 from abcli import env, path, file
@@ -47,3 +48,9 @@ def list_of_external(repo_names=False) -> List[str]:
         output = [repo_name.replace("-", "_") for repo_name in output]
 
     return output
+
+
+def list_of_installed() -> List[str]:
+    installed_packages_list = sorted([i.key for i in pkg_resources.working_set])
+
+    return installed_packages_list
