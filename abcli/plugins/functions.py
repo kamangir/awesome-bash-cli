@@ -67,4 +67,4 @@ def list_of_installed(return_path: bool = False) -> List[str]:
 
         output += [module_bash_folder if return_path else module.key]
 
-    return output
+    return [item for item in output if item not in ["abcli"]]
