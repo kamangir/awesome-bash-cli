@@ -5,7 +5,7 @@ function abcli_download() {
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         local options="filename=<filename>,open"
-        abcli_show_usage "abcli download$ABCUL[$options]$ABCUL[.|<object-name>]" \
+        abcli_show_usage "@download$ABCUL[$options]$ABCUL[.|<object-name>]" \
             "download object."
         return
     fi
