@@ -20,9 +20,19 @@ function abcli_env() {
     fi
 
     if [ "$task" == backup ]; then
-        if [ "$2" == "help" ]; then
+        local sub_task=$2
+
+        if [ "$sub_task" == "help" ]; then
             abcli_show_usage "@env backup" \
                 "backup env -> $abcli_path_env_backup."
+
+            abcli_show_usage "@env backup list" \
+                "list $abcli_path_env_backup."
+            return
+        fi
+
+        if [ "$sub_task" == "list" ]; then
+            abcli_list $abcli_path_env_backup
             return
         fi
 
