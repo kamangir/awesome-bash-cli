@@ -46,15 +46,31 @@ function abcli_source_dependencies() {
         popd >/dev/null
     done
 
-    for module_path in $(abcli_plugins list_of_installed --log 0 --delim space --return_path 1); do
-        #abcli_log "🔵 $module_path"
-        pushd $module_path >/dev/null
+    local list_of_installed_plugins=$(abcli_plugins list_of_installed \
+        --log 0 \
+        --delim space)
+    if [[ -z "$list_of_installed_plugins" ]]; then
+        abcli_log "🌀 no installed plugins."
+        return 0
+    else
+        abcli_log_list "$list_of_installed_plugins" \
+            --before "🌀 loading" \
+            --delim space \
+            --after "installed plugin(s)"
 
-        local filename
-        for filename in *.sh; do
-            source $filename
+        local paths_of_installed_plugins=$(abcli_plugins list_of_installed \
+            --log 0 \
+            --delim space \
+            --return_path 1)
+        for module_path in $paths_of_installed_plugins; do
+            #abcli_log "🔵 $module_path"
+            pushd $module_path >/dev/null
+
+            local filename
+            for filename in *.sh; do
+                source $filename
+            done
+            popd >/dev/null
         done
-        popd >/dev/null
-    done
-
+    fi
 }
