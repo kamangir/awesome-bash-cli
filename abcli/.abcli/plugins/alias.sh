@@ -33,6 +33,8 @@ alias @env=abcli_env
 
 alias @eval=abcli_eval
 
+alias @ffmpeg=abcli_ffmpeg
+
 alias @git=abcli_git
 alias @git++="abcli_git increment_version"
 
