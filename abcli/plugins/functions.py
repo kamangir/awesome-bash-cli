@@ -61,7 +61,7 @@ def list_of_installed(return_path: bool = False) -> List[str]:
 
         module_bash_folder = os.path.join(
             module.module_path,
-            module.key,
+            module.key.replace("-", "_"),
             ".abcli",
         )
 
