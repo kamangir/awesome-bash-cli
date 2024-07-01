@@ -4,7 +4,6 @@ function abcli_ffmpeg() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [[ "$task" == "help" ]]; then
-        abcli_ffmpeg_mp4_to_gif "$@"
         abcli_ffmpeg_install "$@"
         return
     fi
