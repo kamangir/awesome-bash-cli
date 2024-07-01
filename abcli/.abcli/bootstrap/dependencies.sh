@@ -50,13 +50,13 @@ function abcli_source_dependencies() {
         --log 0 \
         --delim space)
     if [[ -z "$list_of_installed_plugins" ]]; then
-        abcli_log "🌀 no installed plugins."
+        abcli_log "🌀 no pip-installed plugins."
         return 0
     else
         abcli_log_list "$list_of_installed_plugins" \
             --before "🌀 loading" \
             --delim space \
-            --after "installed plugin(s)"
+            --after "pip-installed plugin(s)"
 
         local paths_of_installed_plugins=$(abcli_plugins list_of_installed \
             --log 0 \
