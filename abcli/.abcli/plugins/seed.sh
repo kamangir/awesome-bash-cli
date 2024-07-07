@@ -11,6 +11,18 @@ function abcli_seed() {
             "generate and output a seed 🌱."
         abcli_show_usage "@seed eject" \
             "eject seed 🌱."
+        abcli_show_usage "@seed list" \
+            "list seed 🌱 targets."
+        return
+    fi
+
+    if [ "$task" == "list" ]; then
+        local list_of_targets=$(declare -F | awk '{print $NF}' | grep 'abcli_seed_' | sed 's/abcli_seed_//' | tr '\n' '|')
+        list_of_targets="$list_of_targets|$list_of_seed_targets"
+        abcli_log_list "$list_of_targets" \
+            --before "" \
+            --delim \| \
+            --after "target(s)"
         return
     fi
 
