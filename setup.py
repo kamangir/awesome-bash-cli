@@ -12,7 +12,6 @@ setup(
         f"{NAME}.bash",
         f"{NAME}.file",
         f"{NAME}.keywords",
-        f"{NAME}.options",
         f"{NAME}.path",
         f"{NAME}.modules",
         f"{NAME}.modules.host",
