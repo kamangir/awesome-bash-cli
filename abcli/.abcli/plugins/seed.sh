@@ -7,9 +7,9 @@ function abcli_seed() {
 
     if [ "$task" == "help" ]; then
         local options="clipboard|filename=<filename>|key|screen,env=<env-name>,eval,plugin=<plugin-name>,~log"
-        abcli_show_usage "abcli seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]$ABCUL[$abcli_scripts_options]$ABCUL<command-line>" \
+        abcli_show_usage "@seed$ABCUL[<target>|$list_of_seed_targets]$ABCUL[$options]$ABCUL[$abcli_scripts_options]$ABCUL<command-line>" \
             "generate and output a seed 🌱."
-        abcli_show_usage "abcli seed eject" \
+        abcli_show_usage "@seed eject" \
             "eject seed 🌱."
         return
     fi
@@ -93,7 +93,7 @@ function abcli_seed() {
 
     if [[ "|$list_of_seed_targets|" != *"|$target|"* ]]; then
         # expected to append to/update $seed
-        ${target}_seed "${@:2}"
+        abcli_${target}_seed "${@:2}"
     else
         if [ "$target" == docker ]; then
             seed="${seed}source /root/git/awesome-bash-cli/abcli/.abcli/abcli.sh$delim"

@@ -17,6 +17,7 @@ function abcli_git() {
         abcli_git recreate_ssh "$@"
         abcli_git reset "$@"
         abcli_git review "$@"
+        abcli_git seed $@
         abcli_git status "$@"
         abcli_git sync_fork "$@"
         return
@@ -24,6 +25,11 @@ function abcli_git() {
 
     if [ "$task" == "++" ]; then
         abcli_git increment_version "${@:2}"
+        return
+    fi
+
+    if [ "$task" == "seed" ]; then
+        abcli_seed git "${@:2}"
         return
     fi
 
