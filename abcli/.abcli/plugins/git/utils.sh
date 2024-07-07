@@ -9,7 +9,7 @@ function abcli_refresh_branch_and_version() {
 }
 
 # internal function for abcli_seed.
-function abcli_git_seed() {
+function abcli_seed_git() {
     # seed is NOT local
     local user_email=$(git config --global user.email)
     seed="${seed}git config --global user.email \"$user_email\"$delim"

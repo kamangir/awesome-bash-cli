@@ -93,7 +93,7 @@ function abcli_seed() {
 
     if [[ "|$list_of_seed_targets|" != *"|$target|"* ]]; then
         # expected to append to/update $seed
-        abcli_${target}_seed "${@:2}"
+        abcli_seed_${target} "${@:2}"
     else
         if [ "$target" == docker ]; then
             seed="${seed}source /root/git/awesome-bash-cli/abcli/.abcli/abcli.sh$delim"
