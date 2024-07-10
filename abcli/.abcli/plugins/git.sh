@@ -56,7 +56,7 @@ function abcli_git() {
                 "browse the repo."
             ;;
         clone)
-            options="${EOP}cd,~from_template,if_cloned,init,install,object,pull,source=<username/repo_name>$EOPE"
+            options="${EOP}cd,~from_template,if_cloned,init,${EOPE}install$EOP,object,pull,source=<username/repo_name>$EOPE"
             abcli_show_usage "@git clone <repo-name>$ABCUL$options" \
                 "clone <repo-name>."
             ;;
