@@ -2,16 +2,17 @@
 
 function abcli_download() {
     local options=$1
+    local open_options=$3
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        local options="filename=<filename>,open"
-        abcli_show_usage "@download$ABCUL[$options]$ABCUL[.|<object-name>]" \
+        options="filename=<filename>"
+        open_options="open,QGIS"
+        abcli_show_usage "@download$ABCUL[$options]$ABCUL[.|<object-name>]$ABCUL[$open_options]" \
             "download object."
         return
     fi
 
     local filename=$(abcli_option "$options" filename)
-    local do_open=$(abcli_option_int "$options" open 0)
 
     local object_name=$(abcli_clarify_object $2 .)
     local object_path=$abcli_object_root/$object_name
@@ -43,11 +44,16 @@ function abcli_download() {
 
             popd >/dev/null
         fi
+
     fi
 
-    abcli_log "download completed: $object_name $filename"
+    abcli_log "@download completed: $object_name $filename"
 
-    if [[ "$do_open" == 1 ]]; then
-        open $object_path
-    fi
+    local do_open=$(abcli_option_int "$open_options" open 0)
+    [[ "$do_open" == 1 ]] &&
+        abcli_open filename=$filename,$open_options \
+            $object_name
+
+    return 0
+
 }
