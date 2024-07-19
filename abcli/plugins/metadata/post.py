@@ -5,7 +5,6 @@ import copy
 from abcli import file
 from abcli.plugins import NAME
 from abcli.logger import logger
-from abcli.plugins.metadata import NAME
 
 NAME = f"{NAME}.metadata"
 
