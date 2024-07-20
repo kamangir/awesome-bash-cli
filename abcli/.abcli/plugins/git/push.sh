@@ -16,7 +16,8 @@ function abcli_git_push() {
     local do_action=$(abcli_option_int "$options" action 1)
 
     [[ "$do_increment_version" == 1 ]] &&
-        abcli_git increment_version
+        abcli_git_increment_version
+    [[ $? -ne 0 ]] && return 1
 
     [[ "$show_status" == 1 ]] &&
         git status

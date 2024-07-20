@@ -8,8 +8,10 @@ function abcli_git_increment_version() {
         increment_version \
         --repo_path $abcli_path_git/$(abcli_git_get_repo_name) \
         "${@:2}"
+    [[ $? -ne 0 ]] && return 1
 
-    [[ "$do_diff" == 1 ]] && abcli_git diff
+    [[ "$do_diff" == 1 ]] &&
+        abcli_git diff
 
     return 0
 }

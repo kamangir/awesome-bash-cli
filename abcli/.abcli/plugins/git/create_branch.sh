@@ -12,7 +12,7 @@ function abcli_git_create_branch() {
     local do_increment_version=$(abcli_option_int "$options" increment_version $(abcli_not $do_push))
 
     [[ "$do_increment_version" == 1 ]] &&
-        abcli_git increment_version
+        abcli_git_increment_version
 
     git pull
     git checkout -b $branch_name
