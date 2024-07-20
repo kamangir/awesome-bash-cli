@@ -8,16 +8,15 @@ function abcli_git() {
             "run '@git <command-line>' in <repo_name>."
 
         abcli_git increment_version "$@"
-        abcli_git browse "$@"
+        abcli_git_browse "$@"
         abcli_git create_branch "$@"
         abcli_git clone "$@"
         abcli_git get_repo_name "$@"
         abcli_git pull $@
-        abcli_git push "$@"
+        abcli_git_push "$@"
         abcli_git recreate_ssh "$@"
         abcli_git reset "$@"
         abcli_git review "$@"
-        abcli_git seed $@
         abcli_git status "$@"
         abcli_git sync_fork "$@"
         return
@@ -49,12 +48,8 @@ function abcli_git() {
 
     if [[ "$2" == "help" ]]; then
         local options
+        local found=true
         case $task in
-        browse)
-            options="${EOP}actions$EOPE"
-            abcli_show_usage "@git browse $options" \
-                "browse the repo."
-            ;;
         clone)
             options="${EOP}cd,~from_template,if_cloned,init,${EOPE}install$EOP,object,pull,source=<username/repo_name>$EOPE"
             abcli_show_usage "@git clone <repo-name>$ABCUL$options" \
@@ -88,12 +83,6 @@ function abcli_git() {
             abcli_show_usage "@git pull $options" \
                 "pull."
             ;;
-        push)
-            options="$EOP~action,browse,~create_pull_request,${EOPE}first$EOP,~increment_version,~status$EOPE"
-            local build_options="build,$abcli_pypi_build_options"
-            abcli_show_usage "@git push <message>$ABCUL$options$ABCUL$build_options" \
-                "push to the repo."
-            ;;
         recreate_ssh)
             abcli_show_usage "@git recreate_ssh" \
                 "recreate github ssh key."
@@ -116,12 +105,12 @@ function abcli_git() {
                 "git status."
             ;;
         *)
-            abcli_log_error "-@git: $task: command not found."
-            return 1
+            found=false
             ;;
         esac
 
-        return
+        [[ "$found" == "true" ]] &&
+            return
     fi
 
     local function_name="abcli_git_$task"

@@ -12,14 +12,14 @@ function abcli_git_create_branch() {
     local do_increment_version=$(abcli_option_int "$options" increment_version $(abcli_not $do_push))
 
     [[ "$do_increment_version" == 1 ]] &&
-        abcli_git increment_version
+        abcli_git_increment_version
 
     git pull
     git checkout -b $branch_name
     git push origin $branch_name
 
     [[ "$do_push" == 1 ]] &&
-        abcli_git_push "fascinating feature 🪄" first
+        abcli_git_push "start of $branch_name 🪄" first
 
     return 0
 }
