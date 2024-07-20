@@ -19,7 +19,7 @@ function abcli_git_create_branch() {
     git push origin $branch_name
 
     [[ "$do_push" == 1 ]] &&
-        abcli_git_push "fascinating feature 🪄" first
+        abcli_git_push "start of $branch_name 🪄" first
 
     return 0
 }
