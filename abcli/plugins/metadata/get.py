@@ -12,7 +12,10 @@ def get(
     dict_keys: bool = False,
     dict_values: bool = False,
 ) -> Any:
-    success, metadata = file.load_yaml(source_type.filename(source, filename))
+    success, metadata = file.load_yaml(
+        source_type.filename(source, filename),
+        civilized=True,
+    )
     if not success:
         return default
 
