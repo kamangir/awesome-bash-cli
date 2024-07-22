@@ -20,7 +20,7 @@ function abcli_build_README() {
     local module_name=$(abcli_plugins get_module_name $repo_name)
 
     python3 -m $module_name \
-        build \
+        build_README \
         "${@:2}"
 
     if [[ "$do_push" == 1 ]]; then
