@@ -14,6 +14,8 @@ alias @badge=abcli_badge
 
 alias @browse=abcli_browse
 
+alias @build_README=abcli_build_README
+
 alias @cache=abcli_cache
 alias @ref="abcli_cache read"
 alias @tag=abcli_tag
