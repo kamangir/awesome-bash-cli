@@ -11,6 +11,13 @@ function abcli_generic_task() {
         return
     fi
 
+    if [ "$task" == "build_README" ]; then
+        abcli_build_README \
+            plugin=$plugin_name,$2 \
+            "${@:3}"
+        return
+    fi
+
     if [ "$task" == "init" ]; then
         abcli_init $plugin_name "${@:2}"
 
