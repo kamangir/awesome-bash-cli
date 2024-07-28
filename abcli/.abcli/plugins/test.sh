@@ -60,7 +60,7 @@ function abcli_test() {
             "$test_options" \
             "${@:3}"
         if [ $? -ne 0 ]; then
-            abcli_log "$test_name: failed."
+            abcli_log_error "$test_name: failed."
             failed_test_list=$failed_test_list,$test_name
         fi
 
