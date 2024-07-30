@@ -9,6 +9,7 @@ function abcli_git() {
 
         abcli_git increment_version "$@"
         abcli_git_browse "$@"
+        abcli_git_checkout "$@"
         abcli_git create_branch "$@"
         abcli_git clone "$@"
         abcli_git get_repo_name "$@"
