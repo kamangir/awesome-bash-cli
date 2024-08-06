@@ -89,6 +89,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     fi
 fi
 
+export abcli_base64="base64"
+# https://superuser.com/a/1225139
+[[ "$abcli_is_ubuntu" == true ]] && export abcli_base64="base64 -w 0"
+
 if [[ "$abcli_is_ec2" == true ]]; then
     source $HOME/.bashrc
     # https://stackoverflow.com/a/17723894/17619982
