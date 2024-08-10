@@ -46,17 +46,20 @@ function abcli_publish() {
         return
     fi
 
-    abcli_log "publishing $object_name -> $public_object_name"
-    abcli_log "🔗 $abcli_publish_prefix/$public_object_name/"
-
     local object_path=$abcli_object_root/$object_name
 
     if [[ -z "$prefix$suffix" ]]; then
+        abcli_log "publishing $object_name -> $public_object_name"
+
         aws s3 sync \
             $object_path/ \
             s3://$abcli_aws_s3_public_bucket_name/$public_object_name/
+
+        abcli_log "🔗 $abcli_publish_prefix/$public_object_name/"
         return
     fi
+
+    abcli_log "publishing $object_name/$prefix*$suffix -> $public_object_name"
 
     pushd $object_path >/dev/null
     local filename
@@ -66,6 +69,8 @@ function abcli_publish() {
         aws s3 cp \
             $filename \
             s3://$abcli_aws_s3_public_bucket_name/$public_object_name/$filename
+
+        abcli_log "🔗 $abcli_publish_prefix/$public_object_name/$filename"
     done
     popd >/dev/null
 }
