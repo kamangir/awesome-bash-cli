@@ -1,5 +1,4 @@
 from typing import List
-import os
 from blueness import module
 from abcli import NAME as MY_NAME
 from abcli import fullname
