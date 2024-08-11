@@ -86,6 +86,8 @@ alias @pytest=abcli_pytest
 
 alias @publish=abcli_publish
 
+alias @random=abcli_string_random
+
 alias @seed=abcli_seed
 
 alias @select=abcli_select
