@@ -56,11 +56,6 @@ function abcli_git() {
             abcli_show_usage "@git clone <repo-name>$ABCUL$options" \
                 "clone <repo-name>."
             ;;
-        create_branch)
-            options="$EOP~increment_version,~push$EOPE"
-            abcli_show_usage "@git create_branch <branch-name>$ABCUL$options" \
-                "create <branch-name> in the repo."
-            ;;
         create_pull_request)
             abcli_show_usage "@git create_pull_request" \
                 "create a pull request in the repo."
