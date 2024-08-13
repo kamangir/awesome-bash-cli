@@ -94,6 +94,8 @@ alias @select=abcli_select
 
 alias @sleep=abcli_sleep
 
+alias @ssm=abcli_ssm
+
 alias @storage=abcli_storage
 
 alias @test=abcli_test

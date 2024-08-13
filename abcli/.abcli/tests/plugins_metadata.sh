@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-function test_abcli_metadata() {
+function test_abcli_plugins_metadata() {
     local returned_value
     for post_func in {1..3}; do
         local object_name=$(abcli_string_timestamp)
