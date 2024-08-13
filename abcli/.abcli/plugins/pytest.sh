@@ -7,7 +7,9 @@ function abcli_pytest() {
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         local options="dryrun,list,~log,plugin=<plugin-name>,show_warning,~verbose"
-        abcli_show_usage "$plugin_name pytest$ABCUL[$options]$ABCUL[filename.py|filename.py::test]" \
+        local callable="$plugin_name pytest"
+        [[ "$plugin_name" == "abcli" ]] && callable="@pytest"
+        abcli_show_usage "$callable$ABCUL[$options]$ABCUL[filename.py|filename.py::test]" \
             "pytest $plugin_name."
         return
     fi
