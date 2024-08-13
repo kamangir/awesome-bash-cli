@@ -49,7 +49,7 @@ def put_secret(
 
     try:
         # Check if the secret already exists
-        get_secret_response = client.describe_secret(SecretId=secret_name)
+        _ = client.describe_secret(SecretId=secret_name)
         # If secret exists, update it
         response = client.update_secret(
             SecretId=secret_name,
