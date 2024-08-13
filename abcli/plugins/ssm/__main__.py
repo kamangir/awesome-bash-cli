@@ -1,7 +1,7 @@
 import argparse
 from blueness import module
 from abcli import VERSION, NAME
-from abcli.plugins.ssm.functions import get_secret, put_secret
+from abcli.plugins.ssm.functions import get_secret, put_secret, rm_secret
 from abcli.logger import logger
 from blueness.argparse.generic import sys_exit
 
@@ -12,7 +12,7 @@ parser.add_argument(
     "task",
     type=str,
     default="",
-    help="get|put",
+    help="get|put|rm",
 )
 parser.add_argument(
     "--description",
@@ -41,6 +41,8 @@ elif args.task == "put":
         args.value,
         args.description,
     )
+elif args.task == "rm":
+    success, _ = rm_secret(args.name)
 else:
     success = None
 

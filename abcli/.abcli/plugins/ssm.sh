@@ -7,18 +7,19 @@ function abcli_ssm() {
     if [[ "$task" == "help" ]]; then
         abcli_ssm get "$@"
         abcli_ssm put "$@"
+        abcli_ssm rm "$@"
         return
     fi
 
-    if [[ "$task" == "get" ]]; then
+    if [[ ",get,rm," == *",$task,"* ]]; then
         if [[ "$name" == "help" ]]; then
-            abcli_show_usage "@ssm get <secret-name>" \
-                "get <secret-name>"
+            abcli_show_usage "@ssm $task <secret-name>" \
+                "$task <secret-name>"
             return
         fi
 
         python3 -m abcli.plugins.ssm \
-            get \
+            $task \
             --name "$name" \
             "${@:3}"
         return

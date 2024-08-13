@@ -73,3 +73,25 @@ def put_secret(
         return False, {}
 
     return True, response
+
+
+def rm_secret(secret_name: str) -> Tuple[bool, Any]:
+    client = boto3.client(
+        "secretsmanager",
+        region_name=env.abcli_aws_region,
+    )
+
+    try:
+        response = client.delete_secret(
+            SecretId=secret_name,
+            ForceDeleteWithoutRecovery=True,
+        )
+        logger.info(f"{NAME}.rm_secret: {secret_name} deleted.")
+    except ClientError as e:
+        logger.error(f"{NAME}.rm_secret({secret_name}): AWS Client Error: {e}")
+        return False, {}
+    except Exception as e:
+        logger.error(f"{NAME}.rm_secret({secret_name}): error: {e}.")
+        return False, {}
+
+    return True, response

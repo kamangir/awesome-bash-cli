@@ -1,13 +1,15 @@
 #! /usr/bin/env bash
 
 function test_abcli_plugins_ssm() {
-    local name="bashtest_secret"
-    local value=$(abcli_string_random)
+    local secret_name="bashtest_secret-$(abcli_string_random)"
+    local secret_value=$(abcli_string_random)
 
-    abcli_ssm put $name $value
+    abcli_ssm put $secret_name $secret_value
     sleep 0.1
 
     abcli_assert \
-        $(abcli_ssm get $name) \
-        $value
+        $(abcli_ssm get $secret_name) \
+        $secret_value
+
+    abcli_ssm rm $secret_name
 }
