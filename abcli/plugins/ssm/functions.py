@@ -23,8 +23,7 @@ def get_secret(secret_name: str) -> Tuple[bool, str]:
         if e.response["Error"]["Code"] == "ResourceNotFoundException":
             # If the secret does not exist
             return True, ""
-        else:
-            return False, f"error:{e}"
+        return False, f"error:{e}"
     except Exception as e:
         return False, f"error:{e}"
 
