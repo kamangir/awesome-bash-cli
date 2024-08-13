@@ -11,7 +11,7 @@ def test_ssm():
     success, _ = put_secret(secret_name, secret_value)
     assert success
 
-    time.sleep(0.1)
+    time.sleep(1)
 
     success, secret_value_received = get_secret(secret_name)
     assert success, secret_value_received
