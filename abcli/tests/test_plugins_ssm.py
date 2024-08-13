@@ -19,5 +19,5 @@ def test_ssm(secret_name: str):
     time.sleep(0.1)
 
     success, secret_value = get_secret(secret_name)
-    assert success
+    assert success, secret_value
     assert secret_value == value, f"{secret_value} != {value}"
