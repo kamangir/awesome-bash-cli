@@ -10,7 +10,7 @@ function abcli_env() {
         abcli_show_usage "@env [keyword]" \
             "show environment variables [relevant to keyword]."
 
-        abcli_env backup help
+        abcli_env_backup help
 
         abcli_env dot "$@"
 
@@ -19,43 +19,9 @@ function abcli_env() {
         return
     fi
 
-    if [ "$task" == backup ]; then
-        local sub_task=$2
-
-        if [ "$sub_task" == "help" ]; then
-            abcli_show_usage "@env backup" \
-                "backup env -> $abcli_path_env_backup."
-
-            abcli_show_usage "@env backup list" \
-                "list $abcli_path_env_backup."
-            return
-        fi
-
-        if [ "$sub_task" == "list" ]; then
-            abcli_list $abcli_path_env_backup
-            return
-        fi
-
-        mkdir -pv $abcli_path_env_backup
-
-        pushd $abcli_path_git >/dev/null
-        local repo_name
-        for repo_name in $(ls -d */); do
-            repo_name=$(basename $repo_name)
-
-            [[ -f $repo_name/.env ]] &&
-                cp -v \
-                    $repo_name/.env \
-                    $abcli_path_env_backup/$repo_name.env
-        done
-        popd >/dev/null
-
-        cp -v \
-            "$HOME/Library/Application Support/Code/User/settings.json" \
-            $abcli_path_env_backup/vscode-settings.json
-
-        abcli_log "ℹ️ make sure $abcli_path_env_backup is synced with Google Drive."
-
+    local function_name="abcli_env_$1"
+    if [[ $(type -t $function_name) == "function" ]]; then
+        $function_name "${@:2}"
         return
     fi
 
@@ -263,6 +229,8 @@ function abcli_env() {
     abcli_eval - \
         "env | grep abcli_ | grep \"$1\" | sort"
 }
+
+abcli_source_path - caller,suffix=/env
 
 abcli_env dot load
 abcli_env dot load \
