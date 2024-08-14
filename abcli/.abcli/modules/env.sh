@@ -12,20 +12,12 @@ function abcli_env() {
 
         abcli_env_backup help
         abcli_env_dot "$@"
-
-        abcli_show_usage "@env memory" \
-            "show memory status."
         return
     fi
 
     local function_name="abcli_env_$1"
     if [[ $(type -t $function_name) == "function" ]]; then
         $function_name "${@:2}"
-        return
-    fi
-
-    if [ "$task" == memory ]; then
-        grep MemTotal /proc/meminfo
         return
     fi
 
