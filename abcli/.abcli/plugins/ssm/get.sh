@@ -44,7 +44,7 @@ function abcli_ssm_get() {
         done
         popd >/dev/null
 
-        abcli_log "@ssm: get: $repo_name/.env: $count secret(s)"
+        abcli_log "🔑 @ssm: get: $repo_name/.env: $count secret(s)"
         return
     fi
 
