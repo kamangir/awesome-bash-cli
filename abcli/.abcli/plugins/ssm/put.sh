@@ -48,13 +48,13 @@ function abcli_ssm_put() {
         return
     fi
 
-    local secret_name=$1
+    secret_name=$1
     if [[ -z "$secret_name" ]]; then
         abcli_log_error "@ssm: put: name not found."
         return 1
     fi
 
-    local secret_value=$2
+    secret_value=$2
     if [[ -z "$secret_value" ]]; then
         abcli_log_error "@ssm: put: value not found."
         return 1
