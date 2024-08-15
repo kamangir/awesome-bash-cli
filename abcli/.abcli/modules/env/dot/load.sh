@@ -26,7 +26,7 @@ function abcli_env_dot_load() {
     local verbose=$(abcli_option_int "$options" verbose 0)
 
     if [[ ! -f "$path/$filename" ]]; then
-        abcli_log_warning "$repo_name/$filename: file not found."
+        abcli_log_warning "$path/$filename: file not found."
         return
     fi
 
