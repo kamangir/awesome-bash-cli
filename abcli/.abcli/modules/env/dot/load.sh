@@ -4,24 +4,33 @@ function abcli_env_dot_load() {
     local options=$1
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
-        options="filename=<.env>,plugin=<plugin-name>,verbose"
+        options="caller,filename=<.env>,plugin=<plugin-name>,suffix=/tests,verbose"
         abcli_show_usage "@env dot load$ABCUL[$options]" \
             "load .env."
         return
     fi
 
-    local plugin_name=$(abcli_option "$options" plugin abcli)
-    local repo_name=$(abcli_unpack_repo_name $plugin_name)
+    local use_caller=$(abcli_option_int "$options" caller 0)
+    local suffix=$(abcli_option "$options" suffix)
+    local path
+    if [[ "$use_caller" == 1 ]]; then
+        path=$(dirname "$(realpath "${BASH_SOURCE[1]}")")$suffix
+    else
+        local plugin_name=$(abcli_option "$options" plugin abcli)
+        local repo_name=$(abcli_unpack_repo_name $plugin_name)
+
+        path=$abcli_path_git/$repo_name
+    fi
 
     local filename=$(abcli_option "$options" filename .env)
     local verbose=$(abcli_option_int "$options" verbose 0)
 
-    if [[ ! -f "$abcli_path_git/$repo_name/$filename" ]]; then
+    if [[ ! -f "$path/$filename" ]]; then
         abcli_log_warning "$repo_name/$filename: file not found."
         return
     fi
 
-    pushd $abcli_path_git/$repo_name >/dev/null
+    pushd $path >/dev/null
     local line
     local count=0
     for line in $(dotenv \
@@ -35,5 +44,5 @@ function abcli_env_dot_load() {
     done
     popd >/dev/null
 
-    abcli_log "📜 @env: $repo_name: $filename: $count var(s)"
+    abcli_log "@env: loaded $count var(s) from $path/$filename"
 }
