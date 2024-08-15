@@ -10,6 +10,7 @@ function abcli_env_dot_load() {
         return
     fi
 
+    local plugin_name=$(abcli_option "$options" plugin abcli)
     local use_caller=$(abcli_option_int "$options" caller 0)
     local use_ssm=$(abcli_option_int "$options" ssm 0)
     local suffix=$(abcli_option "$options" suffix)
@@ -17,7 +18,6 @@ function abcli_env_dot_load() {
     if [[ "$use_caller" == 1 ]]; then
         path=$(dirname "$(realpath "${BASH_SOURCE[1]}")")$suffix
     else
-        local plugin_name=$(abcli_option "$options" plugin abcli)
         local repo_name=$(abcli_unpack_repo_name $plugin_name)
 
         path=$abcli_path_git/$repo_name
@@ -28,7 +28,7 @@ function abcli_env_dot_load() {
 
     if [[ ! -f "$path/$filename" ]]; then
         if [[ "$use_ssm" == 1 ]]; then
-            abcli_ssm_get path=$path
+            abcli_ssm_get path=$path/$plugin_name
         else
             abcli_log_warning "-@env: dot: load: $path/$filename: file not found."
         fi
