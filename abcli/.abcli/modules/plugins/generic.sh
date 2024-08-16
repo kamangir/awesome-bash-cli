@@ -21,7 +21,8 @@ function abcli_generic_task() {
     if [ "$task" == "init" ]; then
         abcli_init $plugin_name "${@:2}"
 
-        [[ $(abcli_conda exists $plugin_name) == 1 ]] &&
+        [[ "$abcli_is_docker" == false ]] &&
+            [[ $(abcli_conda exists $plugin_name) == 1 ]] &&
             conda activate $plugin_name
 
         return 0
