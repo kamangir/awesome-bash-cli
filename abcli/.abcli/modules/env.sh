@@ -24,8 +24,8 @@ function abcli_env() {
     env | grep "$1" | sort
 }
 
-abcli_source_path - caller,suffix=/env
+abcli_source_path - \
+    caller,suffix=/env
 
-abcli_env dot load
-abcli_env dot load \
-    filename=abcli/config.env
+abcli_env_dot_load \
+    caller,filename=config.env,suffix=/../..

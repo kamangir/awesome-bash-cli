@@ -5,8 +5,11 @@ import math
 import random
 import string
 import time
-from abcli.string import NAME
+from blueness import module
+from abcli import NAME
 from abcli.string.constants import unit_of
+
+NAME = module.name(__file__, NAME)
 
 
 def after(s, sub_string, n=1):
