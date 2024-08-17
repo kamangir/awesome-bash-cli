@@ -5,6 +5,8 @@ export abcli_status_icons=""
 export abcli_path_bash="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 function abcli_main() {
+    echo -e "\033]1337;SetBadgeFormat=$(echo -n "🔥" | base64)\a"
+
     local options=$1
 
     if [[ ",$options," == *",verbose,"* ]]; then
