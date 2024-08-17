@@ -42,7 +42,12 @@ function abcli_main() {
         abcli_select $abcli_object_name
 
     abcli_log "🪄 $abcli_fullname"
-    abcli_badge "🪄"
+
+    if [[ "$abcli_is_docker" == true ]]; then
+        abcli_badge "🌠"
+    else
+        abcli_badge "🪄"
+    fi
 
     local command_line="${@:2}"
     if [[ ! -z "$command_line" ]]; then
