@@ -22,6 +22,7 @@ setup(
         f"{NAME}.plugins.gpu",
         f"{NAME}.plugins.metadata",
         f"{NAME}.plugins.relations",
+        f"{NAME}.plugins.ssm",
         f"{NAME}.plugins.storage",
         f"{NAME}.plugins.tags",
         f"{NAME}.string",
