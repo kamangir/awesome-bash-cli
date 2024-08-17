@@ -1,6 +1,6 @@
-# 🚀 awesome bash cli (abcli)
+# 🪄 awesome bash cli (abcli)
 
-🚀 `abcli` is an implementation of [🔻 giza](https://github.com/kamangir/giza) and a language [to speak AI](https://github.com/kamangir/kamangir).
+🪄 `abcli` is an implementation of [🔻 giza](https://github.com/kamangir/giza) and a language [to speak AI](https://github.com/kamangir/kamangir).
 
 ![image](https://github.com/kamangir/assets/blob/main/abcli/marquee.png?raw=true)
 

@@ -41,7 +41,7 @@ function abcli_main() {
     [[ "$abcli_is_in_notebook" == false ]] &&
         abcli_select $abcli_object_name
 
-    abcli_log "🚀 $abcli_fullname"
+    abcli_log "🪄 $abcli_fullname"
     abcli_badge "🪄"
 
     local command_line="${@:2}"
