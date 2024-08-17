@@ -21,8 +21,7 @@ function abcli_env() {
         return
     fi
 
-    abcli_eval - \
-        "env | grep abcli_ | grep \"$1\" | sort"
+    env | grep "$1" | sort
 }
 
 abcli_source_path - caller,suffix=/env
