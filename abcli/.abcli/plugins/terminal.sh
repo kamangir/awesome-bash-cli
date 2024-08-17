@@ -1,5 +1,18 @@
 #! /usr/bin/env bash
 
+function abcli_badge() {
+    local note=$1
+    [[ "$note" == "clear" ]] && note=""
+
+    if [[ "$note" == "help" ]]; then
+        abcli_show_usage "@badge <note>" \
+            "badge <note>."
+        return
+    fi
+
+    echo -e "\033]1337;SetBadgeFormat=$(echo -n "$note" | base64)\a"
+}
+
 function abcli_get_icon() {
     local icon=""
     if [ "$abcli_is_docker" == true ]; then
@@ -41,9 +54,16 @@ function abcli_set_prompt() {
     unset color_prompt force_color_prompt
 }
 
-function abcli_update_terminal_title() {
-    local title="$(abcli_get_icon) $abcli_fullname"
-    [[ "$abcli_is_sagemaker" == false ]] && [[ "$abcli_is_shell" == false ]] &&
+function abcli_update_terminal() {
+    abcli_set_prompt
+
+    local icon=$(abcli_get_icon)
+
+    abcli_badge "$icon"
+
+    local title="$icon $abcli_fullname"
+    [[ "$abcli_is_sagemaker" == false ]] &&
+        [[ "$abcli_is_shell" == false ]] &&
         local title="$title@$(hostname)"
 
     [ $# -gt 0 ] &&

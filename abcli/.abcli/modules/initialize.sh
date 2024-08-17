@@ -18,7 +18,5 @@ function abcli_initialize() {
 
     [[ "$abcli_is_in_notebook" == true ]] && return
 
-    abcli_set_prompt
-
-    abcli_update_terminal_title
+    abcli_update_terminal
 }
