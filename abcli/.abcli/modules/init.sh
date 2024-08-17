@@ -28,10 +28,9 @@ function abcli_init() {
         abcli_init - clear
     else
         local plugin_name=$(abcli_unpack_keyword $1)
-        local repo_name=$(abcli_get_repo_name_from_plugin $plugin_name)
         local module_name=$(abcli_get_module_name_from_plugin $plugin_name)
 
-        for filename in $abcli_path_git/$repo_name/$module_name/.abcli/*.sh; do
+        for filename in $(python3 -m $module_name locate)/.abcli/*.sh; do
             source $filename
         done
     fi
