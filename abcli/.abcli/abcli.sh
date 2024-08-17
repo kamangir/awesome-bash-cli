@@ -42,6 +42,7 @@ function abcli_main() {
         abcli_select $abcli_object_name
 
     abcli_log "🚀 $abcli_fullname"
+    abcli_badge "🪄"
 
     local command_line="${@:2}"
     if [[ ! -z "$command_line" ]]; then
