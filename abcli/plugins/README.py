@@ -55,7 +55,7 @@ def build(
             MY_ICON,
             fullname(),
             "https://github.com/kamangir/awesome-bash-cli",
-            f"{ICON} " if ICON else {},
+            f"{ICON} " if ICON else "",
             NAME,
             VERSION,
             f"https://github.com/kamangir/{REPO_NAME}",
