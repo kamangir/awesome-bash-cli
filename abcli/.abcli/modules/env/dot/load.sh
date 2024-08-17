@@ -49,5 +49,5 @@ function abcli_env_dot_load() {
     done
     popd >/dev/null
 
-    abcli_log "@env: loaded $count var(s) from $path/$filename"
+    abcli_log "@env: dot: load: $count var(s): $path/$filename"
 }

@@ -40,7 +40,7 @@ function abcli_ssm_get() {
         done
         popd >/dev/null
 
-        abcli_log "@ssm: get: $path/sample.env: $count secret(s)"
+        abcli_log "@ssm: get: $count secret(s): $path/sample.env"
         return
     fi
 
