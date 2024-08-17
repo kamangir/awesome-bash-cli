@@ -1,6 +1,6 @@
 from typing import List
 from blueness import module
-from abcli import NAME as MY_NAME
+from abcli import NAME as MY_NAME, ICON
 from abcli import fullname
 from abcli import file
 from abcli.plugins import markdown
@@ -34,7 +34,8 @@ def build(
 
     signature = [
         "---",
-        "built by [`{}`]({}), based on [`{}-{}`]({}).".format(
+        "built by {} [`{}`]({}), based on [`{}-{}`]({}).".format(
+            ICON,
             fullname(),
             "https://github.com/kamangir/awesome-bash-cli",
             NAME,
