@@ -2,7 +2,9 @@
 
 function abcli_hr() {
     local width=80
-    ! $abcli_is_github_workflow && width=$(tput cols)
+    [[ "$abcli_is_github_workflow" == false ]] &&
+        [[ "$abcli_is_aws_batch" == false ]] &&
+        width=$(tput cols)
 
     printf "$(python3 -m abcli.bash.logging hr \
         --width $width)\n"
