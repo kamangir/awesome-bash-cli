@@ -83,6 +83,7 @@ abcli_source_path - caller,suffix=/../tests
 function abcli_assert() {
     local value=$1
     local expected_value=$2
+    local sign=${3:-yes}
 
     local function_name="${FUNCNAME[1]}"
 
@@ -96,13 +97,23 @@ function abcli_assert() {
         return 1
     fi
 
-    if [[ "$value" == "$expected_value" ]]; then
-        abcli_log "✅ $function_name: $value == $expected_value."
-        return
-    fi
+    if [[ "$sign" == "yes" ]]; then
+        if [[ "$value" == "$expected_value" ]]; then
+            abcli_log "✅ $function_name: $value == $expected_value."
+            return
+        fi
 
-    abcli_log_error "$function_name: $value != $expected_value"
-    return 1
+        abcli_log_error "$function_name: $value != $expected_value"
+        return 1
+    else
+        if [[ "$value" != "$expected_value" ]]; then
+            abcli_log "✅ $function_name: $value != $expected_value."
+            return
+        fi
+
+        abcli_log_error "$function_name: $value == $expected_value"
+        return 1
+    fi
 }
 
 function abcli_assert_list() {
