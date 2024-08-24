@@ -75,7 +75,7 @@ def build(
         elif "--signature" in template_line:
             content_section = signature
         elif "--include--" in template_line:
-            include_filename = template_line.split("--include--")[1].strip()
+            include_filename = template_line.split(" ")[1].strip()
             include_filename = file.absolute(
                 include_filename,
                 file.path(template_filename),
@@ -84,6 +84,10 @@ def build(
             success, content_section = file.load_text(include_filename)
             if not success:
                 return success
+
+            include_title = (template_line.split(" ", 2) + ["", "", ""])[2]
+            if content_section and include_title:
+                content_section[0] = f"## {include_title}"
 
             logger.info(f"{MY_NAME}.build: including {include_filename} ...")
 
