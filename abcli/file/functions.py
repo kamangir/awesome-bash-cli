@@ -98,29 +98,6 @@ def auxiliary(nickname, extension, add_timestamp=True):
     return filename
 
 
-def build_from_template(
-    template_filename: str,
-    segments: Dict[str, List[str]],
-    filename: str,
-) -> bool:
-    success, template = load_text(template_filename)
-    if not success:
-        return success
-
-    content: List[str] = []
-    for line in template:
-        line_completed: List[str] = [line]
-
-        for template_line in segments:
-            if template_line in line:
-                line_completed = segments[template_line]
-                break
-
-        content += line_completed
-
-    return save_text(filename, content)
-
-
 def copy(
     source,
     destination,

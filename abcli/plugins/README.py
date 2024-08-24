@@ -11,19 +11,19 @@ MY_NAME = module.name(__file__, MY_NAME)
 
 
 def build(
-    items: List[str],
     NAME: str,
     VERSION: str,
     REPO_NAME: str,
+    items: List[str] = [],
     template_filename: str = "",
     filename: str = "",
     path: str = "",
     cols: int = 3,
     ICON: str = "",
-):
+) -> bool:
     if path:
-        template_filename = os.path.join(path, "../template.md")
-        filename = os.path.join(path, "../README.md")
+        template_filename = os.path.join(path, "template.md")
+        filename = os.path.join(path, "README.md")
 
     logger.info(
         "{}.build: {} -{}-{}-@-{}-#{}-> {}".format(
@@ -62,11 +62,31 @@ def build(
         ),
     ]
 
-    return file.build_from_template(
-        template_filename,
-        {
-            "--table--": table,
-            "--signature": signature,
-        },
-        filename,
-    )
+    success, template = file.load_text(template_filename)
+    if not success:
+        return success
+
+    content: List[str] = []
+    for template_line in template:
+        content_section: List[str] = [template_line]
+
+        if "--table--" in template_line:
+            content_section = table
+        elif "--signature" in template_line:
+            content_section = signature
+        elif "--include--" in template_line:
+            include_filename = template_line.split("--include--")[1].strip()
+            include_filename = file.absolute(
+                include_filename,
+                file.path(template_filename),
+            )
+
+            success, content_section = file.load_text(include_filename)
+            if not success:
+                return success
+
+            logger.info(f"{MY_NAME}.build: including {include_filename} ...")
+
+        content += content_section
+
+    return file.save_text(filename, content)

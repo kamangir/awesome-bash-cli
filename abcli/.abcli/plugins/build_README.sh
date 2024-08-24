@@ -22,6 +22,7 @@ function abcli_build_README() {
     python3 -m $module_name \
         build_README \
         "${@:2}"
+    [[ $? -ne 0 ]] && return 1
 
     if [[ "$do_push" == 1 ]]; then
         abcli_git $repo_name push \
