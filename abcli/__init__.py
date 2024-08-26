@@ -6,7 +6,7 @@ ICON = "🪄"
 
 DESCRIPTION = f"{ICON} a language to speak AI."
 
-VERSION = "9.251.1"
+VERSION = "9.252.1"
 
 REPO_NAME = "awesome-bash-cli"
 

@@ -9,19 +9,15 @@ function abcli_cp() {
 }
 
 function abcli_clone() {
-    local task=$(abcli_unpack_keyword $1)
+    local options=$1
 
-    if [ "$task" == "help" ]; then
-        local options="~cache,cp,~download,~meta,~relations,~tags,${EOPE}upload"
-        abcli_show_usage "@cp$EOP|@copy|@clone$ABCUL..|<object-1> .|<object-2>$ABCUL$options" \
+    if [ $(abcli_option_int "$options" help 0) == 1 ]; then
+        options="~cache,cp,~download,~meta,~relations,~tags,upload"
+        abcli_show_usage "@cp$EOP|@copy|@clone$ABCUL[$options]$ABCUL[..|<object-1>]$ABCUL[.|<object-2>]$EOPE" \
             "copy <object-1> -> <object-2>."
         return
     fi
 
-    local object_1_name=$(abcli_clarify_object $1 ..)
-    local object_2_name=$(abcli_clarify_object $2 .)
-
-    local options=$3
     local clone_meta=$(abcli_option_int "$options" meta 1)
     local clone_cache=$(abcli_option_int "$options" cache $clone_meta)
     local clone_relations=$(abcli_option_int "$options" relations $clone_meta)
@@ -29,6 +25,9 @@ function abcli_clone() {
     local do_download=$(abcli_option_int "$options" download 1)
     local do_upload=$(abcli_option_int "$options" upload 0)
     local transfer_mechanism=$(abcli_option_choice "$options" cp,mv mv)
+
+    local object_1_name=$(abcli_clarify_object $2 ..)
+    local object_2_name=$(abcli_clarify_object $3 .)
 
     abcli_log "$object_1_name -clone:$transfer_mechanism-> $object_2_name"
 
