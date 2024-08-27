@@ -17,12 +17,12 @@ function test_abcli_clarify_object_no_default() {
 
     abcli_assert \
         $(abcli_clarify_object -) \
-        non-empty
+        - non-empty
 
     var=""
     abcli_assert \
         $(abcli_clarify_object $var) \
-        non-empty
+        - non-empty
 
     abcli_assert \
         $(abcli_clarify_object .) \

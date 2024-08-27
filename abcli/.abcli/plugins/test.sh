@@ -87,7 +87,17 @@ function abcli_assert() {
 
     local function_name="${FUNCNAME[1]}"
 
-    if [[ "$expected_value" == "non-empty" ]]; then
+    if [[ "$sign" == "empty" ]]; then
+        if [[ -z "$value" ]]; then
+            abcli_log "✅ $function_name: $value is empty."
+            return
+        fi
+
+        abcli_log_error "$function_name: non-empty value."
+        return 1
+    fi
+
+    if [[ "$sign" == "non-empty" ]]; then
         if [[ ! -z "$value" ]]; then
             abcli_log "✅ $function_name: $value is non-empty."
             return
