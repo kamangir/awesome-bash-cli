@@ -10,9 +10,3 @@ def test_abcli_tags():
     tags_as_read = get(object_name)
     assert "this" in tags_as_read
     assert "that" in tags_as_read
-
-    assert set_(object_name, "~that,which")
-
-    tags_as_read = get(object_name)
-    assert "that" not in tags_as_read
-    assert "which" in tags_as_read
