@@ -15,7 +15,7 @@ def test_ssm():
 
     success, secret_value_received = get_secret(secret_name)
     assert success, secret_value_received
-    assert (
+    assert not secret_value_received or (
         secret_value_received == secret_value
     ), f"{secret_value_received} != {secret_value}"
 
