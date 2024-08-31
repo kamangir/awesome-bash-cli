@@ -36,11 +36,11 @@ class Table:
                 host=self.host,
                 user=self.user,
                 port=self.port,
-                passwd=self.password,
-                db=self.db,
+                password=self.password,
+                database=self.db,
             )
         except:
-            crash_report(f"-{NAME}: connect: failed.")
+            crash_report(f"-{NAME}: connect: failed on host: {self.host}.")
             return False
 
         return True if not create_command else self.create(create_command)
