@@ -13,6 +13,7 @@ function abcli_ssm_get() {
     fi
 
     local secret_name
+    local secret_value
 
     local path=$(abcli_option "$options" path)
     if [[ ! -z "$path" ]]; then
