@@ -11,7 +11,7 @@ def generate_animated_gif(
     list_of_images: List[str],
     output_filename: str,
     frame_duration: int = 150,
-):
+) -> bool:
     if not list_of_images:
         return True
 
