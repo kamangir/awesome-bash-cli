@@ -59,7 +59,8 @@ function abcli_update_terminal() {
 
     local icon=$(abcli_get_icon)
 
-    abcli_badge "$icon"
+    [[ ! -z "$icon" ]] &&
+        abcli_badge "$icon"
 
     local title="$icon $abcli_fullname"
     [[ "$abcli_is_sagemaker" == false ]] &&
