@@ -33,7 +33,7 @@ class Table:
 
         try:
             self.connection = pymysql.connect(
-                self.host,
+                host=self.host,
                 user=self.user,
                 port=self.port,
                 passwd=self.password,
