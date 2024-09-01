@@ -11,14 +11,16 @@ def generate_animated_gif(
     list_of_images: List[str],
     output_filename: str,
     frame_duration: int = 150,
+    scale: int = 1,
 ) -> bool:
     if not list_of_images:
         return True
 
     logger.info(
-        "{}.generate_animated_gif({} frames) -> {} @ {:.2f}ms".format(
+        "{}.generate_animated_gif({} frames) -scale={}-> {} @ {:.2f}ms".format(
             NAME,
             len(list_of_images),
+            scale,
             output_filename,
             frame_duration,
         )
@@ -38,15 +40,23 @@ def generate_animated_gif(
 
     padded_frames = []
     for image in frames:
-        width, height = image.size
-        left_pad = (max_width - width) // 2
-        top_pad = (max_height - height) // 2
         padded_image = Image.new(
             "RGB",
             (max_width, max_height),
             (255, 255, 255),
         )
+
+        width, height = image.size
+        left_pad = (max_width - width) // 2
+        top_pad = (max_height - height) // 2
         padded_image.paste(image, (left_pad, top_pad))
+
+        if scale != 1:
+            padded_image = padded_image.resize(
+                (max_width // scale, max_height // scale),
+                Image.ANTIALIAS,
+            )
+
         padded_frames.append(padded_image)
 
     try:
@@ -62,10 +72,11 @@ def generate_animated_gif(
         return False
 
     logger.info(
-        "generate_animated_gif: {}x{}x{} -> {}".format(
+        "generate_animated_gif: {}x{}x{} -scale={}-> {}".format(
             len(list_of_images),
             height,
             width,
+            scale,
             output_filename,
         )
     )

@@ -5,7 +5,7 @@ function abcli_gif() {
 
     if [ $(abcli_option_int "$options" help 0) == 1 ]; then
         options="$(xtra ~download,dryrun,~upload)"
-        local args="[--frame_duration <150>]$ABCUL[--output_filename <object-name>.gif]$ABCUL[--suffix <.png>]"
+        local args="[--frame_duration <150>]$ABCUL[--output_filename <object-name>.gif]$ABCUL[--scale <1>]$ABCUL[--suffix <.png>]"
         abcli_show_usage "@gif [$options]$ABCUL[.|<object-name>]$ABCUL$args" \
             "generate <object-name>.gif."
         return
