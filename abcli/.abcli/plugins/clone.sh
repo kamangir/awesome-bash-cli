@@ -64,6 +64,11 @@ function abcli_clone() {
     done
     popd >/dev/null
 
+    [[ -f "$object_1_path/metadata.yaml" ]] &&
+        cp -v \
+            $object_1_path/metadata.yaml \
+            $object_2_path/metadata-$object_1_name.yaml
+
     [[ "$do_upload" == 1 ]] &&
         abcli_upload - $object_2_name
 
