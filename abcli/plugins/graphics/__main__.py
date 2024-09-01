@@ -35,6 +35,11 @@ parser.add_argument(
     type=int,
     help="ms",
 )
+parser.add_argument(
+    "--scale",
+    default=1,
+    type=int,
+)
 
 args = parser.parse_args()
 
@@ -54,9 +59,13 @@ if args.task == "generate_animated_gif":
         output_filename=objects.path_of(
             args.output_filename
             if args.output_filename
-            else "{}.gif".format(args.object_name)
+            else "{}{}.gif".format(
+                args.object_name,
+                f"-{args.scale}X" if args.scale != 1 else "",
+            )
         ),
         frame_duration=args.frame_duration,
+        scale=args.scale,
     )
 else:
     success = None
