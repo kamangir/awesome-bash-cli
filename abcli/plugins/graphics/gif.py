@@ -54,7 +54,7 @@ def generate_animated_gif(
         if scale != 1:
             padded_image = padded_image.resize(
                 (max_width // scale, max_height // scale),
-                Image.ANTIALIAS,
+                Image.Resampling.LANCZOS,
             )
 
         padded_frames.append(padded_image)
