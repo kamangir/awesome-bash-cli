@@ -20,6 +20,7 @@ def build(
     path: str = "",
     cols: int = 3,
     ICON: str = "",
+    items_as_table: bool = True,
 ) -> bool:
     if path:
         template_filename = os.path.join(path, "template.md")
@@ -37,7 +38,7 @@ def build(
         )
     )
 
-    table = markdown.generate_table(items, cols=cols)
+    table = markdown.generate_table(items, cols=cols) if items_as_table else items
 
     signature = [
         f'to use on [AWS SageMaker](https://aws.amazon.com/sagemaker/) replace `<plugin-name>` with "{NAME}" and follow [these instructions](https://github.com/kamangir/notebooks-and-scripts/blob/main/SageMaker.md).',
