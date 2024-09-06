@@ -11,6 +11,7 @@ function abcli_source_dependencies() {
         --show_icon 1
 
     source $(python -m blue_options locate)/.bash/blue_options.sh
+    source $(python -m blue_objects locate)/.bash/blue_objects.sh
 
     local module_name
     for module_name in abcli modules plugins; do
