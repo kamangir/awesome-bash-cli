@@ -1,5 +1,6 @@
 blueness
 blue_options
+blue_objects
 boto3
 geojson
 geopandas
