@@ -68,6 +68,8 @@ alias @metadata=abcli_metadata
 
 alias @object=abcli_object
 
+alias @objects=blue_objects
+
 alias @open=abcli_open
 
 alias @option=abcli_option
