@@ -22,8 +22,12 @@ def build(
     ICON: str = "",
 ) -> bool:
     if path:
-        template_filename = os.path.join(path, "template.md")
-        filename = os.path.join(path, "README.md")
+        if file.exist(path):
+            filename = path
+            template_filename = file.add_postfix(path, "template")
+        else:
+            filename = os.path.join(path, "README.md")
+            template_filename = os.path.join(path, "template.md")
 
     logger.info(
         "{}.build: {} -{}-{}-@-{}-#{}-> {}".format(
