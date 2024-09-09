@@ -1,11 +1,8 @@
-from abcli.plugins import testing
 import pytest
 
-from blue_objects import file
+from blue_objects import file, objects
 
-from abcli.modules import objects
 from abcli import env
-from abcli.plugins.testing import download_object
 
 
 @pytest.mark.parametrize(
@@ -15,7 +12,7 @@ from abcli.plugins.testing import download_object
     ],
 )
 def test_download_object(object_name):
-    assert download_object(object_name)
+    assert objects.download(object_name)
 
     list_of_files = [
         file.name_and_extension(filename)
