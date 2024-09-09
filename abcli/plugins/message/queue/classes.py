@@ -1,8 +1,12 @@
-from abcli import string
-from . import NAME
-from ..classes import Message
+from blueness import module
+from blue_options import crash_report
 from blue_objects import file
-from abcli.logger import logger, crash_report
+
+from abcli import NAME
+from abcli.plugins.message import Message
+from abcli.logger import logger
+
+NAME = module.name(__file__, NAME)
 
 
 class MessageQueue:

@@ -2,11 +2,16 @@ import cv2
 import math
 from typing import List
 import numpy as np
-from .text import render_text
-from . import NAME
-from abcli import string
 from functools import reduce
+
+from blueness import module
+from blue_options import string
+
+from abcli import NAME
+from abcli.plugins.graphics.text import render_text
 from abcli.logger import logger
+
+NAME = module.name(__file__, NAME)
 
 
 def add_sidebar(image, lines, images=[], line_length=28):
