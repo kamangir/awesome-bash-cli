@@ -1,7 +1,6 @@
-from blue_options import string
+from blue_options import fullname, string
 from blue_objects import file
 
-from abcli import fullname
 from abcli import env
 from abcli.logger import logger
 

@@ -1,6 +1,6 @@
 import pytest
 import glob
-from abcli.plugins.graphics.gif import generate_animated_gif
+from blue_objects.graphics.gif import generate_animated_gif
 from abcli.plugins.testing import download_object
 from abcli.modules import objects
 

@@ -2,8 +2,9 @@ from typing import List
 import pkg_resources
 import glob
 import os
-from abcli import env
+
 from blue_objects import file, path
+from blue_objects.env import abcli_path_git
 
 
 def get_plugin_name(repo_name: str) -> str:
@@ -14,7 +15,7 @@ def get_module_name(repo_name: str) -> str:
     list_of_candidates = sorted(
         file.path(filename)
         for filename in glob.glob(
-            os.path.join(env.abcli_path_git, repo_name, "**/__init__.py"),
+            os.path.join(abcli_path_git, repo_name, "**/__init__.py"),
             recursive=True,
         )
     )
@@ -31,12 +32,12 @@ def list_of_external(repo_names=False) -> List[str]:
             repo_name
             for repo_name in [
                 path.name(path_)
-                for path_ in glob.glob(os.path.join(env.abcli_path_git, "*/"))
+                for path_ in glob.glob(os.path.join(abcli_path_git, "*/"))
             ]
             if repo_name != "awesome-bash-cli"
             and path.exists(
                 os.path.join(
-                    env.abcli_path_git,
+                    abcli_path_git,
                     repo_name,
                     get_module_name(repo_name),
                     ".abcli",

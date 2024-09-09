@@ -1,9 +1,11 @@
 import boto3
 from typing import Any, Tuple
-from abcli import NAME
-from abcli import env
-from blueness import module
 from botocore.exceptions import ClientError
+
+from blueness import module
+from blue_objects.env import ABCLI_AWS_REGION
+
+from abcli import NAME
 from abcli.logger import logger
 
 NAME = module.name(__file__, NAME)
@@ -12,7 +14,7 @@ NAME = module.name(__file__, NAME)
 def get_secret(secret_name: str) -> Tuple[bool, str]:
     client = boto3.client(
         service_name="secretsmanager",
-        region_name=env.abcli_aws_region,
+        region_name=ABCLI_AWS_REGION,
     )
 
     try:
@@ -43,7 +45,7 @@ def put_secret(
 
     client = boto3.client(
         "secretsmanager",
-        region_name=env.abcli_aws_region,
+        region_name=ABCLI_AWS_REGION,
     )
 
     try:
@@ -78,7 +80,7 @@ def put_secret(
 def rm_secret(secret_name: str) -> Tuple[bool, Any]:
     client = boto3.client(
         "secretsmanager",
-        region_name=env.abcli_aws_region,
+        region_name=,
     )
 
     try:
