@@ -1,6 +1,6 @@
 from typing import Any
 from .enums import MetadataSourceType
-from abcli import file
+from blue_objects import file
 
 
 def get(
@@ -14,7 +14,7 @@ def get(
 ) -> Any:
     success, metadata = file.load_yaml(
         source_type.filename(source, filename),
-        civilized=True,
+        ignore_error=True,
     )
     if not success:
         return default

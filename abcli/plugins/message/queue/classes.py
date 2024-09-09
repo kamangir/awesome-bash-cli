@@ -1,6 +1,7 @@
 from abcli import string
 from . import NAME
 from ..classes import Message
+from blue_objects import file
 from abcli.logger import logger, crash_report
 
 
@@ -138,7 +139,7 @@ class MessageQueue:
                 MessageBody=message.subject,
                 MessageAttributes={
                     "data": {
-                        "StringValue": string.as_json(message.data),
+                        "StringValue": file.as_json(message.data),
                         "DataType": "String",
                     },
                     # compatibility with bolt 📡

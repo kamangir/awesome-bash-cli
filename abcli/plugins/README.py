@@ -3,7 +3,7 @@ import os
 from blueness import module
 from abcli import NAME as MY_NAME, ICON as MY_ICON
 from abcli import fullname
-from abcli import file
+from blue_objects import file
 from abcli.plugins import markdown
 from abcli.logger import logger
 
@@ -22,9 +22,9 @@ def build(
     ICON: str = "",
 ) -> bool:
     if path:
-        if file.exist(path):
+        if file.exists(path):
             filename = path
-            template_filename = file.add_postfix(path, "template")
+            template_filename = file.add_suffix(path, "template")
         else:
             filename = os.path.join(path, "README.md")
             template_filename = os.path.join(path, "template.md")

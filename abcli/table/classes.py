@@ -2,7 +2,9 @@ import os
 import os.path
 import pymysql
 from abcli import env
-from abcli import file
+
+from blue_objects import file
+
 from abcli.table import NAME
 from abcli.logger import logger, crash_report
 

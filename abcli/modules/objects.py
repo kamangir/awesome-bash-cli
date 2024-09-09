@@ -1,5 +1,9 @@
 import os
-from abcli import env, file, path, string
+
+from blue_options import string
+from blue_objects import file, path
+
+from abcli import env
 from abcli.plugins.storage import instance as storage
 from abcli.logger import logger
 
@@ -55,15 +59,6 @@ def path_of(
         object_path(object_name, create),
         filename,
     )
-
-
-def select(object_name: str):
-    os.environ["abcli_object_name"] = object_name
-    env.abcli_object_name = object_name
-
-    path = object_path(object_name)
-    os.environ["abcli_object_path"] = path
-    env.abcli_object_path = path
 
 
 def signature(info=None, object_name="."):

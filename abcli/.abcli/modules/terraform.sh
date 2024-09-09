@@ -155,3 +155,9 @@ function abcli_terraform() {
         return
     fi
 }
+
+# used locally by this function
+function abcli_log_local_and_cat() {
+    abcli_log_local "$1"
+    cat "$1"
+}

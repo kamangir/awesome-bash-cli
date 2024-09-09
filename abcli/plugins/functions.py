@@ -2,7 +2,8 @@ from typing import List
 import pkg_resources
 import glob
 import os
-from abcli import env, path, file
+from abcli import env
+from blue_objects import file, path
 
 
 def get_plugin_name(repo_name: str) -> str:
@@ -33,7 +34,7 @@ def list_of_external(repo_names=False) -> List[str]:
                 for path_ in glob.glob(os.path.join(env.abcli_path_git, "*/"))
             ]
             if repo_name != "awesome-bash-cli"
-            and path.exist(
+            and path.exists(
                 os.path.join(
                     env.abcli_path_git,
                     repo_name,

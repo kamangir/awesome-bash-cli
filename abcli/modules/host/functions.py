@@ -1,9 +1,14 @@
 import os
-from abcli import fullname
-from abcli import env, file
-from abcli import string
+from typing import Union, Tuple, List
+
+from blue_options import string
+from blue_options.host import is_jupyter
+from blue_options.logger import crash_report
+from blue_objects import file
+from abcli import env, fullname
+
 from . import HOST_NAME, HOST_TAGS, NAME
-from abcli.logger import logger, crash_report
+from abcli.logger import logger
 
 
 def get_name(cache=True):
@@ -17,7 +22,7 @@ def get_name(cache=True):
 
 
 def get_name_():
-    default = string.random_(5)
+    default = string.random(5)
 
     if is_docker():
         return os.getenv("abcli_container_id", default)
@@ -103,22 +108,6 @@ def is_jetson():
     return os.getenv("abcli_is_jetson", "false") == "true"
 
 
-# https://github.com/ultralytics/yolov5/blob/master/utils/general.py#LL79C18-L79C18
-def is_jupyter():
-    """
-    Check if the current script is running inside a Jupyter Notebook.
-    Verified on Colab, Jupyterlab, Kaggle, Paperspace.
-    Returns:
-        bool: True if running inside a Jupyter Notebook, False otherwise.
-    """
-    try:
-        from IPython import get_ipython
-
-        return get_ipython() is not None
-    except:
-        return False
-
-
 def is_mac():
     return os.getenv("abcli_is_mac", "false") == "true"
 
@@ -132,26 +121,15 @@ def is_ubuntu():
 
 
 def shell(
-    command,
-    clean_after=False,
-    return_output=False,
-    work_dir=".",
-):
-    """execute command in shell.
-
-    Args:
-        command (str): command
-        keep_blank (bool, optional): keep blank lines in output. Defaults to True.
-        clean_after (bool, optional): delete output file. Defaults to False.
-        return_output (bool, optional): return output. Defaults to False.
-        work_dir (str, optional): working directory. Defaults to ".".
-        strip (bool, optional): strip output. Defaults to False.
-
-    Returns:
-        bool: success.
-        (List[str], optional): output.
-    """
-    logger.debug(f"host.shell({command})")
+    command: str,
+    clean_after: bool = False,
+    return_output: bool = False,
+    work_dir: str = ".",
+) -> Union[
+    bool,
+    Tuple[bool, List[str]],
+]:
+    logger.debug(f"{NAME}.shell({command})")
 
     success = True
     output = []

@@ -2,7 +2,9 @@ from typing import Any
 from .enums import MetadataSourceType
 import base64
 import copy
-from abcli import file
+
+from blue_objects import file
+
 from abcli.plugins import NAME
 from abcli.logger import logger
 
@@ -23,7 +25,7 @@ def post(
 
     filename = source_type.filename(source, filename)
 
-    _, metadata = file.load_yaml(filename, civilized=True)
+    _, metadata = file.load_yaml(filename, ignore_error=True)
 
     metadata[key] = copy.deepcopy(value)
 

@@ -109,14 +109,12 @@ abcli_object_root = os.getenv(
     os.path.join(abcli_path_storage, "abcli"),
 )
 abcli_object_name = os.getenv("abcli_object_name", "")
-abcli_object_path = os.getenv("abcli_object_path", "")
 abcli_path_git = os.getenv(
     "abcli_path_git",
     os.path.join(HOME, "git"),
 )
 abcli_path_static = os.getenv("abcli_path_static", "")
 abcli_path_abcli = os.getenv("abcli_path_abcli", "")
-abcli_log_filename = os.getenv("abcli_log_filename", "")
 
 abcli_papertrail_dest_host = os.getenv("abcli_papertrail_dest_host", "")
 abcli_papertrail_dest_port = os.getenv("abcli_papertrail_dest_port", "")

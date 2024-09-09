@@ -35,8 +35,6 @@ alias @help=abcli_help
 
 alias @host=abcli_host
 
-alias @hr=abcli_hr
-
 alias @init=abcli_init
 
 alias @instance=abcli_instance

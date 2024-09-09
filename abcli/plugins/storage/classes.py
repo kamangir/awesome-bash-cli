@@ -1,11 +1,19 @@
+from typing import Union
+import boto3
+import botocore
 import os
 import os.path
 import time
-from abcli import env, file
-from abcli import path
-from abcli import env
-from abcli import string
-from abcli.logger import logger, crash_report
+
+from blueness import module
+from blue_options import string
+from blue_options.logger import crash_report
+from blue_objects import file, path
+
+from abcli import env, NAME
+from abcli.logger import logger
+
+NAME = module.name(__file__, NAME)
 
 
 class Storage:
@@ -13,31 +21,22 @@ class Storage:
         self.region = env.abcli_aws_region
 
         try:
-            import boto3
-
             self.s3 = boto3.client("s3", region_name=self.region)
         except:
-            crash_report("-storage: failed.")
+            crash_report(f"{NAME}.storage: failed.")
 
         self.bucket_name = bucket_name
 
-        self.create_bucket()
+        assert self.create_bucket()
 
-    def create_bucket(self, bucket_name=None):
-        """create bucket.
-
-        Args:
-            bucket_name (str, optional): bucket name. Defaults to None.
-
-        Returns:
-            bool: success.
-        """
-        if bucket_name is None:
+    def create_bucket(
+        self,
+        bucket_name: str = "",
+    ) -> bool:
+        if not bucket_name:
             bucket_name = self.bucket_name
 
         try:
-            import boto3
-
             if boto3.resource("s3").Bucket(bucket_name).creation_date is not None:
                 logger.debug(f"-storage: create_bucket: {bucket_name}: already exists.")
                 return True
@@ -54,12 +53,12 @@ class Storage:
 
     def download_file(
         self,
-        object_name,
-        filename="",
-        bucket_name=None,
-        civilized=False,
-        log=True,
-        overwrite=False,
+        object_name: str,
+        filename: str = "",
+        bucket_name: Union[None, str] = None,
+        ignore_error: bool = False,
+        log: bool = True,
+        overwrite: bool = False,
     ):
         """download file.
 
@@ -67,7 +66,6 @@ class Storage:
             object_name (str): object name.
             filename (str, optional): filename to download. Defaults to "".
             bucket_name (str, optional): bucket name. Default to None.
-            civilized (bool, optional): if failed, do not print error message. Defaults to False.
             log (bool, optional): log. Default to False.
             overwrite (bool, optional): overwrite filename. Defaults to False.
 
@@ -86,7 +84,7 @@ class Storage:
                 "/".join(object_name.split("/")[1:]),
             )
 
-        if not overwrite and file.exist(filename):
+        if not overwrite and file.exists(filename):
             return True
 
         if not path.create(file.path(filename)):
@@ -100,7 +98,7 @@ class Storage:
             self.s3.download_file(bucket_name, object_name, filename)
             success = True
         except:
-            if not civilized:
+            if not ignore_error:
                 crash_report(
                     f"-storage: download_file({bucket_name}/{object_name}): failed."
                 )
@@ -139,8 +137,6 @@ class Storage:
 
         output = []
         try:
-            import boto3
-
             output = [
                 string.after(object_summary.key, prefix)
                 for object_summary in boto3.resource("s3")
@@ -182,9 +178,6 @@ class Storage:
         """
         if bucket_name is None:
             bucket_name = self.bucket_name
-
-        import boto3
-        import botocore
 
         try:
             boto3.resource("s3").Object(

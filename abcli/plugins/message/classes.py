@@ -1,7 +1,8 @@
 import os
 from abcli import env
 import os.path
-from abcli import string
+from blue_options import string
+from blue_objects.env import ABCLI_OBJECT_PATH
 from abcli.logger import logger
 
 
@@ -24,7 +25,7 @@ class Message:
         self.sender = raw.get("sender", host.get_name())
         self.recipient = raw.get("recipient", recipient)
 
-        self.id = raw.get("id", string.random_(16) if id == "random" else id)
+        self.id = raw.get("id", string.random(16) if id == "random" else id)
         self.reply_id = raw.get("reply_id", reply_id)
 
         self.data = raw.get("data", data)
@@ -87,7 +88,7 @@ class Message:
             and self.data.get("object_name", "")
         ):
             filename = os.path.join(
-                env.abcli_object_path,
+                ABCLI_OBJECT_PATH,
                 "auxiliary",
                 "-".join(
                     [self.data["bucket_name"]] + self.data["object_name"].split("/")
