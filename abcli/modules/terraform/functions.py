@@ -1,5 +1,6 @@
 from blue_options import fullname, string
 from blue_objects import file
+from blue_objects.graphics import screen
 
 from abcli import env
 from abcli.logger import logger
@@ -33,7 +34,7 @@ def poster(filename):
             [
                 graphics.render_text(
                     centered=True,
-                    image_width=graphics.screen_width,
+                    image_width=screen.get_size()[1],
                     text=line,
                     thickness=4,
                 )

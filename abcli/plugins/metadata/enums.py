@@ -2,7 +2,7 @@ import os
 from enum import Enum, auto
 
 from blue_objects import objects
-from blue_objects.env import ABCLI_OBJECT_PATH
+from blue_objects.env import abcli_object_path
 
 
 class MetadataSourceType(Enum):
@@ -22,7 +22,7 @@ class MetadataSourceType(Enum):
 
         if self == MetadataSourceType.PATH:
             return os.path.join(
-                ABCLI_OBJECT_PATH if source == "." else source,
+                abcli_object_path if source == "." else source,
                 filename,
             )
 
