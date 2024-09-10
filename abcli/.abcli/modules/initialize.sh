@@ -14,7 +14,7 @@ function abcli_initialize() {
         [[ "$abcli_is_github_workflow" == false ]] &&
         abcli_add_ssh_keys
 
-    export abcli_host_name=$(python3 -m abcli.modules.host get --keyword name)
+    export abcli_host_name=$(python3 -m blue_options.host get --keyword name)
 
     [[ "$abcli_is_in_notebook" == true ]] && return
 

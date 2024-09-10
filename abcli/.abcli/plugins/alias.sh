@@ -33,8 +33,6 @@ alias @gpu=abcli_gpu
 
 alias @help=abcli_help
 
-alias @host=abcli_host
-
 alias @init=abcli_init
 
 alias @instance=abcli_instance
