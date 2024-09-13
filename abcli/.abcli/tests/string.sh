@@ -31,6 +31,37 @@ function abcli_string_after() {
         "-is-a-test-that-is-very-important-and-now-is-running"
 }
 
+function abcli_string_before() {
+    abcli_assert \
+        $(abcli_string_before \
+            "this-is-a-test" \
+            "") \
+        ""
+    abcli_assert \
+        $(abcli_string_before \
+            "this-is-a-test" \
+            "was") \
+        ""
+
+    abcli_assert \
+        $(abcli_string_before \
+            "this-is-a-test" \
+            "is") \
+        "th"
+
+    abcli_assert \
+        $(abcli_string_before \
+            "this-is-a-test-that-is-very-important" \
+            "is") \
+        "th"
+
+    abcli_assert \
+        $(abcli_string_before \
+            "this-is-a-test-that-is-very-important-and-now-is-running" \
+            "is") \
+        "th"
+}
+
 function test_abcli_string_random() {
     abcli_assert \
         $(abcli_string_random) \
