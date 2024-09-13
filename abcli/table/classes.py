@@ -3,10 +3,10 @@ import os.path
 import pymysql
 from abcli import env
 
-from blue_objects import file
+from blue_options.logger import crash_report
 
 from abcli.table import NAME
-from abcli.logger import logger, crash_report
+from abcli.logger import logger
 
 
 class Table:
