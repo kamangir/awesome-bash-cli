@@ -82,3 +82,5 @@ VANWATCH_TEST_OBJECT = os.getenv("VANWATCH_TEST_OBJECT", "vanwatch-test-object-v
 NGROK_AUTHTOKEN = os.getenv("NGROK_AUTHTOKEN", "")
 
 COMFYUI_PASSWORD = os.getenv("COMFYUI_PASSWORD", "")
+
+ABCLI_TEST_OBJECT = os.getenv("ABCLI_TEST_OBJECT", "")
