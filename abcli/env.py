@@ -71,8 +71,6 @@ abcli_session = os.getenv("abcli_session", "")
 
 abcli_youtube_api_key = os.getenv("abcli_youtube_api_key", "")
 
-abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
-
 STABILITY_KEY = os.getenv("STABILITY_KEY", "")
 
 VANWATCH_TEST_OBJECT = os.getenv("VANWATCH_TEST_OBJECT", "vanwatch-test-object-v2")

@@ -1,8 +1,8 @@
 from blue_options import fullname, string
+from blue_options.env import abcli_wifi_ssid
 from blue_objects import file
 from blue_objects.graphics import screen
 
-from abcli import env
 from abcli.logger import logger
 
 
@@ -127,7 +127,7 @@ def signature():
                     include_zone=True,
                 ),
             ]
-            + ([env.abcli_wifi_ssid] if env.abcli_wifi_ssid else [])
+            + ([abcli_wifi_ssid] if abcli_wifi_ssid else [])
         ),
     ]
 

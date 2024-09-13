@@ -89,3 +89,5 @@ alias @@timestamp=abcli_string_timestamp_short
 alias @version="abcli version"
 
 alias @watch=abcli_watch
+
+alias @wifi=abcli_wifi
