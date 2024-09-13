@@ -45,8 +45,6 @@ abcli_gpu = os.getenv("abcli_gpu", "")
 
 abcli_hardware_kind = os.getenv("abcli_hardware_kind", "")
 
-abcli_hostname = os.getenv("abcli_hostname", "")
-
 abcli_messenger_recipients = os.getenv("abcli_messenger_recipients", "")
 
 
