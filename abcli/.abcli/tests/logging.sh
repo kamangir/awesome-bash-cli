@@ -7,7 +7,7 @@ function test_abcli_cat() {
 
     local object_path=$ABCLI_OBJECT_ROOT/$object_name
 
-    abcli_cat object_path/vancouver.json
+    abcli_cat $object_path/vancouver.json
 }
 
 function test_abcli_hr() {
