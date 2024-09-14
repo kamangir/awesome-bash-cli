@@ -1,9 +1,5 @@
 #! /usr/bin/env bash
 
-function abc() {
-    abcli "$@"
-}
-
 function abcli() {
     local task=$(abcli_unpack_keyword $1 version)
 
