@@ -1,7 +1,7 @@
-from abcli import file
-from abcli.modules import objects
+from blue_objects import file, objects
+
+from abcli.plugins.message.classes import Message
 from abcli.logger import logger
-from .classes import Message
 
 
 def submit_object(

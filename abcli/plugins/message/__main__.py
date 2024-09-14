@@ -2,7 +2,9 @@ import argparse
 from functools import reduce
 import time
 from . import *
-from abcli import file
+
+from blue_objects import file
+
 from abcli import VERSION
 from abcli.logger import logger
 from blueness.argparse.generic import sys_exit

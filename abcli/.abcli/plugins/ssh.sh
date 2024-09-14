@@ -68,7 +68,7 @@ function abcli_ssh_args() {
 
     if [ "$machine_kind" == "ec2" ]; then
         local address=$(echo "$machine_name" | tr . -)
-        local region=$(abcli_option "$options" region $abcli_aws_region)
+        local region=$(abcli_option "$options" region $ABCLI_AWS_REGION)
         local url="ec2-$address.$region.compute.amazonaws.com"
         local user=$(abcli_option "$options" user ubuntu)
 

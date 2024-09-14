@@ -151,12 +151,8 @@ function abcli_instance() {
 
     if [ "$task" == "terminate" ]; then
         local host_name=$2
-        if [ "$host_name" == "." ]; then
-            local host_name=""
-        fi
-        if [ -z "$host_name" ]; then
-            local host_name=$abcli_host_name
-        fi
+        [[ "$host_name" == "." ]] || [[ -z "$host_name" ]] &&
+            host_name=$abcli_host_name
 
         # https://docs.aws.amazon.com/cli/latest/reference/ec2/terminate-instances.html
         aws ec2 \

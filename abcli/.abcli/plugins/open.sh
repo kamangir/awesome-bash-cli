@@ -19,7 +19,7 @@ function abcli_open() {
     [[ ! -z "$extension" ]] &&
         filename=$object_name.$extension
 
-    local what=$abcli_object_root/$object_name
+    local what=$ABCLI_OBJECT_ROOT/$object_name
     [[ ! -z "$extension" ]] &&
         what=$what/$filename
 

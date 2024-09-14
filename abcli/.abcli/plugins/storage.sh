@@ -25,7 +25,7 @@ function abcli_storage() {
 
     if [[ "$task" == "clear" ]]; then
         cd
-        sudo rm -rf $abcli_path_storage/*
+        sudo rm -rf $ABCLI_PATH_STORAGE/*
         abcli_select $abcli_object_name
         return
     fi
@@ -66,7 +66,7 @@ function abcli_storage() {
         fi
 
         abcli_eval dryrun=$do_dryrun \
-            rm -rfv $abcli_object_root/$object_name
+            rm -rfv $ABCLI_OBJECT_ROOT/$object_name
 
         return
     fi
@@ -77,7 +77,7 @@ function abcli_storage() {
         local depth=$(abcli_option_int "$options" depth 2)
         local do_dryrun=$(abcli_option_int "$options" dryrun 0)
 
-        abcli_eval dryrun=$do_dryrun,path=$abcli_path_storage \
+        abcli_eval dryrun=$do_dryrun,path=$ABCLI_PATH_STORAGE \
             "du -hc -d $depth | sort -h -r | head -n $count"
 
         return

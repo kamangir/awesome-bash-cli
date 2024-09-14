@@ -1,5 +1,6 @@
+from blue_objects.objects import unique_object
+
 from abcli.plugins.tags.functions import get, set_
-from abcli.modules.objects import unique_object
 
 
 def test_abcli_tags():

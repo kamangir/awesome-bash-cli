@@ -1,50 +1,7 @@
-from typing import List
 import os
-from dotenv import load_dotenv
-import pkg_resources
 
-
-class Env:
-    def __init__(self, vars: List[str] = []):
-        self.vars = sorted(vars)
-        for var in self.vars:
-            setattr(self, var, os.getenv(var, ""))
-
-
-def load_config(
-    package_name: str,
-    verbose: bool = False,
-):
-    env_filename = pkg_resources.resource_filename(
-        package_name,
-        "config.env",
-    )
-
-    if verbose:
-        print(f"loading {env_filename}.")
-
-    assert load_dotenv(env_filename), pkg_resources.resource_listdir(package_name, "")
-
-
-def load_env(
-    package_name: str,
-    verbose: bool = False,
-):
-    env_filename = os.path.join(
-        os.path.dirname(
-            pkg_resources.resource_filename(
-                package_name,
-                "",
-            )
-        ),
-        ".env",
-    )
-
-    if verbose:
-        print(f"loading {env_filename}.")
-
-    load_dotenv(env_filename)
-
+from blue_options.env import load_config, load_env
+from blue_objects.env import ABCLI_AWS_S3_BUCKET_NAME, ABCLI_AWS_S3_PREFIX
 
 load_env(__name__)
 load_config(__name__)
@@ -72,13 +29,6 @@ ABCLI_AWS_RDS_PASSWORD = os.getenv("ABCLI_AWS_RDS_PASSWORD", "")
 ABCLI_AWS_RDS_PORT = os.getenv("ABCLI_AWS_RDS_PORT", "")
 ABCLI_AWS_RDS_USER = os.getenv("ABCLI_AWS_RDS_USER", "")
 
-abcli_aws_region = os.getenv("abcli_aws_region", "")
-abcli_aws_s3_bucket_name = os.getenv("abcli_aws_s3_bucket_name", "kamangir")
-abcli_aws_s3_prefix = os.getenv("abcli_aws_s3_prefix", "bolt")
-abcli_s3_object_prefix = os.getenv(
-    "abcli_s3_object_prefix",
-    f"s3://{abcli_aws_s3_bucket_name}/{abcli_aws_s3_prefix}",
-)
 abcli_aws_s3_public_bucket_name = os.getenv("abcli_aws_s3_public_bucket_name", "")
 
 abcli_blue_sbc_application = os.getenv("abcli_blue_sbc_application", "")
@@ -95,30 +45,10 @@ abcli_gpu = os.getenv("abcli_gpu", "")
 
 abcli_hardware_kind = os.getenv("abcli_hardware_kind", "")
 
-abcli_hostname = os.getenv("abcli_hostname", "")
-
 abcli_messenger_recipients = os.getenv("abcli_messenger_recipients", "")
 
-HOME = os.getenv("HOME", "")
-abcli_path_storage = os.getenv(
-    "abcli_path_storage",
-    os.path.join(HOME, "storage"),
-)
-abcli_object_root = os.getenv(
-    "abcli_object_root",
-    os.path.join(abcli_path_storage, "abcli"),
-)
-abcli_object_name = os.getenv("abcli_object_name", "")
-abcli_object_path = os.getenv("abcli_object_path", "")
-abcli_path_git = os.getenv(
-    "abcli_path_git",
-    os.path.join(HOME, "git"),
-)
-abcli_path_static = os.getenv("abcli_path_static", "")
-abcli_path_abcli = os.getenv("abcli_path_abcli", "")
-abcli_log_filename = os.getenv("abcli_log_filename", "")
 
-abcli_publish_prefix = os.getenv("abcli_publish_prefix", "")
+abcli_path_abcli = os.getenv("abcli_path_abcli", "")
 
 abcli_papertrail_dest_host = os.getenv("abcli_papertrail_dest_host", "")
 abcli_papertrail_dest_port = os.getenv("abcli_papertrail_dest_port", "")
@@ -141,8 +71,6 @@ abcli_session = os.getenv("abcli_session", "")
 
 abcli_youtube_api_key = os.getenv("abcli_youtube_api_key", "")
 
-abcli_wifi_ssid = os.getenv("abcli_wifi_ssid", "")
-
 STABILITY_KEY = os.getenv("STABILITY_KEY", "")
 
 VANWATCH_TEST_OBJECT = os.getenv("VANWATCH_TEST_OBJECT", "vanwatch-test-object-v2")
@@ -150,3 +78,5 @@ VANWATCH_TEST_OBJECT = os.getenv("VANWATCH_TEST_OBJECT", "vanwatch-test-object-v
 NGROK_AUTHTOKEN = os.getenv("NGROK_AUTHTOKEN", "")
 
 COMFYUI_PASSWORD = os.getenv("COMFYUI_PASSWORD", "")
+
+ABCLI_TEST_OBJECT = os.getenv("ABCLI_TEST_OBJECT", "")

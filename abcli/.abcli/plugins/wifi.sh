@@ -6,9 +6,9 @@ function abcli_wifi() {
     local task=$(abcli_unpack_keyword $1 help)
 
     if [ "$task" == "help" ]; then
-        abcli_show_usage "abcli wifi get_ssid" \
+        abcli_show_usage "@wifi get_ssid" \
             "get wifi ssid."
-        abcli_show_usage "abcli wifi copy_to_sd_card" \
+        abcli_show_usage "@wifi copy_to_sd_card" \
             "copy wifi info to sd_card."
         return
     fi
@@ -26,7 +26,7 @@ function abcli_wifi() {
         return
     fi
 
-    abcli_log_error "-abcli: wifi: $task: command not found."
+    abcli_log_error "@wifi: $task: command not found."
     return 1
 }
 

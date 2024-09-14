@@ -16,20 +16,9 @@ alias @browse=abcli_browse
 
 alias @build_README=abcli_build_README
 
-alias @cache=abcli_cache
-alias @ref="abcli_cache read"
-alias @tag=abcli_tag
-alias @relation=abcli_relation
-
-alias @clone=abcli_clone
-alias @copy=abcli_copy
-alias @cp=abcli_cp
-
 alias @conda=abcli_conda
 
 alias @create_video=abcli_create_video
-
-alias @download=abcli_download
 
 alias @env=abcli_env
 
@@ -37,18 +26,12 @@ alias @eval=abcli_eval
 
 alias @ffmpeg=abcli_ffmpeg
 
-alias @gif=abcli_gif
-
 alias @git=abcli_git
 alias @git++="abcli_git increment_version"
 
 alias @gpu=abcli_gpu
 
 alias @help=abcli_help
-
-alias @host=abcli_host
-
-alias @hr=abcli_hr
 
 alias @init=abcli_init
 
@@ -88,13 +71,9 @@ alias @pypi=abcli_pypi
 alias @pylint=abcli_pylint
 alias @pytest=abcli_pytest
 
-alias @publish=abcli_publish
-
 alias @random=abcli_string_random
 
 alias @seed=abcli_seed
-
-alias @select=abcli_select
 
 alias @sleep=abcli_sleep
 
@@ -107,8 +86,8 @@ alias @test=abcli_test
 alias @timestamp=abcli_string_timestamp
 alias @@timestamp=abcli_string_timestamp_short
 
-alias @upload=abcli_upload
-
 alias @version="abcli version"
 
 alias @watch=abcli_watch
+
+alias @wifi=abcli_wifi

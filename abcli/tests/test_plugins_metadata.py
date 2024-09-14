@@ -1,5 +1,10 @@
 import pytest
 from typing import Callable
+
+from blue_options.string import random
+from blue_objects.objects import unique_object, object_path, path_of
+
+
 from abcli.plugins.metadata import (
     get,
     post,
@@ -12,8 +17,6 @@ from abcli.plugins.metadata import (
     post_to_path,
     MetadataSourceType,
 )
-from abcli.modules.objects import unique_object, object_path, path_of
-from abcli.string import random_
 
 
 @pytest.mark.parametrize(
@@ -75,8 +78,8 @@ def test_metadata(
     get_source_type: MetadataSourceType,
 ):
     object_name = unique_object()
-    key = random_()
-    value = random_()
+    key = random()
+    value = random()
 
     assert post(
         key=key,
@@ -96,8 +99,8 @@ def test_metadata(
 
 def test_metadata_dict():
     object_name = unique_object()
-    key = random_()
-    value = {random_(): random_() for _ in range(10)}
+    key = random()
+    value = {random(): random() for _ in range(10)}
 
     assert post(
         key=key,
@@ -136,8 +139,8 @@ def test_metadata_dict():
 
 def test_metadata_file():
     object_name = unique_object()
-    key = random_()
-    value = random_()
+    key = random()
+    value = random()
 
     filename = path_of(
         filename="metadata.yaml",
@@ -151,8 +154,8 @@ def test_metadata_file():
 
 def test_metadata_object():
     object_name = unique_object()
-    key = random_()
-    value = random_()
+    key = random()
+    value = random()
 
     assert post_to_object(object_name, key, value)
 
@@ -161,8 +164,8 @@ def test_metadata_object():
 
 def test_metadata_path():
     object_name = unique_object()
-    key = random_()
-    value = random_()
+    key = random()
+    value = random()
 
     path = object_path(object_name=object_name, create=True)
 

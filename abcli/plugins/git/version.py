@@ -1,11 +1,14 @@
 import re
 import glob
 import os
-from abcli import file
-from abcli.plugins.git import NAME
+
+from blueness import module
+from blue_objects import file
+
+from abcli import NAME
 from abcli.logger import logger
 
-NAME = f"{NAME}.version"
+NAME = module.name(__file__, NAME)
 
 
 def increment(

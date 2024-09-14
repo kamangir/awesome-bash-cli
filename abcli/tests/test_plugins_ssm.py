@@ -1,12 +1,12 @@
 import time
 import pytest
 from abcli.plugins.ssm.functions import get_secret, put_secret, rm_secret
-from abcli.string import random_
+from blue_options.string import random
 
 
 def test_ssm():
-    secret_name = "pytest-{}".format(random_())
-    secret_value = random_()
+    secret_name = "pytest-{}".format(random())
+    secret_value = random()
 
     success, _ = put_secret(secret_name, secret_value)
     assert success

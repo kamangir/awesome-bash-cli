@@ -1,5 +1,5 @@
 from abcli import NAME
-from abcli import env
+from blue_objects.env import abcli_object_name
 from abcli.logger import logger
 
 
@@ -10,7 +10,7 @@ def log(
     object_name: str = ".",
     target: str = "open_object",
 ):
-    object_name = env.abcli_object_name if object_name == "." else object_name
+    object_name = abcli_object_name if object_name == "." else object_name
 
     lines = []
     if target == "download_object":

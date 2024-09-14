@@ -1,7 +1,21 @@
-from abcli import fullname
-from abcli import env, file
-from abcli import string
+from typing import List
+
+import numpy as np
+import platform
+
+from blueness import module
+from blue_options import fullname, string
+from blue_options import host
+from blue_options.env import abcli_wifi_ssid
+from blue_objects import file
+from blue_objects.graphics import screen
+from blue_objects.graphics.frame import add_frame
+from blue_objects.graphics.text import render_text
+
+from abcli import NAME
 from abcli.logger import logger
+
+NAME = module.name(__file__, NAME)
 
 
 def lxde(_):
@@ -13,26 +27,15 @@ def lxde(_):
     )
 
 
-def poster(filename):
-    """generate background poster.
+def poster(filename: str) -> bool:
+    logger.debug("{}.poster({})".format(NAME, filename))
 
-    Args:
-        filename (str): filename.
-
-    Returns:
-        bool: success.
-    """
-    import numpy as np
-    from abcli.plugins import graphics
-
-    logger.debug("terraform.poster({})".format(filename))
-
-    image = graphics.add_frame(
+    image = add_frame(
         np.concatenate(
             [
-                graphics.render_text(
+                render_text(
                     centered=True,
-                    image_width=graphics.screen_width,
+                    image_width=screen.get_size()[1],
                     text=line,
                     thickness=4,
                 )
@@ -75,12 +78,12 @@ def rpi(_, is_headless=False):
     return success
 
 
-def terraform(filenames, commands):
+def terraform(
+    filenames: List[str],
+    commands: List[str],
+) -> bool:
     success = True
-    for filename, command in zip(
-        filenames,
-        commands,
-    ):
+    for filename, command in zip(filenames, commands):
         success_, content = file.load_text(filename)
         if not success_:
             success = False
@@ -104,9 +107,6 @@ def terraform(filenames, commands):
 
 
 def signature():
-    import platform
-    from abcli.modules import host
-
     return [
         fullname(),
         host.get_name(),
@@ -125,7 +125,7 @@ def signature():
                     include_zone=True,
                 ),
             ]
-            + ([env.abcli_wifi_ssid] if env.abcli_wifi_ssid else [])
+            + ([abcli_wifi_ssid] if abcli_wifi_ssid else [])
         ),
     ]
 

@@ -1,7 +1,13 @@
-from abcli import string
-from . import NAME
-from ..classes import Message
-from abcli.logger import logger, crash_report
+from blueness import module
+from blue_options import host
+from blue_options.logger import crash_report
+from blue_objects import file
+
+from abcli import NAME
+from abcli.plugins.message import Message
+from abcli.logger import logger
+
+NAME = module.name(__file__, NAME)
 
 
 class MessageQueue:
@@ -63,8 +69,6 @@ class MessageQueue:
             bool: success
             List[Message]: list of messages.
         """
-        from abcli.modules import host
-
         messages = []
         success = False
 
@@ -138,7 +142,7 @@ class MessageQueue:
                 MessageBody=message.subject,
                 MessageAttributes={
                     "data": {
-                        "StringValue": string.as_json(message.data),
+                        "StringValue": file.as_json(message.data),
                         "DataType": "String",
                     },
                     # compatibility with bolt 📡

@@ -12,23 +12,19 @@ function abcli_message() {
             "submit all the images in <object-name> to <recipient>."
         abcli_show_usage "abcli message update$ABCUL[--recipient host_1,host_2]" \
             "send update message [to host_1, host_2]."
-
-        if [ "$(abcli_keyword_is $2 verbose)" == true ]; then
-            python3 -m abcli.plugins.message --help
-        fi
         return
     fi
 
     if [ $task == "listen_as" ]; then
-        local recipient=$2
-        if [ "$recipient" == "." ]; then
-            local recipient=$abcli_host_name
-        fi
+        local recipient=${2:-.}
+        [[ "$recipient" == "." ]] &&
+            recipient=$abcli_host_name
 
         python3 -m abcli.plugins.message \
             listen_as \
             --recipient $recipient \
-            ${@:3}
+            "${@:3}"
+
         return
     fi
 

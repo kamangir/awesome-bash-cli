@@ -1,5 +1,6 @@
+from blue_options import host
+
 from abcli import env
-from abcli.modules import host
 from abcli.plugins.message.messenger.classes import Messenger
 
 

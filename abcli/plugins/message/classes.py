@@ -1,7 +1,11 @@
 import os
 from abcli import env
 import os.path
-from abcli import string
+
+from blue_options import host, string
+from blue_objects.env import abcli_object_path
+from blue_objects.storage import instance as storage
+
 from abcli.logger import logger
 
 
@@ -16,15 +20,13 @@ class Message:
         reply_id=" ",
         subject="",
     ):
-        from abcli.modules import host
-        from abcli.plugins.storage import instance as storage
 
         self.subject = raw.get("subject", subject)
 
         self.sender = raw.get("sender", host.get_name())
         self.recipient = raw.get("recipient", recipient)
 
-        self.id = raw.get("id", string.random_(16) if id == "random" else id)
+        self.id = raw.get("id", string.random(16) if id == "random" else id)
         self.reply_id = raw.get("reply_id", reply_id)
 
         self.data = raw.get("data", data)
@@ -79,15 +81,13 @@ class Message:
         Returns:
             str: filename.
         """
-        from abcli.plugins.storage import instance as storage
-
         if (
             not self.data["filename"]
             and self.data.get("bucket_name", "")
             and self.data.get("object_name", "")
         ):
             filename = os.path.join(
-                env.abcli_object_path,
+                abcli_object_path,
                 "auxiliary",
                 "-".join(
                     [self.data["bucket_name"]] + self.data["object_name"].split("/")
