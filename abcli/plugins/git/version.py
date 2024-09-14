@@ -15,7 +15,7 @@ def increment(
     repo_path: str,
     verbose: bool = False,
 ) -> bool:
-    logger.info(f"{NAME}.increment({repo_path})")
+    logger.info(f"{NAME}.increment: {repo_path}")
 
     list_of_paths = sorted(
         [
