@@ -28,5 +28,9 @@ function abcli_pylint() {
         -d $abcli_pylint_ignored \
         $(git ls-files '*.py' | grep -v $ignore) \
         "${@:2}"
+    local status="$?"
+
     popd >/dev/null
+
+    return $status
 }
