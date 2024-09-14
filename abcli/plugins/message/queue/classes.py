@@ -1,5 +1,6 @@
 from blueness import module
-from blue_options import crash_report
+from blue_options import host
+from blue_options.logger import crash_report
 from blue_objects import file
 
 from abcli import NAME
@@ -68,8 +69,6 @@ class MessageQueue:
             bool: success
             List[Message]: list of messages.
         """
-        from abcli.modules import host
-
         messages = []
         success = False
 
