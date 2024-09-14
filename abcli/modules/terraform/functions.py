@@ -2,6 +2,7 @@ from blue_options import fullname, string
 from blue_options.env import abcli_wifi_ssid
 from blue_objects import file
 from blue_objects.graphics import screen
+from blue_objects.graphics.frame import add_frame
 
 from abcli.logger import logger
 
@@ -29,7 +30,7 @@ def poster(filename):
 
     logger.debug("terraform.poster({})".format(filename))
 
-    image = graphics.add_frame(
+    image = add_frame(
         np.concatenate(
             [
                 graphics.render_text(
