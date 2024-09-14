@@ -6,6 +6,7 @@ from blueness import module
 from blue_objects.env import ABCLI_AWS_REGION
 
 from abcli import NAME
+from abcli import env
 from abcli.logger import logger
 
 NAME = module.name(__file__, NAME)
@@ -80,7 +81,7 @@ def put_secret(
 def rm_secret(secret_name: str) -> Tuple[bool, Any]:
     client = boto3.client(
         "secretsmanager",
-        region_name=,
+        region_name=ABCLI_AWS_REGION,
     )
 
     try:
