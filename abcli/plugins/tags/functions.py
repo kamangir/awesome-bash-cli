@@ -1,30 +1,22 @@
+from typing import List
 from functools import reduce
 import random
 import re
+
 from blue_options.options import Options
-from abcli.table import Table
+from blue_objects.table import Table
+
 from abcli.logger import logger
 
 
-def clone(object_1, object_2):
-    """clone object_1 tags -> object_2.
-
-    Args:
-        object_1 (str): object 1.
-        object_2 (str): object 2.
-
-    Returns:
-        bool: success
-    """
+def clone(
+    object_1: str,
+    object_2: str,
+) -> bool:
     return set_(object_2, get(object_1))
 
 
-def create():
-    """create the tags table.
-
-    Returns:
-        bool: success.
-    """
+def create() -> bool:
     return Table.Create(
         "tags",
         [
@@ -35,15 +27,7 @@ def create():
     )
 
 
-def get(keyword):
-    """get tags for keyword.
-
-    Args:
-        keyword (str): keyword.
-
-    Returns:
-        bool: List(str).
-    """
+def get(keyword: str) -> List[str]:
     table = Table(name="tags")
 
     if not table.connect():
@@ -71,30 +55,15 @@ def get(keyword):
 
 
 def search(
-    tags,
-    after="",
-    before="",
-    count=-1,
-    host=-1,
-    return_timestamp=False,
-    shuffle=False,
-    offset=0,
-):
-    """search.
-
-    Args:
-        tags (List(str)): list of tags.
-        after (str, optional): include keywords after and including. Defaults to "".
-        before (str, optional): include keywords before and including. Defaults to "".
-        count (int, optional): keyword count to return. Defaults to -1.
-        host (int, optional): limit to/exclude/ignore (1/0/-1) hosts. Defaults to -1.
-        return_timestamp (bool, optional): return timestamp. Defaults to False.
-        shuffle (bool, optional): shuffle output. Defaults to False.
-        offset (int, optional): offset. Defaults to 0.
-
-    Returns:
-        List(str): list of keywords.
-    """
+    tags: List[str],
+    after: str = "",
+    before: str = "",
+    count: int = -1,
+    host: int = -1,  # limit to/exclude/ignore (1/0/-1) hosts.
+    return_timestamp: bool = False,
+    shuffle: bool = False,
+    offset: int = 0,
+) -> List[str]:
     if isinstance(tags, str):
         tags = tags.split(",")
 
@@ -199,16 +168,10 @@ def search(
     return (list_of_keywords, timestamp) if return_timestamp else list_of_keywords
 
 
-def set_(keyword, tags):
-    """set tags for keyword.
-
-    Args:
-        keyword (str): keyword.
-        tags (List(str)): list of strings or string.
-
-    Returns:
-        bool: success.
-    """
+def set_(
+    keyword: str,
+    tags: List[str],
+) -> bool:
     table = Table(name="tags")
 
     if isinstance(tags, list):

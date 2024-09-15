@@ -23,12 +23,6 @@ abcli_aws_ec2_subnet_id = os.getenv("abcli_aws_ec2_subnet_id", "")
 abcli_aws_ec2_templates_bolt = os.getenv("abcli_aws_ec2_templates_bolt", "")
 abcli_aws_ec2_templates_bolt_gpu = os.getenv("abcli_aws_ec2_templates_bolt_gpu", "")
 
-ABCLI_AWS_RDS_DB = os.getenv("ABCLI_AWS_RDS_DB", "")
-ABCLI_AWS_RDS_HOST = os.getenv("ABCLI_AWS_RDS_HOST", "")
-ABCLI_AWS_RDS_PASSWORD = os.getenv("ABCLI_AWS_RDS_PASSWORD", "")
-ABCLI_AWS_RDS_PORT = os.getenv("ABCLI_AWS_RDS_PORT", "")
-ABCLI_AWS_RDS_USER = os.getenv("ABCLI_AWS_RDS_USER", "")
-
 abcli_aws_s3_public_bucket_name = os.getenv("abcli_aws_s3_public_bucket_name", "")
 
 abcli_blue_sbc_application = os.getenv("abcli_blue_sbc_application", "")

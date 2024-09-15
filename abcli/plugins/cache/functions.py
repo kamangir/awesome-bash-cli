@@ -2,8 +2,8 @@ from functools import reduce
 import json
 
 from blue_options import string
+from blue_objects.table import Table
 
-from abcli.table import Table
 from abcli.logger import logger
 
 
