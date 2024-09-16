@@ -41,6 +41,8 @@ function abcli_generic_task() {
         return
     fi
 
+    [[ "$task" == "help" ]] && task="version"
+
     local module_name=$(abcli_get_module_name_from_plugin $plugin_name)
     python3 -m $module_name "$task" "${@:2}"
 }
