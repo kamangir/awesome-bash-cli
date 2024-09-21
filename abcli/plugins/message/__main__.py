@@ -1,14 +1,17 @@
 import argparse
 from functools import reduce
 import time
-from . import *
 
+from blueness import module
+from blueness.argparse.generic import sys_exit
 from blue_objects import file
 
-from abcli import VERSION
+from abcli import NAME, VERSION
+from abcli.plugins.message.classes import Message
+from abcli.plugins.message.functions import submit_object
 from abcli.logger import logger
-from blueness.argparse.generic import sys_exit
 
+NAME = module.name(__file__, NAME)
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(

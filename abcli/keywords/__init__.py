@@ -1,4 +1,2 @@
-from .functions import pack
-from .keywords import KEYWORDS
-
-NAME = "abcli.keywords"
+from abcli.keywords.functions import pack
+from abcli.keywords.keywords import KEYWORDS

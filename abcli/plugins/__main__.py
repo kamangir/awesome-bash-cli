@@ -1,6 +1,9 @@
 import argparse
-from abcli import VERSION
-from abcli.plugins import NAME
+
+from blueness import module
+from blueness.argparse.generic import sys_exit
+
+from abcli import NAME
 from abcli.plugins.functions import (
     get_module_name,
     get_plugin_name,
@@ -8,8 +11,8 @@ from abcli.plugins.functions import (
     list_of_installed,
 )
 from abcli.logger import logger
-from blueness.argparse.generic import sys_exit
 
+NAME = module.name(__file__, NAME)
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(

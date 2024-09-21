@@ -1,13 +1,5 @@
-from .keywords import KEYWORDS
+from abcli.keywords.keywords import KEYWORDS
 
 
-def pack(keyword):
-    """pack keyword.
-
-    Args:
-        keyword (str): keyword.
-
-    Returns:
-        str: packed keyword.
-    """
+def pack(keyword: str) -> str:
     return {v: k for k, v in KEYWORDS.items()}.get(keyword, keyword)
