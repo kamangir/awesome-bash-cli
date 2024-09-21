@@ -2,7 +2,7 @@
 
 🪄 `abcli` is an implementation of 🔻 [giza](https://github.com/kamangir/giza) and a language [to speak AI](https://github.com/kamangir/kamangir).
 
-![image](https://github.com/kamangir/assets/blob/main/abcli/marquee-9-306-1.png?raw=true)
+![image](https://github.com/kamangir/assets/blob/main/awesome-bash-cli/marquee-9-306-1.png?raw=true)
 
 # release install
 
