@@ -1,5 +1,13 @@
 import argparse
-from . import NAME, pack, KEYWORDS
+
+from blueness import module
+
+from abcli import NAME
+from abcli.keywords.functions import pack
+from abcli.keywords.keywords import KEYWORDS
+
+NAME = module.name(__file__, NAME)
+
 
 list_of_tasks = "pack|unpack"
 

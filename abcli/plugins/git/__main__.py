@@ -1,8 +1,13 @@
 import argparse
-from abcli.plugins.git import version, NAME
-from abcli.logger import logger
+
+from blueness import module
 from blueness.argparse.generic import sys_exit
 
+from abcli import NAME
+from abcli.plugins.git import version
+from abcli.logger import logger
+
+NAME = module.name(__file__, NAME)
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(

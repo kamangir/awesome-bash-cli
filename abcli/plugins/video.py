@@ -1,13 +1,15 @@
 import argparse
 import cv2
 
+from blueness import module
+from blueness.argparse.generic import sys_exit
 from blue_objects import file
 
+from abcli import NAME
 from abcli.logger import logger
-from blueness.argparse.generic import sys_exit
 
 
-NAME = "abcli.plugins.video"
+NAME = module.name(__file__, NAME)
 
 parser = argparse.ArgumentParser(NAME)
 parser.add_argument(
