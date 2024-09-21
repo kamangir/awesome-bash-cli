@@ -2,7 +2,7 @@
 
 🪄 `abcli` is an implementation of 🔻 [giza](https://github.com/kamangir/giza) and a language [to speak AI](https://github.com/kamangir/kamangir).
 
-![image](https://github.com/kamangir/assets/blob/main/abcli/marquee-9-306-1.png?raw=true)
+![image](https://github.com/kamangir/assets/blob/main/awesome-bash-cli/marquee-9-306-1.png?raw=true)
 
 # release install
 
@@ -64,4 +64,4 @@ to use on [AWS SageMaker](https://aws.amazon.com/sagemaker/) replace `<plugin-na
 
 [![pylint](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml) [![pytest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml) [![bashtest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml) [![PyPI version](https://img.shields.io/pypi/v/abcli.svg)](https://pypi.org/project/abcli/)
 
-built by 🌀 [`blue_options-4.69.1-abcli-current`](https://github.com/kamangir/awesome-bash-cli), based on 🪄 [`abcli-9.310.1`](https://github.com/kamangir/awesome-bash-cli).
+built by 🌀 [`blue_options-4.76.1-abcli-current`](https://github.com/kamangir/awesome-bash-cli), based on 🪄 [`abcli-9.326.1`](https://github.com/kamangir/awesome-bash-cli).
