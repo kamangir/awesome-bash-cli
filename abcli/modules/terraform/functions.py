@@ -105,7 +105,7 @@ def terraform(
     return success
 
 
-def signature():
+def signature() -> List[str]:
     return [
         fullname(),
         host.get_name(),
