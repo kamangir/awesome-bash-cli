@@ -4,15 +4,14 @@ import numpy as np
 import platform
 
 from blueness import module
-from blue_options import fullname, string
-from blue_options import host
+from blue_options import host, string
 from blue_options.env import abcli_wifi_ssid
 from blue_objects import file
 from blue_objects.graphics import screen
 from blue_objects.graphics.frame import add_frame
 from blue_objects.graphics.text import render_text
 
-from abcli import NAME
+from abcli import NAME, fullname
 from abcli.logger import logger
 
 NAME = module.name(__file__, NAME)
