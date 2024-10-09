@@ -34,5 +34,13 @@ function abcli_env_backup() {
         "$HOME/Library/Application Support/Code/User/settings.json" \
         $abcli_path_env_backup/vscode-settings.json
 
+    cp -rv \
+        ~/.ssh \
+        $abcli_path_env_backup/.ssh
+
+    cp -rv \
+        ~/.aws \
+        $abcli_path_env_backup/.aws
+
     abcli_log "ℹ️ make sure $abcli_path_env_backup is synced with Google Drive."
 }
