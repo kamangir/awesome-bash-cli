@@ -6,6 +6,8 @@ function abcli_source_dependencies() {
     source $abcli_path_bash/bootstrap/logging.sh
     source $abcli_path_bash/bootstrap/install.sh
 
+    echo "🐍 $(python3 --version)"
+
     python3 -m blueness version \
         --show_icon 1
 
