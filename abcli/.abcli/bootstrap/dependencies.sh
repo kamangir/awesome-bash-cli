@@ -4,7 +4,6 @@ function abcli_source_dependencies() {
     source $abcli_path_bash/bootstrap/paths.sh
     source $abcli_path_bash/bootstrap/system.sh
     source $abcli_path_bash/bootstrap/logging.sh
-    source $abcli_path_bash/bootstrap/install.sh
 
     echo "🐍 $(python3 --version)"
 
