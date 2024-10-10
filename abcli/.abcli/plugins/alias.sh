@@ -18,10 +18,6 @@ alias @conda=abcli_conda
 
 alias @create_video=abcli_create_video
 
-alias @env=abcli_env
-
-alias @eval=abcli_eval
-
 alias @ffmpeg=abcli_ffmpeg
 
 alias @git=abcli_git
