@@ -19,3 +19,6 @@ function abcli_version() {
 function abcli_help() {
     abcli_log $abcli_fullname
 }
+
+abcli_env_dot_load \
+    caller,filename=config.env,suffix=/../..
