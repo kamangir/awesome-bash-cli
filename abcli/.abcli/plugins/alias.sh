@@ -12,8 +12,6 @@ alias @assert=abcli_assert
 
 alias @badge=abcli_badge
 
-alias @browse=abcli_browse
-
 alias @build_README=abcli_build_README
 
 alias @conda=abcli_conda
@@ -54,11 +52,6 @@ alias @object=abcli_object
 alias @objects=blue_objects
 
 alias @open=abcli_open
-
-alias @option=abcli_option
-alias @option::int=abcli_option_int
-alias @option::choice=abcli_option_choice
-alias @option::subset=abcli_option_subset
 
 alias @pause=abcli_pause
 
