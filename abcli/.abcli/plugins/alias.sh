@@ -43,14 +43,6 @@ alias @.='fi'
 
 alias @metadata=abcli_metadata
 
-alias @object=abcli_object
-
-alias @objects=blue_objects
-
-alias @open=abcli_open
-
-alias @pause=abcli_pause
-
 alias @pip=abcli_pip
 
 alias @plugins=abcli_plugins
