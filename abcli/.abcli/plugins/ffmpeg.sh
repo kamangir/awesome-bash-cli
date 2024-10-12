@@ -18,4 +18,4 @@ function abcli_ffmpeg() {
     return 1
 }
 
-abcli_source_path - caller,suffix=/ffmpeg
+abcli_source_caller_suffix_path /ffmpeg

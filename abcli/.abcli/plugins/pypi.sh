@@ -23,4 +23,4 @@ function abcli_pypi() {
     return 1
 }
 
-abcli_source_path - caller,suffix=/pypi
+abcli_source_caller_suffix_path /pypi

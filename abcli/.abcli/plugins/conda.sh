@@ -75,4 +75,4 @@ function abcli_conda() {
     conda "$@"
 }
 
-abcli_source_path - caller,suffix=/conda
+abcli_source_caller_suffix_path /conda

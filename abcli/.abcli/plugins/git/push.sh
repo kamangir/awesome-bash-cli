@@ -35,9 +35,11 @@ function abcli_git_push() {
     local repo_name=$(abcli_git_get_repo_name)
     local plugin_name=$(abcli_plugin_name_from_repo $repo_name)
 
-    [[ "$do_action" == 1 ]] &&
+    if [[ "$do_action" == 1 ]]; then
         abcli_perform_action \
             action=git_before_push,plugin=$plugin_name
+        [[ $? -ne 0 ]] && return 1
+    fi
 
     git add .
 

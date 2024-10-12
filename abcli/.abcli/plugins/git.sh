@@ -162,6 +162,6 @@ function abcli_git() {
     git "$@"
 }
 
-abcli_source_path - caller,suffix=/git
+abcli_source_caller_suffix_path /git
 
 abcli_refresh_branch_and_version

@@ -19,8 +19,7 @@ function abcli_ssm() {
     python3 -m abcli.plugins.ssm "$@"
 }
 
-abcli_source_path - \
-    caller,suffix=/ssm
+abcli_source_caller_suffix_path /ssm
 
 # to get around a pip import issue.
 abcli_env_dot_load \

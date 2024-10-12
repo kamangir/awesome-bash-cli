@@ -44,4 +44,4 @@ function abcli_plugins() {
     python3 -m abcli.plugins "$task" "${@:2}"
 }
 
-abcli_source_path - caller,suffix=/plugins
+abcli_source_caller_suffix_path /plugins

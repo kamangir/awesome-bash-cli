@@ -78,7 +78,7 @@ function abcli_test() {
     fi
 }
 
-abcli_source_path - caller,suffix=/../tests
+abcli_source_caller_suffix_path /../tests
 
 function abcli_assert() {
     local value=$1
