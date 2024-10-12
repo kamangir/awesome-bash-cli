@@ -33,12 +33,12 @@ function abcli_plugins_transform() {
         -o -name "*.py" \
         -o -name "*.yml" \)); do
 
-        abcli_file replace \
+        blue_objects_file replace \
             $filename \
             --this blue_plugin \
             --that $plugin_name
 
-        abcli_file replace \
+        blue_objects_file replace \
             $filename \
             --this blue-plugin \
             --that $repo_name
