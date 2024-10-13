@@ -49,9 +49,6 @@ alias @plugins=abcli_plugins
 
 alias @pypi=abcli_pypi
 
-alias @pylint=abcli_pylint
-alias @pytest=abcli_pytest
-
 alias @random=abcli_string_random
 
 alias @seed=abcli_seed
@@ -61,8 +58,6 @@ alias @sleep=abcli_sleep
 alias @ssm=abcli_ssm
 
 alias @storage=abcli_storage
-
-alias @test=abcli_test
 
 alias @timestamp=abcli_string_timestamp
 alias @@timestamp=abcli_string_timestamp_short
