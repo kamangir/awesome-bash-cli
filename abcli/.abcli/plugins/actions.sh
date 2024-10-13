@@ -24,7 +24,10 @@ function abcli_perform_action() {
 
 function abcli_action_git_before_push() {
     abcli build_README
+    [[ $? -ne 0 ]] && return 1
 
-    [[ "$(abcli_git get_branch)" == "current" ]] &&
-        abcli pypi build
+    [[ "$(abcli_git get_branch)" != "current" ]] &&
+        return 0
+
+    abcli pypi build
 }

@@ -38,7 +38,10 @@ function abcli_git_push() {
     if [[ "$do_action" == 1 ]]; then
         abcli_perform_action \
             action=git_before_push,plugin=$plugin_name
-        [[ $? -ne 0 ]] && return 1
+        if [[ $? -ne 0 ]]; then
+            abcli_log_error "@git: push: action failed."
+            return 1
+        fi
     fi
 
     git add .
