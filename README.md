@@ -60,8 +60,7 @@ create a copy of [`sample.env`](./abcli/sample.env) as `.env` and fill in the se
 ---
 
 
-to use on [AWS SageMaker](https://aws.amazon.com/sagemaker/) replace `<plugin-name>` with "abcli" and follow [these instructions](https://github.com/kamangir/notebooks-and-scripts/blob/main/SageMaker.md).
 
-[![pylint](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml) [![pytest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml) [![bashtest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml) [![PyPI version](https://img.shields.io/pypi/v/abcli.svg)](https://pypi.org/project/abcli/)
+[![pylint](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml) [![pytest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml) [![bashtest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml) [![PyPI version](https://img.shields.io/pypi/v/abcli.svg)](https://pypi.org/project/abcli/) ![PyPI - Downloads](https://img.shields.io/pypi/dd/abcli)
 
-built by 🌀 [`blue_options-4.116.1`](https://github.com/kamangir/awesome-bash-cli), based on 🪄 [`abcli-9.354.1`](https://github.com/kamangir/awesome-bash-cli).
+built by 🌀 [`blue_options-4.116.1`](https://github.com/kamangir/awesome-bash-cli), based on 🪄 [`abcli-9.355.1`](https://github.com/kamangir/awesome-bash-cli).
