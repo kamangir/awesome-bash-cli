@@ -23,8 +23,6 @@ abcli_aws_ec2_subnet_id = os.getenv("abcli_aws_ec2_subnet_id", "")
 abcli_aws_ec2_templates_bolt = os.getenv("abcli_aws_ec2_templates_bolt", "")
 abcli_aws_ec2_templates_bolt_gpu = os.getenv("abcli_aws_ec2_templates_bolt_gpu", "")
 
-abcli_aws_s3_public_bucket_name = os.getenv("abcli_aws_s3_public_bucket_name", "")
-
 abcli_blue_sbc_application = os.getenv("abcli_blue_sbc_application", "")
 
 abcli_camera_diff = os.getenv("abcli_camera_diff", "")
