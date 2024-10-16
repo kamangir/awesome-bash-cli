@@ -59,9 +59,6 @@ alias @ssm=abcli_ssm
 
 alias @storage=abcli_storage
 
-alias @timestamp=abcli_string_timestamp
-alias @@timestamp=abcli_string_timestamp_short
-
 alias @version="abcli version"
 
 alias @watch=abcli_watch
