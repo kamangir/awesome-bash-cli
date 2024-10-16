@@ -9,6 +9,7 @@ setup(
     description=DESCRIPTION,
     packages=[
         NAME,
+        f"{NAME}.help",
         f"{NAME}.keywords",
         f"{NAME}.modules",
         f"{NAME}.modules.terraform",

@@ -5,7 +5,8 @@ function test_abcli_help() {
 
     local module
     for module in \
-        "abcli"; do
+        "abcli" \
+        "abcli pytest"; do
         abcli_eval ,$options \
             $module help
         [[ $? -ne 0 ]] && return 1
