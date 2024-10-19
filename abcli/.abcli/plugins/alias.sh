@@ -36,8 +36,6 @@ alias @log=abcli_log
 alias @mac='if [ "$abcli_is_mac" == true ]; then'
 alias @.='fi'
 
-alias @metadata=abcli_metadata
-
 alias @pip=abcli_pip
 
 alias @plugins=abcli_plugins
