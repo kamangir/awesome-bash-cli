@@ -25,9 +25,10 @@ function abcli_git_push() {
     local create_pull_request=$(abcli_option_int "$options" create_pull_request $first_push)
     local do_action=$(abcli_option_int "$options" action 1)
 
-    [[ "$do_increment_version" == 1 ]] &&
+    if [[ "$do_increment_version" == 1 ]]; then
         abcli_git_increment_version
-    [[ $? -ne 0 ]] && return 1
+        [[ $? -ne 0 ]] && return 1
+    fi
 
     [[ "$show_status" == 1 ]] &&
         git status
