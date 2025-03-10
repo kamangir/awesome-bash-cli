@@ -26,6 +26,7 @@ function abcli_instance_from_template() {
         --region $(aws configure get region) \
         --count 1 \
         $extra_args
+    [[ $? -ne 0 ]] && return 1
 
     abcli_sleep seconds=5
     local instance_ip_address=$(abcli_instance get_ip $instance_name)

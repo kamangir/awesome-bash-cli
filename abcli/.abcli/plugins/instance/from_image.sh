@@ -37,6 +37,7 @@ function abcli_instance_from_image() {
         --region $(aws configure get region) \
         --count 1 \
         --instance-type "$instance_type" >$abcli_path_git/abcli_instance_log.txt
+    [[ $? -ne 0 ]] && return 1
 
     abcli_sleep seconds=5
     local instance_ip_address=$(abcli_instance get_ip $instance_name)
