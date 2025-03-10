@@ -15,7 +15,7 @@ function abcli_instance_from_template() {
     [[ ! -z "$instance_type" ]] &&
         extra_args="--instance-type $instance_type"
 
-    local instance_name=$(abcli_clarify_input $3 $USER-$(abcli_string_timestamp))
+    local instance_name=$(abcli_clarify_input $3 $USER-$(abcli_string_timestamp_short))
 
     abcli_log "@instance: from template: $template_name($template_id) $instance_type -> $instance_name"
 

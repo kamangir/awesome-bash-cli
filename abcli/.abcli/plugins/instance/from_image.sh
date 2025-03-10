@@ -3,7 +3,7 @@
 function abcli_instance_from_image() {
     local instance_type=$(abcli_clarify_input $1 $abcli_aws_ec2_default_instance_type)
 
-    local instance_name=$(abcli_clarify_input $2 $USER-$(abcli_string_timestamp))
+    local instance_name=$(abcli_clarify_input $2 $USER-$(abcli_string_timestamp_short))
 
     local options=$3
     local image_name=$(abcli_option "$options" image abcli)
