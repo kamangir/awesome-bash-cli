@@ -13,19 +13,19 @@ function abcli_instance_from_image() {
     local security_group_ids=$abcli_aws_ec2_security_group_ids
     local subnet_id=$abcli_aws_ec2_subnet_id
     if [[ -z "$image_id" ]]; then
-        abcli_log_error "@instance: $task: image_id not found."
+        abcli_log_error "image_id not found."
         return 1
     fi
     if [[ -z "$security_group_ids" ]]; then
-        abcli_log_error "@instance: $task: security_group_ids not found."
+        abcli_log_error "security_group_ids not found."
         return 1
     fi
     if [[ -z "$subnet_id" ]]; then
-        abcli_log_error "@instance: $task: subnet_id not found."
+        abcli_log_error "subnet_id not found."
         return 1
     fi
 
-    abcli_log "abcli_instance: $task $instance_type -$image_id:$security_group_ids:$subnet_id-> $instance_name"
+    abcli_log "@instance: from image: $image_name($image_id) $instance_type -$security_group_ids:$subnet_id-> $instance_name"
 
     # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#launch-templates-as
     aws ec2 run-instances \

@@ -17,7 +17,7 @@ function abcli_instance_from_template() {
 
     local instance_name=$(abcli_clarify_input $3 $USER-$(abcli_string_timestamp))
 
-    abcli_log "abcli_instance: $template_name($template_id) $instance_type -> $instance_name"
+    abcli_log "@instance: from template: $template_name($template_id) $instance_type -> $instance_name"
 
     # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#launch-templates-as
     aws ec2 run-instances \
