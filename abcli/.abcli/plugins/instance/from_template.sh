@@ -28,13 +28,19 @@ function abcli_instance_from_template() {
         $extra_args >$abcli_path_git/abcli_instance_log.txt
     [[ $? -ne 0 ]] && return 1
 
+    abcli_instance_from_xxx_finish $instance_name $4
+}
+
+function abcli_instance_from_xxx_finish() {
+    local instance_name=$1
+
     abcli_sleep seconds=5
     local instance_ip_address=$(abcli_instance get_ip $instance_name)
     abcli_log "@instance: created at $instance_ip_address"
 
-    local options=$4
-    local do_ssh=$(abcli_option "$options" ssh 0)
-    local do_vnc=$(abcli_option "$options" vnc 0)
+    local options=$2
+    local do_ssh=$(abcli_option_int "$options" ssh 0)
+    local do_vnc=$(abcli_option_int "$options" vnc 0)
 
     [[ "$do_ssh" == 1 ]] || [[ "$do_vnc" == 1 ]] &&
         abcli_sleep seconds=20

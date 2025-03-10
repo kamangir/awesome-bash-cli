@@ -11,7 +11,7 @@ def help_from_image(
     tokens: List[str],
     mono: bool,
 ) -> str:
-    options = "image=<image-name>"
+    options = "image=<image-name>,ssh,vnc"
 
     return show_usage(
         [
@@ -31,7 +31,7 @@ def help_from_template(
     tokens: List[str],
     mono: bool,
 ) -> str:
-    options = "ssh|vnc"
+    options = "ssh,vnc"
 
     return show_usage(
         [

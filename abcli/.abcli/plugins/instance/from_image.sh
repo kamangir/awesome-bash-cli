@@ -39,7 +39,5 @@ function abcli_instance_from_image() {
         --instance-type "$instance_type" >$abcli_path_git/abcli_instance_log.txt
     [[ $? -ne 0 ]] && return 1
 
-    abcli_sleep seconds=5
-    local instance_ip_address=$(abcli_instance get_ip $instance_name)
-    abcli_log "@instance: created at $instance_ip_address"
+    abcli_instance_from_xxx_finish $instance_name $3
 }
