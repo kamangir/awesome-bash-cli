@@ -25,7 +25,7 @@ function abcli_instance_from_template() {
         --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
         --region $(aws configure get region) \
         --count 1 \
-        $extra_args
+        $extra_args >$abcli_path_git/abcli_instance_log.txt
     [[ $? -ne 0 ]] && return 1
 
     abcli_sleep seconds=5
