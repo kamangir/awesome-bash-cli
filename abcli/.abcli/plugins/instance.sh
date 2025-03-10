@@ -59,15 +59,15 @@ function abcli_instance() {
         local subnet_id=$abcli_aws_ec2_subnet_id
 
         if [[ -z "$image_id" ]]; then
-            abcli_log_error "-abcli: instance: $task: image_id not found."
+            abcli_log_error "@instance: $task: image_id not found."
             return 1
         fi
         if [[ -z "$security_group_ids" ]]; then
-            abcli_log_error "-abcli: instance: $task: security_group_ids not found."
+            abcli_log_error "@instance: $task: security_group_ids not found."
             return 1
         fi
         if [[ -z "$subnet_id" ]]; then
-            abcli_log_error "-abcli: instance: $task: subnet_id not found."
+            abcli_log_error "@instance: $task: subnet_id not found."
             return 1
         fi
 
@@ -99,7 +99,7 @@ function abcli_instance() {
         local var_name=abcli_aws_ec2_templates_${template_name}
         local template_id=${!var_name}
         if [ -z "$template_id" ]; then
-            abcli_log_error "-abcli: instance: $template_name: template not found."
+            abcli_log_error "@instance: $template_name: template not found."
             return
         fi
 
@@ -161,6 +161,6 @@ function abcli_instance() {
         return
     fi
 
-    abcli_log_error "-abcli: instance: $task: command not found."
+    abcli_log_error "@instance: $task: command not found."
     return 1
 }
