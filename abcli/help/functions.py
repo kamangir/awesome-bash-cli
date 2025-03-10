@@ -15,6 +15,7 @@ from abcli.help.git import help_functions as help_git
 from abcli.help.gpu import help_functions as help_gpu
 from abcli.help.host import help_functions as help_host
 from abcli.help.init import help_init
+from abcli.help.instance import help_functions as help_instance
 from abcli.help.latex import help_functions as help_latex
 from abcli.help.logging import help_cat
 from abcli.help.logging import help_functions as help_log
@@ -68,6 +69,7 @@ help_functions.update(
         "gpu": help_gpu,
         "host": help_host,
         "init": help_init,
+        "instance": help_instance,
         "latex": help_latex,
         "log": help_log,
         "list": help_list,

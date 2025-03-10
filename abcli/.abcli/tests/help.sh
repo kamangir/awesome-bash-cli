@@ -72,6 +72,13 @@ function test_abcli_help() {
         \
         "@init" \
         \
+        "@instance" \
+        "@instance from_image" \
+        "@instance from_template" \
+        "@instance get_ip" \
+        "@instance list" \
+        "@instance terminate" \
+        \
         "@latex" \
         "@latex bibclean" \
         "@latex build" \
