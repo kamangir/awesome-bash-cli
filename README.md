@@ -63,4 +63,4 @@ create a copy of [`sample.env`](./abcli/sample.env) as `.env` and fill in the se
 
 [![pylint](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pylint.yml) [![pytest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/pytest.yml) [![bashtest](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml/badge.svg)](https://github.com/kamangir/awesome-bash-cli/actions/workflows/bashtest.yml) [![PyPI version](https://img.shields.io/pypi/v/abcli.svg)](https://pypi.org/project/abcli/) [![PyPI - Downloads](https://img.shields.io/pypi/dd/abcli)](https://pypistats.org/packages/abcli)
 
-built by 🌀 [`blue_options-4.230.1`](https://github.com/kamangir/awesome-bash-cli), based on 🪄 [`abcli-9.556.1`](https://github.com/kamangir/awesome-bash-cli).
+built by 🌀 [`blue_options-4.231.1`](https://github.com/kamangir/awesome-bash-cli), based on 🪄 [`abcli-9.557.1`](https://github.com/kamangir/awesome-bash-cli).
