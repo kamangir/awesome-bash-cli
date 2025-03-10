@@ -13,15 +13,15 @@ function abcli_instance_from_image() {
     local security_group_ids=$abcli_aws_ec2_security_group_ids
     local subnet_id=$abcli_aws_ec2_subnet_id
     if [[ -z "$image_id" ]]; then
-        abcli_log_error "image_id not found."
+        abcli_log_error "$image_name: image_id not found."
         return 1
     fi
     if [[ -z "$security_group_ids" ]]; then
-        abcli_log_error "security_group_ids not found."
+        abcli_log_error "$image_name: security_group_ids not found."
         return 1
     fi
     if [[ -z "$subnet_id" ]]; then
-        abcli_log_error "subnet_id not found."
+        abcli_log_error "$image_name: subnet_id not found."
         return 1
     fi
 

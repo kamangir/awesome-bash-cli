@@ -6,8 +6,8 @@ function abcli_instance_from_template() {
     local var_name=abcli_aws_ec2_templates_${template_name}
     local template_id=${!var_name}
     if [ -z "$template_id" ]; then
-        abcli_log_error "@instance: $template_name: template not found."
-        return
+        abcli_log_error "$template_name: template-id not found."
+        return 1
     fi
 
     local instance_type=$(abcli_clarify_input $2)
@@ -25,7 +25,7 @@ function abcli_instance_from_template() {
         --tag-specifications "ResourceType=instance,Tags=[{Key=Owner,Value=$USER},{Key=Name,Value=$instance_name}]" \
         --region $(aws configure get region) \
         --count 1 \
-        $extra_args >${abcli_path_git}/abcli_instance_log.txt
+        $extra_args
 
     abcli_sleep seconds=5
     local instance_ip_address=$(abcli_instance get_ip $instance_name)
