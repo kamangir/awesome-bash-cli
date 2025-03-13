@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 
 function abcli_plugins_install() {
-    local plugin_name=$(abcli_unpack_keyword "$1")
+    local plugin_name=$(abcli_unpack_keyword $1 all)
 
-    if [[ -z "$plugin_name" ]]; then
+    if [[ "$plugin_name" == all ]]; then
         pushd $abcli_path_git >/dev/null
         for dir in */; do
             if ! find "$dir" -type d -name ".abcli" -print -quit | read; then
