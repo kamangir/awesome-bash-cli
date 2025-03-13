@@ -26,9 +26,9 @@ def help_install(
         [
             "@plugins",
             "install",
-            "<plugin-name>",
+            "[all | <plugin-name>]",
         ],
-        "install <plugin-name>.",
+        "install plugin(s).",
         mono=mono,
     )
 
