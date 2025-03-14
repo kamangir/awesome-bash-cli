@@ -90,7 +90,7 @@ def help_terminate(
             "terminate",
             "<instance-id>",
         ],
-        "blue-plugin node <object-name>.",
+        "terminate <instance-id>.",
         mono=mono,
     )
 
