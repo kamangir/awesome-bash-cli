@@ -7,6 +7,7 @@ def help_clone(
     tokens: List[str],
     mono: bool,
 ) -> str:
+    # @cp - object object
     options = "".join(
         [
             xtra("~content,cp,~download,", mono=mono),
@@ -16,7 +17,7 @@ def help_clone(
         ]
     )
 
-    return show_usage(
+    usage_1 = show_usage(
         [
             "@cp",
             f"[{options}]",
@@ -25,4 +26,25 @@ def help_clone(
         ],
         "copy <object-1> -> <object-2>.",
         mono=mono,
+    )
+
+    # @cp - s3 object
+    options = "~relate,s3,upload"
+
+    usage_2 = show_usage(
+        [
+            "@cp",
+            f"[{options}]",
+            "s3://uri",
+            "[.|<object-name>]",
+        ],
+        "copy s3://uri -> <object-name>.",
+        mono=mono,
+    )
+
+    return "\n".join(
+        [
+            usage_1,
+            usage_2,
+        ]
     )
