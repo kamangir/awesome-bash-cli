@@ -13,8 +13,8 @@ function test_abcli_plugin_name_from_repo() {
         abcli
 
     abcli_assert \
-        $(abcli_plugin_name_from_repo CV) \
-        CV
+        $(abcli_plugin_name_from_repo abadpour) \
+        abadpour
 
     abcli_assert \
         $(abcli_plugin_name_from_repo roofai) \
@@ -52,7 +52,7 @@ function test_abcli_get_module_name_from_plugin() {
         abcli
 
     abcli_assert \
-        $(abcli_get_module_name_from_plugin CV) \
+        $(abcli_get_module_name_from_plugin abadpour) \
         abadpour
 
     abcli_assert \
