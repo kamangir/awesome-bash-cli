@@ -47,8 +47,8 @@ def test_list_of_installed(return_path: bool):
             "abcli",
         ],
         [
-            "CV",
-            "CV",
+            "abadpour",
+            "abadpour",
             "abadpour",
         ],
         [
